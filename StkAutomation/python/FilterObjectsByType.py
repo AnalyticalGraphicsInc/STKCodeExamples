@@ -1,12 +1,20 @@
+# --------------------------------------------------------------------
+# demonstrates how to grab an array of all objects of a certain type
+# with an optional string filter
+#
+# Author: aclaybrook
+# Email: support@agi.com
+# --------------------------------------------------------------------
 from comtypes.client import GetActiveObject
 
 def filter_objects_by_type(objectType, name=''):
     """Returns a list of paths for the specified object type optionally filtered by a name string"""
-    app = GetActiveObject('STK11.Application')
+    
+	# Only run if not already connected to STK
+	app = GetActiveObject('STK11.Application')
     root = app.Personality2
     xml = root.AllInstanceNamesToXML()
 
-    # split the xml by object paths
     objs = xml.split('path=')
     objs = objs[1:]  # remove first string of '<'
 
