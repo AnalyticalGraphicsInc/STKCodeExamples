@@ -1,0 +1,15 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+    <Category Name = "VGT CalcScalar Plugins">
+      <Plugin DisplayName = "External FOM Data" ProgID = "AGI.CalcScalar.ExternalDataFOM"/>
+    </Category>
+	</CategoryRegistry>
+
+</AGIRegistry>
