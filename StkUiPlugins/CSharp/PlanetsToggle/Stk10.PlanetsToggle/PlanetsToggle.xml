@@ -1,0 +1,18 @@
+<?xml version = "1.0"?>
+
+<AGIRegistry version="1.0">
+   <CategoryRegistry>
+      <Category Name="UiPlugins">
+          <UiPlugin ProgID="PlanetsToggle_10" DisplayName="Planets Toggle">
+
+            <VersionInfo Version="1.0">
+               <Publisher>Analytical Graphics, Inc.</Publisher> 
+               <SupportUrl>http://www.agi.com/movietimeline/</SupportUrl> 
+               <Creator>Analytical Graphics, Inc.</Creator> 
+               <Description>A Utility to quickly show the entire solar system.</Description> 
+            </VersionInfo>
+
+         </UiPlugin>
+      </Category>
+   </CategoryRegistry>
+</AGIRegistry>
