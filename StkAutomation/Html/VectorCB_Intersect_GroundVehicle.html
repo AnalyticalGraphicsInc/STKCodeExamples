@@ -1,0 +1,304 @@
+<html>
+<head>
+<title>Vector Earth Intersection Tool</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="description" content="This HTML page is the user interface for Loading Ground Vehicle Waypoints.">
+<script language="VBSCRIPT">
+<!--
+    Dim uiApp
+    Dim list
+    Dim HomeDir
+    Dim stkCommand
+    Dim notUsed
+	Dim thisWindow
+	Dim DescWindow
+	Dim Win3D
+	Dim scen
+	Dim root
+	Dim directory
+	Dim filePath
+	Dim Lat()
+	Dim Lon()
+
+	Sub InitPage()
+
+    	on error resume next
+
+    	Set uiApp = window.external
+    	Set root = uiApp.Personality2
+    	Set scen = root.CurrentScenario
+    	Set list = stk.ExecuteCommand("GetSTKHomeDir /")
+
+	    HomeDir = list(0)
+	    If (Right(HomeDir,1) = "/") Or (Right(HomeDir,1) = "\") Then
+	    	HomeDir = Left(HomeDir,len(HomeDir) - 1)
+	    End If
+
+		Set DescWindow = uiApp.Windows("HTML Viewer - Load Ground Vehicle WayPoints")
+		Set thisWindow = uiApp.Windows("HTML Viewer - To The Point")
+
+
+		Set directory = stk.ExecuteCommand("GetDefaultDir /")
+		loadObjOption()
+		getVectors()
+		changeVectorName()
+
+	End Sub
+
+
+	Sub loadObjOption()
+		Dim tmpObjNames, arrObjNames, i
+
+		Dim intLen
+		'remove previous stuff
+		intLen = optObj.length
+		for i = 0 to intLen - 1
+			optObj.remove(0)
+		next
+
+		' add all CommSystems to pull-down
+		Set tmpObjNames = root.ExecuteCommand("ShowNames * Subobjects")
+		arrObjNames = split(tmpObjNames(0))
+
+		For i = 1 to Ubound(arrObjNames) step 1
+			addObjOptions(arrObjNames(i)) 'Replace(Mid(arrObjNames(i), InstrRev(arrObjNames(i),"/")+1),vbLf,""))
+		Next
+	End Sub
+
+	Sub getVectors()
+	
+		Dim thisObject, vectors, oneVector
+
+		'Get a handle on the object of interest
+		objectPath = optObj.Options(optObj.SelectedIndex).Text
+		Set thisObject = root.getObjectFromPath(objectPath)
+		'Get the objects Vector Data Provider
+		Set vectors = thisObject.DataProviders("Vector Choose Axes")
+
+		'Cycle through each available vector data provider
+		optVec.Options.length = 0
+		for x = 0 to vectors.Group.Count-1
+
+			'Get the current Vector Data Provider
+			Set oneVector = vectors.group(x)
+			'Store the Name of that Data Provider (which is the vector name)
+			vectorName = oneVector.Name
+			'Concatenate all the individual vector names into one list
+			addVecOptions(vectorName)
+
+		Next
+
+	
+				changeVectorName()
+	End Sub
+	
+	sub changeVectorName()
+		temp = split(optObj.Options(optObj.SelectedIndex).Text, "/")
+		thisobject = temp(Ubound(temp))
+		
+		theName = CleanUpName(thisobject & "_" & optVec.Options(optVec.SelectedIndex).Text)		
+		
+
+		newName = CleanDuplicateName(theName)
+		
+		
+		
+		objName.value = newName
+
+	end sub
+	
+	Sub execute()
+
+		Dim sensor, LLAdp, results, Lat, Lon, Time
+		root.ExecuteCommand("SetUnits / degree")
+		root.ExecuteCommand("SetUnits / UTCG")
+		root.UnitPreferences("DateFormat").SetCurrentUnit("UTCG")
+
+		objectName = optObj.Options(optObj.SelectedIndex).Text
+		vectorName = optVec.Options(optVec.SelectedIndex).Text
+		truncObjPath = ""
+		temp = split(objectName, "/")
+		for j = 3 to Ubound(temp)
+			if j = 3 then 
+				truncObjPath = temp(j)
+			else
+				truncObjPath = truncObjPath + "/" + temp(j)
+			end if
+			
+			if j = 4 then parentPath = truncObjPath
+		next
+		
+		axesName = "SensorPoint"
+		set result = root.ExecuteCommand("VectorTool_R * Exists """ & truncObjPath & " " & axesName  & " Axes""")
+		if result(0) = 1 then root.ExecuteCommand("VectorTool * " & truncObjPath & " Delete Axes SensorPoint")
+		
+		if strcomp(vectorName, "Nadir(Detic)") then
+			cmnd = "VectorTool * " & truncObjPath & " Create Axes " & axesName & " ""Aligned and Constrained"" Cartesian 0 0 1 """ & truncObjPath & " " & vectorName &  """ Cartesian 1 0 0 """ & parentPath & " Nadir(Detic)"""
+		else
+			cmnd = "VectorTool * " & truncObjPath & " Create Axes " & axesName & " ""Aligned and Constrained"" Cartesian 0 0 1 """ & truncObjPath & " " & vectorName &  """ Cartesian 1 0 0 """ & parentPath & " Nadir(Centric)"""
+		
+		end if
+		
+		msgbox cmnd
+		root.ExecuteCommand(cmnd)
+		
+		set result = root.ExecuteCommand("DoesObjExist / */" & parentPath & "/Sensor/useThisVector")
+		if result(0) = 1 then root.ExecuteCommand("Unload / */" & parentPath & "/Sensor/useThisVector")
+		root.ExecuteCommand("New / */" & parentPath & "/Sensor useThisVector")
+		
+		sensorName = "*/" & parentPath & "/Sensor/useThisVector"
+		root.ExecuteCommand("Point " & sensorName & " FixedInRef YPR 123 0 0 0 """ & truncObjPath & " " & axesName & """")
+
+		Set sensor = root.GetObjectFromPath(sensorName)
+
+		Set LLAdp = sensor.DataProviders("Boresight Intersection")
+		Set results = LLAdp.Exec(scen.StartTime, scen.StopTime, timeStep.value)
+		Time = results.DataSets.GetDataSetByName("Time").GetValues
+		Lat = results.DataSets.GetDataSetByName("Latitude").GetValues
+		Lon = results.DataSets.GetDataSetByName("Longitude").GetValues
+
+		vehicleName = objName.value
+
+		root.ExecuteCommand("New / */GroundVehicle " & vehicleName)
+		
+		root.ExecuteCommand("BatchGraphics * On")
+		
+		for i=0 to Ubound(Lat)
+			if Lat(i) <> 99.0 then
+				cmnd = "AddWaypoint */GroundVehicle/" & objName.value & " DetVelFromTime " & Lat(i) & " " & Lon(i) & " Terrain """ & Time(i) &""""
+				root.ExecuteCommand(cmnd)
+			end if
+		Next
+
+		root.ExecuteCommand("Unload / */" & parentPath & "/Sensor/useThisVector")
+		root.ExecuteCommand("VectorTool * " & truncObjPath & " Delete Axes SensorPoint")
+		
+		root.ExecuteCommand("BatchGraphics * Off")
+		
+changeVectorName()
+	End Sub
+
+	Sub UnLoadPage()
+        Set uiApp = Nothing
+        Set stk = Nothing
+    End Sub
+
+    
+    	Function CleanUpName(ByVal Incoming)
+	' removes all the characters in the IlglChars string from the Incoming string, one at a time
+	    dim j
+	    dim IlglChars
+
+        IlglChars = "!@#$%^&*()+?"
+        Incoming = Replace(Incoming, " ", "_")
+
+    	For j = 1 To Len(IlglChars)
+	        Incoming = Replace(Incoming, Mid(IlglChars, j, 1), "")
+	    Next
+
+	CleanUpName = Incoming
+    End Function
+
+    Function CleanDuplicateName(ByVal Incoming)
+
+    	Set stkExistingFACs = root.ExecuteCommand("ShowNames * Class GroundVehicle")
+		stkExistingFACs = Split(stkExistingFACs(0))
+
+		
+		Name = (scen.Path & "/GroundVehicle/" & Incoming)
+		for j = 0 to Ubound(stkExistingFACs)
+
+			If Name = "/Application/STK" & stkExistingFACs(j) Then
+			    Incoming = Incoming & "_1"
+			End If
+		Next
+
+		CleanDuplicateName = Incoming
+    End Function
+    
+    
+
+// -->
+</script>
+
+
+<SCRIPT language="JavaScript">
+<!--
+function addObjOptions(optText)
+{
+		var oOption = document.createElement("OPTION");
+		oOption.text=optText;
+		optObj.add(oOption);
+}
+function addVecOptions(optText)
+{
+		var oOption = document.createElement("OPTION");
+		oOption.text=optText;
+		optVec.add(oOption);
+}
+-->
+</script>
+
+
+</head>
+
+<BODY onLoad="InitPage()" onUnLoad="UnLoadPage()" class="light" marginheight="0" marginwidth="0" leftmargin="0" topmargin="0">
+<TABLE border="0" cellpadding="0" cellspacing="0" align="center" class="task_box" width="100%" height="100%">
+	<tr>
+		<td align="center" valign="top">
+			<table border="0" cellpadding="6" cellspacing="0">
+				<tr>
+					<td align="center" colspan="2" class="demoScenarioHeaderCenter"><strong><FONT COLOR=Navy>Vector Earth Intersection Tool<br></td>
+				</tr>
+
+
+
+<!-- Select Object -->
+
+				<tr>
+					<td align="center"colspan="2">Select Object
+				    <select id=optObj name=optObj onchange="getVectors()"></select><br>
+				    </td>
+				</tr>
+				
+<!-- Select Vector -->
+
+				<tr>
+					<td align="center"colspan="2">Select Vector
+				    <select id=optVec name=optVec onchange="changeVectorName()"></select><br>
+				    </td>
+				</tr>
+				
+<!-- Choose a time step-->
+
+				<tr align="center">
+				<td align="center"colspan="2">
+				Enter a Time Step <input type="text" name="timeStep" size="5" value=60>
+				</td>
+				</tr>
+<!-- Choose an Object Name-->
+
+				<tr align="center">						
+				<td align="center"colspan="2">
+				Enter a New object Name <input type="text" name="objName" size="30" value=Earth_Intersect>
+				</td>
+				</tr>
+
+<!-- Click button to Run -->
+				<tr>
+					<td align="center" colspan="2"><input type="button" value="GO!" onClick="execute()" class="submit"><br></td>
+				</tr>
+
+				<tr>
+					<td width="25%"><br></td><td width="75%"><br></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</TABLE>
+
+</body>
+</html>
+
+
+
