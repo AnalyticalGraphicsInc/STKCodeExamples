@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SensorBoresightViewPlugin", "SensorBoresightViewPlugin.csproj", "{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SensorBoresightSetup", "..\SensorBoresightSetup\SensorBoresightSetup.vdproj", "{223C7A59-1FBD-4B64-8B50-63CFF234838E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Debug|x86.ActiveCfg = Debug|x86
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Debug|x86.Build.0 = Debug|x86
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Release|x86.ActiveCfg = Release|x86
+		{CC44C535-0DD8-43F0-84D5-B3D287DB4FFB}.Release|x86.Build.0 = Release|x86
+		{223C7A59-1FBD-4B64-8B50-63CFF234838E}.Debug|Any CPU.ActiveCfg = Debug
+		{223C7A59-1FBD-4B64-8B50-63CFF234838E}.Debug|x86.ActiveCfg = Debug
+		{223C7A59-1FBD-4B64-8B50-63CFF234838E}.Release|Any CPU.ActiveCfg = Release
+		{223C7A59-1FBD-4B64-8B50-63CFF234838E}.Release|x86.ActiveCfg = Release
+		{223C7A59-1FBD-4B64-8B50-63CFF234838E}.Release|x86.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

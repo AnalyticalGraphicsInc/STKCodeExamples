@@ -1,0 +1,250 @@
+<html>
+  <head>
+
+    <title>
+      Explode Satellite
+    </title>
+
+
+    <script language="VBSCRIPT" type="text/vbscript">
+<!--
+    Dim uiApp 
+	Dim scen 
+	Dim root
+       
+	Sub InitPage()
+
+		Set uiApp = window.external
+		Set root = uiApp.Personality2
+		Set scen = root.CurrentScenario
+		'Populate Text fields
+		manTime.Value = scen.StartTime
+		loadObjOption()
+   
+	End Sub
+
+
+	Sub loadObjOption()
+		Dim tmpObjNames, arrObjNames, i
+
+		Dim intLen
+		'remove previous stuff
+		intLen = optObj.length
+		for i = 0 to intLen - 1
+			optObj.remove(0)
+		next
+
+		for each satellite in scen.Children.GetElements(18)
+			addObjOptions(satellite.InstanceName)
+		next
+	End Sub
+
+
+	Sub execute()
+
+		on error resume next
+		objectName = optObj.Options(optObj.SelectedIndex).Text
+		
+		execTime = manTime.Value
+		stopTime = scen.StopTime
+
+		'Get a handle on the Satellite object
+		Set Sat = root.CurrentScenario.Children(objectName)
+		
+		modelFileName = sat.VO.Model.ModelData.Filename
+        
+
+		'Get the Classical Elements Data Provider
+		Set satCartPos = Sat.DataProviders("Cartesian Position")
+		'Specify the Group (in this case Reference Frame)
+		Set satCartPosICRF = satCartPos.group("ICRF")
+
+		'Execute the Data Provider Request
+		Set satCartPosResult = satCartPosICRF.ExecSingle(execTime)
+
+		'Pull the bits of data you need
+
+		x = satCartPosResult.DataSets.GetDataSetByName("x").GetValues
+		y = satCartPosResult.DataSets.GetDataSetByName("y").GetValues
+		z = satCartPosResult.DataSets.GetDataSetByName("z").GetValues
+
+		Set satCartVel = Sat.DataProviders("Cartesian Velocity")
+		'Specify the Group (in this case Reference Frame)
+		Set satCartVelICRF = satCartVel.group("ICRF")
+		Set satCartVelResult = satCartVelICRF.ExecSingle(execTime)
+
+		xDot = satCartVelResult.DataSets.GetDataSetByName("x").GetValues
+		yDot = satCartVelResult.DataSets.GetDataSetByName("y").GetValues
+		zDot = satCartVelResult.DataSets.GetDataSetByName("z").GetValues
+		
+		root.ExecuteCommand("BatchGraphics * On")
+
+		'Keep an index for names so you know the number of the new object
+		nameIndex = 0
+		for i = 1 to CInt(numObjs.Value)
+		
+			'Find a unique name for the new object
+			nameExists = true
+			Do while nameExists
+				nameNumber = i + nameIndex
+				newSatName = Sat.InstanceName & "_debris" & nameNumber
+				nameExists = scen.Children.Contains(18, newSatName)
+				if nameExists then
+					nameIndex = nameIndex + 1					
+				end if
+			loop 
+			
+			'create the debris piece
+			Set newSat = scen.Children.New(18, newSatName)
+			
+			'Duplicate the visual properties of the seed satellite			
+			newSat.Graphics.Attributes.Color = sat.Graphics.Attributes.Color
+			newSat.Graphics.Attributes.Inherit = sat.Graphics.Attributes.Inherit
+			newSat.Graphics.Attributes.IsGroundTrackVisible = sat.Graphics.Attributes.IsGroundTrackVisible
+			newSat.Graphics.Attributes.IsGroundMarkerVisible = sat.Graphics.Attributes.IsGroundMarkerVisible
+			newSat.Graphics.Attributes.IsOrbitVisible = sat.Graphics.Attributes.IsOrbitVisible
+			newSat.Graphics.Attributes.IsVisible = sat.Graphics.Attributes.IsVisible
+			newSat.Graphics.Attributes.IsOrbitMarkerVisible = sat.Graphics.Attributes.IsOrbitMarkerVisible
+			newSat.Graphics.Attributes.Line.Style = sat.Graphics.Attributes.Line.Style
+			newSat.Graphics.Attributes.Line.Width = sat.Graphics.Attributes.Line.Width
+			newSat.Graphics.Attributes.LabelVisible = sat.Graphics.Attributes.LabelVisible
+			newSat.Graphics.Attributes.MarkerStyle = sat.Graphics.Attributes.MarkerStyle
+
+
+			newSat.VO.Model.ModelData.Filename = sat.VO.Model.ModelData.Filename
+			newSat.VO.VaporTrail.Visible = sat.VO.VaporTrail.Visible
+			newSat.VO.VaporTrail.Color = sat.VO.VaporTrail.Color
+			newSat.VO.VaporTrail.Density = sat.VO.VaporTrail.Density
+			newSat.VO.VaporTrail.MaxNumOfPuffs = sat.VO.VaporTrail.MaxNumOfPuffs
+			newSat.VO.VaporTrail.Radius = sat.VO.VaporTrail.Radius
+			
+			root.ExecuteCommand("SetUnits / km")
+			
+			'randomly deviate the velocity components based on max percent deltaV supplied
+			percentage = CDbl(percentDeviation.Value)/100.0			
+			xVel = (1 + percentage -  2 * rnd * percentage) * xDot(0)
+			yVel = (1 + percentage -  2 * rnd * percentage) * yDot(0)
+			zVel = (1 + percentage -  2 * rnd * percentage) * zDot(0)
+			
+			' send the commands to set the satellite state
+			' use the same initial location
+			' but with the new deviated velocity
+			cmd = "SetStateIgnoreCB */Satellite/" & newSatName & " Cartesian HPOP """ & execTime & """ """ & stopTime & """ 60 ICRF """& execTime & """ " & x(0) & " " & y(0) & " "& z(0) & " " & xVel & " " & yVel & " " & zVel
+			root.ExecuteCommand(cmd)
+			
+			cmd = "HPOP */Satellite/" & newSatName & " Options AltitudeCutoff 0"
+			root.ExecuteCommand(cmd)
+			
+			cmd = "HPOP */Satellite/" & newSatName & " Drag On 1.04 0.22 ""Harris-Priester"" Manual 123"
+			root.ExecuteCommand(cmd)
+			
+		Next
+		
+		root.ExecuteCommand("BatchGraphics * Off")
+		loadObjOption()
+		
+	End Sub
+	
+
+    // -->
+    </script>
+    <script language="JavaScript" type="text/javascript">
+<!--
+    function addObjOptions(optText)
+    {
+                var oOption = document.createElement("OPTION");
+                oOption.text=optText;
+                optObj.add(oOption);
+    }
+
+    -->
+    </script>
+		</head>
+		<body onload="InitPage()"  bgcolor="#FFFFFF"  class="light" marginheight= "0" marginwidth="0" leftmargin="0" topmargin="0">
+
+		<div align="center">
+		<div style="border:1px solid #CCCCCC;width:260px; background-color:#FFFFFF; padding:10px;text-align:left">
+		<span class="header"><b>Random Debris Generator</b></span>
+		<br><br>
+		This utility will create a series of "debris" pieces based on a seed satellite.  
+		<br><br>
+		For each debris piece the utility will randomly deviate the velocity components up to the max % DeltaV at the requested Breakup Time.
+		<p/>
+
+		Select Object:<br><select id="optObj" name="optObj"></select>
+		<br><br>
+		Breakup Time:<br><input style='text-align:left;' type="text" size="27"  value="21 Dec 2011 17:30:00.00" name="manTime" >
+		<br><br>
+		Number of Pieces:<br> <input type="text" name="numObjs" size="10" value=5>
+		<br><br>
+		Percent DeltaV:<br> <input type="text" name="percentDeviation" size="10" value=5>
+		<br><br>
+		<input type="button" value="EXPLODE!" onclick="execute()" class="submit" style='text-align:center;'>
+
+		</body>
+	
+	<style type="text/css" media="screen">
+
+		/* STKSTYLE.CSS -- CASCADING STYLESHEET FOR STK 9 */
+
+		body {
+			font-family: Verdana, Helvetica, Tahoma, Arial, sans-serif;
+			background-color: #F1F1F1;
+			font-size: 8pt;
+		}
+
+		#tab {
+			 float:left;
+			 width:100%;
+			 line-height:normal;
+			
+			 }
+		#tab ul {
+			 margin:0px;
+			 list-style:none;
+			 padding:0px;
+			 }
+		#tab li {
+			float:left;
+			/*background:url("images/left.gif") no-repeat left top;*/
+			margin:0;
+			padding:0 0 0 0px;
+			   
+
+			}
+		#tab a {
+			display:block;
+		   /* background:url("images/right.gif") no-repeat right top;*/
+			padding:3px 10px 4px 4px;
+			border-left:1px solid #DCDCDC;
+			border-top:1px solid #DCDCDC;
+			border-right:1px solid #DCDCDC;
+			border-bottom:1px solid #DCDCDC;
+			text-decoration:none;
+			font-weight:bold;
+			font-size:9px;
+			color:#323947;
+			 background:#DAE0D2 url("images/lp_tab_bg.gif") repeat-x bottom;
+			}
+		#tab a:hover {
+			color:#9e3838;
+			font-size:9px;
+			}
+		#tab #current {
+			/*background-image:url("images/left_on.gif");*/
+			}
+		#tab #current a {
+			/*background-image:url("images/right_on.gif");*/
+			border-left:1px solid #DCDCDC;
+			border-top:1px solid #DCDCDC;
+			border-right:1px solid #DCDCDC;
+			border-bottom:0px solid #DCDCDC;
+			background-color:#FFFFFF;
+			background-image:none;
+			color:#9e3838;
+			padding-bottom:4px;
+			}
+
+
+</style>
+</html>

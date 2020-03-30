@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CDMComparison.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SpaceTrackUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Comspoc-ops@agi.com</Value>
+    </Setting>
+    <Setting Name="SpaceTrackPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">*SpaceBook2015*</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
