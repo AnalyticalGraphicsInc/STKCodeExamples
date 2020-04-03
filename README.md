@@ -13,7 +13,7 @@ AGI's ready-to-use STK and ODTK families of products, enterprise software, and d
 
 ## License
 
-????
+The code samples in this repository are licensed under the AGI Code Samples License Agreement, which is included in this repository as [License.pdf](License.pdf).
 
 ## What if I have questions about STK
 
