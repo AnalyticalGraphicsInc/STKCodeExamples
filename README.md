@@ -13,7 +13,7 @@ Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing o
 
 ## License
 
-The code samples in this repository are licensed under the AGI Code Samples License Agreement, which is included in this repository as [License.pdf](License.pdf).
+The Code Examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
 
 ## Redistribution
 If You redistribute the Code Examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the Code Examples, and include the following copyright notice: 
@@ -24,4 +24,6 @@ If You redistribute the Code Examples, in whole or in part, You must provide a c
 
 Contact support@agi.com with any questions regarding STK, STK Engine or any other AGI products.
 
-AGI's ready-to-use STK and ODTK families of products, enterprise software, and developer tools help customers deliver digital engineering value and make better-informed decisions in a mission context at any stage in the program lifecycle: from planning and design to training and operations.  For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage"). 
+AGI's ready-to-use STK and ODTK families of products, enterprise software, and developer tools help customers deliver digital engineering value and make better-informed decisions in a mission context at any stage in the program lifecycle: from planning and design to training and operations.  
+
+For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage"). 
