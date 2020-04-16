@@ -2,7 +2,11 @@
 
 <img src="https://embed.widencdn.net/svg/agi/2lb9tthe8d/STK_LogotypeLtBg02.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
 
-Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing our favorite utilities and demonstrations.  Please feel free to browse the content for both functional tools to add to your tool kit or example code that you can refactor to fit your needs.   
+Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.  
+
+Please feel free to browse the content for both functional tools to add to your tool kit or example code that you can refactor to fit your needs.   
+
+These applications contain notional data and are dual use.
 
 ## Featured Examples
 
