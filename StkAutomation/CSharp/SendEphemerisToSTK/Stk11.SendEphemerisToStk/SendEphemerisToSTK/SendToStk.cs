@@ -117,18 +117,19 @@ namespace SendEphemerisToSTK
             _stkRoot.ExecuteCommand("Units_Set * Connect DateFormat ISO-YMD");
             foreach (XmlNode xnode in nl)
             {
-                string name = xnode.Name;
-                string lat = xnode.Attributes["lat"].Value;
-                string lon = xnode.Attributes["lon"].Value;
-                string alt = xnode["ele"].InnerText;
-                string time = xnode["time"].InnerText.Replace("Z",string.Empty);
                 try
                 {
+                    string name = xnode.Name;
+                    string lat = xnode.Attributes["lat"].Value;
+                    string lon = xnode.Attributes["lon"].Value;
+                    string alt = xnode["ele"].InnerText;
+                    string time = xnode["time"].InnerText.Replace("Z",string.Empty);
+                
                     _stkRoot.ExecuteCommand($"AddWaypoint */GroundVehicle/{gvName} DetVelFromTime {lat} {lon} {alt} {time}");
                 }
                 catch 
                 {
-                    errors += $"Error adding waypoint, most likely a duplicate point {lat} {lon} {alt} {time} {Environment.NewLine}";
+                    errors += $"Error adding waypoint {xnode.InnerText}{Environment.NewLine}";
                 }
             }
 
