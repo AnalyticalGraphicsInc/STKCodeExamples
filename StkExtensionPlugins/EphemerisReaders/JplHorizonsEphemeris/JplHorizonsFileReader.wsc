@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!-- This reader will load in ephemeris files from the JPL -->
+<!-- Horizons site (https://ssd.jpl.nasa.gov/horizons.cgi) -->
+<!-- The expected format is                                -->
+<!-- Ephemeris type   : VECTORS                            -->
+<!-- Coordinate Origin: Geocentric [500]                   -->
+<!-- Table Settings   : code = 2; output units = km-s      -->
+<!--                    labels = NO; CSV format = YES      -->
+<!--                    object page = NO                   -->
+<!--                                                       -->
+<!-- author: jens ramrath                                  -->
+<!-- date  : 8 june 2017                                   -->
+<!-- ===================================================== -->
+
+<component>
+    <?component error="true" debug="true"?>
+    <registration
+        description="JPL Horizons Ephemeris"
+        progid="JplHorizonsFileReader.wsc"
+        version="1.00"
+        classid="{9A5E6C1D-EEC9-46fb-8098-E5F1EC76C077}"
+    />
+    <public>
+
+        <!-- ======= -->
+        <!-- Methods -->
+        <!-- ======= -->
+        <method name="Init">
+            <parameter name="Site"/>
+        </method>
+        <method name="Register">
+            <parameter name="Result"/>
+        </method>
+        <method name="ReadEphemeris">
+            <parameter name="Result"/>
+        </method>
+        <method name="ReadMetaData">
+            <parameter name="Result"/>
+        </method>
+        <method name="Verify">
+            <parameter name="Result"/>
+        </method>
+        <method name="Free"/>
+    </public>
+
+    <script language="VBScript" src="JplHorizonsFileReader.vbs"/>
+
+</component>
