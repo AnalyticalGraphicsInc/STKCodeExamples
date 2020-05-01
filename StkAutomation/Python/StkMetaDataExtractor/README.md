@@ -1,4 +1,4 @@
-# STK Metadata Extactor
+# STK Metadata Extractor
 
 This script will read an STK scenario with an instance of STK Engine to extract metadata from that scenario.
 
