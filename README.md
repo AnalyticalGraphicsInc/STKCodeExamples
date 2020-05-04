@@ -1,6 +1,6 @@
 # STK Code Examples
 
-<img src="https://embed.widencdn.net/svg/agi/2lb9tthe8d/STK_LogotypeLtBg02.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
+<img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
 
 Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.  
 
