@@ -1,54 +1,21 @@
 import json
 import sys
 
-import win32com.client
-# Start new instance of STK
-uiApplication = win32com.client.Dispatch('STK12.Application')
-uiApplication.Visible = False
-
-
-# Get our IAgStkObjectRoot interface
-root = uiApplication.Personality2 
-
-if sys.argv[1].endswith('.vdf'):
-    root.LoadVDF(sys.argv[1], '')
-elif sys.argv[1].endswith('.sc'):
-    root.LoadScenario(sys.argv[1])
-else:
-    print(sys.argv[1] + ' is not a recognized scenario file')
-    exit
-
-print(root.CurrentScenario.InstanceName) 
-print("Total number of objects: {0}".format(len(root.CurrentScenario.Children)))
-
-data = {}
-
-
-data['ObjectsByType'] = {}
-data['ObjectsByType']['Scenario'] = {'Name': root.CurrentScenario.InstanceName,'Class':root.CurrentScenario.ClassName}
-
-for stkObject in root.CurrentScenario.Children:
-    print(stkObject.ClassName + " " + stkObject.InstanceName)  
+def SummarizeStkObject(stkObject):
+    print("Summarizing " + stkObject.Path)
+    # Create the Properties object to hold object information, specifically Name and Class
     props = {'Name': stkObject.InstanceName,'Class':stkObject.ClassName}
-
-    if stkObject.ClassName not in data['ObjectsByType']:
-        data['ObjectsByType'][stkObject.ClassName] = {}
     
+    # Capture any metadata provided on an object
+    for key in stkObject.Metadata.Keys:
+        props[key] = stkObject.Metadata[key]
 
-
+    # For each type of object, allow for unique information to be captured
     if stkObject.ClassName == "Facility":
         positionArray = stkObject.Position.QueryPlanetocentric()
         props['Position'] = {'latitude' : positionArray[0], 'longitude':positionArray[1], 'altitude': positionArray[2]}
-        print('Position: {0:3.2f} {1:3.2f}'.format(positionArray[0], positionArray[1]))
+        #print('Position: {0:3.2f} {1:3.2f}'.format(positionArray[0], positionArray[1]))
 
-    data['ObjectsByType'][stkObject.ClassName].append(props)    
-    data['ObjectsByType'][stkObject.ClassName]['Counter'] = data['ObjectsByType'][stkObject.ClassName].Count()
-
-print("Writing to " + sys.argv[2])
-with open(sys.argv[2], 'w') as outfile:
-    json.dump(data, outfile)
-
-    
     #if stkObject.ClassName == "Aircraft":
     #if stkObject.ClassName == "AdvCAT":
     #if stkObject.ClassName == "Area Target":
@@ -83,3 +50,38 @@ with open(sys.argv[2], 'w') as outfile:
     #if stkObject.ClassName == "Antenna":
     #if stkObject.ClassName == "Place":
     #if stkObject.ClassName == "Volumetric":
+
+    # Determine if it is necessary to iterate through the potential child objects
+    if stkObject.HasChildren:
+        props['Children'] = {} 
+        
+        for stkChild in stkObject.Children:
+            if stkChild.ClassName not in props['Children']:
+                props['Children'][stkChild.ClassName] = []
+            # Summarize the child objects
+            props['Children'][stkChild.ClassName].append(SummarizeStkObject(stkChild))
+    # Return the summary
+    return props
+
+# Create a new instance of STK Engine (STK X)
+import comtypes
+from comtypes.client import CreateObject
+stkXApplication = CreateObject('STKX12.Application')
+stkXApplication.NoGraphics = True
+root = CreateObject('AgStkObjects12.AgStkObjectRoot')
+
+# Determine if the scenario to be loaded is a vdf or sc file and laod as appropriate
+if sys.argv[1].endswith('.vdf'):
+    root.LoadVDF(sys.argv[1], '')
+elif sys.argv[1].endswith('.sc'):
+    root.LoadScenario(sys.argv[1])
+else:
+    print(sys.argv[1] + ' is not a recognized scenario file')
+    exit
+
+# Get the summary of the scenario
+summary = SummarizeStkObject(root.CurrentScenario)
+
+print("Writing to " + sys.argv[2])
+with open(sys.argv[2], 'w') as outfile:
+    json.dump(summary, outfile)
