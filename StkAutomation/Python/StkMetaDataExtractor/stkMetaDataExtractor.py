@@ -1,55 +1,117 @@
 import json
 import sys
+import os
+
+def dict2xml(d, root_node=None):
+	wrap          =     False if None == root_node or isinstance(d, list) else True
+	root          = 'objects' if None == root_node else root_node
+	root_singular = root[:-1] if 's' == root[-1] and None == root_node else root
+	xml           = ''
+	children      = []
+
+	if isinstance(d, dict):
+		for key, value in dict.items(d):
+			if isinstance(value, dict):
+				children.append(dict2xml(value, key))
+			elif isinstance(value, list):
+				children.append(dict2xml(value, key))
+			else:
+				xml = xml + ' ' + key + '="' + str(value) + '"'
+	else:
+		for value in d:
+			children.append(dict2xml(value, root_singular))
+
+	end_tag = '>' if 0 < len(children) else '/>'
+
+	if wrap or isinstance(d, dict):
+		xml = '<' + root + xml + end_tag
+
+	if 0 < len(children):
+		for child in children:
+			xml = xml + child
+
+		if wrap or isinstance(d, dict):
+			xml = xml + '</' + root + '>'
+		
+	return xml
 
 def SummarizeStkObject(stkObject):
-    print("Summarizing " + stkObject.Path)
     # Create the Properties object to hold object information, specifically Name and Class
-    props = {'Name': stkObject.InstanceName,'Class':stkObject.ClassName}
+    props = {'Name': stkObject.InstanceName}
     
+    if stkObject.ShortDescription:
+        props['ShortDescription'] = stkObject.ShortDescription
+    if stkObject.LongDescription:
+        props['LongDescription'] = stkObject.LongDescription
+
     # Capture any metadata provided on an object
     for key in stkObject.Metadata.Keys:
         props[key] = stkObject.Metadata[key]
 
     # For each type of object, allow for unique information to be captured
-    if stkObject.ClassName == "Facility":
+    if stkObject.ClassName == "Facility" or stkObject.ClassName == "Target" or stkObject.ClassName == "Place":
         positionArray = stkObject.Position.QueryPlanetocentric()
-        props['Position'] = {'latitude' : positionArray[0], 'longitude':positionArray[1], 'altitude': positionArray[2]}
-        #print('Position: {0:3.2f} {1:3.2f}'.format(positionArray[0], positionArray[1]))
+        props['Latitude'] = positionArray[0]
+        props['Longitude'] = positionArray[1]
+        props['Altitude'] = positionArray[2]
 
-    #if stkObject.ClassName == "Aircraft":
-    #if stkObject.ClassName == "AdvCAT":
-    #if stkObject.ClassName == "Area Target":
-    #if stkObject.ClassName == "Attitude Coverage":
-    #if stkObject.ClassName == "Chain":
-    #if stkObject.ClassName == "CommSystem":
-    #if stkObject.ClassName == "Constellation":
-    #if stkObject.ClassName == "Coverage Definition":
-    #if stkObject.ClassName == "Facility":
-    #if stkObject.ClassName == "Ground Vehicle":
-    #if stkObject.ClassName == "Launch Vehicle":
-    #if stkObject.ClassName == "Line Target":
-    #if stkObject.ClassName == "MTO (Multi-Track Object)":
-    #if stkObject.ClassName == "Missile":
-    #if stkObject.ClassName == "Missile System":
-    #if stkObject.ClassName == "Planet":
-    #if stkObject.ClassName == "Radar":
-    #if stkObject.ClassName == "Receiver":
-    #if stkObject.ClassName == "Satellite":
-    #if stkObject.ClassName == "Scenario":
-    #if stkObject.ClassName == "Sensor":
-    #if stkObject.ClassName == "Ship":
-    #if stkObject.ClassName == "Star":
-    #if stkObject.ClassName == "Target":
-    #if stkObject.ClassName == "Transmitter":
-    #if stkObject.ClassName == "Figure of Merit":
-    #if stkObject.ClassName == "Root":
-    #if stkObject.ClassName == "Access":
-    #if stkObject.ClassName == "Coverage":
-    #if stkObject.ClassName == "Attitude Figure of Merit":
-    #if stkObject.ClassName == "Submarine":
-    #if stkObject.ClassName == "Antenna":
-    #if stkObject.ClassName == "Place":
-    #if stkObject.ClassName == "Volumetric":
+    elif stkObject.ClassName == "Sensor":
+        patternType = stkObject.PatternType
+        patternTypes = ['ComplexConic', 'Custom', 'PHalfPower', 'Rectangular', 'SAR', 'SimpleConic', 'EOIR']
+        props['PatternType'] = patternTypes[patternType]
+            
+    elif stkObject.ClassName == "Antenna":
+        antennaType = stkObject.Model.Name
+        props['AntennaType'] = antennaType
+        
+    elif stkObject.ClassName == "Radar":
+        radarType = stkObject.Model.Name
+        props['RadarType'] = radarType
+        
+    elif stkObject.ClassName == "Receiver":
+        receiverType = stkObject.Model.Name
+        props['ReceiverType'] = receiverType
+        
+    elif stkObject.ClassName == "Transmitter":
+        transmitterType = stkObject.Model.Name
+        props['TransmitterType'] = transmitterType
+
+    elif stkObject.ClassName == "Satellite":
+        possiblePropagator = stkObject.PropagatorSupportedTypes
+        for propagatorType in possiblePropagator:
+            if propagatorType[0] == stkObject.PropagatorType:
+                props['PropagatorType'] = propagatorType[1]
+        
+    elif stkObject.ClassName == "AreaTarget":
+        centroidPosition = stkObject.Position.QueryPlanetocentricArray()
+        props['CentroidLatitude'] = centroidPosition[0]
+        props['CentroidLongitude'] = centroidPosition[1]
+        props['CentroidAltitude'] = centroidPosition[2]
+            
+    elif stkObject.ClassName == "CoverageDefinition":
+        gridClasses = ['eGridClassUnknown','eGridClassAircraft','eGridClassFacility','eGridClassRadar','eGridClassReceiver','eGridClassSatellite','eGridClassSubmarine','eGridClassTarget','eGridClassTransmitter','eGridClassGroundVehicle','eGridClassShip','eGridClassPlace','eGridClassSensor']
+        gridClass = stkObject.PointDefinition.GridClass
+        props['GridClass'] = gridClass
+        props['GridClassName'] = gridClasses[gridClass+1]
+        
+    elif stkObject.ClassName == "Missile":
+        possibleTrajectory = stkObject.TrajectorySupportedTypes
+        usedTrajectory = stkObject.TrajectoryType
+        for trajectory in possibleTrajectory:
+            if trajectory[0] == usedTrajectory:
+                props['TrajectoryType'] = trajectory[1]
+         
+    elif stkObject.ClassName == "Planet":
+        centralBody = stkObject.PositionSourceData.CentralBody
+        props['CentralBody'] = centralBody
+
+    elif stkObject.ClassName == "Chain":
+        chainobjects = stkObject.Objects
+        props['NumberOfLinks'] = chainobjects.Count
+
+    elif stkObject.ClassName == "Constellation":
+        constellationobjects = stkObject.Objects
+        props['NumberOfItems'] = constellationobjects.Count
 
     # Determine if it is necessary to iterate through the potential child objects
     if stkObject.HasChildren:
@@ -59,29 +121,61 @@ def SummarizeStkObject(stkObject):
             if stkChild.ClassName not in props['Children']:
                 props['Children'][stkChild.ClassName] = []
             # Summarize the child objects
-            props['Children'][stkChild.ClassName].append(SummarizeStkObject(stkChild))
+            try:
+                childSummary = SummarizeStkObject(stkChild)
+                props['Children'][stkChild.ClassName].append(childSummary)
+            except:
+                print("ERROR: An exception occurred summarizing " + stkObject.InstanceName)
+
     # Return the summary
     return props
 
-# Create a new instance of STK Engine (STK X)
-import comtypes
-from comtypes.client import CreateObject
-stkXApplication = CreateObject('STKX12.Application')
-stkXApplication.NoGraphics = True
-root = CreateObject('AgStkObjects12.AgStkObjectRoot')
+inputScenarioPath = sys.argv[1]
+outputSummaryDirectory = sys.argv[2]
+print("Launching STK")
+# Get reference to running STK instance using win32com
+from win32com.client import Dispatch
+uiApplication = Dispatch('STK12.Application')
+uiApplication.Visible = False
 
+# Get our IAgStkObjectRoot interface
+root = uiApplication.Personality2 
+
+print("Loading scenario: " + inputScenarioPath)
 # Determine if the scenario to be loaded is a vdf or sc file and laod as appropriate
-if sys.argv[1].endswith('.vdf'):
-    root.LoadVDF(sys.argv[1], '')
-elif sys.argv[1].endswith('.sc'):
-    root.LoadScenario(sys.argv[1])
+if inputScenarioPath.endswith('.vdf'):
+    root.LoadVDF(inputScenarioPath, '')
+elif inputScenarioPath.endswith('.sc'):
+    root.LoadScenario(inputScenarioPath)
 else:
-    print(sys.argv[1] + ' is not a recognized scenario file')
+    print('ERROR: ' + inputScenarioPath + ' is not a recognized scenario file')
     exit
 
-# Get the summary of the scenario
-summary = SummarizeStkObject(root.CurrentScenario)
+# Export a CZML preview from STK
+outputCzmlPath = os.path.join(outputSummaryDirectory, root.CurrentScenario.InstanceName + ".czml")
+cmd = 'ExportCZML * "' + outputCzmlPath + '" http://assets.agi.com/models/'
+try:
+    print("Exporting CZML to " + outputCzmlPath)
+    root.ExecuteCommand(cmd)
+except:
+    print("ERROR: An exception occurred generating CZML")
 
-print("Writing to " + sys.argv[2])
-with open(sys.argv[2], 'w') as outfile:
-    json.dump(summary, outfile)
+# Generating XML
+# Get the summary of the scenario
+try:
+    print("Summarizing STK scenario")
+    summary = SummarizeStkObject(root.CurrentScenario)
+
+    outputXmlSummaryPath = os.path.join(outputSummaryDirectory, root.CurrentScenario.InstanceName + ".xml")
+        
+    print("Writing XML summary to " + outputXmlSummaryPath)
+    xmlSummary = dict2xml(summary)
+    with open(outputXmlSummaryPath, "w") as f:
+        f.write(xmlSummary)
+except:
+    print("ERROR: An exception occurred generating XML")
+
+# Generating Json
+# outputJsonSummaryPath = os.path.join(outputSummaryDirectory, root.CurrentScenario.InstanceName + ".json")
+# with open(outputJsonSummaryPath, 'w') as outfile:
+#     json.dump(summary, outfile)
