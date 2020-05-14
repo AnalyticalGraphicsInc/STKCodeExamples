@@ -1,8 +1,8 @@
 # STK Metadata Extractor
 
-This script will read an STK scenario with an instance of STK Engine to extract metadata from that scenario.
+This script will read an STK scenario with an instance of STK Engine to extract metadata from that scenario about each of the objects.  It will also export a Cesium display summary file.
 
-As a Code Example, this script should demonstrate how users can iterate through all objects in a scenario and interrogate each object type for information related to that specific type.
+As a Code Example, this script should demonstrate how users can iterate through all objects in a scenario and interrogate each object type for information related to that specific object type.
 
 This is a work in progress but the goal will be to create a summary file (formatted in XML, JSON or other) to briefly describe the scenario contents.
 
@@ -10,13 +10,12 @@ This is a work in progress but the goal will be to create a summary file (format
 
 This script is intended to be used from the command line with two arguments: 
 1. the path to a scenario file (*.sc or *.vdf).
-2. the desired path of the output file (*.xml or *.json) 
+2. the desired directory for the output files (*.xml and *.czml)
 
 Example:
-python StkMetadataExtractor.py "c:\Temp\sampleScenario.vdf" "c:\Temp\summary.xml"
+python StkMetadataExtractor.py "c:\Temp\sampleScenario.vdf" "c:\Temp"
 
-The output summary.xml file will briefly describe the contents of the scenario.
-
+The output XML file and CZML file will have the same name as the scenario - in this example "c:\Temp\sampleScenario.xml" and "c:\Temp\sampleScenario.czml".
 
 
 
