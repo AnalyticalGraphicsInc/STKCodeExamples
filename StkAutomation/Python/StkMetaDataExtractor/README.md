@@ -1,19 +1,24 @@
-# STK Code Examples
+# STK Metadata Extractor
 
-<img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
+This script will read an STK scenario with an instance of STK Engine to extract metadata from that scenario.
 
-Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.  
+As a Code Example, this script should demonstrate how users can iterate through all objects in a scenario and interrogate each object type for information related to that specific type.
 
-Please feel free to browse the content for both functional tools to add to your tool kit or example code that you can refactor to fit your needs.   
+This is a work in progress but the goal will be to create a summary file (formatted in XML, JSON or other) to briefly describe the scenario contents.
 
-These applications contain notional data and are dual use.
+# Usage
 
-## Featured Examples
+This script is intended to be used from the command line with two arguments: 
+1. the path to a scenario file (*.sc or *.vdf).
+2. the desired path of the output file (*.xml or *.json) 
 
-* StkAutomation --> Scripts and applications for automating the STK Gui
-* StkEngineApplications --> Scripts and applications for STK Engine
-* StkUiPlugins --> UiPlugin applciations for the STK Gui
-* StkExtensionPlugins --> Enine plugins and plugin scripts for STK Gui and Engine
+Example:
+python StkMetadataExtractor.py "c:\Temp\sampleScenario.vdf" "c:\Temp\summary.xml"
+
+The output summary.xml file will briefly describe the contents of the scenario.
+
+
+
 
 ## License
 

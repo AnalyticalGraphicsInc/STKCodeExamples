@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace SendEphemerisToSTK
 {
@@ -52,6 +53,7 @@ namespace SendEphemerisToSTK
                     {
                         satName = IncrementName(satName);
                     }
+
                     dynamic sat;
                     try
                     {
@@ -82,8 +84,58 @@ namespace SendEphemerisToSTK
                 {
                     _stkRoot.ExecuteCommand("ImportTLEFile * \"" + filePath + "\" AutoPropagate On");
                 }
+                else if (extension.ToUpperInvariant().Equals(".GPX"))
+                {
+                    ReadGpx(filePath, out errors);
+                }
             }
         }
+
+        public static void ReadGpx(string gpxFilePath, out string errors)
+        {
+            errors = "";
+            var gvName = Path.GetFileNameWithoutExtension(gpxFilePath);
+            gvName = ToStkSafeName(gvName);
+
+            const int eGroundVehicle = 9;
+            while (_stkRoot.CurrentScenario.Children.Contains(eGroundVehicle, gvName))
+            {
+                gvName = IncrementName(gvName);
+            }
+
+            XmlDocument gpxDoc = new XmlDocument();
+            gpxDoc.Load(gpxFilePath);
+
+            XmlNamespaceManager nsmgr = new XmlNamespaceManager(gpxDoc.NameTable);
+            nsmgr.AddNamespace("x", "http://www.topografix.com/GPX/1/1");
+            XmlNodeList nl = gpxDoc.SelectNodes("//x:trkpt", nsmgr);
+            _stkRoot.ExecuteCommand("BatchGraphics * On");
+            _stkRoot.ExecuteCommand($"New / */GroundVehicle {gvName}");
+            _stkRoot.ExecuteCommand($"AltitudeRef */GroundVehicle/{gvName} Ref MSL");
+            _stkRoot.ExecuteCommand($"Graphics */GroundVehicle/{gvName} Waypoints Off");
+            _stkRoot.ExecuteCommand($"Graphics */GroundVehicle/{gvName} Basic LineWidth 3");
+            _stkRoot.ExecuteCommand("Units_Set * Connect DateFormat ISO-YMD");
+            foreach (XmlNode xnode in nl)
+            {
+                try
+                {
+                    string name = xnode.Name;
+                    string lat = xnode.Attributes["lat"].Value;
+                    string lon = xnode.Attributes["lon"].Value;
+                    string alt = xnode["ele"].InnerText;
+                    string time = xnode["time"].InnerText.Replace("Z",string.Empty);
+                
+                    _stkRoot.ExecuteCommand($"AddWaypoint */GroundVehicle/{gvName} DetVelFromTime {lat} {lon} {alt} {time}");
+                }
+                catch 
+                {
+                    errors += $"Error adding waypoint {xnode.InnerText}{Environment.NewLine}";
+                }
+            }
+
+            _stkRoot.ExecuteCommand("BatchGraphics * Off");
+        }
+
 
         public static bool IsGeoRegime(string objectPath)
         {

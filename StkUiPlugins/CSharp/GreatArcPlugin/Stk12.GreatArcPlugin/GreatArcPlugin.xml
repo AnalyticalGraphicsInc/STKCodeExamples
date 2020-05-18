@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+   <CategoryRegistry>
+        <Category Name = "UiPlugins">
+           <NETUiPlugin 
+                DisplayName="Great Arc"
+                TypeName="Agi.Ui.GreatArc.Stk12.GreatArc_12"
+                AssemblyName="Agi.Ui.GreatArc.Stk12"
+                CodeBase="C:\GitHub\STKCodeExamples\StkUiPlugins\CSharp\GreatArcPlugin\Stk12.GreatArcPlugin\bin\Debug">
+           </NETUiPlugin>
+	</Category>
+   </CategoryRegistry>
+</AGIRegistry>

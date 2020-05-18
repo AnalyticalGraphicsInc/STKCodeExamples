@@ -1,19 +1,22 @@
-# STK Code Examples
+# Send To STK
 
-<img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
+This utility will allow you to add a new option to your Windows right-click > Send To menu for you to send files directly to STK.
 
-Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.  
+This was originally designed to send Satellite Ephemeris files to STK (by the ComSpOC Operators) but has been expanded to include TLE and TCE files.
 
-Please feel free to browse the content for both functional tools to add to your tool kit or example code that you can refactor to fit your needs.   
+Recent updates have been added to now include GPX files imported as waypoints on a ground vehicle.  This utility can continue to be extended with additional file types/extensions.
 
-These applications contain notional data and are dual use.
+## How to Install and Use
 
-## Featured Examples
+* Build the project to create the executable
+* Move the built executable "SendEphemerisToSTK.exe" to a permanent location of your choice
+* Place a shortcut to that executable here: %AppData%/Microsoft/Windows/SendTo
+* Rename that shortcut "STK"
+* Right click on any Ephemeris File and on the Send To menu you will see an STK option.
 
-* StkAutomation --> Scripts and applications for automating the STK Gui
-* StkEngineApplications --> Scripts and applications for STK Engine
-* StkUiPlugins --> UiPlugin applciations for the STK Gui
-* StkExtensionPlugins --> Enine plugins and plugin scripts for STK Gui and Engine
+
+
+
 
 ## License
 
