@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+  <?component error="true" debug="true"?>
+  <registration
+		classid="{a28a030c-f095-421d-9333-95a3e3371435}"
+		progid="DistanceToGEO.CalcScalar"
+		description="DistanceToGEO.CalcScalar"
+		version="1.00"
+	>
+  </registration>
+  <public>
+
+    <property name="GeoAltKm"       		get="GetGeoAltKm"       	put="SetGeoAltKm"/>
+
+    <!-- ======= -->
+    <!-- Methods -->
+    <!-- ======= -->
+
+    <method name="Init">
+      <parameter name="AgStkPluginSite"/>
+    </method>
+
+    <method name="Register">
+      <parameter name="AgCrdnCalcScalarPluginResultReg"/>
+    </method>
+
+    <method name="Reset">
+      <parameter name="AgCrdnCalcScalarPluginResultReset"/>
+    </method>
+
+    <method name="Evaluate">
+      <parameter name="AgCrdnCalcScalarPluginResultEval"/>
+    </method>
+
+    <method name="Free"/>
+
+    <method name="GetPluginConfig">
+      <parameter name="AgAttrBuilder"/>
+    </method>
+
+    <method name="VerifyPluginConfig">
+      <parameter name="AgUtPluginCfgVerifyResult"/>
+    </method>
+
+  </public>
+
+  <script language="VBScript" src="DistanceToGEO.CalcScalar.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
