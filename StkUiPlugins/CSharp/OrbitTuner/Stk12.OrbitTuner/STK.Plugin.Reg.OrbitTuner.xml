@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+   <CategoryRegistry>
+        <Category Name = "UiPlugins">
+           <NETUiPlugin 
+                DisplayName="Orbit Tuner"
+                TypeName="OrbitWizardUiPlugin.BasicCSharpPlugin"
+                AssemblyName="OrbitWizardUiPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                CodeBase="<change me to the directory of dll>">
+           </NETUiPlugin>
+	</Category>
+   </CategoryRegistry>
+</AGIRegistry>

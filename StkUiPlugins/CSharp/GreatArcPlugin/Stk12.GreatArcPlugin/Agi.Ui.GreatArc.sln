@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agi.Ui.GreatArc.Stk12", "Agi.Ui.GreatArc.Stk12.csproj", "{8BAEA94A-4B75-4727-A788-D4F928DFF818}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|x86.ActiveCfg = Debug|x86
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|x86.Build.0 = Debug|x86
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|x86.ActiveCfg = Release|x86
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3BA25B8-7974-439D-9FFC-783A5B1C46DD}
+	EndGlobalSection
+EndGlobal
