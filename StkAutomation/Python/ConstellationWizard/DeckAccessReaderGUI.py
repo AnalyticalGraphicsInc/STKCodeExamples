@@ -87,11 +87,8 @@ def writeTLEs(TLEFile,deckAccessRpt,deckAccessTLE):
     satFile.close()
     return int(len(tleList)/2)
     
-def FilterObjectsByType(objType,name = ''):
-    from comtypes.client import GetActiveObject
-    # Attach to STK
-    app = GetActiveObject('STK11.Application')
-    root = app.Personality2
+def FilterObjectsByType(root,objType,name = ''):
+
     # Send objects to an xml
     xml = root.AllInstanceNamesToXML()
 
