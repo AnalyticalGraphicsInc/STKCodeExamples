@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stk10.UiPlugin.FomGfxUpdater", "Stk10.UiPlugin.FomGfxUpdater\Stk10.UiPlugin.FomGfxUpdater.csproj", "{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FomGfxUpdater.Installer", "FomGfxUpdater.Installer\FomGfxUpdater.Installer.vdproj", "{BCCA529B-0C80-4E2E-93CE-49339508D150}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Debug|x86.ActiveCfg = Debug|x86
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Debug|x86.Build.0 = Debug|x86
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Release|x86.ActiveCfg = Release|x86
+		{4EE29FB8-17FA-4DC8-9FD8-5237FD9B873F}.Release|x86.Build.0 = Release|x86
+		{BCCA529B-0C80-4E2E-93CE-49339508D150}.Debug|Any CPU.ActiveCfg = Debug
+		{BCCA529B-0C80-4E2E-93CE-49339508D150}.Debug|x86.ActiveCfg = Debug
+		{BCCA529B-0C80-4E2E-93CE-49339508D150}.Release|Any CPU.ActiveCfg = Release
+		{BCCA529B-0C80-4E2E-93CE-49339508D150}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

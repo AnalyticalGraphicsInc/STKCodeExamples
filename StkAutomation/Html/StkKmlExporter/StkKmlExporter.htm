@@ -1,0 +1,1647 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>KML Export Utility</title>
+<style type="text/css">
+    body{background-color: #717F95; font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 8pt;}
+    table{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;}
+    table.light{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;background-color: #EEEEEE;}
+    td{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;}
+    td.dark{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 12pt;background-color: #717F95;}
+    td.light{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;background-color: #EEEEEE;}
+    tr{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;}
+    tr.dark{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 12pt;background-color: #717F95;}
+    tr.light{font-family : Verdana, Helvetica, Arial, sans-serif;font-size : 8pt;background-color: #EEEEEE;}
+    input.btn{cursor:pointer; color:#ffcccccc; font-family:Verdana,helvetica,sans-serif; font-size:8pt; font-weight:medium; background-color:#ffcccccc; border:1px solid; border-top-color:#ffcccccc; border-left-color:#ffcccccc; border-right-color:#ffcccccc; border-bottom-color:#ffcccccc;}
+    input.txt{color:#ffcccccc; font-family:Verdana,helvetica,sans-serif; font-size:8pt; font-weight:medium; background-color:#ffcccccc; border:1px solid; border-top-color:#ffcccccc; border-left-color:#ffcccccc; border-right-color:#ffcccccc; border-bottom-color:#ffcccccc;}
+    </style>
+<meta name="description" content="Utility that exports STK-generated data as points, lines, and polygons in the form of KML files that can be viewed in Google Earth, NASA World Wind, and ArcGIS Explorer.">
+
+<script type="text/vbscript" language="vbscript">
+    Dim stk
+    Dim uiApp
+    Dim root
+    Dim ScenarioLoaded
+    Dim GE
+    Dim UserDir
+    Dim pi
+    Dim path
+    Dim HasProLic
+
+        Sub InitPage()
+            Dim list
+            Set uiApp = window.external
+            Set stk = uiApp.personality
+            Set root = uiApp.Personality2
+
+            Set list = stk.ExecuteCommand("GetSTKHomeDir /")
+
+            Dim thisWindow
+            Set thisWindow = uiApp.Windows("HTML Viewer - KML Export Utility")
+            thisWindow.DockStyle = 3
+            thisWindow.Width = 300
+
+            Dim ret
+            set ret = root.ExecuteCommand("GetUserDir /")
+            UserDir = ret(0)
+
+            ' License check
+            HasProLic = False
+            set ret = root.ExecuteCommand("GetLicenses /")
+            for each lic in ret
+                If left(lic,10) = "STK Expert" or left(lic,15) = "STKProfessional" or left(lic,12) = "Professional" Then
+                    HasProLic = True
+                End If
+            next
+
+
+            ' Get path of script
+            path = window.location
+            path = Replace(path, "file:///", "")
+            path = Replace(path, "%20", " ")
+            path = Replace(path, "KMLexporter_v1.3.htm", "")
+
+            root.UnitPreferences("DateFormat").SetCurrentUnit("YYYY/MM/DD")
+            root.UnitPreferences("DistanceUnit").SetCurrentUnit("m")
+            root.ExecuteCommand("SetUnits / YYYY/MM/DDTime METER")
+            ' Populate tree with current scenario objects
+            reconbody_onload()
+            optionstable_onload()
+        End Sub
+
+        Sub reconbody_onload()
+            Dim oTable
+            Dim oCell
+            set ret = root.ExecuteCommand("CheckScenario /")
+            if ret(0) = 1 then
+
+                j=0
+                Dim ObjStrArray
+                Dim ObjNumArray
+                ' List of object types in tree
+                ObjStrArray = Array("Aircraft","Area Target","Coverage Definition","Facility","Ground Vehicle","Launch Vehicle","Line Target","MTO","Missile","Missile System","Satellite","Ship","Target","Place","Access")
+                ObjNumArray = Array(1,2,7,8,9,10,11,12,13,14,18,21,23,32)
+
+                For i = 0 to 14
+                    Set oRow = document.all.item("recontable").insertRow(j)
+                    j=j+1
+                    Set oCell = oRow.insertCell()
+                    oCell.width = "400"
+                    oCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> " & ObjStrArray(i) & "</a>"
+                    Set oDiv = document.createElement("div")
+                    Set oDiv = oCell.insertAdjacentElement("beforeend", oDiv)
+                    oDiv.style.display = "none"
+                    If i = 14 then
+                        ' Access object
+                        set ret = root.ExecuteCommand("GetAccesses /")
+                        if ret(0) <> "No accesses are computed." then
+                            For j = 0 to ret.count-1
+                                parts = split(ret(j),"  ")
+                                subparts = split(parts(0),"/")
+                                FromObj = subparts(ubound(subparts)-1) & "/" & subparts(ubound(subparts))
+                                if subparts(ubound(subparts)-1) <> "Transmitter" or subparts(ubound(subparts)-1) <> "Receiver" then
+                                    AccessName = subparts(ubound(subparts))
+                                    subparts = split(parts(1),"/")
+                                    ToObj = subparts(ubound(subparts)-1) & "/" & subparts(ubound(subparts))
+                                    if subparts(ubound(subparts)-1) <> "Transmitter" or subparts(ubound(subparts)-1) <> "Receiver" then
+                                        AccessName = AccessName & "_to_" & subparts(ubound(subparts))
+                                        Set oTable = document.createElement("table")
+                                        Set oTable = oDiv.insertAdjacentElement("beforeend", oTable)
+                                        Set oRow = oTable.insertRow
+                                        Set osubCell = oRow.insertCell()
+                                        osubCell.width = "20"
+                                        Set osubCell = oRow.insertCell()
+                                        osubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & "Access/" & FromObj & "_to_" & ToObj & " onclick=""btn_Export_Click()""> " & AccessName
+                                    End If
+                                End If
+                            Next
+                        End If
+                    Else
+                        ' All other STK objects
+                        For each STKObject in root.CurrentScenario.Children.getelements(ObjNumArray(i))
+                            Set oTable = document.createElement("table")
+                            Set oTable = oDiv.insertAdjacentElement("beforeend", oTable)
+                            Set oRow = oTable.insertRow
+                            Set osubCell = oRow.insertCell()
+                            osubCell.width = "20"
+                            Set osubCell = oRow.insertCell()
+                            If STKObject.ClassName = "CoverageDefinition" then
+                                If root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(25).Count = 0 then
+                                    osubCell.innerHTML = "<img src=""leaf.gif""> " & STKObject.InstanceName
+                                else
+                                    osubCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> " & STKObject.InstanceName & "</a>"
+                                    Set oSubDiv = document.createElement("div")
+                                    Set oSubDiv = osubCell.insertAdjacentElement("beforeend", oSubDiv)
+                                    oSubDiv.style.display = "none"
+                                    For each STKsubObject in root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(25)
+                                        Set osubTable = document.createElement("table")
+                                        Set osubTable = oSubDiv.insertAdjacentElement("beforeend", osubTable)
+                                        Set osubRow = osubTable.insertRow
+                                        Set osubsubCell = osubRow.insertCell()
+                                        osubsubCell.width = "20"
+                                        Set osubsubCell = osubRow.insertCell()
+                                        osubsubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & "/" & STKsubObject.ClassName & "/" & STKsubObject.InstanceName &  " onclick=""btn_Export_Click()""> " & STKsubObject.InstanceName
+                                    next
+                                end if
+                            ElseIf STKObject.ClassName = "MissileSystem" then
+                                If root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(14).Count = 0 then
+                                    osubCell.innerHTML = "<img src=""leaf.gif""> " & STKObject.InstanceName
+                                else
+                                    osubCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> " & STKObject.InstanceName & "</a>"
+                                    Set oSubDiv = document.createElement("div")
+                                    Set oSubDiv = osubCell.insertAdjacentElement("beforeend", oSubDiv)
+                                    oSubDiv.style.display = "none"
+                                    For each STKsubObject in root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(14)
+                                        Set osubTable = document.createElement("table")
+                                        Set osubTable = oSubDiv.insertAdjacentElement("beforeend", osubTable)
+                                        Set osubRow = osubTable.insertRow
+                                        Set osubsubCell = osubRow.insertCell()
+                                        osubsubCell.width = "20"
+                                        Set osubsubCell = osubRow.insertCell()
+                                        If root.CurrentScenario.Children(STKObject.InstanceName).Children(STKsubObject.InstanceName).Children.getelements(20).Count = 0 then
+                                            osubsubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & "/" & STKsubObject.ClassName & "/" & STKsubObject.InstanceName &  " onclick=""btn_Export_Click()""> " & STKsubObject.InstanceName
+                                        else
+                                            osubsubCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & "/" & STKsubObject.ClassName & "/" & STKsubObject.InstanceName & " onclick=""btn_Export_Click()""> " & STKsubObject.InstanceName & "</a>"
+                                            Set oSubSubDiv = document.createElement("div")
+                                            Set oSubSubDiv = osubsubCell.insertAdjacentElement("beforeend", oSubSubDiv)
+                                            oSubSubDiv.style.display = "none"
+                                            For each STKsubsubObject in root.CurrentScenario.Children(STKObject.InstanceName).Children(STKsubObject.InstanceName).Children.getelements(20)
+                                                Set osubsubTable = document.createElement("table")
+                                                Set osubsubTable = oSubSubDiv.insertAdjacentElement("beforeend", osubsubTable)
+                                                Set osubsubRow = osubsubTable.insertRow
+                                                Set osubsubsubCell = osubsubRow.insertCell()
+                                                osubsubsubCell.width = "20"
+                                                Set osubsubsubCell = osubsubRow.insertCell()
+                                                osubsubsubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & "/" & STKsubObject.ClassName & "/" & STKsubObject.InstanceName & "/" & STKsubsubObject.ClassName & "/" & STKsubsubObject.InstanceName & " onclick=""btn_Export_Click()""> " & STKsubsubObject.InstanceName
+                                            next
+                                        end if
+                                    next
+                                end if
+                            Else
+                                If root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(20).Count = 0 then
+                                    osubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & " onclick=""btn_Export_Click()""> " & STKObject.InstanceName
+                                else
+                                    osubCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & " onclick=""btn_Export_Click()""> " & STKObject.InstanceName & "</a>"
+                                    Set oSubDiv = document.createElement("div")
+                                    Set oSubDiv = osubCell.insertAdjacentElement("beforeend", oSubDiv)
+                                    oSubDiv.style.display = "none"
+                                    For each STKsubObject in root.CurrentScenario.Children(STKObject.InstanceName).Children.getelements(20)
+                                        Set osubTable = document.createElement("table")
+                                        Set osubTable = oSubDiv.insertAdjacentElement("beforeend", osubTable)
+                                        Set osubRow = osubTable.insertRow
+                                        Set osubsubCell = osubRow.insertCell()
+                                        osubsubCell.width = "20"
+                                        Set osubsubCell = osubRow.insertCell()
+                                        osubsubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox name=" & STKObject.ClassName & "/" & STKObject.InstanceName & "/" & STKsubObject.ClassName & "/" & STKsubObject.InstanceName &  " onclick=""btn_Export_Click()""> " & STKsubObject.InstanceName
+                                    next
+                                end if
+                            End If
+                        next
+                    End If
+                Next
+            Else
+                'retmsg = msgbox("Scenario must be loaded for utility to work.",16,"KML Export Utility")
+            End If
+        End Sub
+
+        Sub optionstable_onload()
+                ' Add Options section
+                Set oRow = document.all.item("optionstable").insertRow(0)
+                Set oCell = oRow.insertCell()
+                oCell.width = "400"
+                oCell.innerHTML = "<a><img style=""cursor:pointer"" src=""plus.gif"" onclick=""VBToggle()""> Export Options</a>"
+                Set oDiv = document.createElement("div")
+                Set oDiv = oCell.insertAdjacentElement("beforeend", oDiv)
+                oDiv.style.display = "none"
+
+                Set oTable = document.createElement("table")
+                Set oTable = oDiv.insertAdjacentElement("beforeend", oTable)
+                Set oRow = oTable.insertRow
+                Set osubCell = oRow.insertCell()
+                osubCell.width = "20"
+                Set osubCell = oRow.insertCell()
+                osubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox id=""CovOpt1""> Draw coverage at altitude"
+
+                Set oTable = document.createElement("table")
+                Set oTable = oDiv.insertAdjacentElement("beforeend", oTable)
+                Set oRow = oTable.insertRow
+                Set osubCell = oRow.insertCell()
+                osubCell.width = "20"
+                Set osubCell = oRow.insertCell()
+                osubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox id=""CovOpt2""> Reverse coverage gradient"
+
+                Set oTable = document.createElement("table")
+                Set oTable = oDiv.insertAdjacentElement("beforeend", oTable)
+                Set oRow = oTable.insertRow
+                Set osubCell = oRow.insertCell()
+                osubCell.width = "20"
+                Set osubCell = oRow.insertCell()
+                osubCell.innerHTML = "<img src=""leaf.gif""> <input type=checkbox checked=checked id=""AccOpt1""> Draw access polygons"
+            End Sub
+
+
+
+        Function VBToggle()
+            Set node = window.event.srcElement.parentnode
+            set sibling  = node.nextSibling
+            ' Unfold the branch if it isn't visible
+            if sibling.style.display = "none" then
+                ' Change the image (if there is an image)
+                if node.children.length > 0 then
+                    if node.children.item(0).tagName = "IMG" then
+                        node.children.item(0).src = "minus.gif"
+                    end if
+                end if
+                sibling.style.display = ""
+            ' Collapse the branch if it IS visible
+            else
+                ' Change the image (if there is an image)
+                if node.children.length > 0 then
+                    if node.children.item(0).tagName = "IMG" then
+                        node.children.item(0).src = "plus.gif"
+                    end if
+                end if
+                sibling.style.display = "none"
+            end if
+        End Function
+
+        Sub btn_Export_Click()
+            dim elm
+            set oTable = document.all.item("recontable")
+            set elm = window.event.srcelement
+
+            root.UnitPreferences("DateFormat").SetCurrentUnit("YYYY/MM/DD")
+            root.ExecuteCommand("SetUnits / YYYY/MM/DDTime METER")
+            set ret = root.ExecuteCommand("CheckScenario /")
+            if ret(0) = 1 then
+                ' KMLString is the varible used to hold the KML data until it is written out to the file
+                KMLString = ""
+                KMLString =  KMLString & "<?xml version=""1.0"" encoding=""UTF-8""?>"
+                KMLString =  KMLString & "<kml xmlns=""http://earth.google.com/kml/2.1"">"
+
+                parts = Split(elm.Name,"/")
+                If parts(0) = "Access" then
+                    ' Access
+                    AccessName = replace(elm.Name,"Access/","")
+                    parts = Split(AccessName,"_to_")
+                    FromObj = Split(parts(0),"/")
+                    ToObj = Split(parts(1),"/")
+                    ObjName = FromObj(Ubound(FromObj)) & "_to_" & ToObj(Ubound(ToObj))
+                    ' Get all computed accesses and get the interval times for the one selected in the tree
+                    set ret = root.ExecuteCommand("GetAccesses /")
+                    For j = 0 to ret.count-1
+                        AccessParts = split(ret(j),"  ")
+                        FromObj = Split(AccessParts(0),"/")
+                        ToObj = Split(AccessParts(1),"/")
+                        FromObjStr = FromObj(Ubound(FromObj)-1) & "/" & FromObj(Ubound(FromObj))
+                        ToObjStr = ToObj(Ubound(ToObj)-1) & "/" & ToObj(Ubound(ToObj))
+                        If instr(FromObjStr,parts(0))>0 then
+                            If instr(ToObjStr,parts(1))>0 Then
+                                KMLString = KMLString & "<Document id=" & chr(34) & ObjName & chr(34) & ">"
+                                KMLString = KMLString & "<name>" & ObjName & "</name>"
+                                If elm.checked then
+                                    ' Add placemarks to folder
+                                    NumIntvls = AccessParts(2)
+                                    AccessTimes = Split(AccessParts(3)," ")
+                                    i = 0
+                                    For k = 1 to NumIntvls
+                                        ' Create points representing the start and stop times of each interval for each object and the connecting polygons
+                                        StartTime = AccessTimes(i) & " " & AccessTimes(i+1)
+                                        StopTime = AccessTimes(i+2) & " " & AccessTimes(i+3)
+                                        KMLString = KMLString & "<Folder>"
+                                        KMLString = KMLString & "<name>Access interval " & k & "</name>"
+                                        KMLString = KMLString & "<Folder>"
+                                        KMLString = KMLString & "<name>polygons</name>"
+                                        set ret1 = root.ExecuteCommand("ConvertDate * YYYY/MM/DDTime EpochSec " & chr(34) & StartTime & chr(34))
+                                        StartEp = cDbl(ret1(0))
+                                        set ret2 = root.ExecuteCommand("ConvertDate * YYYY/MM/DDTime EpochSec " & chr(34) & StopTime & chr(34))
+                                        StopEp = cDbl(ret2(0))
+                                        set AccPolyelm = document.getElementById("AccOpt1")
+                                        If AccPolyelm.checked = true then
+                                            if StopEp-StartEp > 10 Then
+                                                ' Using 10 seconds for interval so polygons do not draw on themselves in the case of tight-turning vehicles.
+                                                For m = StartEp to StopEp Step 10
+                                                    set ret1 = root.ExecuteCommand("ConvertDate * EpochSec YYYY/MM/DDTime " & chr(34) & m & chr(34))
+                                                    StartDT = ret1(0)
+                                                    if (m + 10) > StopEp then
+                                                        n = StopEp
+                                                    Else
+                                                        n = m + 10
+                                                    End If
+                                                    set ret2 = root.ExecuteCommand("ConvertDate * EpochSec YYYY/MM/DDTime " & chr(34) & n & chr(34))
+                                                    StopDT = ret2(0)
+                                                    KMLString = KMLString & AddAccessPoly(AccessParts(0),AccessParts(1),StartDT,StopDT)
+                                                Next
+                                            Else
+                                                KMLString = KMLString & AddAccessPoly(AccessParts(0),AccessParts(1),StartTime,StopTime)
+                                            End If
+                                        End If
+                                        KMLString = KMLString & "</Folder>"
+
+                                        KMLString = KMLString & "<Folder>"
+                                        KMLString = KMLString & "<name>points</name>"
+
+                                        KMLString = KMLString & AddAccessPoints(AccessParts(0),AccessParts(1),StartTime,StopTime)
+                                        KMLString = KMLString & "</Folder>"
+                                        KMLString = KMLString & "</Folder>"
+                                        i = i + 4
+                                    Next
+                                Else
+                                    ' Keep folder empty
+                                    KMLString = KMLString
+                                End If
+                                KMLString = KMLString & "</Document>"
+                            End If
+                        End If
+                    Next
+                ElseIf instr(elm.Name,"FigureOfMerit")>0 then
+                    ' Figure of Merit
+                    parts = Split(elm.Name,"/")
+                    set STKParentObject = root.CurrentScenario.Children(Parts(1))
+                    set STKObject = root.CurrentScenario.Children(Parts(1)).Children(Parts(3))
+                    ObjName = STKParentObject.InstanceName & "_" & STKObject.InstanceName
+
+                    KMLString = KMLString & "<Document id=" & chr(34) & ObjName & chr(34) & ">"
+                    KMLString = KMLString & "<name>" & ObjName & "</name>"
+                    If elm.checked then
+                        ' Add placemarks to folder
+                        KMLString = KMLString & AddPlaceMarks(STKObject)
+                    Else
+                        ' Keep folder empty
+                        KMLString = KMLString
+                    End If
+                    KMLString = KMLString & "</Document>"
+                Else
+                    ' STK object
+                    parts = Split(elm.Name,"/")
+                    ' Get object
+                    If ubound(parts)>3 then
+                        set STKParentObject = root.CurrentScenario.Children(Parts(1))
+                        set STKSubParentObject = root.CurrentScenario.Children(Parts(1)).Children(Parts(3))
+                        set STKObject = root.CurrentScenario.Children(Parts(1)).Children(Parts(3)).Children(Parts(5))
+
+                        ObjName = STKParentObject.InstanceName & "_" & STKSubParentObject.InstanceName & "_" & STKObject.InstanceName
+                    ElseIf ubound(parts)>1 then
+                        set STKParentObject = root.CurrentScenario.Children(Parts(1))
+                        set STKObject = root.CurrentScenario.Children(Parts(1)).Children(Parts(3))
+
+                        ObjName = STKParentObject.InstanceName & "_" & STKObject.InstanceName
+                    Else
+                        set STKObject = root.CurrentScenario.Children(Parts(1))
+
+                        ObjName = STKObject.InstanceName
+                    End If
+                    KMLString = KMLString & "<Document id=" & chr(34) & ObjName & chr(34) & ">"
+                    KMLString = KMLString & "<name>" & ObjName & "</name>"
+
+                    If elm.checked then
+                        ' Add placemarks to folder
+                        KMLString = KMLString & AddPlaceMarks(STKObject)
+                    Else
+                        ' Keep folder empty
+                        KMLString = KMLString
+                    End If
+                    KMLString = KMLString & "</Document>"
+                End If
+
+                KMLString =  KMLString & "</kml>"
+
+                ' Write KMLString to file
+                Set objFSO = CreateObject("Scripting.FileSystemObject")
+                If document.form1.txt_OutputDir.value <> "" then
+
+                    If Not objFSO.FolderExists(document.form1.txt_OutputDir.value) Then
+                       Set objFolder = objFSO.CreateFolder(document.form1.txt_OutputDir.value)
+                    End If
+
+                    Set objFile = objFSO.CreateTextFile(document.form1.txt_OutputDir.value & "\" & ObjName & ".kml")
+                    objFile.WriteLine(KMLString)
+
+                    ' Open KML file in GE
+                    On error resume next
+                    GE.OpenKMLFile document.form1.txt_OutputDir.value & "\" & ObjName & ".kml",1
+                    If err.Number <> 0 Then
+                        'retmsg = msgbox("You are currently not connected to Google Earth." & chr(10) & "Your kml files have been created and can be found at" & chr(10) & document.form1.txt_OutputDir.value,,"KML export utility")
+                        err.Clear
+                    End If
+                Else
+                    If objFSO.FolderExists(UserDir & "\KMLdata") = False Then
+                        Set objFolder = objFSO.CreateFolder(UserDir & "\KMLdata")
+                    End If
+                    Set objFile = objFSO.CreateTextFile(UserDir & "\KMLdata\" & ObjName & ".kml")
+                    objFile.WriteLine(KMLString)
+
+                    ' Open KML file in GE
+                    On error resume next
+                    GE.OpenKMLFile UserDir & "\KMLdata\" & ObjName & ".kml",1
+                    If err.Number <> 0 Then
+                        'retmsg = msgbox("You are currently not connected to Google Earth." & chr(10) & "Your kml files have been created and can be found at" & chr(10) & UserDir & "\KMLdata",,"KML export utility")
+                        err.Clear
+                    End If
+                End If
+                objFile.close
+                Set objFile = nothing
+                Set objFSO = nothing
+            Else
+                'retmsg = msgbox("Scenario must be loaded for utility to work.",16,"KML Export Utility")
+            End If
+        End Sub
+
+        Function AddPlaceMarks(m_STKObject)
+            Dim PlaceString
+            PlaceString = ""
+            set ret = root.ExecuteCommand("GetTimePeriod *")
+            parts = split(ret(0),",")
+            StartTime = replace(parts(0),chr(34),"")
+            StopTime = replace(parts(1),chr(34),"")
+
+            STKObjProps = STKObjectProperties(m_STKObject)
+            Select Case m_STKObject.ClassName
+                Case "Aircraft", "GroundVehicle", "LaunchVehicle", "Missile", "Satellite", "Ship"
+                    ' Get data from STK
+                    STKObjTimeLLAHPR = TimeLLAHPR(m_STKObject,StartTime, StopTime)
+
+                    ObjTime = STKObjTimeLLAHPR(0)
+                    ObjLat = STKObjTimeLLAHPR(1)
+                    ObjLon = STKObjTimeLLAHPR(2)
+                    ObjAlt = STKObjTimeLLAHPR(3)
+
+                    On error Resume Next
+                    For i = lbound(ObjLat) to ubound(ObjLat)
+                        If ObjLon(i)> 180 then
+                            ObjLon(i) = ObjLon(i) - 360
+                        End If
+                        PointString = ObjLon(i) & "," & ObjLat(i) & "," & ObjAlt(i) & " " & PointString
+                    Next
+                    StartPtString = ObjLon(lbound(ObjLat)) & "," & ObjLat(lbound(ObjLat)) & "," & ObjAlt(lbound(ObjLat))
+                    StopPtString = ObjLon(ubound(ObjLat)) & "," & ObjLat(ubound(ObjLat)) & "," & ObjAlt(ubound(ObjLat))
+
+                    If err.Number <> 0 Then
+                        retmsg = msgbox("No data available during scenario",,"KML Export Utility")
+                        err.Clear
+                    Else
+                        ' Placemark for polyline of entire route
+                        If m_STKObject.ClassName = "GroundVehicle" Then
+                            AltMode = "clampedToGround"
+                        Else
+                            AltMode = "absolute"
+                        End If
+                        alpha = "FF"
+
+                        Desc = "<table><tr><td><b>Start time: </b></td><td>" & ObjTime(lbound(ObjTime)) & "</td></tr><tr><td><b>Stop time: </b></td><td>" & ObjTime(ubound(ObjTime)) & "</td></tr></table>"
+                        PlaceString = PlaceString & LinePlaceMark(m_STKObject.path & " Route",m_STKObject.InstanceName,PointString,AltMode,STKObjProps,alpha,Desc)
+                        Desc = "<table><tr><td><b>Start time: </b></td><td>" & ObjTime(lbound(ObjTime)) & "</td></tr></table>"
+                        PlaceString = PlaceString & PointPlaceMark(m_STKObject.path & " StartPoint",m_STKObject.InstanceName,StartPtString,AltMode,STKObjProps,Desc)
+                        Desc = "<table><tr><td><b>Stop time: </b></td><td>" & ObjTime(ubound(ObjTime)) & "</td></tr></table>"
+                        PlaceString = PlaceString & PointPlaceMark(m_STKObject.path & " EndPoint","",StopPtString,AltMode,STKObjProps,Desc)
+                    End If
+                Case "AreaTarget", "LineTarget"
+                    m_FixedLLA = FixedLLA(m_STKObject)
+                    ObjLat = m_FixedLLA(0)
+                    ObjLon = m_FixedLLA(1)
+                    ObjAlt = m_FixedLLA(2)
+                    On Error Resume Next
+                    For i = lbound(ObjLat) to ubound(ObjLat)
+                        If ObjLon(i)> 180 then
+                            ObjLon(i) = ObjLon(i) - 360
+                        End If
+                        PointString = ObjLon(i) & "," & ObjLat(i) & "," & ObjAlt(i) & " " & PointString
+                    Next
+                    If err.Number <> 0 Then
+                        retmsg = msgbox("No data available during scenario",,"KML Export Utility")
+                        err.Clear
+                    Else
+                        If ObjAlt(0) = 0 then
+                            AltMode = "clampedToGround"
+                            Extrude = 0
+                            Fill = 0
+                            alpha = "FF"
+                        Else
+                            AltMode = "absolute"
+                            Extrude = 1
+                            Fill = 1
+                            alpha = "AA"
+                        End If
+
+                        If m_STKObject.ClassName = "AreaTarget" Then
+                            Outline = 1
+                            Desc = ""
+                            ' Add first point again to pts since area targets first and last points aren't the same but the spec requires them to be that way
+                            PointString = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0) & " " & PointString
+                            PlaceString = PlaceString & PolyPlaceMark(m_STKObject.path & " Polygon",m_STKObject.InstanceName,PointString,AltMode,Fill,STKObjProps,alpha,Outline,Desc,Extrude)
+                        Else
+                            Desc = ""
+                            PlaceString = PlaceString & LinePlaceMark(m_STKObject.path & " Line",m_STKObject.InstanceName,PointString,AltMode,STKObjProps,alpha,Desc)
+                        End If
+                    End If
+                Case "Facility", "Place", "Target"
+                    m_FixedLLA = FixedLLA(m_STKObject)
+                    ObjLat = m_FixedLLA(0)
+                    ObjLon = m_FixedLLA(1)
+                    ObjAlt = m_FixedLLA(2)
+                    On Error Resume Next
+                    If ObjLon(0)> 180 then
+                        ObjLon(0) = ObjLon(0) - 360
+                    End If
+                    PointString = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                    If err.Number <> 0 Then
+                        retmsg = msgbox("No data available during scenario",,"KML Export Utility")
+                        err.Clear
+                    Else
+                        AltMode = "clampedToGround"
+                        Desc = "<table><tr><td><b>Latitude: </b></td><td>" & ObjLat(0) & "</td></tr><tr><td><b>Longitude: </b></td><td>" & ObjLon(0) & "</td></tr><tr><td><b>Altitude: </b></td><td> " & ObjAlt(0) & "</td></tr></table>"
+                        PlaceString = PlaceString & PointPlacemark(m_STKObject.path & " Point",m_STKObject.InstanceName,PointString,AltMode,STKObjProps,Desc)
+                    End If
+                Case "Sensor"
+                    m_FootPrint = FootPrint(m_STKObject)
+                    AltMode = "clampedToGround"
+                    Fill = 1
+                    alpha = "AA"
+                    Outline = 1
+                    On error Resume Next
+                    For i = lbound(m_FootPrint,1) to ubound(m_FootPrint,1)
+                        For j = lbound(m_FootPrint,2) to ubound(m_FootPrint,2)
+                            parts = split(m_FootPrint(i,j),"|")
+                            DateTime = parts(ubound(parts))
+                            FtPrtString = replace(m_FootPrint(i,j),"|" & parts(ubound(parts)),"")
+                            Desc = "<table><tr><td><b>Footprint time: </b></td><td>" & DateTime & "</td></tr></table>"
+                            PlaceString = PlaceString & PolyPlacemark(m_STKObject.path & " Polygon",m_STKObject.InstanceName,FtPrtString,AltMode,Fill,STKObjProps,alpha,Outline,Desc,0)
+                        Next
+                    Next
+                    If err.Number <> 0 Then
+                        retmsg = msgbox("No data available during scenario",,"KML Export Utility")
+                        err.Clear
+                    End If
+                Case "FigureOfMerit"
+                    m_LLAValues = LLAValues(m_STKObject)
+
+                    m_GridPolygons = GridPolygons(m_STKObject,m_LLAValues)
+                    On Error Resume Next
+                    objLat = m_LLAValues(0)
+                    objLon = m_LLAValues(1)
+                    objAlt = m_LLAValues(2)
+                    objVal = m_LLAValues(3)
+                    If err.Number <> 0 Then
+                        retmsg = msgbox("No data available during scenario",,"KML Export Utility")
+                        err.Clear
+                    Else
+                        On Error Resume Next
+                        objUnits = m_LLAValues(4)
+                        ObjUnitName = enumerateUnit(objUnits)
+                        If err.Number <> 0 Then
+                            ObjUnitName = ""
+                            err.Clear
+                        End If
+                        parts = split(m_GridPolygons(0)," ")
+                        subparts = split(parts(0),",")
+                        alt = subparts(2)
+
+                        set Altelm = document.getElementById("CovOpt1")
+                        If Altelm.checked = True Then
+                            AltMode = "absolute"
+                        Else
+                            AltMode = "clampedToGround"
+                        End If
+
+                        Max = -1000000
+                        Min = 1000000
+						
+                        'For i = lbound(objVal) to ubound(objVal)
+                        '    If objVal(i) <> m_STKObject.Definition.Satisfaction.InvalidDataIndicator Then
+                        '        If objVal(i) > Max Then
+                        '            Max = objVal(i)
+                        '            MaxInt = i
+                        '        End If
+                        '        If objVal(i) < Min Then
+                        '            Min = objVal(i)
+                        '            MinInt = i
+                        '        End If
+                        '    End If
+                        'Next
+						
+						set levelattributes = m_STKObject.Graphics.Static.Contours.LevelAttributes
+						
+						Min = levelattributes.Item(0).Level
+						Max = levelattributes.Item(levelattributes.Count-1).Level
+
+                        set Gradelm = document.getElementById("CovOpt2")
+
+                        Delta = Max - Min
+						msgbox("Max=" & Max & " Min="& Min & " Delta=" & Delta) 
+                        If Delta = 0 then Delta = .001
+                        For i = lbound(m_GridPolygons) to ubound(m_GridPolygons)
+                            ' Assign color to a FOM value
+                            If Gradelm.checked = true then
+                                m_HUE = abs((Max-objVal(i))/Delta) * 240
+								msgbox m_HUE
+                            Else
+                                m_HUE = abs((objVal(i)-Min)/Delta) * 240
+                            End If
+                            m_RGB = HSV2RGB(m_Hue,100,100)
+                            Redhex = "00" & Hex(m_RGB(0))
+                            RedHex = Right(RedHex,2)
+                            Greenhex = "00" & Hex(m_RGB(1))
+                            Greenhex = right(Greenhex,2)
+                            Bluehex = "00" & Hex(m_RGB(2))
+                            Bluehex = right(Bluehex,2)
+
+                            ' Scale legend
+                            If Delta >= 10 then
+                                Max = FormatNumber(Max,0)
+                                Min = FormatNumber(Min,0)
+                                Delta1 = FormatNumber(Min+Delta*1/4,0)
+                                Delta2 = FormatNumber(Min+Delta*1/2,0)
+                                Delta3 = FormatNumber(Min+Delta*3/4,0)
+                            Elseif Delta <10 and Delta>1 then
+                                Max = FormatNumber(Max,1)
+                                Min = FormatNumber(Min,1)
+                                Delta1 = FormatNumber(Min+Delta*1/4,1)
+                                Delta2 = FormatNumber(Min+Delta*1/2,1)
+                                Delta3 = FormatNumber(Min+Delta*3/4,1)
+                            Elseif Delta > 0.5 and Delta <=1 then
+                                Max = FormatNumber(Max,2)
+                                Min = FormatNumber(Min,2)
+                                Delta1 = FormatNumber(Min+Delta*1/4,2)
+                                Delta2 = FormatNumber(Min+Delta*1/2,2)
+                                Delta3 = FormatNumber(Min+Delta*3/4,2)
+                            Else
+                                Max = FormatNumber(Max,3)
+                                Min = FormatNumber(Min,3)
+                                Delta1 = FormatNumber(Min+Delta*1/4,3)
+                                Delta2 = FormatNumber(Min+Delta*1/2,3)
+                                Delta3 = FormatNumber(Min+Delta*3/4,3)
+                            End If
+
+                            If objVal(i) <> m_STKObject.Definition.Satisfaction.InvalidDataIndicator then
+                                Fill = 1
+                                alpha = "AA"
+                                Outline = 0
+                                STKObjProps(0) =  Bluehex & Greenhex & Redhex
+                                STKObjProps(1) =  1
+                                If Gradelm.checked = true then
+                                    Desc = "<table><tr><td><b>Latitude: </b></td><td>" & ObjLat(i) & "</td></tr><tr><td><b>Longitude: </b></td><td>" & ObjLon(i) & "</td></tr><tr><td><b>Altitude: </b></td><td> " & ObjAlt(i) & "</td></tr><tr><td><b>Value: </b></td><td> " & ObjVal(i) & "</td><td> " & ObjUnitName & "</td></tr></table><table width=""205""><tr><td>&nbsp;<img src=""" & path & "legend.gif"" /></td></tr></table><table width=""255""><tr><td>" & max & "</td><td>" & Delta3 & "</td><td>" & Delta2 & "</td><td>" & Delta1 & "</td><td>" & min & "</td></tr></table>"
+                                Else
+                                    Desc = "<table><tr><td><b>Latitude: </b></td><td>" & ObjLat(i) & "</td></tr><tr><td><b>Longitude: </b></td><td>" & ObjLon(i) & "</td></tr><tr><td><b>Altitude: </b></td><td> " & ObjAlt(i) & "</td></tr><tr><td><b>Value: </b></td><td> " & ObjVal(i) & "</td><td> " & ObjUnitName & "</td></tr></table><table width=""205""><tr><td>&nbsp;<img src=""" & path & "legend.gif"" /></td></tr></table><table width=""255""><tr><td>" & min & "</td><td>" & Delta1 & "</td><td>" & Delta2 & "</td><td>" & Delta3 & "</td><td>" & max & "</td></tr></table>"
+                                End If
+                                PlaceString = PlaceString & PolyPlacemark(m_STKObject.path & " Polygon",m_STKObject.InstanceName,m_GridPolygons(i),AltMode,Fill,STKObjProps,alpha,Outline,Desc,0)
+                            End If
+                        Next
+                    End If
+                Case "MTO"
+                    AltMode = "absolute"
+                    alpha = "FF"
+                    redim preserve m_TrackLLA(m_STKObject.Tracks.Count-1)
+                    i = 0
+                    For Each track In m_STKObject.Tracks
+                    j=0
+                        For Each point In track.Points
+                            j=j+1
+                            If point.Longitude > 180 then
+                                ptLon = point.Longitude - 360
+                            else
+                                ptLon = point.Longitude
+                            End If
+
+                            ' Altitudes must be in MSL but track interface only has ellipsoid.  Use connect command
+                            set ret = root.ExecuteCommand("Position_RM " & m_STKObject.path & " AltRef MSL Track " & track.Id &  " Time " & chr(34) & point.Time & chr(34))
+                            parts = split(ret(0),",")
+                            m_TrackLLA(i) = m_TrackLLA(i) & " " & ptLon & "," & point.Latitude & "," & parts(3)
+                        Next
+                        STKObjProps(0) = ConvertColor(m_STKObject.Graphics.Tracks.Item(i).Color)
+                        STKObjProps(1) = Replace(m_STKObject.Graphics.Tracks.Item(i).Line.Width, "e", "")+1
+
+                        Desc = "<table><tr><td><b>Start time: </b></td><td>" & m_STKObject.Tracks.Item(i).Points(0).Time & "</td></tr><tr><td><b>Stop time: </b></td><td>" & m_STKObject.Tracks.Item(i).Points(j-1).Time & "</td></tr></table>"
+                        PlaceString = PlaceString & LinePlaceMark(m_STKObject.path & " Route",track.Name,m_TrackLLA(i),AltMode,STKObjProps,alpha,Desc)
+
+                        Desc = "<table><tr><td><b>Start time: </b></td><td>" & m_STKObject.Tracks.Item(i).Points(0).Time & "</td></tr></table>"
+                        StartPtString = m_STKObject.Tracks.Item(i).Points(0).Longitude & "," & m_STKObject.Tracks.Item(i).Points(0).Latitude & "," & m_STKObject.Tracks.Item(i).Points(0).Altitude
+                        PlaceString = PlaceString & PointPlaceMark(m_STKObject.path & " StartPoint",track.Name,StartPtString,AltMode,STKObjProps,Desc)
+
+                        Desc = "<table><tr><td><b>Stop time: </b></td><td>" & m_STKObject.Tracks.Item(i).Points(j-1).Time & "</td></tr></table>"
+                        StopPtString = m_STKObject.Tracks.Item(i).Points(j-1).Longitude & "," & m_STKObject.Tracks.Item(i).Points(j-1).Latitude & "," & m_STKObject.Tracks.Item(i).Points(j-1).Altitude
+                        PlaceString = PlaceString & PointPlaceMark(m_STKObject.path & " EndPoint",track.Name,StopPtString,AltMode,STKObjProps,Desc)
+                        i = i + 1
+                    Next
+
+            End Select
+            ' Return the KML string of placemark(s)
+            AddPlaceMarks = PlaceString
+        End Function
+
+        Function AddAccessPoly(m_FromAccessObj,m_ToAccessObj,m_StartTime,m_StopTime)
+            Dim PlaceString
+            PlaceString = ""
+            For j = 0 to 1
+                If j = 0 then
+                    m_FromObj = split(m_FromAccessObj,"/")
+                    If m_FromObj(ubound(m_FromObj)-1) = "Sensor" Then
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2))
+                        set STKSubObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2)).Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKSubObject)
+                    ElseIf m_FromObj(ubound(m_FromObj)-3) = "MissileSystem" Then
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2)).Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKObject)
+                    Else
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKObject)
+                    End If
+                Else
+                    m_ToObj = split(m_ToAccessObj,"/")
+                    If m_ToObj(ubound(m_ToObj)-1) = "Sensor" Then
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2))
+                        set STKSubObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2)).Children(m_ToObj(ubound(m_ToObj)))
+                    ElseIf m_ToObj(ubound(m_ToObj)-3) = "MissileSystem" Then
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2)).Children(m_ToObj(ubound(m_ToObj)))
+                    Else
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)))
+                    End If
+                End If
+
+                Select Case STKObject.ClassName
+                    Case "Aircraft", "GroundVehicle", "LaunchVehicle", "Missile", "Satellite", "Ship"
+                        ' Get data from STK
+                        STKObjTimeLLAHPR = TimeLLAHPR(STKObject,m_StartTime,m_StopTime)
+
+                        ObjTime = STKObjTimeLLAHPR(0)
+                        ObjLat = STKObjTimeLLAHPR(1)
+                        ObjLon = STKObjTimeLLAHPR(2)
+                        ObjAlt = STKObjTimeLLAHPR(3)
+
+                        If J = 0 then
+                            For i = lbound(ObjLat) to ubound(ObjLat)
+                                If ObjLon(i) > 180 then
+                                    ObjLon(i) = ObjLon(i) - 360
+                                End If
+                                PointString = PointString & " " & ObjLon(i) & "," & ObjLat(i) & "," & ObjAlt(i)
+                            Next
+                        Else
+                            For i = ubound(ObjLat) to lbound(ObjLat) step -1
+                                If ObjLon(i) > 180 then
+                                    ObjLon(i) = ObjLon(i) - 360
+                                End If
+                                PointString = PointString & " " & ObjLon(i) & "," & ObjLat(i) & "," & ObjAlt(i)
+                            Next
+                        End If
+                    Case "AreaTarget", "LineTarget"
+                        m_Centroid = Centroid(STKObject)
+                        ObjLat = m_Centroid(0)
+                        ObjLon = m_Centroid(1)
+                        ObjAlt = m_Centroid(2)
+                        If ObjLon(0) > 180 then
+                            ObjLon(0) = ObjLon(0) - 360
+                        End If
+                        PointString = PointString & " " & ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                    Case "Facility", "Place", "Target"
+                        m_FixedLLA = FixedLLA(STKObject)
+                        ObjLat = m_FixedLLA(0)
+                        ObjLon = m_FixedLLA(1)
+                        ObjAlt = m_FixedLLA(2)
+                        If ObjLon(0) > 180 then
+                            ObjLon(0) = ObjLon(0) - 360
+                        End If
+                        PointString = PointString & " " & ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                End Select
+                If j=0 then
+                    If ObjLon(0) > 180 then
+                        ObjLon(0) = ObjLon(0) - 360
+                    End If
+                    StartPoint = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                End If
+            Next
+            PointString = PointString & " " & StartPoint
+            AltMode = "absolute"
+            Fill = 1
+            alpha = "AA"
+            Outline = 0
+            Desc = "<table><tr><td><b>Access from: </b></td><td>" & m_FromObj(ubound(m_FromObj)) & "</td></tr><tr><td><b>Access to: </b></td><td>" & m_ToObj(ubound(m_ToObj)) & "</td></tr><tr><td><b>For: </b></td><td> " & m_StartTime & " to " & m_StopTime & "</td></tr></table>"
+            PlaceString = PolyPlaceMark(m_FromAccessObj & "_To_" & m_ToAccessObj & " Polygon","Access Poly",PointString,AltMode,Fill,STKObjProps,alpha,Outline,Desc,0)
+
+            ' Return the KML string of placemark(s)
+            AddAccessPoly = PlaceString
+        End Function
+
+        Function AddAccessPoints(m_FromAccessObj,m_ToAccessObj,m_StartTime,m_StopTime)
+            Dim PlaceString
+            PlaceString = ""
+            m_FromObj = split(m_FromAccessObj,"/")
+            m_ToObj = split(m_ToAccessObj,"/")
+            Desc = "<table><tr><td><b>Access from: </b></td><td>" & m_FromObj(ubound(m_FromObj)) & "</td></tr><tr><td><b>Access to: </b></td><td>" & m_ToObj(ubound(m_ToObj)) & "</td></tr><tr><td><b>Interval: </b></td><td> " & m_StartTime & " to " & m_StopTime & "</td></tr></table>"
+            For j = 0 to 1
+                If j = 0 then
+                    If m_FromObj(ubound(m_FromObj)-1) = "Sensor" Then
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2))
+                        set STKSubObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2)).Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKSubObject)
+                    ElseIf m_FromObj(ubound(m_FromObj)-3) = "MissileSystem" Then
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)-2)).Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKObject)
+                    Else
+                        set STKObject = root.CurrentScenario.Children(m_FromObj(ubound(m_FromObj)))
+                        STKObjProps = STKObjectProperties(STKObject)
+                    End If
+                Else
+                    If m_ToObj(ubound(m_ToObj)-1) = "Sensor" Then
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2))
+                        set STKSubObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2)).Children(m_ToObj(ubound(m_ToObj)))
+                    ElseIf m_ToObj(ubound(m_ToObj)-3) = "MissileSystem" Then
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)-2)).Children(m_ToObj(ubound(m_ToObj)))
+                    Else
+                        set STKObject = root.CurrentScenario.Children(m_ToObj(ubound(m_ToObj)))
+                    End If
+                End If
+
+                Select Case STKObject.ClassName
+                    Case "Aircraft", "GroundVehicle", "LaunchVehicle", "Missile", "Satellite", "Ship"
+                        ' Get data from STK
+                        STKObjTimeLLAHPR = TimeLLAHPR(STKObject,m_StartTime,m_StopTime)
+
+                        ObjTime = STKObjTimeLLAHPR(0)
+                        ObjLat = STKObjTimeLLAHPR(1)
+                        ObjLon = STKObjTimeLLAHPR(2)
+                        ObjAlt = STKObjTimeLLAHPR(3)
+                        If ObjLon(0) > 180 then
+                            ObjLon(0) = ObjLon(0) - 360
+                        End If
+                        PointString = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+
+                        AltMode = "absolute"
+                        PlaceString = PlaceString & PointPlaceMark(m_FromAccessObj & "_To_" & m_ToAccessObj & " StartPoint","Access Start Point",PointString,AltMode,STKObjProps,Desc)
+
+                        ObjTime = STKObjTimeLLAHPR(0)
+                        ObjLat = STKObjTimeLLAHPR(1)
+                        ObjLon = STKObjTimeLLAHPR(2)
+                        ObjAlt = STKObjTimeLLAHPR(3)
+                        If ObjLon(ubound(ObjLon)) > 180 then
+                            ObjLon(ubound(ObjLon)) = ObjLon(ubound(ObjLon)) - 360
+                        End If
+                        PointString = ObjLon(ubound(ObjLon)) & "," & ObjLat(ubound(ObjLat)) & "," & ObjAlt(ubound(ObjAlt))
+                        AltMode = "absolute"
+                        PlaceString = PlaceString & PointPlaceMark(m_FromAccessObj & "_To_" & m_ToAccessObj & " EndPoint","Access Stop Point",PointString,AltMode,STKObjProps,Desc)
+                    Case "AreaTarget", "LineTarget"
+                        m_Centroid = Centroid(STKObject)
+                        ObjLat = m_Centroid(0)
+                        ObjLon = m_Centroid(1)
+                        ObjAlt = m_Centroid(2)
+                        If ObjLon(0) > 180 then
+                            ObjLon(0) = ObjLon(0) - 360
+                        End If
+                        PointString = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                        AltMode = "clampedToGround"
+                        PlaceString = PlaceString & PointPlaceMark(m_FromAccessObj & "_To_" & m_ToAccessObj & " Point","Access Point",PointString,AltMode,STKObjProps,Desc)
+                    Case "Facility", "Place", "Target"
+                        m_FixedLLA = FixedLLA(STKObject)
+                        ObjLat = m_FixedLLA(0)
+                        ObjLon = m_FixedLLA(1)
+                        ObjAlt = m_FixedLLA(2)
+                        If ObjLon(0) > 180 then
+                            ObjLon(0) = ObjLon(0) - 360
+                        End If
+                        PointString = ObjLon(0) & "," & ObjLat(0) & "," & ObjAlt(0)
+                        AltMode = "clampedToGround"
+                        PlaceString = PlaceString & PointPlaceMark(m_FromAccessObj & "_To_" & m_ToAccessObj & " Point","Access Point",PointString,AltMode,STKObjProps,Desc)
+                End Select
+            Next
+
+            ' Return the KML string of placemark(s)
+            AddAccessPoints = PlaceString
+        End Function
+
+        Function PointPlaceMark(m_ID,m_Name,m_PointString,m_AltMode,m_STKObjProps,m_Desc)
+            descStr = DescriptionString
+            PlaceString = PlaceString & VbCrLf & "<Placemark>"
+            PlaceString = PlaceString & VbCrLf & "<name>" & m_Name & "</name>"
+            PlaceString = PlaceString & VbCrLf & "<open>0</open>"
+            PlaceString = PlaceString & VbCrLf & "<description>" & descStr(0) & m_Desc & descStr(1) & "</description>"
+            PlaceString = PlaceString & VbCrLf & "<Style>"
+            PlaceString = PlaceString & VbCrLf & "<IconStyle>"
+            PlaceString = PlaceString & VbCrLf & "<Icon>"
+            PlaceString = PlaceString & VbCrLf & "<href>http://maps.google.com/mapfiles/kml/pal3/icon61.png</href>"
+            PlaceString = PlaceString & VbCrLf & "</Icon>"
+            PlaceString = PlaceString & VbCrLf & "</IconStyle>"
+            PlaceString = PlaceString & VbCrLf & "</Style>"
+            PlaceString = PlaceString & VbCrLf & "<Point id=" & chr(34) & m_ID & chr(34) & ">"
+            PlaceString = PlaceString & VbCrLf & "<altitudeMode>" & m_AltMode & "</altitudeMode>"
+            PlaceString = PlaceString & VbCrLf & "<coordinates>" & m_PointString & "</coordinates>"
+            PlaceString = PlaceString & VbCrLf & "</Point>"
+            PlaceString = PlaceString & VbCrLf & "</Placemark>"
+            PointPlaceMark = PlaceString
+        End Function
+
+        Function LinePlaceMark(m_ID,m_Name,m_PointString,m_AltMode,m_STKObjProps,alpha,m_Desc)
+            descStr = DescriptionString
+            PlaceString = PlaceString & VbCrLf & "<Placemark>"
+            PlaceString = PlaceString & VbCrLf & "<name>" & m_Name & "</name>"
+            PlaceString = PlaceString & VbCrLf & "<description>" & descStr(0) & m_Desc & descStr(1) & "</description>"
+            PlaceString = PlaceString & VbCrLf & "<open>0</open>"
+            PlaceString = PlaceString & VbCrLf & "<Style>"
+            PlaceString = PlaceString & VbCrLf & "<LineStyle>"
+            PlaceString = PlaceString & VbCrLf & "<color>" & alpha & m_STKObjProps(0) & "</color>"
+            PlaceString = PlaceString & VbCrLf & "<width>" & m_STKObjProps(1) & "</width>"
+            PlaceString = PlaceString & VbCrLf & "</LineStyle>"
+            PlaceString = PlaceString & VbCrLf & "</Style>"
+            PlaceString = PlaceString & VbCrLf & "<LineString id=" & chr(34) & m_ID & chr(34) & ">"
+            PlaceString = PlaceString & VbCrLf & "<altitudeMode>" & m_AltMode & "</altitudeMode>"
+            PlaceString = PlaceString & VbCrLf & "<coordinates>" & m_PointString & "</coordinates>"
+            PlaceString = PlaceString & VbCrLf & "</LineString>"
+            PlaceString = PlaceString & VbCrLf & "</Placemark>"
+            LinePlaceMark = PlaceString
+        End Function
+
+        Function PolyPlaceMark(m_ID,m_Name,m_PointString,m_AltMode,m_Fill,m_STKObjProps,alpha,m_Outline,m_Desc,m_Extrude)
+            descStr = DescriptionString
+            PlaceString = PlaceString & VbCrLf & "<Placemark>"
+            PlaceString = PlaceString & VbCrLf & "<name>" & m_Name & "</name>"
+            PlaceString = PlaceString & VbCrLf & "<description>" & descStr(0) & m_Desc & descStr(1) & "</description>"
+            PlaceString = PlaceString & VbCrLf & "<open>0</open>"
+            PlaceString = PlaceString & VbCrLf & "<Style>"
+            PlaceString = PlaceString & VbCrLf & "<LineStyle>"
+            PlaceString = PlaceString & VbCrLf & "<color>" & alpha & m_STKObjProps(0) & "</color>"
+            PlaceString = PlaceString & VbCrLf & "<width>" & m_STKObjProps(1) & "</width>"
+            PlaceString = PlaceString & VbCrLf & "</LineStyle>"
+            PlaceString = PlaceString & VbCrLf & "<PolyStyle>"
+            PlaceString = PlaceString & VbCrLf & "<color>" & alpha & m_STKObjProps(0) & "</color>"
+            PlaceString = PlaceString & VbCrLf & "<colorMode>normal</colorMode>"
+            PlaceString = PlaceString & VbCrLf & "<fill>" & m_Fill & "</fill>"
+            PlaceString = PlaceString & VbCrLf & "<outline>" & m_Outline & "</outline>"
+            PlaceString = PlaceString & VbCrLf & "</PolyStyle>"
+            PlaceString = PlaceString & VbCrLf & "</Style>"
+            PlaceString = PlaceString & VbCrLf & "<Polygon  id=" & chr(34) & m_ID & chr(34) & ">"
+            PlaceString = PlaceString & VbCrLf & "<extrude>" & m_Extrude & "</extrude>"
+            PlaceString = PlaceString & VbCrLf & "<tessellate>0</tessellate>"
+            PlaceString = PlaceString & VbCrLf & "<altitudeMode>" & m_AltMode & "</altitudeMode>"
+            PlaceString = PlaceString & VbCrLf & "<outerBoundaryIs>"
+            PlaceString = PlaceString & VbCrLf & "<LinearRing>"
+            PlaceString = PlaceString & VbCrLf & "<coordinates>" & m_PointString & "</coordinates>"
+            PlaceString = PlaceString & VbCrLf & "</LinearRing>"
+            PlaceString = PlaceString & VbCrLf & "</outerBoundaryIs>"
+            PlaceString = PlaceString & VbCrLf & "</Polygon>"
+            PlaceString = PlaceString & VbCrLf & "</Placemark>"
+            PolyPlaceMark = PlaceString
+        End Function
+
+        Function STKObjectProperties(m_Object)
+            Dim m_ObjectProp(1)
+            ' m_ObjectProp(Color,LineWeight)
+            Select Case m_Object.ClassName
+            Case "Aircraft"
+                set oAircraft = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oAirGfx = oAircraft.Graphics
+                oAirGfx.SetAttributesType(1)
+                set oAirGfxAtt = oAirGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oAirGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oAirGfxAtt.Line.Width, "e", "")+1
+            Case "AreaTarget"
+                set oAreaTarget = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oATGfx = oAreaTarget.Graphics
+                m_ObjectProp(0) = ConvertColor(oATGfx.Color)
+                m_ObjectProp(1) = Replace(oATGfx.BoundaryWidth, "e", "")+1
+            Case "Facility"
+                set oFacility = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oFacGfx = oFacility.Graphics
+                m_ObjectProp(0) = ConvertColor(oFacGfx.Color)
+            Case "GroundVehicle"
+                set oGrndVeh = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oGrndVehGfx = oGrndVeh.Graphics
+                oGrndVehGfx.SetAttributesType(1)
+                set oGrndVehGfxAtt = oGrndVehGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oGrndVehGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oGrndVehGfxAtt.Line.Width, "e", "")+1
+            Case "LaunchVehicle"
+                set oLaunchVe = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oLVGfx = oLaunchVe.Graphics
+                oLVGfx.SetAttributesType(1)
+                set oLVGfxAtt = oLVGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oLVGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oLVGfxAtt.Line.Width, "e", "")+1
+            Case "LineTarget"
+                set oLineTarget = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oLTGfx = oLineTarget.Graphics
+                m_ObjectProp(0) = ConvertColor(oLTGfx.Color)
+                m_ObjectProp(1) = Replace(oLTGfx.LineWidth, "e", "")+1
+            Case "Missile"
+                set oMissile = m_Object
+                set oMisGfx = oMissile.Graphics
+                oMisGfx.SetAttributesType(1)
+                set oMisGfxAtt = oMisGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oMisGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oMisGfxAtt.Line.Width, "e", "")+1
+            Case "Place"
+                set oPlace = root.CurrentScenario.Children(m_Object.InstanceName)
+                set oPlaceGfx = oPlace.Graphics
+                m_ObjectProp(0) = ConvertColor(oPlaceGfx.Color)
+            Case "Satellite"
+                set oSatellite = m_Object
+                set oSatGfx = oSatellite.Graphics
+                oSatGfx.SetAttributesType(1)
+                set oSatGfxAtt = oSatGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oSatGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oSatGfxAtt.Line.Width, "e", "")+1
+            Case "Ship"
+                set oShip = m_Object
+                set oShipGfx = oShip.Graphics
+                oShipGfx.SetAttributesType(1)
+                set oShipGfxAtt = oShipGfx.Attributes
+                m_ObjectProp(0) = ConvertColor(oShipGfxAtt.Color)
+                m_ObjectProp(1) = Replace(oShipGfxAtt.Line.Width, "e", "")+1
+            Case "Target"
+                set oTarget = m_Object
+                set oTarGfx = oTarget.Graphics
+                m_ObjectProp(0) = ConvertColor(oTarGfx.Color)
+            Case "Sensor"
+                set oSensor = m_Object
+                Set oSenGfx = oSensor.Graphics
+                m_ObjectProp(0) = ConvertColor(oSenGfx.Color)
+                m_ObjectProp(1) = Replace(oSenGfx.LineWidth, "e", "")+1
+            End Select
+
+            STKObjectProperties = m_ObjectProp
+        End Function
+
+        Function ConvertColor(m_color)
+            ' get obj color, and convert to hex
+            objColor = "00000000" & CStr(hex(m_color))
+            red = Right(objColor, 2)
+            green = Mid(objColor, Len(objColor)-3, 2)
+            blue = Mid(objColor, Len(objColor)-5, 2)
+            objColor = blue & green & red
+            ConvertColor = objColor
+        End Function
+
+        Function LLAValues(m_Object)
+            Dim m_LLAValues(6)
+            set dataPrv = m_Object.DataProviders("Value By Point")
+            set fixedFunc = dataPrv
+            set result = fixedFunc.Exec
+            set intList = result.Intervals
+            For Each intvl In intList
+                For Each ds In intvl.DataSets
+                    Select Case ds.ElementName
+                        Case "Latitude"
+                            FOMLat = ds.GetValues()
+                        Case "Longitude"
+                            FOMLon = ds.GetValues()
+                        Case "Altitude above MSL"
+                            FOMAlt = ds.GetValues()
+                        Case "FOM Value"
+                            FOMVal = ds.GetValues()
+                            FOMUnits = ds.unittype
+                    End Select
+                Next
+            Next
+
+            set m_CovObject = m_Object.Parent
+            set dataPrv = m_CovObject.DataProviders("Grid Point Locations")
+            set fixedFunc = dataPrv
+            set result = fixedFunc.Exec
+            set intList = result.Intervals
+            For Each intvl In intList
+                For Each ds In intvl.DataSets
+                    Select Case ds.ElementName
+                        Case "Latitude"
+                            CovLat = ds.GetValues()
+                        Case "Longitude"
+                            CovLon = ds.GetValues()
+                        Case "Altitude above MSL"
+                            CovAlt = ds.GetValues()
+                        Case "Latitude Span"
+                            CovLatSpan = ds.GetValues()
+                        Case "Longitude Span"
+                            CovLonSpan = ds.GetValues()
+                    End Select
+                Next
+            Next
+
+            Dim objDictionary
+            Set objDictionary = CreateObject("Scripting.Dictionary")
+            on error resume next
+            For i = lbound(CovLat) to ubound(CovLat)
+                objDictionary.Add CovLat(i) & CovLon(i) & CovAlt(i), i
+            Next
+            If err.Number <> 0 Then
+                retmsg = msgbox("No data from coverage calculation.  Please check that coverage has been computed")
+                err.Clear
+            Else
+
+                Redim Preserve FOMLatSpan(ubound(FOMLat))
+                Redim Preserve FOMLonSpan(ubound(FOMLat))
+                For i = lbound(FOMLat) to ubound(FOMLat)
+                    MyName = objDictionary.Item(FOMLat(i) & FOMLon(i) & FOMAlt(i))
+                    FOMLatSpan(i) = CovLatSpan(MyName)
+                    FOMLonSpan(i) = CovLonSpan(MyName)
+                Next
+
+                m_LLAValues(0) = FOMLat
+                m_LLAValues(1) = FOMLon
+                m_LLAValues(2) = FOMAlt
+                m_LLAValues(3) = FOMVal
+                m_LLAValues(4) = FOMUnits
+                m_LLAValues(5) = FOMLatSpan
+                m_LLAValues(6) = FOMLonSpan
+                LLAValues = m_LLAValues
+            End If
+        End Function
+
+        Function GridPolygons(m_Object,m_LLAValues)
+
+            m_FOMLat = m_LLAValues(0)
+            m_FOMLon = m_LLAValues(1)
+            m_FOMAlt = m_LLAValues(2)
+            m_FOMLatSpan = m_LLAValues(5)
+            m_FOMLonSpan = m_LLAValues(6)
+
+            on error resume next
+            ReDim Preserve m_GridPolygons(ubound(m_FOMLat))
+            If err.Number <> 0 Then
+                retmsg = msgbox("No data from coverage calculation.  Please check that coverage has been computed")
+                err.Clear
+            Else
+                For i = lbound(m_FOMLat) to ubound(m_FOMLat)
+                    If m_FOMLon(i)>180 then
+                        m_FOMLon(i) = m_FOMLon(i)-360
+                    End If
+                    Lat1 = m_FOMLat(i) + m_FOMLatSpan(i)/2
+                    Lon1 = m_FOMLon(i) + m_FOMLonSpan(i)/2
+                    Lat2 = m_FOMLat(i) + m_FOMLatSpan(i)/2
+                    Lon2 = m_FOMLon(i) - m_FOMLonSpan(i)/2
+                    Lat3 = m_FOMLat(i) - m_FOMLatSpan(i)/2
+                    Lon3 = m_FOMLon(i) - m_FOMLonSpan(i)/2
+                    Lat4 = m_FOMLat(i) - m_FOMLatSpan(i)/2
+                    Lon4 = m_FOMLon(i) + m_FOMLonSpan(i)/2
+
+                    m_GridPolygons(i) = Lon1 & "," & Lat1 & "," & m_FOMAlt(i) & " " & Lon2 & "," & Lat2 & "," & m_FOMAlt(i) & " " & Lon3 & "," & Lat3 & "," & m_FOMAlt(i) & " " & Lon4 & "," & Lat4 & "," & m_FOMAlt(i) & " " & Lon1 & "," & Lat1 & "," & m_FOMAlt(i)
+                Next
+                GridPolygons = m_GridPolygons
+            End If
+        End Function
+
+        Function TimeLLAHPR(m_Object,m_StartTime,m_StopTime)
+            Dim m_TimeLLAHPR(3)
+
+            set dataPrvGroup = m_Object.DataProviders("LLA State")
+            set dataPrv = dataPrvGroup.Group("Fixed")
+            set timeFunc = dataPrv
+            if m_Object.ClassName = "Satellite" then
+                set result = timeFunc.Exec(m_StartTime,m_StopTime, 60)
+            Else
+                set result = timeFunc.Exec(m_StartTime,m_StopTime, 1)
+            End If
+            set intList = result.Intervals
+            For Each intvl In intList
+                For Each ds In intvl.DataSets
+                    Select Case ds.ElementName
+                        Case "Time"
+                            ObjTime = ds.GetValues()
+                        Case "Lat"
+                            ObjLat = ds.GetValues()
+                        Case "Lon"
+                            ObjLon = ds.GetValues()
+                        Case "Alt MSL"
+                            ObjAlt = ds.GetValues()
+                    End Select
+                Next
+            Next
+
+            m_TimeLLAHPR(0) = ObjTime
+            m_TimeLLAHPR(1) = ObjLat
+            m_TimeLLAHPR(2) = ObjLon
+            m_TimeLLAHPR(3) = ObjAlt
+
+            TimeLLAHPR = m_TimeLLAHPR
+        End Function
+
+        Function FixedLLA(m_Object)
+            Dim m_FixedLLA(2)
+            Select Case m_Object.ClassName
+                Case "AreaTarget", "LineTarget"
+                    If m_Object.ClassName = "AreaTarget" Then
+                        set dataPrv = m_Object.DataProviders("Boundary Points")
+                    ElseIf m_Object.ClassName = "LineTarget" Then
+                        set dataPrv = m_Object.DataProviders("Line Points")
+                    End If
+                    set fixedFunc = dataPrv
+                    set result = fixedFunc.Exec
+                    set intList = result.Intervals
+                    For Each intvl In intList
+                        For Each ds In intvl.DataSets
+                            Select Case ds.ElementName
+                                Case "Geodetic-Lat"
+                                    ObjLat = ds.GetValues()
+                                Case "Geodetic-Lon"
+                                    ObjLon = ds.GetValues()
+                            End Select
+                        Next
+                    Next
+                    m_FixedLLA(0) = ObjLat
+                    m_FixedLLA(1) = ObjLon
+
+                    If HasProLic = true then
+                        set oATVO = m_Object.VO
+                        Redim Preserve objAlt(ubound(ObjLat))
+                        for i = lbound(ObjLat) to ubound(ObjLat)
+                            If oATVO.BorderWall.UseBorderWall = true then
+                                if oATVO.BorderWall.UpperEdgeAltRef = 0 or oATVO.BorderWall.UpperEdgeAltRef = 3 then
+                                    objAlt(i) = oATVO.BorderWall.UpperEdgeHeight
+                                else
+                                    objAlt(i) = 0
+                                end if
+                            Else
+                                objAlt(i) = 0
+                            End If
+                        next
+                    Else
+                        Redim Preserve objAlt(ubound(ObjLat))
+                        for i = lbound(ObjLat) to ubound(ObjLat)
+                            objAlt(i) = 0
+                        Next
+                    End If
+                    m_FixedLLA(2) = objAlt
+                Case "Facility", "Place", "Target"
+                    set dataPrv = m_Object.DataProviders("LLA State")
+                    set fixedFunc = dataPrv
+                    set result = fixedFunc.Exec
+                    set intList = result.Intervals
+                    For Each intvl In intList
+                        For Each ds In intvl.DataSets
+                            Select Case ds.ElementName
+                                Case "Lat"
+                                    ObjLat = ds.GetValues()
+                                Case "Lon"
+                                    ObjLon = ds.GetValues()
+                                Case "Alt MSL"
+                                    ObjAlt = ds.GetValues()
+                            End Select
+                        Next
+                    Next
+                    m_FixedLLA(0) = ObjLat
+                    m_FixedLLA(1) = ObjLon
+                    m_FixedLLA(2) = ObjAlt
+            End Select
+
+            FixedLLA = m_FixedLLA
+        End Function
+
+        Function Centroid(m_Object)
+            Dim m_Centroid(2)
+
+            If m_Object.ClassName = "AreaTarget" Then
+                set dataPrv = m_Object.DataProviders("Centroid All Position")
+            ElseIf m_Object.ClassName = "LineTarget" Then
+                set dataPrv = m_Object.DataProviders("Anchor Point All Position")
+            End If
+            set fixedFunc = dataPrv
+            set result = fixedFunc.Exec
+            set intList = result.Intervals
+            For Each intvl In intList
+                For Each ds In intvl.DataSets
+                    Select Case ds.ElementName
+                        Case "Geodetic-Lat"
+                            ObjLat = ds.GetValues()
+                        Case "Geodetic-Lon"
+                            ObjLon = ds.GetValues()
+                        Case "Geodetic-Alt"
+                            ObjAlt = ds.GetValues()
+                    End Select
+                Next
+            Next
+
+            m_Centroid(0) = ObjLat
+            m_Centroid(1) = ObjLon
+            m_Centroid(2) = ObjAlt
+
+            Centroid = m_Centroid
+        End Function
+
+        Function FootPrint(m_STKObject)
+            root.UnitPreferences("DateFormat").SetCurrentUnit("EpSec")
+            root.ExecuteCommand("SetUnits / EpSec")
+            set ret = root.ExecuteCommand("GetTimePeriod *")
+            parts = split(ret(0),",")
+            StartTime = replace(parts(0),chr(34),"")
+            StopTime = replace(parts(1),chr(34),"")
+            Set dataPrv = m_STKObject.Parent.DataProviders("Available Times")
+            Set intvlFunc = dataPrv
+            Set result = intvlFunc.Exec(StartTime, StopTime)
+            Set intList = result.Intervals
+            For Each intvl In intList
+                For Each ds In intvl.DataSets
+                    Select Case ds.ElementName
+                        Case "Start Time"
+                            ObjStartTime = ds.GetValues()
+                        Case "Stop Time"
+                            ObjStopTime = ds.GetValues()
+                    End Select
+                Next
+            Next
+
+            Tcount = 0
+            For i = ObjStartTime(0) To ObjStopTime(0) Step root.CurrentScenario.Animation.AnimStepValue
+                set dataPrv = m_STKObject.DataProviders("Pattern Intersection")
+                set timeFunc = dataPrv
+                set Snresult = timeFunc.Exec(i, i, 1)
+                set msg = Snresult.message
+
+                If msg(0) <> "Data Unavailable" Then
+                    set intList = Snresult.Intervals
+                    If intList.Count <> 0 then
+                        Redim Preserve m_FootPrint(intList.Count - 1,Tcount)
+                        ' Convert epSec to DateTime
+                        set ret = root.ExecuteCommand("ConvertDate * EpochSec YYYY/MM/DDTime " & chr(34) & i & chr(34))
+                        DateDT = ret(0)
+                        For j = 0 To intList.Count - 1
+                            set intvl = intList(j)
+                            For Each ds In intvl.DataSets
+                                Select Case ds.ElementName
+                                    Case "Latitude"
+                                        snLat = ds.GetValues()
+                                    Case "Longitude"
+                                        snLon = ds.GetValues()
+                                End Select
+                            Next
+                            For k = 0 to UBound(snLat)
+                                If abs(snLon(0) - snLon(k)) > 180 then
+
+                                Else
+                                    m_FootPrint(j,Tcount) = m_FootPrint(j,Tcount) & " " & snLon(k) & "," & snLat(k) & ",0"
+                                End If
+                            Next
+                            m_FootPrint(j,Tcount) = m_FootPrint(j,Tcount) & "|" & DateDT
+                        Next
+                        Tcount = TCount + 1
+                    End If
+                End If
+            Next
+
+            root.UnitPreferences("DateFormat").SetCurrentUnit("YYYY/MM/DD")
+            root.ExecuteCommand("SetUnits / YYYY/MM/DDTime")
+            FootPrint = m_FootPrint
+        End Function
+
+        Function DescriptionString
+            Dim m_DescStr(1)
+            startstring = "<![CDATA[<html>"
+
+            endstring = "<table><tr><td><a href=""http://www.agi.com"">www.agi.com</a></td></tr></table></html>]]>"
+            m_DescStr(0) = startstring
+            m_DescStr(1) = endstring
+            DescriptionString = m_DescStr
+        End Function
+
+        Sub btn_ConnectGoogle_Click()
+            On error resume next
+            Set GE = GetObject("","GoogleEarth.ApplicationGE")
+            If err.Number <> 0 Then
+                retmsg = msgbox("Cannot connect to Google Earth. Please make sure " & chr(10) & "you have installed the latest version of Google Earth.",,"KML Export Utility")
+                err.Clear
+            Else
+                KMLString = ""
+                KMLString = KMLString & "<?xml version=""1.0"" encoding=""UTF-8""?>"
+                KMLString = KMLString & "<kml xmlns=""http://earth.google.com/kml/2.1"">"
+                KMLString = KMLString & "<Document>"
+                KMLString = KMLString & "<name>AGI Logo</name>"
+                KMLString = KMLString & "<ScreenOverlay>"
+                KMLString = KMLString & "<name>AGI Logo</name>"
+                KMLString = KMLString & "<description>http://www.agi.com/</description>"
+                KMLString = KMLString & "<Icon>"
+                KMLString = KMLString & "<href>" & path & "AGILogo.png</href>"
+                KMLString = KMLString & "</Icon>"
+                KMLString = KMLString & "<overlayXY x=""0"" y=""1"" xunits=""pixels"" yunits=""fraction"" />"
+                KMLString = KMLString & "<screenXY x=""15"" y="".985"" xunits=""pixels"" yunits=""fraction"" />"
+                KMLString = KMLString & "<rotationXY x=""0"" y=""0"" xunits=""pixels"" yunits=""pixels"" />"
+                KMLString = KMLString & "<size x=""140"" y=""70"" xunits=""pixels"" yunits=""pixels"" />"
+                KMLString = KMLString & "<rotation>0</rotation>"
+                KMLString = KMLString & "</ScreenOverlay>"
+                KMLString = KMLString & "</Document>"
+                KMLString = KMLString & "</kml>"
+
+                ' Write KMLString to file
+                Set objFSO = CreateObject("Scripting.FileSystemObject")
+                If document.form1.txt_OutputDir.value <> "" then
+                    Set objFile = objFSO.CreateTextFile(document.form1.txt_OutputDir.value & "\AGIlogo.kml")
+                    objFile.WriteLine(KMLString)
+
+                    ' Open KML file in GE
+                    On error resume next
+                    GE.OpenKMLFile document.form1.txt_OutputDir.value & "\AGIlogo.kml",1
+                    If err.Number <> 0 Then
+                        'retmsg = msgbox("You are currently not connected to Google Earth." & chr(10) & "Your kml files have been created and can be found at" & chr(10) & document.form1.txt_OutputDir.value,,"KML export utility")
+                        err.Clear
+                    End If
+                Else
+                    If objFSO.FolderExists(UserDir & "\KMLdata") = False Then
+                        Set objFolder = objFSO.CreateFolder(UserDir & "\KMLdata")
+                    End If
+                    Set objFile = objFSO.CreateTextFile(UserDir & "\KMLdata\AGIlogo.kml")
+                    objFile.WriteLine(KMLString)
+
+                    ' Open KML file in GE
+                    On error resume next
+                    GE.OpenKMLFile UserDir & "\KMLdata\AGIlogo.kml",1
+                    If err.Number <> 0 Then
+                        'retmsg = msgbox("You are currently not connected to Google Earth." & chr(10) & "Your kml files have been created and can be found at" & chr(10) & UserDir & "\KMLdata",,"KML export utility")
+                        err.Clear
+                    End If
+                End If
+                objFile.close
+                Set objFile = nothing
+                Set objFSO = nothing
+                'GE.LoadKMLData(PlaceString)
+            End If
+        End Sub
+
+        Function enumerateUnit(m_UnitType)
+            For Each dimension In root.UnitPreferences
+                If dimension.Id = m_UnitType then
+                    m_UnitName = dimension.Name
+                End If
+            Next
+            enumerateUnit = root.UnitPreferences.GetCurrentUnitAbbrv(m_UnitName)
+        End Function
+
+        function HSV2RGB(Hue, Sat, Value)
+            Dim m_RGB(2)
+            h = Hue / 360
+            s = Sat / 100
+            v = Value / 100
+            if s = 0 then
+                m_RGB(0) = v * 255
+                m_RGB(1) = v * 255
+                m_RGB(2) = v * 255
+            else
+                var_h = h * 6
+                var_i = Int(var_h)
+                var_1 = v * (1 - s)
+                var_2 = v * (1 - s * (var_h - var_i))
+                var_3 = v * (1 - s * (1 - (var_h - var_i)))
+
+                if var_i = 0 then
+                    var_r = v
+                    var_g = var_3
+                    var_b = var_1
+                elseif var_i = 1 then
+                    var_r = var_2
+                    var_g = v
+                    var_b = var_1
+                elseif var_i = 2 then
+                    var_r = var_1
+                    var_g = v
+                    var_b = var_3
+                elseif var_i = 3 then
+                    var_r = var_1
+                    var_g = var_2
+                    var_b = v
+                elseif var_i = 4 then
+                    var_r = var_3
+                    var_g = var_1
+                    var_b = v
+                else
+                    var_r = v
+                    var_g = var_1
+                    var_b = var_2
+                End If
+                m_RGB(0) = var_r * 255
+                m_RGB(1) = var_g * 255
+                m_RGB(2) = var_b * 255
+            End If
+            HSV2RGB = m_RGB
+        End Function
+
+        Sub btn_Refresh_Click()
+            Set oTable = document.all.item("recontable")
+            For i = oTable.rows.length-1 to 0 step -1
+                oTable.deleterow(i)
+            Next
+
+            reconbody_onload()
+        End Sub
+
+        Sub btn_Browse_Click()
+            set oShell = window.external.CreateObject("Shell.Application")
+            set sPathObj = oShell.BrowseForFolder(hWnd, "Select a folder", BIF_RETURNONLYFSDIRS Or BIF_EDITBOX)
+            if sPathObj is Nothing then
+    '			msgbox ("Selection Cancelled.")
+            else
+                if sPathObj = "Desktop" then
+                    set objShell = window.external.CreateObject("Wscript.Shell")
+                    sPath = objShell.SpecialFolders("Desktop")
+                    set objShell = Nothing
+                else
+                    sPath = sPathObj.Items.Item.Path
+                end if
+                If instr(sPath,"{") > 0 Then
+                    sPath = ""
+                end if
+                If sPath = "" Then
+                    sPath = "Nothing"
+                else
+                    document.form1.txt_OutputDir.value = sPath
+                end if
+            end if
+            Set oShell = Nothing
+        end Sub
+
+        Function atan2(ys, xs)
+            Dim theta
+            If xs <> 0 Then
+                theta = Atn(ys / xs)
+                If xs < 0 Then
+                    theta = theta + pi
+                End If
+            Else
+                If ys < 0 Then
+                    theta = 3 * pi / 2 '90
+                Else
+                    theta = pi / 2 '270
+                End If
+            End If
+            atan2 = theta
+        End Function
+        Function asin(p)
+            If (p > -1) And (p < 1) Then
+                asin = Atn(p / Sqr(1 - p * p))
+            ElseIf p = -1 Then
+                asin = -pi * 0.5
+            ElseIf p = 1 Then
+                asin = pi * 0.5
+            End If
+        End Function
+</script>
+
+</head>
+    <body id="reconbody" onload="InitPage()">
+        <table class="light">
+	        <tr class="dark">
+                <td class="dark">
+		            <b>KML Export Utility</b>
+		        </td>
+		    </tr>
+		    <tr class="light">
+                <td>
+	                <table align="Left" id="Table3" cellpadding="3" cellspacing="3">
+		                <tr>
+				            <td align="Left">
+				            <img src="gelogoicon.gif" alt="" style="cursor:pointer;vertical-align:middle" onclick="btn_ConnectGoogle_Click()"/>
+				            <a style="cursor:pointer;vertical-align:middle"  onclick="btn_ConnectGoogle_Click()">Connect to Google Earth</a>
+				            </td>
+                        </tr>
+	                </table>
+	            </td>
+	        </tr>
+	        <tr class="light">
+                <td><form action="" name="form1">
+		            <table align="left" id="Table1" cellpadding="3" cellspacing="3">
+		                <tr>
+				            <td align="Left">
+				            Specify directory for KML files: <br />
+				            <input type="text" name="txt_OutputDir" size="25" class="txt"/>
+				            <input type="button" name="btn_Browse" onclick="btn_Browse_Click()" value="Browse" class="btn"/>
+				            </td>
+                        </tr>
+		            </table></form>
+		        </td>
+		    </tr>
+	        <tr class="light">
+                <td>
+		            <table align="Left" id="recontable" cellpadding="3" cellspacing="3">
+		            </table>
+		        </td>
+		    </tr>
+	        <tr class="light">
+                <td>
+		            <table align="left" id="Table2" cellpadding="3" cellspacing="3">
+		                <tr>
+				            <td align="Left">
+				            <input type="button" name="btn_Refresh" onclick="btn_Refresh_Click()" value="Refresh" class="btn"/>
+				            </td>
+                        </tr>
+		            </table>
+		        </td>
+		    </tr>
+	        <tr class="light">
+                <td>
+		            <table align="Left" id="optionstable" cellpadding="3" cellspacing="3" border="0" style="border-style: solid;border-color: black;border-width:1px" >
+		            </table>
+		        </td>
+		    </tr>
+		    <tr class="dark">
+                <td class="dark">
+		            <b>Procedure:</b>
+		        </td>
+		    </tr>
+	        <tr class="light">
+                <td>
+			             <b>1. </b>If direct interaction with Google Earth is desired then Connect to Google Earth by pressing the icon located at the top of the utility.
+                    <br/><b>2. </b>Specify the directory to write the kml files to.  If left blank the data
+                    is stored in a folder labeled KMLdata which is located in the default STK user directory.
+                    <br/><b>3. </b>Select which objects to export to kml by checking the box next the object name in the tree.
+                    <br/><b>NOTE: </b>Utility exports STK generated data as points, lines, and polygons in the form of KML files that can be viewed in Google Earth, NASA World Wind, and ArcGIS Explorer.
+                    <br/><b>NOTE: </b>In addition to point, line, and polygon features, the utility exports supplemental data in the form of a KML description tags within these features that can be access from Google Earth via click or ctrl-click on the desired feature.
+                    <br/><b>NOTE: </b>Utility must be refreshed to capture changes made to STK such as objects added or deleted in addition to access calculations computed or removed.
+                    <br/><b>NOTE: </b>The KML files produced with this utility work with the latest versions of Google Earth, NASA World Wind, and ArcGIS Explorer.
+                    <br/><b>NOTE: </b>Sensors are exported as pattern intersections spaced according to the current animation time step.
+                    <br/><b>NOTE: </b>If Google Earth fails on connect try launching from outside of STK.
+                    <br/><b>NOTE: </b>Altitudes of objects may appear different in Google Earth if Elevation Exaggeration is not set to 1.
+		        </td>
+		    </tr>
+	    </table>
+	</body>
+</html>

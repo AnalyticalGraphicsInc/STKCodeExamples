@@ -1,0 +1,43 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+		
+		<Category Name = "Access Constraint Plugins">
+				
+			<!-- This tag to the left indicates the start of a comment block
+
+				Register your plugins with those below. Use the following format:
+
+				<Plugin ProgID = "YOUR_PROGID_GOES_HERE"/>
+
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+			           ProgId is invalid because of the 'd' not being capitalized. 
+			           Any improper keyword casing violation will cause the plugin to 
+			           not be registered.
+			-->
+
+            <!-- This section is a comment block.
+			
+			The following Plugin tags register each Plugin component as an Access Constraint Plugin. 
+			
+			To enable one of the sample plugins in STK, simply build the component (if necessary), 
+			register it in the Windows Registry, and move the registration line below 
+			outside of this comment block.
+		
+			<Plugin ProgID = "AGI.Access.Constraint.Plugin.Examples.CSharp.SunPhaseAngleExample"/>
+             -->
+
+		</Category>
+		
+	</CategoryRegistry>
+
+</AGIRegistry>
