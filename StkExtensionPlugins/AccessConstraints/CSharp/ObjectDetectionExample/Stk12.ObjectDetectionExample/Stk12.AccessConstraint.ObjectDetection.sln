@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stk12.AccessConstraint.ObjectDetection", "Stk12.AccessConstraint.ObjectDetection.csproj", "{3F001D88-79ED-424E-8328-F245B447FD01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payload", "Payload\Payload.csproj", "{DF5046F5-2F51-4785-8791-331A4B909C2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF5046F5-2F51-4785-8791-331A4B909C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF5046F5-2F51-4785-8791-331A4B909C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF5046F5-2F51-4785-8791-331A4B909C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF5046F5-2F51-4785-8791-331A4B909C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {901F7706-460D-42C0-A7D8-E85358FF2582}
+	EndGlobalSection
+EndGlobal
