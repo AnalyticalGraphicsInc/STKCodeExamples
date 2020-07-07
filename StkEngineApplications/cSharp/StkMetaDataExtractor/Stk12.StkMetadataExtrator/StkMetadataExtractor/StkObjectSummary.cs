@@ -191,8 +191,9 @@ namespace StkMetadataExtractor
             Name = key;
             Value = value;
         }
-
+        [XmlAttribute]
         public string Name { get; set; }
+        [XmlAttribute]
         public string Value { get; set; }
     }
 }
