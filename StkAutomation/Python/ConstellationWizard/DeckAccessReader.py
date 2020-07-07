@@ -119,11 +119,8 @@ def mergeTLEFiles(fileNumbers,baseConstellationName,outputName,sscStart=00000,us
     dfToTLE(df,TLEFileName);
     return df
 
-def FilterObjectsByType(objType,name = ''):
-    from comtypes.client import GetActiveObject
-    # Attach to STK
-    app = GetActiveObject('STK11.Application')
-    root = app.Personality2
+def FilterObjectsByType(root,objType,name = ''):
+
     # Send objects to an xml
     xml = root.AllInstanceNamesToXML()
 
@@ -275,14 +272,14 @@ def createTLEConstellation(fileName,epoch,a,e,i,aop,numPlanes,satsPerPlane):
     
     
 # Connect to STK
-def ConnectToSTK(scenarioPath = cwd+'\\ConstellationWizardExampleScenario',scenarioName='ConstellationAnalysis'):
+def ConnectToSTK(version=11,scenarioPath = cwd+'\\ConstellationWizardExampleScenario',scenarioName='ConstellationAnalysis'):
     # Launch or connect to STK
     try:
-        app = GetActiveObject('STK11.Application')
+        app = GetActiveObject('STK{}.Application'.format(version))
         root = app.Personality2
         root.Isolate()
     except:
-        app = CreateObject('STK11.Application')
+        app = CreateObject('STK{}.Application'.format(version))
         app.Visible = True
         app.UserControl= True
         root = app.Personality2
