@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+  <CategoryRegistry>
+    <Category Name = "UiPlugins">
+		<NETUiPlugin 
+			DisplayName="Reentry Heating"
+			TypeName="Agi.Ui.Plugins.VB_Net.ReentryHeating.ReentryHeatingPlugin"
+			AssemblyName="Agi.Ui.Plugins.VB_Net.ReentryHeating"
+			CodeBase="<Directory>\ReentryHeatingPlugin_12\bin\Release">
+		</NETUiPlugin>
+	</Category>
+  </CategoryRegistry>
+</AGIRegistry>
