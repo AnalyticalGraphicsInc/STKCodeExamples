@@ -9,7 +9,7 @@ Created on Wed Jul  8 11:56:06 2020
 import os
 
 # Needs to be the directory holding the interval file
-os.chdir(r'\Users\jartis\Desktop\Satellite_Constellation_Access');
+os.chdir(r'C:\temp');
 #print(os.getcwd());
 
 
@@ -118,80 +118,4 @@ for x in range(len(lines)):
             newFile.write(endLine)  
             
  
-newFile.close()
-
-
-
-
-
-
-
-
-    
-    
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-   
-   
-       
-       
-       
-       
-   
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
+newFile.close() 
