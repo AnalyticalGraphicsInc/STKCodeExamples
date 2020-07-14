@@ -13,3 +13,7 @@ ZedGraph (url=http://sourceforge.net/projects/zedgraph/)
 
 You can do this by right-clicking on "References" in the SolutionExplorer, hitting 'add', and browsing to find the DLLs.
 After that, you should be able to run the application from VisualStudio. I have provided some example ephemeris files in the "files" folder.
+
+# Download
+
+If you simply want to utilize this utility you can find the download [here](https://agiweb.secure.force.com/code/articles/Custom_Solution/Ephemeris-Differencer).
