@@ -1,0 +1,400 @@
+<doc>
+  <assembly>
+    <name>AGI.Ui.Core</name>
+  </assembly>
+  <members>
+    <member name="T:AGI.Ui.Core.AgUiWindowsCollection">
+      <summary>Provides methods and properties to manage the windows.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowsCollection.Arrange(AGI.Ui.Core.AgEArrangeStyle)">
+      <summary>Arranges the application windows using the specified style.</summary>
+      <param name="ArrangeStyle"></param>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowsCollection.Add(System.String,System.Object)">
+      <summary>Creates a new window. The bstrPluginID is a COM ProgID associated with an STK plugin.</summary>
+      <param name="PluginID"></param>
+      <param name="InitData"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollection.Item">
+      <summary>Retrieves a window object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollection.Count">
+      <summary>Returns a total number of window objects in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollection._NewEnum">
+      <summary>Enumerates the windows in the collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiWindowsCollectionClass">
+      <summary>Provides methods and properties to manage the windows.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowsCollectionClass.Arrange(AGI.Ui.Core.AgEArrangeStyle)">
+      <summary>Arranges the application windows using the specified style.</summary>
+      <param name="ArrangeStyle"></param>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowsCollectionClass.Add(System.String,System.Object)">
+      <summary>Creates a new window. The bstrPluginID is a COM ProgID associated with an STK plugin.</summary>
+      <param name="PluginID"></param>
+      <param name="InitData"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollectionClass.Item">
+      <summary>Retrieves a window object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollectionClass.Count">
+      <summary>Returns a total number of window objects in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowsCollectionClass._NewEnum">
+      <summary>Enumerates the windows in the collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.IAgUiWindowsCollection">
+      <summary>Provides methods and properties to manage the application's windows.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.IAgUiWindowsCollection.Arrange(AGI.Ui.Core.AgEArrangeStyle)">
+      <summary>Arranges the application windows using the specified style.</summary>
+      <param name="ArrangeStyle"></param>
+    </member>
+    <member name="M:AGI.Ui.Core.IAgUiWindowsCollection.Add(System.String,System.Object)">
+      <summary>Creates a new window. The bstrPluginID is a COM ProgID associated with an STK plugin.</summary>
+      <param name="PluginID"></param>
+      <param name="InitData"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindowsCollection.Item">
+      <summary>Retrieves a window object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindowsCollection.Count">
+      <summary>Returns a total number of window objects in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindowsCollection._NewEnum">
+      <summary>Enumerates the windows in the collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.IAgUiWindow">
+      <summary>Represents a window abstraction. Provides methods and properties to manipulate the position and the state of the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.IAgUiWindow.Activate">
+      <summary>Activates the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.IAgUiWindow.Close">
+      <summary>Closes the window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Caption">
+      <summary>The window caption. Can only be set within UI plugins for the non unique windows they own.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.WindowState">
+      <summary>The window state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Height">
+      <summary>The window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Width">
+      <summary>The window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Left">
+      <summary>The window horizontal position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Top">
+      <summary>The window vertical position</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.DockStyle">
+      <summary>The window docking style.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.NoWBClose">
+      <summary>Whether to close the window when the application workbook is loaded/closed.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.UnPinned">
+      <summary>The window's pinned state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.SupportsPinning">
+      <summary>Returns whether the window supports pinning.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiWindow.Toolbars">
+      <summary>Returns the window's toolbar collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgEWindowState">
+      <summary>Window states.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEWindowState.eWindowStateMaximized">
+      <summary>Window is maximized.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEWindowState.eWindowStateMinimized">
+      <summary>Window is minimized.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEWindowState.eWindowStateNormal">
+      <summary>Normal window state.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgEDockStyle">
+      <summary>Window docking styles.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleIntegrated">
+      <summary>Child window is integrated into the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleDockedLeft">
+      <summary>Child window is docked to the left side of the within the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleDockedRight">
+      <summary>Child window is docked to the right side of the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleDockedTop">
+      <summary>Child window is docked to the top of the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleDockedBottom">
+      <summary>Child window is docked to the bottom of the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEDockStyle.eDockStyleFloating">
+      <summary>Child window is not docked or integrated.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.IAgUiToolbarCollection">
+      <summary>Provides methods and properties to obtain a window's toolbars.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.IAgUiToolbarCollection.GetToolbarByID(System.Int32)">
+      <summary>Returns a toolbar object with the specified toolbar identifier. The identifier is a unique number assigned to a toolbar object.</summary>
+      <param name="ID"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbarCollection.Item">
+      <summary>Retrieves a toolbar object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbarCollection.Count">
+      <summary>Returns a total number of toolbars in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbarCollection._NewEnum">
+      <summary>Enumerates the toolbars in the collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.IAgUiToolbar">
+      <summary>Provides methods and properties to control a toolbar.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbar.ID">
+      <summary>The identity.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbar.Caption">
+      <summary>The caption.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbar.Visible">
+      <summary>The visibility.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.IAgUiToolbar.FloatState">
+      <summary>The float state.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgEFloatState">
+      <summary>Floating state.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEFloatState.eFloatStateFloated">
+      <summary>The UI element is floated.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEFloatState.eFloatStateDocked">
+      <summary>The UI element is docked.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgEArrangeStyle">
+      <summary>Window layout styles.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEArrangeStyle.eArrangeStyleCascade">
+      <summary>Child windows are cascaded within the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEArrangeStyle.eArrangeStyleTiledHorizontal">
+      <summary>Child windows are tiled horizontally within the main window.</summary>
+    </member>
+    <member name="F:AGI.Ui.Core.AgEArrangeStyle.eArrangeStyleTiledVertical">
+      <summary>Child windows are tiled vertically within the main window.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiWindow">
+      <summary>Represents a window abstraction. Provides methods and properties to manipulate the position and the state of the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindow.Activate">
+      <summary>Activates the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindow.Close">
+      <summary>Closes the window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Caption">
+      <summary>The window caption. Can only be set within UI plugins for the non unique windows they own.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.WindowState">
+      <summary>The window state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Height">
+      <summary>The window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Width">
+      <summary>The window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Left">
+      <summary>The window horizontal position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Top">
+      <summary>The window vertical position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.DockStyle">
+      <summary>The window docking style.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.NoWBClose">
+      <summary>Whether to close the window when the application workbook is loaded/closed.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.UnPinned">
+      <summary>The window's pinned state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.SupportsPinning">
+      <summary>Returns whether the window supports pinning.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindow.Toolbars">
+      <summary>Returns the window's toolbar collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiWindowClass">
+      <summary>Represents a window abstraction. Provides methods and properties to manipulate the position and the state of the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowClass.Activate">
+      <summary>Activates the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiWindowClass.Close">
+      <summary>Closes the window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Caption">
+      <summary>The window caption. Can only be set within UI plugins for the non unique windows they own.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.WindowState">
+      <summary>The window state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Height">
+      <summary>The window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Width">
+      <summary>The window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Left">
+      <summary>The window horizontal position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Top">
+      <summary>The window vertical position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.DockStyle">
+      <summary>The window docking style.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.NoWBClose">
+      <summary>Whether to close the window when the application workbook is loaded/closed.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.UnPinned">
+      <summary>The window's pinned state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.SupportsPinning">
+      <summary>Returns whether the window supports pinning.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiWindowClass.Toolbars">
+      <summary>Returns the window's toolbar collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core._IAgUiWindow">
+      <summary>Represents a window abstraction. Provides methods and properties to manipulate the position and the state of the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core._IAgUiWindow.Activate">
+      <summary>Activates the window.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core._IAgUiWindow.Close">
+      <summary>Closes the window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Caption">
+      <summary>The window caption. Can only be set within UI plugins for the non unique windows they own.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.WindowState">
+      <summary>The window state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Height">
+      <summary>The window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Width">
+      <summary>The window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Left">
+      <summary>The window horizontal position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Top">
+      <summary>The window vertical position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.DockStyle">
+      <summary>The window docking style.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.NoWBClose">
+      <summary>Whether to close the window when the application workbook is loaded/closed.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.UnPinned">
+      <summary>The window's pinned state.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.SupportsPinning">
+      <summary>Returns whether the window supports pinning.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiWindow.Toolbars">
+      <summary>Returns the window's toolbar collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiToolbar">
+      <summary>Represents a toolbar abstraction. Provides methods and properties to manipulate the position and the state of the toolbar.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbar.ID">
+      <summary>The toolbar identity.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbar.Caption">
+      <summary>The toolbar caption.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbar.Visible">
+      <summary>The toolbar visibility.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbar.FloatState">
+      <summary>The toolbar float state.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiToolbarClass">
+      <summary>Represents a toolbar abstraction. Provides methods and properties to manipulate the position and the state of the toolbar.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarClass.ID">
+      <summary>The toolbar identity.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarClass.Caption">
+      <summary>The toolbar caption.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarClass.Visible">
+      <summary>The toolbar visibility.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarClass.FloatState">
+      <summary>The toolbar float state.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core._IAgUiToolbar">
+      <summary>Provides methods and properties to control a toolbar.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiToolbar.ID">
+      <summary>The toolbar identity.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiToolbar.Caption">
+      <summary>The toolbar caption.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiToolbar.Visible">
+      <summary>The toolbar visibility.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core._IAgUiToolbar.FloatState">
+      <summary>The toolbar float state.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiToolbarCollection">
+      <summary>Provides methods and properties to manage the toolbars.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiToolbarCollection.GetToolbarByID(System.Int32)">
+      <summary>Returns a toolbar object with the specified toolbar identifier. The identifier is a unique number assigned to a toolbar object.</summary>
+      <param name="ID"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollection.Item">
+      <summary>Retrieves a toolbar object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollection.Count">
+      <summary>Returns a total number of toolbars in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollection._NewEnum">
+      <summary>Enumerates the toolbars in the collection.</summary>
+    </member>
+    <member name="T:AGI.Ui.Core.AgUiToolbarCollectionClass">
+      <summary>Provides methods and properties to manage the toolbars.</summary>
+    </member>
+    <member name="M:AGI.Ui.Core.AgUiToolbarCollectionClass.GetToolbarByID(System.Int32)">
+      <summary>Returns a toolbar object with the specified toolbar identifier. The identifier is a unique number assigned to a toolbar object.</summary>
+      <param name="ID"></param>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollectionClass.Item">
+      <summary>Retrieves a toolbar object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollectionClass.Count">
+      <summary>Returns a total number of toolbars in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Core.AgUiToolbarCollectionClass._NewEnum">
+      <summary>Enumerates the toolbars in the collection.</summary>
+    </member>
+  </members>
+</doc>

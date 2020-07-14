@@ -1,0 +1,822 @@
+<doc>
+  <assembly>
+    <name>AGI.Ui.Plugins</name>
+  </assembly>
+  <members>
+    <member name="T:AGI.Ui.Plugins.IAgUiPlugin">
+      <summary>Represents a UI plugin that extends the GUI of the hosting application at run-time.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin.OnStartup(AGI.Ui.Plugins.IAgUiPluginSite)">
+      <summary>Initializes the UI plugin.</summary>
+      <param name="PluginSite"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin.OnShutdown">
+      <summary>Shuts down the UI plugin.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin.OnDisplayConfigurationPage(AGI.Ui.Plugins.IAgUiPluginConfigurationPageBuilder)">
+      <summary>Allows the UI plugin to add its own custom config pages.</summary>
+      <param name="ConfigPageBuilder"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin.OnDisplayContextMenu(AGI.Ui.Plugins.IAgUiPluginMenuBuilder)">
+      <summary>Allows the UI plugin to add its own custom context menus.</summary>
+      <param name="MenuBuilder"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin.OnInitializeToolbar(AGI.Ui.Plugins.IAgUiPluginToolbarBuilder)">
+      <summary>Allows the UI plugin to configure a custom toolbar.</summary>
+      <param name="ToolbarBuilder"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginSite">
+      <summary>The interface represents a site object for the UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginSite.LogMessage(AGI.Ui.Plugins.AgEUiPluginLogMsgType,System.String)">
+      <summary>Records the specified message in the application's log using the given message type.</summary>
+      <param name="MsgType"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginSite.GetProgressTracker">
+      <summary>Returns a progress tracking object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite.Application">
+      <summary>Returns the root object of the Application Object Model.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite.Selection">
+      <summary>Returns a current selection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite.MainWindow">
+      <summary>A handle to the application's main window or NULL if the application does not have a window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite.PersonalityName">
+      <summary>A name of the currently loaded personality (possible values are 'STK', 'ODTK', etc.).</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEUiPluginLogMsgType">
+      <summary>Log message types.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginLogMsgType.eUiPluginLogMsgDebug">
+      <summary>Debugging message.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginLogMsgType.eUiPluginLogMsgInfo">
+      <summary>Informational message.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginLogMsgType.eUiPluginLogMsgForceInfo">
+      <summary>Informational message.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginLogMsgType.eUiPluginLogMsgWarning">
+      <summary>Warning message.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginLogMsgType.eUiPluginLogMsgAlarm">
+      <summary>Alarm message.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginSelectedObjectCollection">
+      <summary>The interface represents a collection of selected objects in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSelectedObjectCollection.Count">
+      <summary>Returns a total number of elements in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSelectedObjectCollection.Item">
+      <summary>Returns element at a specified position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSelectedObjectCollection._NewEnum">
+      <summary>Returns enumerator object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginSelectedObject">
+      <summary>Represents a selected object in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSelectedObject.Path">
+      <summary>Returns a full path of the object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgProgressTrackCancel">
+      <summary>The interface represents the progress of a lengthy action.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgProgressTrackCancel.SetProgress(System.Int32,System.String)">
+      <summary>Notifies of the progress of a time consuming operation.</summary>
+      <param name="Step"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgProgressTrackCancel.BeginTracking(AGI.Ui.Plugins.AgEProgressTrackingOptions,AGI.Ui.Plugins.AgEProgressTrackingType)">
+      <summary>Initialize the progress animation using specified behavior and appearance</summary>
+      <param name="TrackingOption"></param>
+      <param name="AnimationType"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgProgressTrackCancel.EndTracking">
+      <summary>Ends the progress animation.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgProgressTrackCancel.Continue">
+      <summary>Returns whether to continue normal operation execution.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEProgressTrackingOptions">
+      <summary>Combination of the values control the progress animation behavior</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEProgressTrackingOptions.eProgressTrackingOptionNone">
+      <summary>Indicates no options set.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEProgressTrackingOptions.eProgressTrackingOptionNoCancel">
+      <summary>Indicates the operation cannot be cancelled.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEProgressTrackingType">
+      <summary>Defines various progress feedback appearances</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEProgressTrackingType.eTrackAsProgressBar">
+      <summary>Progress animation is shown using measured progress bar.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginConfigurationPageBuilder">
+      <summary>Represents a configuration page in the hosting enviroment. Using this interface UI plugins can add custom configuration pages.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageBuilder.AddCustomEmbeddedControlPage(AGI.Ui.Plugins.IAgUiPlugin,System.Object,System.String)">
+      <summary>Adds a custom configuration page using the given embedded control.</summary>
+      <param name="pPlugin"></param>
+      <param name="EmbeddedPluginUnk"></param>
+      <param name="Caption"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageBuilder.AddCustomUserControlPage(AGI.Ui.Plugins.IAgUiPlugin,System.String,System.String,System.String)">
+      <summary>Adds a custom configuration page using the given path to a .NET assembly and the name of the custom user control residing in the assembly.</summary>
+      <param name="pPlugin"></param>
+      <param name="AsmPath"></param>
+      <param name="UserControlClass"></param>
+      <param name="Caption"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginMenuBuilder">
+      <summary>The interface enables creating custom context menus.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder.AddMenuItem(System.String,System.String,System.String,stdole.Picture)">
+      <summary>Adds a menu item to an existing context menu.</summary>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder.AddSeparator">
+      <summary>Adds a menu item separator.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder.AddPopupMenu(System.String)">
+      <summary>Creates a new popup menu.</summary>
+      <param name="Title"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginToolbarBuilder">
+      <summary>Represents a toolbar in the hosting enviroment. Using this interface UI plugins can configure their custom toolbars.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginToolbarBuilder.AddButton(System.String,System.String,System.String,AGI.Ui.Plugins.AgEToolBarButtonOptions,stdole.Picture)">
+      <summary>Adds a standard push-style button.</summary>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="Options"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginToolbarBuilder.AddSeparator">
+      <summary>Adds a toolbar item separator.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEToolBarButtonOptions">
+      <summary>Defines bitmasks used to control the toolbar button command and update processing.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEToolBarButtonOptions.eToolBarButtonOptionNone">
+      <summary>No options.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEToolBarButtonOptions.eToolBarButtonOptionAlwaysOn">
+      <summary>Indicates the button state is always enabled.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEToolBarButtonOptions.eToolBarButtonOptionNeedScenario">
+      <summary>Indicates the button is disabled if scenario is not loaded.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginLicense">
+      <summary>Provides methods to retrieve additional information about the UI plugin.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginLicense.IsLicensed">
+      <summary>Returns whether the UI plugin is licensed.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginCommandTarget">
+      <summary>Allows the UI plugin to handle named commands.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginCommandTarget.QueryState(System.String)">
+      <summary>Returns a state of the specified named command.</summary>
+      <param name="CommandName"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginCommandTarget.Exec(System.String,AGI.Ui.Plugins.IAgProgressTrackCancel,AGI.Ui.Plugins.IAgUiPluginCommandParameters)">
+      <summary>Executes the specified named command.</summary>
+      <param name="CommandName"></param>
+      <param name="TrackCancel"></param>
+      <param name="Parameters"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEUiPluginCommandState">
+      <summary>The enumeration values represent the command state bit mask.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginCommandState.eUiPluginCommandStateNone">
+      <summary>The command is not supported.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginCommandState.eUiPluginCommandStateEnabled">
+      <summary>The command is enabled.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginCommandState.eUiPluginCommandStateSupported">
+      <summary>The command is supported.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginCommandState.eUiPluginCommandStateChecked">
+      <summary>The toolbar button or a context menu item associated with the command will appear checked.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginCommandState.eUiPluginCommandStateGrayed">
+      <summary>The toolbar button or a context menu item associated with the command will appear grayed out.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginCommandParameters">
+      <summary>Represents a collection of named values.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginCommandParameters.Read(System.String)">
+      <summary>Fetches the specified named property's value.</summary>
+      <param name="PropertyName"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginCommandParameters.Write(System.String,System.Object)">
+      <summary>Updates the specified named property using the new value.</summary>
+      <param name="PropertyName"></param>
+      <param name="Value"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginCommandParameters">
+      <summary>Represents a collection of named values.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginCommandParameters.Read(System.String)">
+      <summary>Fetches the specified named property's value.</summary>
+      <param name="PropertyName"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginCommandParameters.Write(System.String,System.Object)">
+      <summary>Updates the specified named property using the new value.</summary>
+      <param name="PropertyName"></param>
+      <param name="Value"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginSelectedObject">
+      <summary>Represents a selected object in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginSelectedObject.Path">
+      <summary>Returns a full path of the object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginToolbarBuilder">
+      <summary>Represents a toolbar in the hosting enviroment. Using this interface UI plugins can configure their custom toolbars.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginToolbarBuilder.AddButton(System.String,System.String,System.String,AGI.Ui.Plugins.AgEToolBarButtonOptions,stdole.Picture)">
+      <summary>Adds a standard push-style button.</summary>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="Options"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginToolbarBuilder.AddSeparator">
+      <summary>Adds a toolbar item separator.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgProgressTrackCancel">
+      <summary>The interface represents the progress of a lengthy action.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgProgressTrackCancel.SetProgress(System.Int32,System.String)">
+      <summary>Notifies of the progress of a time consuming operation.</summary>
+      <param name="Step"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgProgressTrackCancel.BeginTracking(AGI.Ui.Plugins.AgEProgressTrackingOptions,AGI.Ui.Plugins.AgEProgressTrackingType)">
+      <summary>Initialize the progress animation using specified behavior and appearance.</summary>
+      <param name="TrackingOption"></param>
+      <param name="AnimationType"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgProgressTrackCancel.EndTracking">
+      <summary>Ends the progress animation.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgProgressTrackCancel.Continue">
+      <summary>Returns whether to continue normal operation execution.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginConfigurationPageSite">
+      <summary>The interface represents a site object for the custom configuration pages created with UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageSite.SetModified(System.Boolean)">
+      <summary>Enables or disables the 'Apply' button.</summary>
+      <param name="Changed"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginConfigurationPageSite.Plugin">
+      <summary>Plugin object that owns the page.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginConfigurationPageSite">
+      <summary>The interface represents a site object for the custom configuration pages created with UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginConfigurationPageSite.SetModified(System.Boolean)">
+      <summary>Enables or disables the 'Apply' button.</summary>
+      <param name="Changed"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginConfigurationPageSite.Plugin">
+      <summary>Plugin object that owns the page.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions">
+      <summary>The interface represents the configuration page actions.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions.OnCreated(AGI.Ui.Plugins.IAgUiPluginConfigurationPageSite)">
+      <summary>Occurs during the initialization of the configuration page.</summary>
+      <param name="Site"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions.OnCancel">
+      <summary>Occurs when a user clicks the Cancel button.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions.OnOK">
+      <summary>Occurs when a user clicks the OK button.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions.OnApply">
+      <summary>Occurs when a user clicks the Apply button. The method returns whether the changes have been accepted.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginMenuBuilder">
+      <summary>The interface enables creating custom context menus.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginMenuBuilder.AddMenuItem(System.String,System.String,System.String,stdole.Picture)">
+      <summary>Adds a menu item to an existing context menu.</summary>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginMenuBuilder.AddSeparator">
+      <summary>Adds a menu item separator.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginMenuBuilder.AddPopupMenu(System.String)">
+      <summary>Creates a new popup menu.</summary>
+      <param name="Title"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginHtmlWindowSite">
+      <summary>The interface enables opening HTML windows within the integrated environment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginHtmlWindowSite.NewWindow(AGI.Ui.Plugins.IAgUiPlugin,System.String,System.Array@)">
+      <summary>Opens an HTML window and loads the document specified by a given URL.</summary>
+      <param name="Plugin"></param>
+      <param name="Url"></param>
+      <param name="DialogParams"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginHtmlWindowSite.ShowDialog(AGI.Ui.Plugins.IAgUiPlugin,System.String,System.Array@)">
+      <summary>Opens a modal HTML window and loads the document specified by a given URL.</summary>
+      <param name="Plugin"></param>
+      <param name="Url"></param>
+      <param name="DialogParams"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters">
+      <summary>Represents a custom window configuration object used to create custom windows integrated within the hosting environment.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.Caption">
+      <summary>The window title.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.AllowMultiple">
+      <summary>A flag to control to control the number of instances of the same window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.AssemblyPath">
+      <summary>A path to the assembly that contains a user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.UserControlFullName">
+      <summary>The full type name of the user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.X">
+      <summary>The window's initial X position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.Y">
+      <summary>The window's initial Y position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.Width">
+      <summary>The initial window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.Height">
+      <summary>The initial window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters.DockStyle">
+      <summary>Window docking style.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters">
+      <summary>Represents a custom window configuration object used to create custom windows integrated within the hosting environment.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.Caption">
+      <summary>The window title.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.AllowMultiple">
+      <summary>A flag to control to control the number of instances of the same window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.AssemblyPath">
+      <summary>A path to the assembly that contains a user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.UserControlFullName">
+      <summary>The full type name of the user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.X">
+      <summary>The window's initial X position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.Y">
+      <summary>The window's initial Y position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.Width">
+      <summary>The initial window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.Height">
+      <summary>The initial window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginWindowCreateParameters.DockStyle">
+      <summary>Window docking style.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite">
+      <summary>Represents a site object for the custom windows hosted within the integrated enviroment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite.SetModifiedFlag(System.Boolean)">
+      <summary>Call this method to indicate you have made modifications. This will force the framework to prompt to save changes before closing the window hosting the control.</summary>
+      <param name="Modified"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite.Window">
+      <summary>Returns a pointer to the container that is hosting the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite.Plugin">
+      <summary>Returns a pointer to the Ui plugin object that created the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite.IsModified">
+      <summary>Indicates whether there have been any modifications made to the hosted control.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins._IAgUiPluginEmbeddedControlSite">
+      <summary>Represents a site object for the custom windows hosted within the integrated enviroment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins._IAgUiPluginEmbeddedControlSite.SetModifiedFlag(System.Boolean)">
+      <summary>Call this method to indicate you have made modifications. This will force the framework to prompt to save changes before closing the window hosting the control.</summary>
+      <param name="Modified"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginEmbeddedControlSite.Window">
+      <summary>Returns a pointer to the container that is hosting the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginEmbeddedControlSite.Plugin">
+      <summary>Returns a pointer to the UI plugin object that created the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins._IAgUiPluginEmbeddedControlSite.IsModified">
+      <summary>Indicates whether there have been any modifications made to the hosted control.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginEmbeddedControl">
+      <summary>Represents a hosted control object embedded into a custom widow hosted within the integrated environment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedControl.SetSite(AGI.Ui.Plugins.IAgUiPluginEmbeddedControlSite)">
+      <summary>Framework calls the method to initialize the embedded control by providing the pointer to the control's site object.</summary>
+      <param name="Site"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedControl.OnClosing">
+      <summary>Framework calls the method to notify the control when the parent window is being closed.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedControl.OnSaveModified">
+      <summary>Framework calls the method to notify the control it needs to save any pending modifications.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedControl.GetIcon">
+      <summary>Framework calls the method to retrieve an icon to be used as the window icon. The implementation can return a valid pointer to a IPictureDisp object or null if a default icon should be used.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginWindowSite">
+      <summary>The interface enables creating custom windows within the integrated environment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginWindowSite.CreateToolWindow(AGI.Ui.Plugins.IAgUiPlugin,System.Object,System.String)">
+      <summary>Creates a custom tool window that hosts the control specified by the parameter pPlugin. The method returns a pointer to the newly created window.</summary>
+      <param name="Plugin"></param>
+      <param name="EmbeddedControlUnk"></param>
+      <param name="Caption"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginWindowSite.CreateToolWindowParam(AGI.Ui.Plugins.IAgUiPlugin,System.Object,AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters)">
+      <summary>Creates a custom tool window using the given parameters.</summary>
+      <param name="Plugin"></param>
+      <param name="EmbeddedControlUnk"></param>
+      <param name="CreateParameters"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginWindowSite.CreateNetToolWindow(AGI.Ui.Plugins.IAgUiPlugin,System.String,System.String,System.String)">
+      <summary>Creates a custom tool window that hosts the .NET user control loaded from the assembly specified by the assemblyPath.</summary>
+      <param name="Plugin"></param>
+      <param name="AsmPath"></param>
+      <param name="ControlClass"></param>
+      <param name="Caption"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginWindowSite.CreateNetToolWindowParam(AGI.Ui.Plugins.IAgUiPlugin,AGI.Ui.Plugins.IAgUiPluginWindowCreateParameters)">
+      <summary>Creates a custom tool window that hosts the .NET user control loaded from the assembly specified by the assemblyPath.</summary>
+      <param name="Plugin"></param>
+      <param name="CreateParameters"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginWindowSite.CreateParameters">
+      <summary>Returns a new instance of the parameters used to create custom tool windows.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginEmbeddedWindowHandle">
+      <summary>The interface is used to with native user controls which can be hosted by the integrated environment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginEmbeddedWindowHandle.Apply">
+      <summary>Apply any changes made to the underlying data object.  Returning an error if unsuccessful.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginEmbeddedWindowHandle.HWND">
+      <summary>Returns the HWND of the embedded control.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPlugin2">
+      <summary>UI plugin optionally implements IAgUiPlugin2 to extend the application's custom menus and main menu bar.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPlugin2.OnDisplayMenu(System.String,AGI.Ui.Plugins.AgEUiPluginMenuBarKind,AGI.Ui.Plugins.IAgUiPluginMenuBuilder2)">
+      <summary>OnDisplayMenu is invoked by the hosting application when a context menu or a top level menu is about to be displayed. Using the specified menu builder, UI Plugins can add custom menu items or sub-menus to the context menus or top level menus.</summary>
+      <param name="MenuTitle"></param>
+      <param name="MenuBarKind"></param>
+      <param name="MenuBuilder"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEUiPluginMenuBarKind">
+      <summary>The enumeration values specify menu types that are extended at run-time by the UI Plugins.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginMenuBarKind.eUiPluginMenuBarTopLevelMenu">
+      <summary>A top level menu bar.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginMenuBarKind.eUiPluginMenuBarPopupMenu">
+      <summary>A pop-up menu that is displayed when users click on an menu bar button.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginMenuBarKind.eUiPluginMenuBarContextMenu">
+      <summary>A context menu.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2">
+      <summary>IAgUiPluginMenuBuilder2 extends the existing context menu extensibility mechanism. Using IAgUiPluginMenuBuilder2 the UI Plugin can now insert menu items and pop-up menus at a specified position of the parent menu.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.InsertMenuItem(System.Int32,System.String,System.String,System.String,stdole.Picture)">
+      <summary>Insert a menu item at a specified position.</summary>
+      <param name="BeforeIndex"></param>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.InsertSeparator(System.Int32)">
+      <summary>Inserts a menu item separator at a specified position.</summary>
+      <param name="BeforeIndex"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.InsertPopupMenu(System.Int32,System.String)">
+      <summary>Creates and insert a new popup menu at a specified position.</summary>
+      <param name="BeforeIndex"></param>
+      <param name="Title"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.GetPositionOf(System.String)">
+      <summary>Returns a position of the specified menu item or -1 if the specified menu item was not found.</summary>
+      <param name="MenuItemTitle"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.AddMenuItem(System.String,System.String,System.String,stdole.Picture)">
+      <summary>Adds a menu item to an existing context menu.</summary>
+      <param name="CommandID"></param>
+      <param name="Title"></param>
+      <param name="Description"></param>
+      <param name="PictureDisp"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.AddSeparator">
+      <summary>Adds a menu item separator.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginMenuBuilder2.AddPopupMenu(System.String)">
+      <summary>Creates a new popup menu.</summary>
+      <param name="Title"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2">
+      <summary>The interface is implemented by the custom configuration pages.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2.OnHelp">
+      <summary>Occurs when a user clicks the Help button.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2.OnCreated(AGI.Ui.Plugins.IAgUiPluginConfigurationPageSite)">
+      <summary>Occurs during the initialization of the configuration page.</summary>
+      <param name="Site"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2.OnCancel">
+      <summary>Occurs when a user clicks the Cancel button.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2.OnOK">
+      <summary>Occurs when a user clicks the OK button.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginConfigurationPageActions2.OnApply">
+      <summary>Occurs when a user clicks the Apply button. The method returns whether the changes have been accepted.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.IAgUiPluginSite2">
+      <summary>The interface represents a site object for the UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginSite2.ShowHelp(System.String,System.String,AGI.Ui.Plugins.AgEUiPluginHelpDisplayType)">
+      <summary>Displays the Help topic using the specified help file and, optionally, the topic.</summary>
+      <param name="HelpFileUri"></param>
+      <param name="Data"></param>
+      <param name="HelpDisplayType"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginSite2.LogMessage(AGI.Ui.Plugins.AgEUiPluginLogMsgType,System.String)">
+      <summary>Records the specified message in the application's log using the given message type.</summary>
+      <param name="MsgType"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.IAgUiPluginSite2.GetProgressTracker">
+      <summary>Returns a progress tracking object.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite2.Application">
+      <summary>Returns the root object of the Application Object Model.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite2.Selection">
+      <summary>Returns a current selection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite2.MainWindow">
+      <summary>A handle to the application's main window or NULL if the application does not have a window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.IAgUiPluginSite2.PersonalityName">
+      <summary>A name of the currently loaded personality (possible values are 'STK', 'ODTK', etc.).</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgEUiPluginHelpDisplayType">
+      <summary>Specifies constants indicating a help element to display.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginHelpDisplayType.eUiPluginHelpTopic">
+      <summary>Displays the help topic.</summary>
+    </member>
+    <member name="F:AGI.Ui.Plugins.AgEUiPluginHelpDisplayType.eUiPluginHelpTOC">
+      <summary>Displays the table of contents.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters">
+      <summary>A custom window configuration object used to create custom windows integrated within the hosting environment.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.Caption">
+      <summary>The window title.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.AllowMultiple">
+      <summary>A flag to control to control the number of instances of the same window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.AssemblyPath">
+      <summary>A path to the assembly that contains a user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.UserControlFullName">
+      <summary>The full type name of the user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.X">
+      <summary>The window's initial X position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.Y">
+      <summary>The window's initial Y position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.Width">
+      <summary>The initial window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.Height">
+      <summary>The initial window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParameters.DockStyle">
+      <summary>Window docking style.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass">
+      <summary>A custom window configuration object used to create custom windows integrated within the hosting environment.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.Caption">
+      <summary>The window title.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.AllowMultiple">
+      <summary>A flag to control to control the number of instances of the same window.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.AssemblyPath">
+      <summary>A path to the assembly that contains a user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.UserControlFullName">
+      <summary>The full type name of the user control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.X">
+      <summary>The window's initial X position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.Y">
+      <summary>The window's initial Y position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.Width">
+      <summary>The initial window width.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.Height">
+      <summary>The initial window height.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginWindowCreateParametersClass.DockStyle">
+      <summary>Window docking style.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginCommandParameters">
+      <summary>A collection of named values.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginCommandParameters.Read(System.String)">
+      <summary>Fetches the specified named property's value.</summary>
+      <param name="PropertyName"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginCommandParameters.Write(System.String,System.Object)">
+      <summary>Updates the specified named property using the new value.</summary>
+      <param name="PropertyName"></param>
+      <param name="Value"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginCommandParametersClass">
+      <summary>A collection of named values.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginCommandParametersClass.Read(System.String)">
+      <summary>Fetches the specified named property's value.</summary>
+      <param name="PropertyName"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginCommandParametersClass.Write(System.String,System.Object)">
+      <summary>Updates the specified named property using the new value.</summary>
+      <param name="PropertyName"></param>
+      <param name="Value"></param>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginSelectedObject">
+      <summary>An object selected in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObject.Path">
+      <summary>Returns a full path of the object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginSelectedObjectClass">
+      <summary>An object selected in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectClass.Path">
+      <summary>Returns a full path of the object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollection">
+      <summary>A collection of selected objects in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollection.Count">
+      <summary>Returns a total number of elements in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollection.Item">
+      <summary>Returns element at a specified position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollection._NewEnum">
+      <summary>Returns enumerator object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollectionClass">
+      <summary>A collection of selected objects in the object browser.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollectionClass.Count">
+      <summary>Returns a total number of elements in the collection.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollectionClass.Item">
+      <summary>Returns element at a specified position.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginSelectedObjectCollectionClass._NewEnum">
+      <summary>Returns enumerator object.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgProgressTrackCancel">
+      <summary>Enables to access the progress tracking services provided by the framework. The progress tracking is used to inform the users that an operation is in progress.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancel.SetProgress(System.Int32,System.String)">
+      <summary>Notifies of the progress of a time consuming operation.</summary>
+      <param name="Step"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancel.BeginTracking(AGI.Ui.Plugins.AgEProgressTrackingOptions,AGI.Ui.Plugins.AgEProgressTrackingType)">
+      <summary>Initialize the progress animation using specified behavior and appearance.</summary>
+      <param name="TrackingOption"></param>
+      <param name="AnimationType"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancel.EndTracking">
+      <summary>Ends the progress animation.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgProgressTrackCancel.Continue">
+      <summary>Returns whether to continue normal operation execution.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgProgressTrackCancelClass">
+      <summary>Enables to access the progress tracking services provided by the framework. The progress tracking is used to inform the users that an operation is in progress.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancelClass.SetProgress(System.Int32,System.String)">
+      <summary>Notifies of the progress of a time consuming operation.</summary>
+      <param name="Step"></param>
+      <param name="Message"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancelClass.BeginTracking(AGI.Ui.Plugins.AgEProgressTrackingOptions,AGI.Ui.Plugins.AgEProgressTrackingType)">
+      <summary>Initialize the progress animation using specified behavior and appearance.</summary>
+      <param name="TrackingOption"></param>
+      <param name="AnimationType"></param>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgProgressTrackCancelClass.EndTracking">
+      <summary>Ends the progress animation.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgProgressTrackCancelClass.Continue">
+      <summary>Returns whether to continue normal operation execution.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSite">
+      <summary>Represents a site object for the custom windows hosted within the integrated enviroment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSite.SetModifiedFlag(System.Boolean)">
+      <summary>Call this method to indicate you have made modifications. This will force the framework to prompt to save changes before closing the window hosting the control.</summary>
+      <param name="Modified"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSite.Window">
+      <summary>Returns a pointer to the container that is hosting the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSite.Plugin">
+      <summary>Returns a pointer to the UI plugin object that created the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSite.IsModified">
+      <summary>Indicates whether there have been any modifications made to the hosted control.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSiteClass">
+      <summary>Represents a site object for the custom windows hosted within the integrated enviroment.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSiteClass.SetModifiedFlag(System.Boolean)">
+      <summary>Call this method to indicate you have made modifications. This will force the framework to prompt to save changes before closing the window hosting the control.</summary>
+      <param name="Modified"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSiteClass.Window">
+      <summary>Returns a pointer to the container that is hosting the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSiteClass.Plugin">
+      <summary>Returns a pointer to the UI plugin object that created the embedded control.</summary>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginEmbeddedControlSiteClass.IsModified">
+      <summary>Indicates whether there have been any modifications made to the hosted control.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginConfigurationPageSite">
+      <summary>A site object for the custom configuration pages created with UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginConfigurationPageSite.SetModified(System.Boolean)">
+      <summary>Enables or disables the 'Apply' button.</summary>
+      <param name="Changed"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginConfigurationPageSite.Plugin">
+      <summary>Plugin object that owns the page.</summary>
+    </member>
+    <member name="T:AGI.Ui.Plugins.AgUiPluginConfigurationPageSiteClass">
+      <summary>A site object for the custom configuration pages created with UI plugins.</summary>
+    </member>
+    <member name="M:AGI.Ui.Plugins.AgUiPluginConfigurationPageSiteClass.SetModified(System.Boolean)">
+      <summary>Enables or disables the 'Apply' button.</summary>
+      <param name="Changed"></param>
+    </member>
+    <member name="P:AGI.Ui.Plugins.AgUiPluginConfigurationPageSiteClass.Plugin">
+      <summary>Plugin object that owns the page.</summary>
+    </member>
+  </members>
+</doc>
