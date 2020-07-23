@@ -6,7 +6,7 @@
                 DisplayName="Sensor Boresight View"
                 TypeName="SensorBoresightViewPlugin.SensorBoresightViewPlugin"
                 AssemblyName="SensorBoresightViewPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-                CodeBase="C:\Users\ktuan\Documents\GitHub\STKCodeExamples\StkUiPlugins\CSharp\SensorBoresightView\Stk11.SensorBoresightView\bin\Debug">
+                CodeBase="Directory of code base">
            </NETUiPlugin>
 	</Category>
    </CategoryRegistry>
