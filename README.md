@@ -30,4 +30,6 @@ Contact support@agi.com with any questions regarding STK, STK Engine or any othe
 
 AGI's ready-to-use STK and ODTK families of products, enterprise software, and developer tools help customers deliver digital engineering value and make better-informed decisions in a mission context at any stage in the program lifecycle: from planning and design to training and operations.  
 
-For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage"). 
+For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage").
+
+Small change.
