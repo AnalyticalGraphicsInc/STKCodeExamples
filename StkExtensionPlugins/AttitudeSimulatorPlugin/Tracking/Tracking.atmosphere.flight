@@ -1,0 +1,10 @@
+<?xml version = "1.0" standalone = "yes"?>
+<AgXMLPropertyBagData version = "1.0">
+    <Object clsid = "{C3DD1F28-B738-4354-A098-D42F97C1A878}">
+        <DisplayName Value = "Basic Atmosphere" VarType = "VT_BSTR" />
+        <AtmosphereModel Value = "0" VarType = "VT_I4" />
+        <UseNonStandardAtmosphere Value = "0" VarType = "VT_I1" />
+        <DeltaSLTemp Value = "0.0000000000000000e+00" VarType = "VT_R8" />
+        <DeltaSLPressure Value = "0.0000000000000000e+00" VarType = "VT_R8" />
+    </Object>
+</AgXMLPropertyBagData>

@@ -1,0 +1,16 @@
+stk.v.6.0		
+
+Model		 ZonalsToJ4
+CentralBody		 Iapetus
+Degree		 4
+Order		 0
+GM		  1.2050732730661200e+11
+RefDistance		  7.3430000000000000e+05
+Normalized		 No
+
+BEGIN Coefficients
+    2 0 -0.0000000000000000e+00  0.0000000000000000e+00
+    3 0 -0.0000000000000000e+00  0.0000000000000000e+00
+    4 0 -0.0000000000000000e+00  0.0000000000000000e+00
+
+END Coefficients

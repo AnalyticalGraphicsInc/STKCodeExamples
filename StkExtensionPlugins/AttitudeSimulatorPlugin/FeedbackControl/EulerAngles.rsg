@@ -1,0 +1,198 @@
+stk.v.10.0
+WrittenBy    STK_v10.0.2
+
+BEGIN ReportStyle
+
+BEGIN ClassId
+	Class		Satellite
+END ClassId
+
+BEGIN Header
+	StyleType		1
+	Date		Yes
+	Name		Yes
+	IsHidden		No
+	DescShort		No
+	DescLong		No
+	YLog10		No
+	Y2Log10		No
+	YUseWholeNumbers		No
+	Y2UseWholeNumbers		No
+	VerticalGridLines		No
+	HorizontalGridLines		No
+	AnnotationType		Spaced
+	NumAnnotations		3
+	NumAngularAnnotations		5
+	ShowYAnnotations		Yes
+	AnnotationRotation		1
+	BackgroundColor		#ffffff
+	ForegroundColor		#000000
+	ViewableDuration		3600.000000
+	RealTimeMode		No
+	DayLinesStatus		1
+	LegendStatus		1
+	LegendLocation		1
+
+BEGIN PostProcessor
+	Destination	0
+	Use	0
+	Destination	1
+	Use	0
+	Destination	2
+	Use	0
+	Destination	3
+	Use	0
+END PostProcessor
+	NumSections		2
+END Header
+
+BEGIN Section
+	Name		Section 1
+	ClassName		Satellite
+	NameInTitle		No
+	ExpandMethod		0
+	PropMask		2
+	ShowIntervals		No
+	NumIntervals		0
+	NumLines		2
+
+BEGIN Line
+	Name		Line 1
+	NumElements		1
+
+BEGIN Element
+	Name		Time
+	IsIndepVar		Yes
+	IndepVarName		Time
+	Title		Time
+	NameInTitle		No
+	Service		BodyOrientation
+	Type		SunPointing
+	Element		Time
+	SumAllowedMask		0
+	SummaryOnly		No
+	DataType		0
+	UnitType		2
+	LineStyle		0
+	LineWidth		0
+	LineColor		#000000
+	PointStyle		0
+	PointSize		0
+	FillPattern		0
+	FillColor		#000000
+	PropMask		0
+	UseScenUnits		Yes
+END Element
+END Line
+
+BEGIN Line
+	Name		Line 2
+	NumElements		3
+
+BEGIN Element
+	Name		Body Axes Orientation-SunPointing-Euler321 precession
+	IsIndepVar		No
+	IndepVarName		Time
+	Title		precession
+	NameInTitle		Yes
+	Service		BodyOrientation
+	Type		SunPointing
+	Element		Euler321 precession
+	SumAllowedMask		1543
+	SummaryOnly		No
+	DataType		0
+	UnitType		3
+	LineStyle		2
+	LineWidth		2
+	LineColor		#000000
+	PointStyle		1
+	PointSize		4
+	FillPattern		0
+	FillColor		#000000
+	PropMask		0
+	UseScenUnits		No
+BEGIN Units
+		AngleUnit		Degrees
+END Units
+END Element
+
+BEGIN Element
+	Name		Body Axes Orientation-SunPointing-Euler321 nutation
+	IsIndepVar		No
+	IndepVarName		Time
+	Title		nutation
+	NameInTitle		Yes
+	Service		BodyOrientation
+	Type		SunPointing
+	Element		Euler321 nutation
+	SumAllowedMask		1543
+	SummaryOnly		No
+	DataType		0
+	UnitType		3
+	LineStyle		2
+	LineWidth		2
+	LineColor		#00ff00
+	PointStyle		1
+	PointSize		4
+	FillPattern		0
+	FillColor		#000000
+	PropMask		0
+	UseScenUnits		No
+BEGIN Units
+		AngleUnit		Degrees
+END Units
+END Element
+
+BEGIN Element
+	Name		Body Axes Orientation-SunPointing-Euler321 spin
+	IsIndepVar		No
+	IndepVarName		Time
+	Title		spin
+	NameInTitle		Yes
+	Service		BodyOrientation
+	Type		SunPointing
+	Element		Euler321 spin
+	SumAllowedMask		1543
+	SummaryOnly		No
+	DataType		0
+	UnitType		3
+	LineStyle		2
+	LineWidth		2
+	LineColor		#00ffff
+	PointStyle		1
+	PointSize		4
+	FillPattern		0
+	FillColor		#000000
+	PropMask		0
+	UseScenUnits		No
+BEGIN Units
+		AngleUnit		Degrees
+END Units
+END Element
+END Line
+END Section
+
+BEGIN Section
+	Name		Section 2
+	NameInTitle		No
+	ExpandMethod		0
+	PropMask		0
+	ShowIntervals		No
+	NumIntervals		0
+	NumLines		2
+
+BEGIN Line
+	Name		Line 1
+	NumElements		0
+END Line
+
+BEGIN Line
+	Name		Line 2
+	NumElements		0
+END Line
+END Section
+
+BEGIN LineAnnotations
+END LineAnnotations
+END ReportStyle
+

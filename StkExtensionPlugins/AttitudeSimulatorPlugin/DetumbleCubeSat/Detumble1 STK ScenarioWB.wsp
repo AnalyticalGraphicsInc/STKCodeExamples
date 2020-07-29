@@ -1,0 +1,55 @@
+[Analytical Graphics, Inc]
+WorkbookVersion=9.0
+Title=Detumble1
+Description=
+ApplicationVersion=10.0.2
+Scenario=YES
+ActiveMDIState=TRUE
+[WorkState_v1_2]
+ptn_Child1=Frames
+[WorkState_v1_2.Frames]
+ptn_Child1=MainFrame
+ptn_Child2=ChildFrames
+[WorkState_v1_2.Frames.MainFrame]
+WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPPPNDJAAAAAKDAAAAAANIOAAAAAOGDAAAAA
+Title=Detumble1 - STK 10 - [3D Graphics 1 - Earth]
+[WorkState_v1_2.Frames.ChildFrames]
+ptn_Child1=Document-0
+ptn_Child2=Document-1
+ptn_Child3=Document-2
+[WorkState_v1_2.Frames.ChildFrames.Document-0]
+ptn_Child1=ViewFrame-0
+[WorkState_v1_2.Frames.ChildFrames.Document-0.ViewFrame-0]
+DocPathName=C:\Program Files (x86)\AGI\STK 10\bin\AgUi3DGfxView10.AgUiPi3DGfxView.1
+DocumentString=AgUi3DGfxView.AgUiPi3DGfxView.1
+DocTemplateIndex=0
+WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAPPPPPPPPPPPPPPPPGPPPPPPPAOPPPPPPBAAAAAAABAAAAAAAKBDAAAAAFFCAAAAA
+IsActiveChildFrame=True
+IsFrameVisible=True
+ptn_Child1=AGI Custom Node Data
+[WorkState_v1_2.Frames.ChildFrames.Document-0.ViewFrame-0.AGI Custom Node Data]
+MapID=1
+SceneType=1
+[WorkState_v1_2.Frames.ChildFrames.Document-1]
+ptn_Child1=ViewFrame-0
+[WorkState_v1_2.Frames.ChildFrames.Document-1.ViewFrame-0]
+DocPathName=C:\Program Files (x86)\AGI\STK 10\bin\AgUi2DGfxView10.AgUiPi2DGfxView.1
+DocumentString=AgUi2DGfxView.AgUiPi2DGfxView.1
+DocTemplateIndex=0
+WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPIPPPPPPPCOPPPPPPNACAAAAABAAAAAAAHEEAAAAAIFBAAAAA
+IsActiveChildFrame=False
+IsFrameVisible=True
+ptn_Child1=AGI Custom Node Data
+[WorkState_v1_2.Frames.ChildFrames.Document-1.ViewFrame-0.AGI Custom Node Data]
+MapID=1
+[WorkState_v1_2.Frames.ChildFrames.Document-2]
+ptn_Child1=ViewFrame-0
+[WorkState_v1_2.Frames.ChildFrames.Document-2.ViewFrame-0]
+DocPathName=C:\Program Files (x86)\AGI\STK 10\bin\AgUiAttrBrowser10.AgUiPiAttrBrowser.1
+DocumentString=AgUiAttrBrowser.AgUiPiAttrBrowser.1
+DocTemplateIndex=0
+WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAAAALNAAAAAAIMDAAAAA
+IsActiveChildFrame=False
+IsFrameVisible=True
+ProfUISBarID=63000
+ptn_Child1=AGI Custom Node Data
