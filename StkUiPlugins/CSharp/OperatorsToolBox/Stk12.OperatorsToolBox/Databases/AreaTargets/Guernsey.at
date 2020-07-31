@@ -1,0 +1,105 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Guernsey
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            4.945141e+001
+		EcfLongitude           -2.586614e+000
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     11
+
+		BEGIN PolygonPoints
+
+			4.94224911298473e+001	-2.59083683477482e+000	0.00000000000000e+000
+			4.94224911298473e+001	-2.59721783478076e+000	0.00000000000000e+000
+			4.94258271298504e+001	-2.65444583483406e+000	0.00000000000000e+000
+			4.94327731298569e+001	-2.66860883484725e+000	0.00000000000000e+000
+			4.94577731298802e+001	-2.65416383483381e+000	0.00000000000000e+000
+			4.94908271299110e+001	-2.57916383476396e+000	0.00000000000000e+000
+			4.95081911299271e+001	-2.53652683472424e+000	0.00000000000000e+000
+			4.95038911299231e+001	-2.50097283469114e+000	0.00000000000000e+000
+			4.94263911298509e+001	-2.52847283471675e+000	0.00000000000000e+000
+			4.94233361298481e+001	-2.55555483474197e+000	0.00000000000000e+000
+			4.94224911298473e+001	-2.59083683477482e+000	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    76
+ObjectID : 67
+FIPS_CNTRY : GK
+GMI_CNTRY : XGK
+ISO_2DIGIT : 
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

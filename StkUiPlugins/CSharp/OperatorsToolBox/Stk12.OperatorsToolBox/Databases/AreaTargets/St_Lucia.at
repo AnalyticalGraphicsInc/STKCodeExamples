@@ -1,0 +1,121 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        St_Lucia
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.385288e+001
+		EcfLongitude           -6.097484e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     27
+
+		BEGIN PolygonPoints
+
+			1.37094450965869e+001	-6.09547268891304e+001	0.00000000000000e+000
+			1.37150000965921e+001	-6.09561178891317e+001	0.00000000000000e+000
+			1.37280540966043e+001	-6.09680548891429e+001	0.00000000000000e+000
+			1.37444450966195e+001	-6.09863908891599e+001	0.00000000000000e+000
+			1.37502730966250e+001	-6.09981998891709e+001	0.00000000000000e+000
+			1.37500000966247e+001	-6.10144548891861e+001	0.00000000000000e+000
+			1.37525000966270e+001	-6.10261178891969e+001	0.00000000000000e+000
+			1.37613910966353e+001	-6.10391728892091e+001	0.00000000000000e+000
+			1.37705540966439e+001	-6.10505638892197e+001	0.00000000000000e+000
+			1.37927730966646e+001	-6.10701458892379e+001	0.00000000000000e+000
+			1.38050000966759e+001	-6.10747268892422e+001	0.00000000000000e+000
+			1.38766640967427e+001	-6.10795818892467e+001	0.00000000000000e+000
+			1.38969450967616e+001	-6.10750088892425e+001	0.00000000000000e+000
+			1.39697180968294e+001	-6.10349998892052e+001	0.00000000000000e+000
+			1.40097180968666e+001	-6.10116728891835e+001	0.00000000000000e+000
+			1.41047180969551e+001	-6.09458358891222e+001	0.00000000000000e+000
+			1.41093090969594e+001	-6.09333358891105e+001	0.00000000000000e+000
+			1.41018730969524e+001	-6.09161178890945e+001	0.00000000000000e+000
+			1.40130540968697e+001	-6.08880638890684e+001	0.00000000000000e+000
+			1.39758270968350e+001	-6.08786178890596e+001	0.00000000000000e+000
+			1.39566640968172e+001	-6.08780638890591e+001	0.00000000000000e+000
+			1.38511090967189e+001	-6.08856998890662e+001	0.00000000000000e+000
+			1.38236090966933e+001	-6.08900088890702e+001	0.00000000000000e+000
+			1.37783270966511e+001	-6.09002818890797e+001	0.00000000000000e+000
+			1.37177820965947e+001	-6.09383358891152e+001	0.00000000000000e+000
+			1.37100000965875e+001	-6.09513908891273e+001	0.00000000000000e+000
+			1.37094450965869e+001	-6.09547268891304e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 38
+FIPS_CNTRY : ST
+GMI_CNTRY : LCA
+ISO_2DIGIT : LC
+ISO_3DIGIT : LCA
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

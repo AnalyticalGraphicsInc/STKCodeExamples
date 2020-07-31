@@ -1,0 +1,105 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Wallis___Futuna
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -1.428066e+001
+		EcfLongitude           -1.781433e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     11
+
+		BEGIN PolygonPoints
+
+			-1.43238909295211e+001	-1.78060817998194e+002	0.00000000000000e+000
+			-1.43170819295148e+001	-1.78137390998265e+002	0.00000000000000e+000
+			-1.43080549295064e+001	-1.78153899998281e+002	0.00000000000000e+000
+			-1.42877819294875e+001	-1.78171108998297e+002	0.00000000000000e+000
+			-1.42754179294760e+001	-1.78179354998304e+002	0.00000000000000e+000
+			-1.42561089294580e+001	-1.78188326998313e+002	0.00000000000000e+000
+			-1.42397269294427e+001	-1.78190272998315e+002	0.00000000000000e+000
+			-1.42323639294359e+001	-1.78181699998307e+002	0.00000000000000e+000
+			-1.42486089294510e+001	-1.78127335998256e+002	0.00000000000000e+000
+			-1.43174999295152e+001	-1.78043017998177e+002	0.00000000000000e+000
+			-1.43238909295211e+001	-1.78060817998194e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 17
+FIPS_CNTRY : WF
+GMI_CNTRY : WLF
+ISO_2DIGIT : WF
+ISO_3DIGIT : WLF
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

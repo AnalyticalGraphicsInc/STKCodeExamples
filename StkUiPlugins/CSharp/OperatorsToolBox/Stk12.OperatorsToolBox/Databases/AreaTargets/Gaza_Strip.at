@@ -1,0 +1,112 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Gaza_Strip
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            3.141825e+001
+		EcfLongitude           3.438973e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     18
+
+		BEGIN PolygonPoints
+
+			3.15961001132452e+001	3.44905451997599e+001	0.00000000000000e+000
+			3.15400001131929e+001	3.45588911998236e+001	0.00000000000000e+000
+			3.15147181131694e+001	3.45399911998059e+001	0.00000000000000e+000
+			3.14986091131544e+001	3.45133271997811e+001	0.00000000000000e+000
+			3.14711091131288e+001	3.44786091997488e+001	0.00000000000000e+000
+			3.13947181130577e+001	3.43888821996652e+001	0.00000000000000e+000
+			3.13543001130200e+001	3.43645821996426e+001	0.00000000000000e+000
+			3.13000001129694e+001	3.43712451996488e+001	0.00000000000000e+000
+			3.12597181129319e+001	3.43341631996143e+001	0.00000000000000e+000
+			3.12165451128917e+001	3.42675821995522e+001	0.00000000000000e+000
+			3.12947181129645e+001	3.42391631995258e+001	0.00000000000000e+000
+			3.13233271129912e+001	3.42166631995048e+001	0.00000000000000e+000
+			3.13497181130157e+001	3.42480541995341e+001	0.00000000000000e+000
+			3.13738821130383e+001	3.42761091995602e+001	0.00000000000000e+000
+			3.14891641131456e+001	3.44011091996766e+001	0.00000000000000e+000
+			3.15497181132020e+001	3.44558271997276e+001	0.00000000000000e+000
+			3.15830541132331e+001	3.44826361997525e+001	0.00000000000000e+000
+			3.15961001132452e+001	3.44905451997599e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 97
+FIPS_CNTRY : GZ
+GMI_CNTRY : ISR
+ISO_2DIGIT : PS
+ISO_3DIGIT : PSE
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
