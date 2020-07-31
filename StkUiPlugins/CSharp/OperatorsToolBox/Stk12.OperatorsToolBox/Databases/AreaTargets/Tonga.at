@@ -1,0 +1,122 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Tonga
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -2.115233e+001
+		EcfLongitude           -1.752055e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     28
+
+		BEGIN PolygonPoints
+
+			-2.12680639359884e+001	-1.75145290995479e+002	0.00000000000000e+000
+			-2.12527819359742e+001	-1.75186399995517e+002	0.00000000000000e+000
+			-2.11799999359064e+001	-1.75314454995636e+002	0.00000000000000e+000
+			-2.11744459359012e+001	-1.75323635995645e+002	0.00000000000000e+000
+			-2.11616729358893e+001	-1.75336426995657e+002	0.00000000000000e+000
+			-2.11433359358722e+001	-1.75351408995671e+002	0.00000000000000e+000
+			-2.11316639358614e+001	-1.75357481995676e+002	0.00000000000000e+000
+			-2.11008359358326e+001	-1.75359999995679e+002	0.00000000000000e+000
+			-2.10887549358214e+001	-1.75353199995672e+002	0.00000000000000e+000
+			-2.10748639358085e+001	-1.75341126995661e+002	0.00000000000000e+000
+			-2.10641729357985e+001	-1.75314299995636e+002	0.00000000000000e+000
+			-2.10697269358037e+001	-1.75303554995626e+002	0.00000000000000e+000
+			-2.11249999358552e+001	-1.75276672995601e+002	0.00000000000000e+000
+			-2.11297819358596e+001	-1.75245235995572e+002	0.00000000000000e+000
+			-2.11768089359034e+001	-1.75149035995482e+002	0.00000000000000e+000
+			-2.11758359359025e+001	-1.75138363995472e+002	0.00000000000000e+000
+			-2.11591639358870e+001	-1.75131954995466e+002	0.00000000000000e+000
+			-2.11447269358735e+001	-1.75129454995464e+002	0.00000000000000e+000
+			-2.11337549358633e+001	-1.75121399995456e+002	0.00000000000000e+000
+			-2.11280639358580e+001	-1.75107235995443e+002	0.00000000000000e+000
+			-2.11249999358552e+001	-1.75093626995431e+002	0.00000000000000e+000
+			-2.11258359358559e+001	-1.75065426995404e+002	0.00000000000000e+000
+			-2.11369459358663e+001	-1.75048763995389e+002	0.00000000000000e+000
+			-2.11491639358777e+001	-1.75045990995386e+002	0.00000000000000e+000
+			-2.11616729358893e+001	-1.75051699995392e+002	0.00000000000000e+000
+			-2.12620909359828e+001	-1.75120835995456e+002	0.00000000000000e+000
+			-2.12677819359881e+001	-1.75135035995469e+002	0.00000000000000e+000
+			-2.12680639359884e+001	-1.75145290995479e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 16
+FIPS_CNTRY : TN
+GMI_CNTRY : TON
+ISO_2DIGIT : TO
+ISO_3DIGIT : TON
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

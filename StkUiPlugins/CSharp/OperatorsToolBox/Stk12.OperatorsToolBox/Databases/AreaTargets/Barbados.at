@@ -1,0 +1,125 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Barbados
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.318521e+001
+		EcfLongitude           -5.954085e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     31
+
+		BEGIN PolygonPoints
+
+			1.30505540959733e+001	-5.95330548878064e+001	0.00000000000000e+000
+			1.30690270959905e+001	-5.95454178878179e+001	0.00000000000000e+000
+			1.30758360959969e+001	-5.95711088878418e+001	0.00000000000000e+000
+			1.30835360960040e+001	-5.96084728878766e+001	0.00000000000000e+000
+			1.31015270960208e+001	-5.96270908878940e+001	0.00000000000000e+000
+			1.31463910960626e+001	-5.96427818879086e+001	0.00000000000000e+000
+			1.32877730961942e+001	-5.96594458879241e+001	0.00000000000000e+000
+			1.32991640962048e+001	-5.96583358879231e+001	0.00000000000000e+000
+			1.33179180962223e+001	-5.96519548879171e+001	0.00000000000000e+000
+			1.33297180962333e+001	-5.96429178879087e+001	0.00000000000000e+000
+			1.33350000962382e+001	-5.96311088878977e+001	0.00000000000000e+000
+			1.33370820962402e+001	-5.96161178878838e+001	0.00000000000000e+000
+			1.33308360962344e+001	-5.95934818878627e+001	0.00000000000000e+000
+			1.32947180962007e+001	-5.95715358878422e+001	0.00000000000000e+000
+			1.32769450961842e+001	-5.95656998878368e+001	0.00000000000000e+000
+			1.32552730961640e+001	-5.95569458878287e+001	0.00000000000000e+000
+			1.32433360961529e+001	-5.95483358878206e+001	0.00000000000000e+000
+			1.32115270961232e+001	-5.95170908877915e+001	0.00000000000000e+000
+			1.31858360960993e+001	-5.94794458877565e+001	0.00000000000000e+000
+			1.31806910960945e+001	-5.94668088877447e+001	0.00000000000000e+000
+			1.31719450960864e+001	-5.94398638877196e+001	0.00000000000000e+000
+			1.31650000960799e+001	-5.94291728877097e+001	0.00000000000000e+000
+			1.31504180960663e+001	-5.94270818877077e+001	0.00000000000000e+000
+			1.31352730960522e+001	-5.94302818877107e+001	0.00000000000000e+000
+			1.31166640960349e+001	-5.94394458877192e+001	0.00000000000000e+000
+			1.31080540960269e+001	-5.94447268877242e+001	0.00000000000000e+000
+			1.30958360960155e+001	-5.94534728877323e+001	0.00000000000000e+000
+			1.30855540960059e+001	-5.94644458877425e+001	0.00000000000000e+000
+			1.30594450959816e+001	-5.94999998877756e+001	0.00000000000000e+000
+			1.30550000959774e+001	-5.95102818877852e+001	0.00000000000000e+000
+			1.30505540959733e+001	-5.95330548878064e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 33
+FIPS_CNTRY : BB
+GMI_CNTRY : BRB
+ISO_2DIGIT : BB
+ISO_3DIGIT : BRB
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -1,0 +1,126 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Samoa
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -1.361150e+001
+		EcfLongitude           -1.724740e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     32
+
+		BEGIN PolygonPoints
+
+			-1.35091089287623e+001	-1.72596499993105e+002	0.00000000000000e+000
+			-1.34972179287512e+001	-1.72551935993063e+002	0.00000000000000e+000
+			-1.34797179287349e+001	-1.72475281992992e+002	0.00000000000000e+000
+			-1.34641729287205e+001	-1.72391117992914e+002	0.00000000000000e+000
+			-1.34605549287171e+001	-1.72360835992885e+002	0.00000000000000e+000
+			-1.34613909287179e+001	-1.72348354992874e+002	0.00000000000000e+000
+			-1.34721549287279e+001	-1.72303417992832e+002	0.00000000000000e+000
+			-1.34841639287391e+001	-1.72287799992817e+002	0.00000000000000e+000
+			-1.35630549288125e+001	-1.72222499992757e+002	0.00000000000000e+000
+			-1.35919459288395e+001	-1.72203063992739e+002	0.00000000000000e+000
+			-1.36133359288594e+001	-1.72193363992730e+002	0.00000000000000e+000
+			-1.36809729289224e+001	-1.72168354992706e+002	0.00000000000000e+000
+			-1.36913909289321e+001	-1.72167817992706e+002	0.00000000000000e+000
+			-1.38065269290393e+001	-1.72212354992747e+002	0.00000000000000e+000
+			-1.38088909290415e+001	-1.72225035992759e+002	0.00000000000000e+000
+			-1.38043089290372e+001	-1.72258499992790e+002	0.00000000000000e+000
+			-1.37916729290255e+001	-1.72393335992916e+002	0.00000000000000e+000
+			-1.38068089290396e+001	-1.72485990993002e+002	0.00000000000000e+000
+			-1.38066639290394e+001	-1.72508908993023e+002	0.00000000000000e+000
+			-1.38027089290357e+001	-1.72527926993041e+002	0.00000000000000e+000
+			-1.37658359290014e+001	-1.72574435993084e+002	0.00000000000000e+000
+			-1.37397179289771e+001	-1.72590026993099e+002	0.00000000000000e+000
+			-1.36261089288713e+001	-1.72691099993193e+002	0.00000000000000e+000
+			-1.35740269288228e+001	-1.72751690993250e+002	0.00000000000000e+000
+			-1.35499999288004e+001	-1.72772826993269e+002	0.00000000000000e+000
+			-1.35325729287841e+001	-1.72780026993276e+002	0.00000000000000e+000
+			-1.35174999287701e+001	-1.72772535993269e+002	0.00000000000000e+000
+			-1.35102819287634e+001	-1.72755581993253e+002	0.00000000000000e+000
+			-1.35084729287617e+001	-1.72738908993238e+002	0.00000000000000e+000
+			-1.35133359287662e+001	-1.72728635993228e+002	0.00000000000000e+000
+			-1.35191729287717e+001	-1.72655272993160e+002	0.00000000000000e+000
+			-1.35091089287623e+001	-1.72596499993105e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 14
+FIPS_CNTRY : WS
+GMI_CNTRY : WSM
+ISO_2DIGIT : WS
+ISO_3DIGIT : WSM
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -1,0 +1,116 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Mayotte
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -1.284592e+001
+		EcfLongitude           4.511926e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     22
+
+		BEGIN PolygonPoints
+
+			-1.29924999282812e+001	4.51363822096746e+001	0.00000000000000e+000
+			-1.29913909282801e+001	4.51241632096632e+001	0.00000000000000e+000
+			-1.29858359282750e+001	4.50975002096384e+001	0.00000000000000e+000
+			-1.29572269282483e+001	4.50700002096128e+001	0.00000000000000e+000
+			-1.28940999281895e+001	4.50628452096061e+001	0.00000000000000e+000
+			-1.28906269281863e+001	4.50845822096264e+001	0.00000000000000e+000
+			-1.29055549282002e+001	4.50965272096375e+001	0.00000000000000e+000
+			-1.29011089281961e+001	4.51178912096574e+001	0.00000000000000e+000
+			-1.28888639281846e+001	4.51245272096636e+001	0.00000000000000e+000
+			-1.28283359281283e+001	4.51036092096441e+001	0.00000000000000e+000
+			-1.27508359280561e+001	4.50583272096019e+001	0.00000000000000e+000
+			-1.27384729280446e+001	4.50409632095858e+001	0.00000000000000e+000
+			-1.27133359280212e+001	4.50391632095841e+001	0.00000000000000e+000
+			-1.26952819280044e+001	4.50452732095898e+001	0.00000000000000e+000
+			-1.26624999279738e+001	4.50788912096211e+001	0.00000000000000e+000
+			-1.27274999280344e+001	4.52083272097416e+001	0.00000000000000e+000
+			-1.27394459280455e+001	4.52227732097551e+001	0.00000000000000e+000
+			-1.27548639280599e+001	4.52297182097615e+001	0.00000000000000e+000
+			-1.28497269281482e+001	4.52049912097385e+001	0.00000000000000e+000
+			-1.29253459282186e+001	4.51770092097125e+001	0.00000000000000e+000
+			-1.29713909282615e+001	4.51811092097163e+001	0.00000000000000e+000
+			-1.29924999282812e+001	4.51363822096746e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 233
+FIPS_CNTRY : MF
+GMI_CNTRY : MYT
+ISO_2DIGIT : YT
+ISO_3DIGIT : MYT
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
