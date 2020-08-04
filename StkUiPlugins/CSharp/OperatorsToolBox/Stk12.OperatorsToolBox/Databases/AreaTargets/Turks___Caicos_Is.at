@@ -1,0 +1,115 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Turks___Caicos_Is
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            2.179202e+001
+		EcfLongitude           -7.172522e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     21
+
+		BEGIN PolygonPoints
+
+			2.17397181040657e+001	-7.16588908990995e+001	0.00000000000000e+000
+			2.17597181040844e+001	-7.16741818991137e+001	0.00000000000000e+000
+			2.17672181040913e+001	-7.16808458991199e+001	0.00000000000000e+000
+			2.17887451041114e+001	-7.17159818991526e+001	0.00000000000000e+000
+			2.17925001041149e+001	-7.17536178991877e+001	0.00000000000000e+000
+			2.17908361041133e+001	-7.17694548992024e+001	0.00000000000000e+000
+			2.17827731041058e+001	-7.17995908992305e+001	0.00000000000000e+000
+			2.17755541040991e+001	-7.18137548992437e+001	0.00000000000000e+000
+			2.17754091040990e+001	-7.18252908992544e+001	0.00000000000000e+000
+			2.18000001041219e+001	-7.18419548992700e+001	0.00000000000000e+000
+			2.18427821041617e+001	-7.18505728992780e+001	0.00000000000000e+000
+			2.18547181041728e+001	-7.18477818992754e+001	0.00000000000000e+000
+			2.18388911041581e+001	-7.16950088991331e+001	0.00000000000000e+000
+			2.18363911041558e+001	-7.16816728991207e+001	0.00000000000000e+000
+			2.18315271041512e+001	-7.16677818991078e+001	0.00000000000000e+000
+			2.18252731041454e+001	-7.16594548991000e+001	0.00000000000000e+000
+			2.17816641041048e+001	-7.16377908990798e+001	0.00000000000000e+000
+			2.17722181040960e+001	-7.16336178990759e+001	0.00000000000000e+000
+			2.17441641040699e+001	-7.16436178990852e+001	0.00000000000000e+000
+			2.17400001040660e+001	-7.16536268990946e+001	0.00000000000000e+000
+			2.17397181040657e+001	-7.16588908990995e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 48
+FIPS_CNTRY : TK
+GMI_CNTRY : TCA
+ISO_2DIGIT : TC
+ISO_3DIGIT : TCA
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

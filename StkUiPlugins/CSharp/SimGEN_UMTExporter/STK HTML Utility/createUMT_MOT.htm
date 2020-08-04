@@ -1,0 +1,391 @@
+<html>
+	<head>
+
+		<title> SimGEN UMT </title>
+		<!-- 11Oct2010 -->
+
+
+
+		<SCRIPT type="text/VBScript">
+			<!--
+			Function CreateVBArray(string)
+				CreateVBArray = split(string,",")
+			End Function
+			-->
+		</SCRIPT>
+
+		<script type="text/JavaScript">
+
+			// 12Apr2011 - updated the way I'm creating the 'times' array (the times when I query STK for data)
+			// 12Sep2013 - added 'use output configuration file' option (Support Incident ID: 525301)
+			//
+			//		Here's an example of the contents of an outpu config file:
+			//
+			//			Start                      Stop                       Save Filename
+			//			7 May 2013 15:00:00.000    7 May 2013 17:00:01.000    C:\Users\shepherd\Desktop\Set1.umt
+			//			7 May 2013 18:00:02.000    7 May 2013 19:00:03.000    C:\Users\shepherd\Desktop\Set2.umt
+			//			7 May 2013 15:00:02.000    7 May 2013 15:30:03.000    C:\Users\shepherd\Desktop\Set3.umt
+
+
+			uiApp = window.external;
+			stk   = uiApp.personality;
+			root  = uiApp.personality2;
+			root.Isolate();
+			fso   = uiApp.CreateObject("Scripting.FileSystemObject");
+			root.ExecuteCommand("ConControl / VerboseOff");
+
+
+			function onLoadInit (){
+				//
+				// get vehicles and populate selection box
+				//
+				//   1  = Aircraft
+				//   9  = Ground Vehicle
+				//   10 = Launch Vehicle
+				//   13 = Missile
+				//   18 = Satellite
+				//   21 = Ship
+				//
+				classes = new Array (1, 9, 10, 13, 18, 21);
+				count = 0;
+				for (c in classes){
+					for (i = 0; i<root.CurrentScenario.Children.GetElements(classes[c]).Count; i++){
+						stkObj.length = count + 1;
+						stkObj.options[count].text = root.CurrentScenario.Children.GetElements(classes[c]).Item(i).InstanceName;
+						count++;
+						}
+					}
+				}
+
+			function showFile() {
+				filename = uiApp.FileOpenDialog(true, "Configuration File (*.*)|*.*|" , "");
+				if (filename) {
+					configFile.value = filename;
+					}
+				}
+
+			function changeCreateButton() {
+				if (check.checked == false){
+					create.value = "Create...";
+					}
+				else {
+					create.value = "Create";
+					}
+				}
+
+			function go () {
+
+				// init
+				filename = new Array();
+				starttime = new Array();
+				stoptime = new Array();
+
+				if (stkObj.length == 0) {
+					return;
+					}
+
+
+				if (check.checked == false){
+					//
+					// get SaveAs file
+					//
+
+					scDir = "C:\\Program Files\\Spirent Communications\\SimGEN\\Scenarios\\Shared";
+					filename[0] = uiApp.FileSaveAsDialog("SaveAs", "UMT (*.umt)|*.umt|", scDir);
+					if (! filename[0]) {
+						return;
+						}
+					}
+
+				else {
+					//
+					// read config file
+					//
+					textStream = fso.OpenTextFile(configFile.value, 1);
+					count = 0;
+					try{
+						while(line = textStream.Readline()){
+							//28 Aug 2013 13:30:00.00    28 Aug 2013 14:30:00.00    c:\storage\Set2.umt
+
+							// remove leading/trailing white-space
+							line = line.replace(/^\s+|\s+$/g,"");
+
+							//split into 3 values - start time (UTCG), stop time (UTCG), file path
+							re = /(\d+ \w{3} \d{4} \S*)\s+(\d+ \w{3} \d{4} \S*)\s+(.*)/g;
+							re.exec(line);
+
+							if (RegExp.$1 && RegExp.$2 && RegExp.$3){
+
+								starttime[count] = RegExp.$1;
+								stoptime[count]  = RegExp.$2;
+								filename[count]  = RegExp.$3;
+
+								//
+								// convert start/stop time to epochseconds
+								//
+								starttime[count] = root.ConversionUtility.ConvertDate("UTCG", "Epsec", starttime[count]);
+								stoptime[count]  = root.ConversionUtility.ConvertDate("UTCG", "Epsec", stoptime[count]);
+
+								count++;
+								}
+							}
+						}
+					catch (er)  {
+						// do nothing
+						}
+					}
+
+
+
+				//
+				// init
+				//
+				root.UnitPreferences.SetCurrentUnit("Time", "sec");
+				root.UnitPreferences.SetCurrentUnit("DateFormat", "EpSec");
+				root.UnitPreferences.SetCurrentUnit("LatitudeUnit", "rad");
+				root.UnitPreferences.SetCurrentUnit("LongitudeUnit", "rad");
+				root.UnitPreferences.SetCurrentUnit("AngleUnit", "rad");
+				root.UnitPreferences.SetCurrentUnit("DistanceUnit", "m");
+				root.ExecuteCommand("SetUnits / EpSec");
+
+				//
+				// get select obj
+				//
+				mySelObj = root.CurrentScenario.Children(stkObj.options[stkObj.selectedIndex].text);
+
+
+
+				//
+				// get obj class, and roll-offset
+				//
+				rOffset = 0;
+				if ((mySelObj.ClassName == "Ship") || (mySelObj.ClassName == "GroundVehicle")){
+					rOffset = Math.PI;
+					}
+
+
+				if (check.checked == false){
+					//
+					// get object start/stop times if no config file used
+					//
+					// If I use ObjModel properties, this would be class specific, so I will use connect
+					//
+					times = root.ExecuteCommand("GetTimePeriod " + mySelObj.Path).Item(0).replace(/\"/g,"").split(",");//"
+					starttime[0] = times[0];
+					stoptime[0]  = times[1];
+					}
+
+
+				for (s=0; s<starttime.length; s++){
+
+					try {
+						//
+						// create array of times to query for data - use native times AND have a spacing no greater than 1 sec
+						//
+						window.status = "Configuring time steps . . .";
+						dp = mySelObj.DataProviders("Cartesian Position").Group("Fixed");
+						result = dp.ExecElementsNativeTimes(starttime[s],stoptime[s],CreateVBArray("Time"));
+						var nativeTimes	= result.DataSets.GetDataSetByName("Time").GetValues().toArray();
+						time = new Array();
+
+						for (j = 0; j<=nativeTimes.length; j++){
+
+							if ((nativeTimes[j+1] - nativeTimes[j]) > 1){
+								step = (nativeTimes[j+1] - nativeTimes[j])/(Math.floor((nativeTimes[j+1] - nativeTimes[j]) + .999999999999));
+								}
+							else {
+								step = nativeTimes[j+1] - nativeTimes[j];
+								}
+
+							for (i = nativeTimes[j]; i<nativeTimes[j+1]-.000000000001;i+=step){
+								time.push(i);
+								}
+							}
+						time.push(nativeTimes[nativeTimes.length-1]);
+
+						times = CreateVBArray(time.join(","));
+
+						//
+						// get position data
+						//
+						window.status = "Retrieving position data . . .";
+						dp = mySelObj.DataProviders("Cartesian Position").Group("Fixed");
+						result = dp.ExecSingleElementsArray(times,CreateVBArray("x,y,z"));
+						var x		= result.GetArray(0).toArray();
+						var y		= result.GetArray(1).toArray();
+						var z		= result.GetArray(2).toArray();
+
+
+
+						//
+						// get velocity
+						//
+						window.status = "Retrieving velocity data . . .";
+						dp = mySelObj.DataProviders("Cartesian Velocity").Group("Fixed");
+						result = dp.ExecSingleElementsArray(times,CreateVBArray("x,y,z"));
+						var xd = result.GetArray(0).toArray();
+						var yd = result.GetArray(1).toArray();
+						var zd = result.GetArray(2).toArray();
+
+
+
+						//
+						// get acceleration
+						//
+						window.status = "Retrieving acceleration data . . .";
+						dp = mySelObj.DataProviders("Cartesian Acceleration").Group("Fixed");
+						result = dp.ExecSingleElementsArray(times,CreateVBArray("x,y,z"));
+						var xdd = result.GetArray(0).toArray();
+						var ydd = result.GetArray(1).toArray();
+						var zdd = result.GetArray(2).toArray();
+
+
+						//
+						// get jerk - need to calcualate this: dA/dT
+						//
+						xddd = new Array();
+						yddd = new Array();
+						zddd = new Array();
+						for (j = 0; j<=time.length - 1; j++){
+							xddd[j] = 0;
+							yddd[j] = 0;
+							zddd[j] = 0;
+							}
+
+
+						//
+						// get heading, elevation, bank (rad)
+						//
+						window.status = "Retrieving attitude data . . .";
+						dp = mySelObj.DataProviders("Body Axes Orientation").Group("NorthEastDown");
+						result = dp.ExecSingleElementsArray(times,CreateVBArray("Euler321 precession,Euler321 nutation,Euler321 spin"));
+						var h = result.GetArray(0).toArray();
+						var e = result.GetArray(1).toArray();
+						var b = result.GetArray(2).toArray();
+
+
+
+
+
+
+						//
+						// get angular vel about x,y,z body axes (rad/s)
+						//
+						window.status = "Retrieving angular velocity data . . .";
+						dp = mySelObj.DataProviders("Body Axes Orientation").Group("Earth Fixed");
+						result = dp.ExecSingleElementsArray(times,CreateVBArray("wx,wy,wz"));
+						var avel_x = result.GetArray(0).toArray();
+						var avel_y = result.GetArray(1).toArray();
+						var avel_z = result.GetArray(2).toArray();
+
+
+
+						//
+						// calcualate angular acc about x,y,z body axes (rad/s^2) - from angVel
+						//
+						aacc_x = new Array();
+						aacc_y = new Array();
+						aacc_z = new Array();
+						for (j = 0; j<=time.length - 1; j++){
+							aacc_x[j] = 0;
+							aacc_y[j] = 0;
+							aacc_z[j] = 0;
+							}
+
+
+						//
+						// calcualate angular jerk about x,y,z body axes (rad/s^3)  - from angAcc
+						//
+						ajerk_x = new Array();
+						ajerk_y = new Array();
+						ajerk_z = new Array();
+						for (j = 0; j<=time.length - 1; j++){
+							ajerk_x[j] = 0;
+							ajerk_y[j] = 0;
+							ajerk_z[j] = 0;
+							}
+
+
+
+
+						//
+						// format data (convert time from secs to hh:mm:ss.sss)
+						//
+						window.status = "Formatting data . . .";
+						data = new Array();
+						for (j = 0; j<=time.length - 1; j++){
+							hh = Math.floor(time[j]/3600);
+							mm = Math.floor((time[j] - (hh*3600))/60);
+							ss = (time[j] - ((hh*3600) + (mm*60))).toString();
+							ss = ss.split(/\./);
+							hh = ("0" + hh.toString()).slice(-2);
+							mm = ("0" + mm.toString()).slice(-2);
+							ss[0] = ("00" + ss[0].toString()).slice(-2);
+							if (! ss[1]){ ss[1] = "0" }
+							t = hh + ":" + mm + ":" + ss[0] + "." + ss[1];
+							data[j] = t + ",mot,V1_M1," + x[j] + "," + y[j] + "," + z[j] + "," + xd[j] + "," + yd[j] + "," + zd[j] + "," + xdd[j] + "," + ydd[j] + "," + zdd[j] + "," + xddd[j] + "," + yddd[j] + "," + zddd[j] + "," + h[j] + "," + e[j] + "," + (b[j] + rOffset) + "," + avel_x[j] + "," + avel_y[j] + "," + avel_z[j] + "," + aacc_x[j] + "," + aacc_y[j] + "," + aacc_z[j] + "," + ajerk_x[j] + "," + ajerk_y[j] + "," + ajerk_z[j];
+
+							if (j/1000 == Math.floor(j/1000)){
+								window.status = "Formatting data . . . " + Math.floor((j*100)/time.length) + "% ";
+								}
+							}
+
+
+
+
+						//
+						// create file
+						//
+						window.status = "Writing File";
+						var umtFile = fso.CreateTextFile(filename[s], true);
+						umtFile.writeline (data.join("\n"));
+						umtFile.Close();
+
+						}
+
+					catch (er) {
+						alert ("Error: file " + filename[s] + " not created!\n\n" + er.description);
+						}
+					}
+
+				//
+				// done
+				//
+				window.status = "";
+				alert ("Complete");
+				}
+
+		</script>
+
+
+	<style TYPE="text/css">
+		.myButton{width: 90;}
+		td{white-space: nowrap;}
+		td.info     {font-family:Verdana,helvetica,sans-serif; font-size:7pt; white-space:nowrap}
+	</style>
+
+	<body style="filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#FFFFC0', EndColorStr='#6699CC')"
+	      onLoad="onLoadInit()">
+
+		<h3> SimGEN User Motion file (*.UMT) creator (last modified 12-sep-2013) </h3>
+		This utility will create SimGEN user motion file(s) (*.umt) for the selected vehicle. On optional 'configuration file', containing white-space delimited START-TIME, STOP-TIME and FILE-PATH can be used (START- and STOP-TIMES in UTCG format).
+		<br>
+		<br>
+		<hr>
+		<table width=100%>
+			<tr>
+				<td> Select Vehicle: </td>
+				<td> <select name="stkObj"/> </td>
+			</tr>
+			<tr nowrap>
+				<td> <input type=checkbox id=check onClick="changeCreateButton()"> Use Output Configuration file: </td>
+				<td style="width:100%"> <input type="text" name=configFile style="width:100%"/></td>
+				<td> <input type="button" value="..." onClick="showFile()" /> </td>
+			</tr>
+			<tr>
+				<td><input type="button" id="create" value="Create..." onClick="go()" /></td>
+			</tr>
+		</table>
+		<hr>
+	</body>
+</html>

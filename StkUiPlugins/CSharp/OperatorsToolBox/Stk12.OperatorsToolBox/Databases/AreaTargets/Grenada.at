@@ -1,0 +1,113 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Grenada
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.212534e+001
+		EcfLongitude           -6.166370e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     19
+
+		BEGIN PolygonPoints
+
+			1.22277730952070e+001	-6.16099998897407e+001	0.00000000000000e+000
+			1.22223640952020e+001	-6.16055638897366e+001	0.00000000000000e+000
+			1.21866640951688e+001	-6.15997268897312e+001	0.00000000000000e+000
+			1.21255540951118e+001	-6.15963908897280e+001	0.00000000000000e+000
+			1.20794450950689e+001	-6.16111178897417e+001	0.00000000000000e+000
+			1.20461090950378e+001	-6.16301458897595e+001	0.00000000000000e+000
+			1.20341640950267e+001	-6.16424998897710e+001	0.00000000000000e+000
+			1.20291640950221e+001	-6.16513908897793e+001	0.00000000000000e+000
+			1.20161090950099e+001	-6.16833358898090e+001	0.00000000000000e+000
+			1.20038910949985e+001	-6.17175088898408e+001	0.00000000000000e+000
+			1.19969450949921e+001	-6.17497268898708e+001	0.00000000000000e+000
+			1.20038180949985e+001	-6.17851818899039e+001	0.00000000000000e+000
+			1.21722180951553e+001	-6.17247268898476e+001	0.00000000000000e+000
+			1.21969450951783e+001	-6.17075088898315e+001	0.00000000000000e+000
+			1.22180540951980e+001	-6.16866728898121e+001	0.00000000000000e+000
+			1.22277730952070e+001	-6.16758358898020e+001	0.00000000000000e+000
+			1.22371540952158e+001	-6.16544458897821e+001	0.00000000000000e+000
+			1.22319450952109e+001	-6.16147268897451e+001	0.00000000000000e+000
+			1.22277730952070e+001	-6.16099998897407e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 35
+FIPS_CNTRY : GJ
+GMI_CNTRY : GRD
+ISO_2DIGIT : GD
+ISO_3DIGIT : GRD
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -1,0 +1,106 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Seychelles
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -4.681618e+000
+		EcfLongitude           5.549263e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     12
+
+		BEGIN PolygonPoints
+
+			-4.78916392064122e+000	5.55324912193567e+001	0.00000000000000e+000
+			-4.78694592063916e+000	5.55243002193491e+001	0.00000000000000e+000
+			-4.77610892062906e+000	5.55111092193368e+001	0.00000000000000e+000
+			-4.74055492059595e+000	5.54774912193055e+001	0.00000000000000e+000
+			-4.62513592048846e+000	5.53754092192104e+001	0.00000000000000e+000
+			-4.55805492042599e+000	5.54452732192755e+001	0.00000000000000e+000
+			-4.55166392042003e+000	5.54638822192929e+001	0.00000000000000e+000
+			-4.55944592042728e+000	5.54750002193032e+001	0.00000000000000e+000
+			-4.66375492052443e+000	5.55381912193621e+001	0.00000000000000e+000
+			-4.68389092054318e+000	5.55405542193643e+001	0.00000000000000e+000
+			-4.76305492061691e+000	5.55352732193593e+001	0.00000000000000e+000
+			-4.78916392064122e+000	5.55324912193567e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 235
+FIPS_CNTRY : SE
+GMI_CNTRY : SYC
+ISO_2DIGIT : SC
+ISO_3DIGIT : SYC
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -1,0 +1,103 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Jarvis_I
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -3.872556e-001
+		EcfLongitude           -1.600265e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     9
+
+		BEGIN PolygonPoints
+
+			-3.98054916551686e-001	-1.60021144981393e+002	0.00000000000000e+000
+			-3.98054916551686e-001	-1.60028108981400e+002	0.00000000000000e+000
+			-3.92217916546244e-001	-1.60043490981414e+002	0.00000000000000e+000
+			-3.80135916534996e-001	-1.60045163981416e+002	0.00000000000000e+000
+			-3.74308916529571e-001	-1.60033917981405e+002	0.00000000000000e+000
+			-3.74717916529946e-001	-1.60017790981390e+002	0.00000000000000e+000
+			-3.84717916539259e-001	-1.60009463981382e+002	0.00000000000000e+000
+			-3.95835916549615e-001	-1.60012926981386e+002	0.00000000000000e+000
+			-3.98054916551686e-001	-1.60021144981393e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    78
+ObjectID : 12
+FIPS_CNTRY : DQ
+GMI_CNTRY : UMI
+ISO_2DIGIT : UM
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
