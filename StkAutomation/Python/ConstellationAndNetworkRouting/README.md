@@ -1,5 +1,8 @@
 # Constellation and Network Routing
 
+All of the notebooks attach to an open instance of STK.
+The associated example scenarios are attached on the **Constellation and Network Routing** code example: https://www.agi.com/search?filter=content%3acodesample
+
 **Terminology**
 * Node = Object in STK: Satellites, Aircraft, Facilities, Sensors, Transmitters, etc.
 * Edge = Access between two objects in STK, includes typical STK constraints
@@ -13,7 +16,6 @@
 * Identify important nodes in a network at an instant and over time
 * See the impacts on network connectivity when nodes are removed
 * Load data back into STK for visualization and for reports/graphs
-
 
 ## ConstellationAnalysisUsingPrebuiltChains.ipynb
 
@@ -30,4 +32,3 @@ Computes the "best" multihop path between a starting and ending constellations, 
 ## ConstellationAnalysisTransRec.ipynb
 Computes the "best" multihop path between a starting and ending constellations through a satellite constellation with transmitters and receivers. Investigates the effects of changing transmitter power and signal strength constraints
 <img src="TransmitterAndReceiver.jpg" alt="Drawing" style="width: 600px;"/>
-
