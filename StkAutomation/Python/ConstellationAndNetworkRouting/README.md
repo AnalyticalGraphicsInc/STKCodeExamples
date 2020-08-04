@@ -26,9 +26,9 @@ Walks through types of analysis described above using prebuilt chains in STK
 ## ConstellationAnalysisMultiDomainAndMultiHop.ipynb
 
 Computes the "best" multihop path between a starting and ending constellations, utilizing different types of STK Objects. Investigates how the optimal path changes when nodes are removed
-<img src="./MultiDomain.jpg" alt="Drawing" style="width: 600px;"/>
+<img src="./MultiDomain.JPG" alt="Drawing" style="width: 600px;"/>
 
 
 ## ConstellationAnalysisTransRec.ipynb
 Computes the "best" multihop path between a starting and ending constellations through a satellite constellation with transmitters and receivers. Investigates the effects of changing transmitter power and signal strength constraints
-<img src="TransmitterAndReceiver.jpg" alt="Drawing" style="width: 600px;"/>
+<img src="TransmitterAndReceiver.JPG" alt="Drawing" style="width: 600px;"/>
