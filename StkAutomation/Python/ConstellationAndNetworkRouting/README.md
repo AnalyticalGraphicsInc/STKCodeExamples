@@ -20,13 +20,13 @@ The associated example scenarios are attached on the [**Constellation and Networ
 ## ConstellationAnalysisUsingPrebuiltChains.ipynb
 
 Walks through types of analysis described above using prebuilt chains in STK
-<img src="./chainPaths.jpg" alt="Drawing" style="width: 400px;"/>
+<img src="chainPaths.JPG" alt="Drawing" style="width: 400px;"/>
 
 
 ## ConstellationAnalysisMultiDomainAndMultiHop.ipynb
 
 Computes the "best" multihop path between a starting and ending constellations, utilizing different types of STK Objects. Investigates how the optimal path changes when nodes are removed
-<img src="./MultiDomain.JPG" alt="Drawing" style="width: 600px;"/>
+<img src="MultiDomain.JPG" alt="Drawing" style="width: 600px;"/>
 
 
 ## ConstellationAnalysisTransRec.ipynb
