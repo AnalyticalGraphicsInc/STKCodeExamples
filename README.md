@@ -1,32 +1,35 @@
-# STK Code Examples
-
+<p align="center">
 <img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
+</p>
 
-Welcome to the AGI Engineering Team's GitHub Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.  
+[![Docs](https://img.shields.io/badge/docs-online-BC8C44?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
+[![Support](https://img.shields.io/badge/support-email-0076AF?style=for-the-badge)](mail:support@agi.com)
+
+Welcome to the Systems Tool Kit (STK) Code Examples Repository where we'll be sharing Code Examples from our favorite utilities and demonstrations.
 
 Please feel free to browse the content for both functional tools to add to your tool kit or example code that you can refactor to fit your needs.   
 
+# Featured Examples Areas
+
+* [STK Desktop Automation](./stkAutomation) contains scripts and applications for automating STK Desktop in a variety of different languages
+* [STK Engine Applications](./StkEngineApplications) contains scripts and applications for utilizing STK Engine
+* [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for STK Desktop
+* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK Desktop and STK Engine
+
 These applications contain notional data and are dual use.
 
-## Featured Examples
-
-* StkAutomation --> Scripts and applications for automating the STK Gui
-* StkEngineApplications --> Scripts and applications for STK Engine
-* StkUiPlugins --> UiPlugin applications for the STK Gui
-* StkExtensionPlugins --> Engine plugins and plugin scripts for STK Gui and Engine
-
-## License
+# License
 
 The Code Examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
 
-## Redistribution
+# Redistribution
 If You redistribute the Code Examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the Code Examples, and include the following copyright notice: 
 
 © 2020 Analytical Graphics, Inc.
 
-## What if I have questions about STK
+# What if I have questions about STK
 
-Contact support@agi.com with any questions regarding STK, STK Engine or any other AGI products.
+Contact [AGI support](mail:support@agi.com) with any questions regarding STK, STK Engine or any other AGI products.
 
 AGI's ready-to-use STK and ODTK families of products, enterprise software, and developer tools help customers deliver digital engineering value and make better-informed decisions in a mission context at any stage in the program lifecycle: from planning and design to training and operations.  
 
