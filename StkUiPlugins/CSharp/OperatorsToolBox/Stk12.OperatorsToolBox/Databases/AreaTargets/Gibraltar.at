@@ -1,0 +1,104 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Gibraltar
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            3.614008e+001
+		EcfLongitude           -5.344754e+000
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     10
+
+		BEGIN PolygonPoints
+
+			3.61625641174981e+001	-5.33450883733008e+000	0.00000000000000e+000
+			3.61489451174854e+001	-5.33748183733283e+000	0.00000000000000e+000
+			3.61390271174761e+001	-5.33582683733130e+000	0.00000000000000e+000
+			3.61120731174510e+001	-5.33830883733361e+000	0.00000000000000e+000
+			3.61127361174516e+001	-5.34509083733994e+000	0.00000000000000e+000
+			3.61264641174644e+001	-5.35617283735024e+000	0.00000000000000e+000
+			3.61453091174820e+001	-5.35517283734933e+000	0.00000000000000e+000
+			3.61502731174866e+001	-5.34442683733931e+000	0.00000000000000e+000
+			3.61633091174987e+001	-5.35579983734991e+000	0.00000000000000e+000
+			3.61625641174981e+001	-5.33450883733008e+000	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 77
+FIPS_CNTRY : GI
+GMI_CNTRY : GIB
+ISO_2DIGIT : GI
+ISO_3DIGIT : GIB
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

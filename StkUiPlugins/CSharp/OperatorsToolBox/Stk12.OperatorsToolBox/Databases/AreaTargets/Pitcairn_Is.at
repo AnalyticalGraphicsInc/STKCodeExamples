@@ -1,0 +1,110 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Pitcairn_Is
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -2.436405e+001
+		EcfLongitude           -1.283163e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     16
+
+		BEGIN PolygonPoints
+
+			-2.43272639388375e+001	-1.28332217951881e+002	0.00000000000000e+000
+			-2.43261179388364e+001	-1.28326935951876e+002	0.00000000000000e+000
+			-2.43258359388362e+001	-1.28310426951860e+002	0.00000000000000e+000
+			-2.43344459388442e+001	-1.28301681951852e+002	0.00000000000000e+000
+			-2.43524999388610e+001	-1.28293881951845e+002	0.00000000000000e+000
+			-2.43863909388926e+001	-1.28286681951838e+002	0.00000000000000e+000
+			-2.44016639389068e+001	-1.28286117951838e+002	0.00000000000000e+000
+			-2.44113909389158e+001	-1.28291117951842e+002	0.00000000000000e+000
+			-2.44116729389161e+001	-1.28301563951852e+002	0.00000000000000e+000
+			-2.44047179389096e+001	-1.28313081951863e+002	0.00000000000000e+000
+			-2.43905549388964e+001	-1.28327817951877e+002	0.00000000000000e+000
+			-2.43672179388747e+001	-1.28343081951891e+002	0.00000000000000e+000
+			-2.43536179388620e+001	-1.28346954951894e+002	0.00000000000000e+000
+			-2.43381999388477e+001	-1.28346008951893e+002	0.00000000000000e+000
+			-2.43291639388393e+001	-1.28336945951885e+002	0.00000000000000e+000
+			-2.43272639388375e+001	-1.28332217951881e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    81
+ObjectID : 3
+FIPS_CNTRY : PC
+GMI_CNTRY : PCN
+ISO_2DIGIT : PN
+ISO_3DIGIT : PCN
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
