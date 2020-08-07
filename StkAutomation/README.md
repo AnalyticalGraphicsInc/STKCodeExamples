@@ -1,6 +1,8 @@
-# STK Automation Scripts and Utilities
+## STK Automation Scripts and Utilities
 
-## Choose your language
+A variety of scripts and applications for automating STK Desktop
+
+### Choose your language
 
 * [Matlab](Matlab)
 * [CSharp](CSharp)

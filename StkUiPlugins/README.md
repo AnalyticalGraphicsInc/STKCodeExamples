@@ -1,6 +1,8 @@
-# STK Desktop User Interface Plugins
+## STK Desktop User Interface Plugins
 
-# Choose your languague
+Example UiPlugin applications written in .NET for STK Desktop
+
+### Choose your languague
 
 * [CSharp](CSharp)
 * [VB.NET](VB.NET)
