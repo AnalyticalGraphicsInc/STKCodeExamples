@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGI.SimGEN_UMTExporter", "AGI.SimGEN_UMTExporter\AGI.SimGEN_UMTExporter.csproj", "{40228107-3813-4E75-AB0B-C35DDC41A69D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40228107-3813-4E75-AB0B-C35DDC41A69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40228107-3813-4E75-AB0B-C35DDC41A69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40228107-3813-4E75-AB0B-C35DDC41A69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40228107-3813-4E75-AB0B-C35DDC41A69D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {286371DE-FBDD-4714-AF2A-4FDA18ADB4B1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,111 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Malta
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            3.589243e+001
+		EcfLongitude           1.443600e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     17
+
+		BEGIN PolygonPoints
+
+			3.58000001171604e+001	1.45197181811606e+001	0.00000000000000e+000
+			3.58186001171777e+001	1.44238911810714e+001	0.00000000000000e+000
+			3.58459731172032e+001	1.43773631810280e+001	0.00000000000000e+000
+			3.58547181172113e+001	1.43669451810183e+001	0.00000000000000e+000
+			3.58725001172279e+001	1.43472181810000e+001	0.00000000000000e+000
+			3.58818001172366e+001	1.43379181809913e+001	0.00000000000000e+000
+			3.58950001172489e+001	1.43330541809868e+001	0.00000000000000e+000
+			3.59784641173266e+001	1.43291001809831e+001	0.00000000000000e+000
+			3.59919361173391e+001	1.43650001810165e+001	0.00000000000000e+000
+			3.59908271173381e+001	1.43750001810258e+001	0.00000000000000e+000
+			3.59602731173097e+001	1.44433361810895e+001	0.00000000000000e+000
+			3.59252821172771e+001	1.45102731811518e+001	0.00000000000000e+000
+			3.58922181172463e+001	1.45483361811873e+001	0.00000000000000e+000
+			3.58777731172328e+001	1.45638911812018e+001	0.00000000000000e+000
+			3.58694361172251e+001	1.45700001812074e+001	0.00000000000000e+000
+			3.58235361171823e+001	1.45645821812024e+001	0.00000000000000e+000
+			3.58000001171604e+001	1.45197181811606e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 126
+FIPS_CNTRY : MT
+GMI_CNTRY : MLT
+ISO_2DIGIT : MT
+ISO_3DIGIT : MLT
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

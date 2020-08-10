@@ -1,0 +1,117 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Mauritius
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -2.029296e+001
+		EcfLongitude           5.756426e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     23
+
+		BEGIN PolygonPoints
+
+			-2.05205549352922e+001	5.75294452212165e+001	0.00000000000000e+000
+			-2.05161089352881e+001	5.74708362211620e+001	0.00000000000000e+000
+			-2.05030549352759e+001	5.73861092210830e+001	0.00000000000000e+000
+			-2.04561089352322e+001	5.73063092210088e+001	0.00000000000000e+000
+			-2.04340269352116e+001	5.73070822210095e+001	0.00000000000000e+000
+			-2.02449999350356e+001	5.73766632210743e+001	0.00000000000000e+000
+			-2.02258359350177e+001	5.73855542210825e+001	0.00000000000000e+000
+			-2.01958359349898e+001	5.74047182211004e+001	0.00000000000000e+000
+			-2.01836089349784e+001	5.74136092211087e+001	0.00000000000000e+000
+			-2.00205549348266e+001	5.75338822212207e+001	0.00000000000000e+000
+			-1.99865999347949e+001	5.75924272212752e+001	0.00000000000000e+000
+			-1.99863909347947e+001	5.76244452213050e+001	0.00000000000000e+000
+			-1.99999999348074e+001	5.76722182213495e+001	0.00000000000000e+000
+			-2.00141639348206e+001	5.76827822213594e+001	0.00000000000000e+000
+			-2.02274999350193e+001	5.77954092214642e+001	0.00000000000000e+000
+			-2.02708359350597e+001	5.77919362214610e+001	0.00000000000000e+000
+			-2.02859729350737e+001	5.77895822214588e+001	0.00000000000000e+000
+			-2.04388909352162e+001	5.77227732213966e+001	0.00000000000000e+000
+			-2.04552819352314e+001	5.77052732213803e+001	0.00000000000000e+000
+			-2.04791729352537e+001	5.76794452213562e+001	0.00000000000000e+000
+			-2.04838909352581e+001	5.76700002213474e+001	0.00000000000000e+000
+			-2.05141639352863e+001	5.75724912212566e+001	0.00000000000000e+000
+			-2.05205549352922e+001	5.75294452212165e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 232
+FIPS_CNTRY : MP
+GMI_CNTRY : MUS
+ISO_2DIGIT : MU
+ISO_3DIGIT : MUS
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

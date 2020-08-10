@@ -1,0 +1,104 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Tuvalu
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -8.517248e+000
+		EcfLongitude           1.792227e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     10
+
+		BEGIN PolygonPoints
+
+			-8.56129092415429e+000	1.79213227334543e+002	0.00000000000000e+000
+			-8.46541792406499e+000	1.79202409334533e+002	0.00000000000000e+000
+			-8.48189092408035e+000	1.79218381334548e+002	0.00000000000000e+000
+			-8.49221792408996e+000	1.79225145334555e+002	0.00000000000000e+000
+			-8.50491792410179e+000	1.79231091334560e+002	0.00000000000000e+000
+			-8.51841792411436e+000	1.79232281334561e+002	0.00000000000000e+000
+			-8.53349992412841e+000	1.79231491334560e+002	0.00000000000000e+000
+			-8.54342692413765e+000	1.79228318334557e+002	0.00000000000000e+000
+			-8.55414592414763e+000	1.79222363334552e+002	0.00000000000000e+000
+			-8.56129092415429e+000	1.79213227334543e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 246
+FIPS_CNTRY : TV
+GMI_CNTRY : TUV
+ISO_2DIGIT : TV
+ISO_3DIGIT : TUV
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

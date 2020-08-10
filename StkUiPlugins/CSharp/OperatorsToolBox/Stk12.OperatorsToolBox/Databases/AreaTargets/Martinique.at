@@ -1,0 +1,120 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Martinique
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.464465e+001
+		EcfLongitude           -6.100210e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     26
+
+		BEGIN PolygonPoints
+
+			1.44027730972327e+001	-6.08608358890430e+001	0.00000000000000e+000
+			1.44655540972911e+001	-6.08869458890673e+001	0.00000000000000e+000
+			1.44713910972966e+001	-6.09750088891493e+001	0.00000000000000e+000
+			1.44700000972953e+001	-6.10111178891829e+001	0.00000000000000e+000
+			1.44658270972914e+001	-6.10338908892042e+001	0.00000000000000e+000
+			1.46930540975030e+001	-6.11724998893333e+001	0.00000000000000e+000
+			1.48125000976142e+001	-6.12315358893882e+001	0.00000000000000e+000
+			1.48322180976326e+001	-6.12266728893837e+001	0.00000000000000e+000
+			1.48466640976461e+001	-6.12127818893708e+001	0.00000000000000e+000
+			1.48588910976575e+001	-6.11986178893576e+001	0.00000000000000e+000
+			1.48769450976743e+001	-6.11747268893353e+001	0.00000000000000e+000
+			1.48801360976773e+001	-6.11618088893233e+001	0.00000000000000e+000
+			1.48777730976750e+001	-6.11447268893074e+001	0.00000000000000e+000
+			1.48602730976588e+001	-6.10973638892633e+001	0.00000000000000e+000
+			1.48305540976311e+001	-6.10370908892072e+001	0.00000000000000e+000
+			1.47408360975475e+001	-6.09408358891175e+001	0.00000000000000e+000
+			1.47277730975354e+001	-6.09425088891191e+001	0.00000000000000e+000
+			1.46525000974652e+001	-6.09066728890857e+001	0.00000000000000e+000
+			1.45947180974114e+001	-6.08497268890327e+001	0.00000000000000e+000
+			1.45700000973884e+001	-6.08297268890140e+001	0.00000000000000e+000
+			1.44733360972984e+001	-6.08169458890021e+001	0.00000000000000e+000
+			1.44558270972821e+001	-6.08205548890055e+001	0.00000000000000e+000
+			1.44370820972646e+001	-6.08280638890125e+001	0.00000000000000e+000
+			1.44152730972443e+001	-6.08394458890231e+001	0.00000000000000e+000
+			1.44030540972329e+001	-6.08549998890376e+001	0.00000000000000e+000
+			1.44027730972327e+001	-6.08608358890430e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 37
+FIPS_CNTRY : MB
+GMI_CNTRY : MTQ
+ISO_2DIGIT : MQ
+ISO_3DIGIT : MTQ
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
