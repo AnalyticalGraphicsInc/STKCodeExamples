@@ -15,7 +15,7 @@ This repository does not conatain the STK application, this must be obtained sep
 
 ### Featured Examples Areas
 
-* [STK Desktop Automation](./stkAutomation) contains scripts and applications for automating STK Desktop in a variety of different languages
+* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK Desktop in a variety of different languages
 * [STK Engine Applications](./StkEngineApplications) contains scripts and applications for utilizing STK Engine
 * [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for STK Desktop
 * [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK Desktop and STK Engine
