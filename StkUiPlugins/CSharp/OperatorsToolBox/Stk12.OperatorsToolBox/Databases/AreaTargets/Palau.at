@@ -1,0 +1,122 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Palau
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            7.608830e+000
+		EcfLongitude           1.346095e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     28
+
+		BEGIN PolygonPoints
+
+			7.35444509066839e+000	1.34531372292930e+002	0.00000000000000e+000
+			7.35916409067279e+000	1.34522336292922e+002	0.00000000000000e+000
+			7.43805409074626e+000	1.34485227292887e+002	0.00000000000000e+000
+			7.59610909089346e+000	1.34544982292943e+002	0.00000000000000e+000
+			7.60860909090511e+000	1.34553036292950e+002	0.00000000000000e+000
+			7.61333609090951e+000	1.34562191292959e+002	0.00000000000000e+000
+			7.61666409091261e+000	1.34589554292984e+002	0.00000000000000e+000
+			7.61805409091390e+000	1.34605227292999e+002	0.00000000000000e+000
+			7.62194509091752e+000	1.34621609293014e+002	0.00000000000000e+000
+			7.62750009092269e+000	1.34633436293025e+002	0.00000000000000e+000
+			7.63639109093099e+000	1.34641663293033e+002	0.00000000000000e+000
+			7.64860909094236e+000	1.34643036293034e+002	0.00000000000000e+000
+			7.67083609096307e+000	1.34638027293030e+002	0.00000000000000e+000
+			7.68582709097703e+000	1.34632718293025e+002	0.00000000000000e+000
+			7.70360909099358e+000	1.34623018293016e+002	0.00000000000000e+000
+			7.71583609100497e+000	1.34618145293011e+002	0.00000000000000e+000
+			7.72597309101441e+000	1.34620227293013e+002	0.00000000000000e+000
+			7.72944509101764e+000	1.34630663293023e+002	0.00000000000000e+000
+			7.72389109101248e+000	1.34642209293033e+002	0.00000000000000e+000
+			7.70791809099759e+000	1.34651509293042e+002	0.00000000000000e+000
+			7.69416409098478e+000	1.34654691293045e+002	0.00000000000000e+000
+			7.65750009095064e+000	1.34658872293049e+002	0.00000000000000e+000
+			7.64389109093797e+000	1.34658872293049e+002	0.00000000000000e+000
+			7.60027309089735e+000	1.34654691293045e+002	0.00000000000000e+000
+			7.57805409087665e+000	1.34649718293040e+002	0.00000000000000e+000
+			7.49027309079490e+000	1.34628572293021e+002	0.00000000000000e+000
+			7.37194509068469e+000	1.34561372292958e+002	0.00000000000000e+000
+			7.35444509066839e+000	1.34531372292930e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 189
+FIPS_CNTRY : PS
+GMI_CNTRY : PLW
+ISO_2DIGIT : PW
+ISO_3DIGIT : PLW
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

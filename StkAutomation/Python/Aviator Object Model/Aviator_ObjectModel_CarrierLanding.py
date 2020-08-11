@@ -177,7 +177,7 @@ aircraftHornetLead.Graphics.Attributes.Line.Width = 2 # medium thickness. 2 = Ag
 runwayCategory = avtrPropHornetLead.AvtrCatalog.RunwayCategory
 
 # Set the ARINC runways to look at the installed sample
-installDir = root.ExecuteCommand('GetDirectory / STKHome').Item(0)
+installDir = stkRoot.ExecuteCommand('GetDirectory / STKHome').Item(0)
 runwayCategory.ARINC424Runways.MasterDataFilepath = installDir + 'Data\\Resources\\stktraining\\samples\\FAANFD18'
 
 # Get the list of runways

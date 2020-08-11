@@ -1,0 +1,117 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Singapore
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.376722e+000
+		EcfLongitude           1.038175e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     23
+
+		BEGIN PolygonPoints
+
+			1.38329108510733e+000	1.03990536264487e+002	0.00000000000000e+000
+			1.36986408509482e+000	1.03997945264494e+002	0.00000000000000e+000
+			1.35528208508124e+000	1.03994136264490e+002	0.00000000000000e+000
+			1.34416408507089e+000	1.03984972264482e+002	0.00000000000000e+000
+			1.32083608504917e+000	1.03959972264458e+002	0.00000000000000e+000
+			1.25902708499160e+000	1.03841918264348e+002	0.00000000000000e+000
+			1.25944508499198e+000	1.03798309264308e+002	0.00000000000000e+000
+			1.30465408503409e+000	1.03646918264167e+002	0.00000000000000e+000
+			1.31833608504684e+000	1.03640945264161e+002	0.00000000000000e+000
+			1.33139108505900e+000	1.03643309264163e+002	0.00000000000000e+000
+			1.39319108511654e+000	1.03671082264189e+002	0.00000000000000e+000
+			1.40360908512625e+000	1.03677745264195e+002	0.00000000000000e+000
+			1.41110908513323e+000	1.03684400264202e+002	0.00000000000000e+000
+			1.42360908514488e+000	1.03699136264215e+002	0.00000000000000e+000
+			1.42944508515031e+000	1.03713591264229e+002	0.00000000000000e+000
+			1.44500008516479e+000	1.03804136264313e+002	0.00000000000000e+000
+			1.44528208516506e+000	1.03817200264325e+002	0.00000000000000e+000
+			1.44360908516350e+000	1.03829418264337e+002	0.00000000000000e+000
+			1.43471808515523e+000	1.03848309264354e+002	0.00000000000000e+000
+			1.41721808513893e+000	1.03879409264383e+002	0.00000000000000e+000
+			1.40750008512987e+000	1.03894009264397e+002	0.00000000000000e+000
+			1.38721808511099e+000	1.03967745264466e+002	0.00000000000000e+000
+			1.38329108510733e+000	1.03990536264487e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 196
+FIPS_CNTRY : SN
+GMI_CNTRY : SGP
+ISO_2DIGIT : SG
+ISO_3DIGIT : SGP
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

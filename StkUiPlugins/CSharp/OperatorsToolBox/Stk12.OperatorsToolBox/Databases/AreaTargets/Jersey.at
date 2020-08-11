@@ -1,0 +1,113 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Jersey
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            4.920452e+001
+		EcfLongitude           -2.122587e+000
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     19
+
+		BEGIN PolygonPoints
+
+			4.91677731296101e+001	-2.06694583428691e+000	0.00000000000000e+000
+			4.91811091296225e+001	-2.08916383430761e+000	0.00000000000000e+000
+			4.91813641296228e+001	-2.10301783432053e+000	0.00000000000000e+000
+			4.91958271296362e+001	-2.12278183433892e+000	0.00000000000000e+000
+			4.91986091296388e+001	-2.13305483434849e+000	0.00000000000000e+000
+			4.91990271296392e+001	-2.14916383436349e+000	0.00000000000000e+000
+			4.91929091296335e+001	-2.16110883437460e+000	0.00000000000000e+000
+			4.91841641296254e+001	-2.18194583439401e+000	0.00000000000000e+000
+			4.91808271296223e+001	-2.20528183441576e+000	0.00000000000000e+000
+			4.91897181296305e+001	-2.22639083443542e+000	0.00000000000000e+000
+			4.92512451296878e+001	-2.24736383445494e+000	0.00000000000000e+000
+			4.92590181296951e+001	-2.23360883444212e+000	0.00000000000000e+000
+			4.92611091296970e+001	-2.15416383436815e+000	0.00000000000000e+000
+			4.92433271296805e+001	-2.03847283426040e+000	0.00000000000000e+000
+			4.92310361296690e+001	-2.01680883424024e+000	0.00000000000000e+000
+			4.92141641296533e+001	-2.01499983423855e+000	0.00000000000000e+000
+			4.91772181296189e+001	-2.02110883424422e+000	0.00000000000000e+000
+			4.91724911296145e+001	-2.04139083426313e+000	0.00000000000000e+000
+			4.91677731296101e+001	-2.06694583428691e+000	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    76
+ObjectID : 72
+FIPS_CNTRY : JE
+GMI_CNTRY : XJE
+ISO_2DIGIT : 
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -1,0 +1,103 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Wake_I
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.930225e+001
+		EcfLongitude           1.666404e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     9
+
+		BEGIN PolygonPoints
+
+			1.93245821018165e+001	1.66627591322822e+002	0.00000000000000e+000
+			1.93175001018099e+001	1.66650545322843e+002	0.00000000000000e+000
+			1.93115271018043e+001	1.66658863322851e+002	0.00000000000000e+000
+			1.92977731017915e+001	1.66662200322854e+002	0.00000000000000e+000
+			1.92828451017776e+001	1.66658781322851e+002	0.00000000000000e+000
+			1.92794451017744e+001	1.66642763322836e+002	0.00000000000000e+000
+			1.92972181017910e+001	1.66613863322809e+002	0.00000000000000e+000
+			1.93070821018002e+001	1.66608981322805e+002	0.00000000000000e+000
+			1.93245821018165e+001	1.66627591322822e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    79
+ObjectID : 203
+FIPS_CNTRY : WQ
+GMI_CNTRY : UMI
+ISO_2DIGIT : UM
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

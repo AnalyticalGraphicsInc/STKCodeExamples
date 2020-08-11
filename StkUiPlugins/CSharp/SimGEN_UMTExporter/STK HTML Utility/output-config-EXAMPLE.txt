@@ -1,0 +1,4 @@
+Start                      Stop                       Saved Filename
+7 May 2013 15:00:00.000    7 May 2013 17:00:01.000    C:\Users\shepherd\Desktop\Set1.umt
+7 May 2013 18:00:02.000    7 May 2013 19:00:03.000    C:\Users\shepherd\Desktop\Set2.umt
+7 May 2013 15:00:02.000    7 May 2013 15:30:03.000    C:\Users\shepherd\Desktop\Set3.umt

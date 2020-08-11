@@ -1,0 +1,108 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Anguilla
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.821167e+001
+		EcfLongitude           -6.307024e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     14
+
+		BEGIN PolygonPoints
+
+			1.81644451007360e+001	-6.31677818911915e+001	0.00000000000000e+000
+			1.81776361007483e+001	-6.31569458911814e+001	0.00000000000000e+000
+			1.81941641007637e+001	-6.31413998911669e+001	0.00000000000000e+000
+			1.82595821008246e+001	-6.30520178910837e+001	0.00000000000000e+000
+			1.82688911008333e+001	-6.30225088910562e+001	0.00000000000000e+000
+			1.82729821008371e+001	-6.29727088910098e+001	0.00000000000000e+000
+			1.82355541008022e+001	-6.29866728910228e+001	0.00000000000000e+000
+			1.82272181007945e+001	-6.29930548910288e+001	0.00000000000000e+000
+			1.82144451007826e+001	-6.30211178910549e+001	0.00000000000000e+000
+			1.82102821007787e+001	-6.30308358910640e+001	0.00000000000000e+000
+			1.81927731007624e+001	-6.30741728911043e+001	0.00000000000000e+000
+			1.81683271007396e+001	-6.31400088911657e+001	0.00000000000000e+000
+			1.81652731007368e+001	-6.31537548911785e+001	0.00000000000000e+000
+			1.81644451007360e+001	-6.31677818911915e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 58
+FIPS_CNTRY : AV
+GMI_CNTRY : AIA
+ISO_2DIGIT : AI
+ISO_3DIGIT : AIA
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

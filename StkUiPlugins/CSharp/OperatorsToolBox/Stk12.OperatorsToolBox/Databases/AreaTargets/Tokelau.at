@@ -1,0 +1,101 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Tokelau
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -9.197003e+000
+		EcfLongitude           -1.718517e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     7
+
+		BEGIN PolygonPoints
+
+			-9.21889092476673e+000	-1.71848054992408e+002	0.00000000000000e+000
+			-9.20965492475813e+000	-1.71858854992418e+002	0.00000000000000e+000
+			-9.18089992473135e+000	-1.71862717992422e+002	0.00000000000000e+000
+			-9.17062692472177e+000	-1.71852435992412e+002	0.00000000000000e+000
+			-9.19110892474085e+000	-1.71844190992404e+002	0.00000000000000e+000
+			-9.21083592475922e+000	-1.71843763992404e+002	0.00000000000000e+000
+			-9.21889092476673e+000	-1.71848054992408e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 15
+FIPS_CNTRY : TL
+GMI_CNTRY : TKL
+ISO_2DIGIT : TK
+ISO_3DIGIT : TKL
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
