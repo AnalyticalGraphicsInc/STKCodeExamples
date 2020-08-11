@@ -3,7 +3,7 @@
 <img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
 
 [![Docs](https://img.shields.io/badge/docs-online-BC8C44?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
-[![Support](https://img.shields.io/badge/support-email-0B2341?style=for-the-badge)](mail:support@agi.com)
+[![Support](https://img.shields.io/badge/support-email-0B2341?style=for-the-badge)](mailto:support@agi.com)
 
 </div>
 
