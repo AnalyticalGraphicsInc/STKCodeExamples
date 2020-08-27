@@ -1,17 +1,21 @@
 <div align="center">
 
-<img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640">
+<img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="320">
 
 [![Docs](https://img.shields.io/badge/docs-online-BC8C44?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
+<<<<<<< HEAD
+=======
+[![Get Certified](https://img.shields.io/badge/get%20certified-0076AF?style=for-the-badge)](https://agi.com/training#cert)
+>>>>>>> fa48d62... Updated readme
 [![Support](https://img.shields.io/badge/support-email-0B2341?style=for-the-badge)](mailto:support@agi.com)
 
 </div>
 
-Welcome to the Systems Tool Kit (STK) Code Examples Repository, where we'll be sharing Code Examples from our favorite utilities and demonstrations for STK, a commercial product from Analytical Graphics, Inc. (AGI).
+Welcome to the Systems Tool Kit (STK) Code Examples Repository, where we'll be sharing code examples from our favorite utilities and demonstrations for STK, commercial software from Analytical Graphics, Inc. (AGI).
 
 Feel free to browse the content for both functional tools to add to your tool kit and example code that you can refactor to fit your needs.
 
-This repository does not conatain the STK application, this must be obtained seperately from [AGI's support page](https://support.agi.com/donloads)
+This repository does not contain the STK application, STK must be obtained seperately from [AGI's support page](https://support.agi.com/donloads)
 
 ### Featured Examples Areas
 
@@ -32,11 +36,11 @@ If You redistribute the Code Examples, in whole or in part, You must provide a c
 
 © 2020 Analytical Graphics, Inc.
 
-### What if I have questions about STK
+### What if I have questions about STK?
 
-Contact [AGI support](mail:support@agi.com) with any questions regarding STK, STK Engine or any other AGI products.
+Contact [AGI support](mail:support@agi.com) with questions regarding STK, STK Engine or any other AGI products.
 
-AGI's ready-to-use STK and ODTK product families, enterprise software, and developer tools help customers deliver digital engineering value and make better-informed decisions in a mission context at any stage in the program lifecycle: from planning and design to training and operations.
+AGI software helps engineers, operators, and analysts deliver digital engineering value at any stage of a program life cycle: from planning and design to training and operations. Our modeling, analysis, and visualization tools, coupled with legendary customer support, help those in aerospace and defense organizations make critical decisions faster and more accurately in an operational context.
 
 For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage") and follow us on our social media profiles below.
 
