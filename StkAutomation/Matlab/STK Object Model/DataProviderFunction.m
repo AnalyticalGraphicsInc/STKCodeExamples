@@ -1,10 +1,5 @@
 function [dataFull] = DataProviderFunction(root,dataProvString,dataProvElem,times,grouping,predata,object)
 
-%Analytical Graphics, Inc.
-%Author: Mo Syed
-%Date Created: 9/12/18
-%Edit 3/11/20
-
 %This function takes in the data provider parameters and outputs the
 %desired data, skipping the setup that is usually needed. It automates the
 %process without the user having to get into the semantics of how data
