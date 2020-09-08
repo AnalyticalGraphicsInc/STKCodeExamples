@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Stk12.UiPlugin.ObjectModelTutorial
 {
 
-    [Guid("7f70d874-003f-4467-ad62-64d81620913f")]
+    [Guid("7f70d874-003f-4467-ad62-64d81620913e")]
     [ProgId("Stk12.UiPlugin.ObjectModelTutorial")]
     [ClassInterface(ClassInterfaceType.None)]
     public class Setup : IAgUiPlugin, IAgUiPlugin2, IAgUiPlugin3DNotify, IAgUiPluginCommandTarget
