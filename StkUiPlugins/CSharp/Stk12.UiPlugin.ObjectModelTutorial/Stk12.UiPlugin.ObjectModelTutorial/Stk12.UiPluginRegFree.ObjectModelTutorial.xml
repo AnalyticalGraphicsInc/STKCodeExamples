@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+	<CategoryRegistry>
+		<Category Name = "UiPlugins">
+			<NETUiPlugin
+				 DisplayName="ObjectModelTutorial"
+				 TypeName="Stk12.UiPlugin.ObjectModelTutorial.Setup"
+				 AssemblyName="Stk12.UiPlugin.ObjectModelTutorial"
+				 CodeBase="C:\Users\aclaybrook\source\repos\Stk12.UiPlugin.ObjectModelTutorial\Stk12.UiPlugin.ObjectModelTutorial\bin\Debug">
+			</NETUiPlugin>
+		</Category>
+	</CategoryRegistry>
+</AGIRegistry>
