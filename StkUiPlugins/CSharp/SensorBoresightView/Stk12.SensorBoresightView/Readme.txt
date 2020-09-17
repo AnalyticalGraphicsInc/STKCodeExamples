@@ -1,6 +1,7 @@
-Important Notes:
+This plugin is setup for Registration Free installation.
 
-- For your convenience, there is a post build event that registers the assembly.  So if you have .Net 2005, just build the project.  If you do not have .Net 2005, you'll need run the "regasm" command from the command line (as explained in the STK Help).
+Once you build this project, copy the contents of the build output directory (..\bin\Release) to:
+C:\ProgramData\AGI\Plugins\SensorBoresightPlugin
 
-- You must place the SensorBoresightView.xml XML manifest document in <STK Install Dir>\Plugins before starting STK.
-
+Copy the file ..\Stk12.SensorBoresightView\SensorBoresightView.xml to your STK user config directory:
+C:\Users\<username>\Documents\STK 12\Config\Plugins
