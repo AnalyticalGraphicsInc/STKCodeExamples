@@ -32,3 +32,9 @@ Computes the "best" multihop path between a starting and ending constellations, 
 ## ConstellationAnalysisTransRec.ipynb
 Computes the "best" multihop path between a starting and ending constellations through a satellite constellation with transmitters and receivers. Investigates the effects of changing transmitter power and signal strength constraints
 <img src="TransmitterAndReceiver.JPG" alt="Drawing" style="width: 600px;"/>
+
+
+## ConstellationAnalysisMultiConstellationMultiHop.ipynb
+
+Computes the "best" multihop path between a starting and ending constellations, but now through a series of constellations. Similar to a chain but multiple hops between each constellation are permitted. Shows an example with satellites, sensors, transitters and recievers.
+<img src="MultipleConstellations.JPG" alt="Drawing" style="width: 400px;"/>
