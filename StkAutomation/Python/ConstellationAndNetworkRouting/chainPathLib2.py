@@ -29,7 +29,7 @@ def createDirectedChains(stkRoot,constellationOrderLists,start=[],stop=[],color=
     chainNames  = []
     if type(constellationOrderLists[0]) == list:
         for constellationOrder in constellationOrderLists:
-            chainNamesTemp = buildChains(stkRoot,constellationOrder,color=color)
+            chainNamesTemp = buildChains(stkRoot,constellationOrder,start=start,stop=stop,color=color)
             for chainName in chainNamesTemp:
                 chainNames.append(chainName)
     else:
