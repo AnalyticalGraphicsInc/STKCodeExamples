@@ -45,8 +45,7 @@ namespace Agi.Ui.GreatArc
 
 
         }
-
-        
+       
 
         private void button_LoadGV_Click(object sender, EventArgs e)
         {

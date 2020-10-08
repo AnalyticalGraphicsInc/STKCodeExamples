@@ -1,0 +1,100 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Glorioso_Is
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -1.156781e+001
+		EcfLongitude           4.729144e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     6
+
+		BEGIN PolygonPoints
+
+			-1.15777819269636e+001	4.72958272116857e+001	0.00000000000000e+000
+			-1.15745819269606e+001	4.72820822116730e+001	0.00000000000000e+000
+			-1.15575729269448e+001	4.72790912116702e+001	0.00000000000000e+000
+			-1.15540999269416e+001	4.72971452116870e+001	0.00000000000000e+000
+			-1.15749999269610e+001	4.73030542116925e+001	0.00000000000000e+000
+			-1.15777819269636e+001	4.72958272116857e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    77
+ObjectID : 230
+FIPS_CNTRY : GO
+GMI_CNTRY : REU
+ISO_2DIGIT : 
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

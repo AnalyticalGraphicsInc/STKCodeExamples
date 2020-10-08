@@ -1,0 +1,98 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Baker_I
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            2.191001e-001
+		EcfLongitude           -1.764616e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     4
+
+		BEGIN PolygonPoints
+
+			2.15282084019535e-001	-1.76461426996704e+002	0.00000000000000e+000
+			2.19445084023405e-001	-1.76467654996710e+002	0.00000000000000e+000
+			2.22573084026322e-001	-1.76455854996699e+002	0.00000000000000e+000
+			2.15282084019535e-001	-1.76461426996704e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    78
+ObjectID : 26
+FIPS_CNTRY : FQ
+GMI_CNTRY : UMI
+ISO_2DIGIT : UM
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
