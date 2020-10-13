@@ -2,7 +2,7 @@ The MATLAB scripts contained in this folder are simple demonstrations of how
 to pass real-time data into STK.  All scripts will read position and attitude data
 from simple text files, then pass those values into STK in simulated realtime.  No
 setup is required for the scripts, simply open and run.  The script will grab an
-existing instance of STK10 or create a new one if necessary.  It will then create 
+existing instance of STK12 or create a new one if necessary.  It will then create 
 a new scenario, add the realtime object, and send the position/attitude data.
 
 realtimeSatellite.m - creates a satellite and passes position and attitude data.
