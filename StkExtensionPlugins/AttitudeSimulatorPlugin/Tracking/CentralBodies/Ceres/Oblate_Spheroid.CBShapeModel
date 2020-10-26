@@ -1,0 +1,16 @@
+<!-- STKv4.0 Format="XML" -->
+<STKOBJECT>
+<OBJECT Class = "CBShapeModel" Name = "Oblate_Spheroid">
+    <OBJECT Class = "string" Name = "Category"> &quot;Ceres&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "Clonable"> True </OBJECT>
+    <OBJECT Class = "string" Name = "Description"> &quot;Oblate Spheroid Shape Model&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "ReadOnly"> False </OBJECT>
+    <OBJECT Class = "double" Name = "Rmax"> 487300 m </OBJECT>
+    <OBJECT Class = "double" Name = "Rmin"> 454700 m </OBJECT>
+    <OBJECT Class = "container" Name = "ShooterControls" />
+    <OBJECT Class = "int" Name = "STKVersion"> 1150 </OBJECT>
+    <OBJECT Class = "string" Name = "Type"> &quot;OblateSpheroid&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "UserComment"> &quot;Oblate Spheroid Shape Model&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Version"> &quot;1.0.0 a&quot; </OBJECT>
+</OBJECT>
+</STKOBJECT>

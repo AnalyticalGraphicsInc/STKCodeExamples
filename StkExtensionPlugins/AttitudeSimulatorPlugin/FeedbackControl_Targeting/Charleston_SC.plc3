@@ -1,0 +1,400 @@
+VO_V120		
+InitializeSolarPanels		 No
+Modelfile		 Land\place.mdl
+UseModelList		 No
+ModelDefaultColorFromMarker		 No
+IgnoreModelBoundRadius		 No
+IsShowingModel		 No
+ModelScale		 1
+UseModelFilePosOffset		 No
+UseModelPosOffset		 No
+ModelPosOffset		  0.0000000000000000e+00  0.0000000000000000e+00  0.0000000000000000e+00
+UseModelRotation		 No
+ModelRotation		  0.0000000000000000e+00  0.0000000000000000e+00  0.0000000000000000e+00
+IsSwapped		 Yes
+Level0SwapDistance		 200
+Level1SwapDistance		 200
+Level2SwapDistance		 50000000
+Level3SwapDistance		 400000000
+Level4SwapDistance		 600000000
+ShowMarker		 Yes
+BEGIN Marker
+    Show		 Yes
+    Type		 Texture
+    Shape		 Point
+    IsTransparent		 Yes
+    OneOneBlend		 No
+    Rotate		 No
+    Angle		 0
+    HorizOrigin		 Center
+    VertOrigin		 Bottom
+    MinSize		 16
+    SizeInMeters		 No
+    MarkerTxURI		 "file:///STKData/Pixmaps/Place.bmp"
+    RotateRelToNorth		 No
+    UseDirectionAngle		 No
+END
+FixVectorAxesScaleToModel		 Yes
+FixVectorAxesScaleToAttSph		 No
+VectorAxesAngleSwapDist		 -0.5
+PlaneSwapDist		 -2.5
+BEGIN GeneralVectorAxes
+    PersistentLineWidth		 2
+    Scale		 158.489319
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "East"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #f0ffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "West"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #f0ffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "North"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #f0ffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "South"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #f0ffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Zenith(Detic)"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #87cefa
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Sun"
+        MagUnit		 m
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #ffff00
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Moon"
+        MagUnit		 m
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #ffffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 Yes
+        Name		 "Inertial"
+        CentralBody		 Earth
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #00ffff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "TopoCentric"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 Yes
+        Name		 "Inertial"
+        CentralBody		 Earth
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #00ff00
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAngle
+    FractionalScale		 1
+    SupportingDihedralArcLineWidth		 1
+    ArcLineWidth		 2
+    PixelThreshold		 0.5
+    BEGIN VectorAngleData
+        Name		 "SunZenithDistance"
+        Show		 No
+        ShowLabel		 Yes
+        ShowAngle		 Yes
+        ShowDihedralAngleSupportingArcs		 Yes
+        ColorIndex		 #f08080
+        IntervalType		 AlwaysOn
+        Unit		 deg
+    END
+END
+BEGIN Plane
+    BEGIN PlaneData
+        BEGIN PlaneDef
+            Name		 "Body.XY"
+            Object		 _Default
+        END
+        Show		 No
+        ShowLabel		 Yes
+        LabelPosition		 Center
+        ShowAxisLabels		 No
+        PosAtObject		 Yes
+        Transparent		 Yes
+        PercentTransparent		 80.0000011920929
+        IgnoreSceneVAScale		 No
+        LineWidth		 2
+        ColorIndex		 #fff0f5
+        FontIndex		 1
+        Scale		 1
+        GridSpacing		 10000
+        ShowRectGrid		 No
+        ShowCircGrid		 No
+        IntervalType		 AlwaysOn
+    END
+END
+BEGIN Point
+    Show		 No
+    Size		 5
+END Point
+SetModelColorArtic		 Yes
+SaveArticStateAsDef		 No
+DontSaveArticFile		 Yes
+ArticulationFileEnabled		 No
+ArticulationFile		 Charleston_SC.plcma
+ObscurationToObject		 No
+AzElMaskTranslucency		 0.800000011920929
+AzElMaskLineTransparency		 0
+AzElMaskLineThickness		 1
+AzElMaskAtRangeTranslucency		 0.800000011920929
+AzElMaskAtRangeLineThickness		 1
+AzElMaskAtRangeLineTransparency		 0
+AzElMaskLabelCompassShow		 Yes
+AzElMaskLabelAltShow		 No
+AzElMaskNumAltLabels		 20
+AzElMaskLabelUnits		 4
+AzElMaskLabelDecDigits		 3
+AzElMaskLblSwapDist		 -2.5
+ShowRangeContours		 No
+TranslRangeCntrLines		 Yes
+RangeCntrLineTransl		 0
+RangeLblSwapDist		 -2.5
+AOULblSwapDist		 -1.5
+BorderWallShowOnOff		 No
+BorderWallUseTerrainAltFileOnOff		 No
+BorderWallTransparencyOnOff		 No
+BorderWallLineTransparencyOnOff		 No
+BorderWallTransparency		 0.699999988079071
+BorderWallLineTransparency		 0.699999988079071
+BorderWallTopCapType		 WGS84
+BorderWallTopCap		 0
+BorderWallBotCapType		 WGS84
+BorderWallBotCap		 0
+BorderWallSampleRate		 2
+UseLabelOffset		 Yes
+LabelOffsetInPixels		 Yes
+LabelXYZ		 5 -4 10
+UseObjLineAttachPt		 No
+IsShowingVaporTrail		 No
+VaporMaxPuffs		 100
+VaporColorIndex		 #ffffff
+VaporWindSpeed		 0 0 0
+VaporIsInSpace		 No
+VaporUseAttachPoint		 No
+VaporOutputRate		  5.0000000000000000e-01
+VaporRadius		 1000
+VaporExpansionRate		 0.01
+VaporStartTime		 0
+VaporEndTime		 47700
+VaporIntervalPtr		
+BEGIN EVENTINTERVAL
+    EventInterval		
+    BEGIN EVENTINTERVAL
+        Type		 EVENTINTERVAL_LINKTO
+        Name		 AnalysisInterval
+        AbsolutePath		 Scenario
+    END EVENTINTERVAL
+    IntervalState		 Implicit
+END EVENTINTERVAL
+
+VaporTexturemap		 smoke.pgm
+BEGIN DynamicDataText
+    Name		 "Solar AER"
+    Show		 No
+    ShowTitle		 Yes
+    ShowObjName		 Yes
+    ReportFormat		 Horizontal
+    Type		 ORTHOGRAPHIC
+    AttachX		 MIN
+    AttachY		 MAX
+    X		 10
+    Y		 10
+    FontIndex		 0
+    TextColorIndex		 #ffff00
+    BGEnabled		 No
+    IsBGTransparent		 No
+    BGWidth		 100
+    BGHeight		 50
+    AutoSizeWidth		 Yes
+    AutoSizeHeight		 Yes
+    BGColorIndex		 #999999
+    Version		 0
+    VertTextAlign		 BOTTOM
+    BGTranslucency		 1
+END

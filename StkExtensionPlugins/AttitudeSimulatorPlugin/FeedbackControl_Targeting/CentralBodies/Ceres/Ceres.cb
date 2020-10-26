@@ -1,0 +1,98 @@
+
+BEGIN CentralBody
+
+    Name		 Ceres
+
+    FuncCbInit		 AsterInit
+    FuncCbFree		 PlanetFree
+    FuncCbLoad		 PlanetLoad
+    FuncCbSave		 PlanetSave
+    FuncCbCopy		 PlanetCopy
+    FuncCbSet		 EarthSet
+
+    Prefix		 Planeto
+
+    ShortDescription		 Asteroid
+
+    Description		 Asteroid
+
+    Type		 Planet
+
+
+    BEGIN AstroDefinition
+
+        Gm		  7.0000000000000000e+10
+        MaxAltitude		  0.0000000000000000e+00
+        MinAltitude		 -2.3300000000000000e+04
+        AtmosphereAltitude		  0.0000000000000000e+00
+        DtedSearchScale		 0.5
+
+        AttitudeName		 RotationCoefficientsFile
+
+        OrbitName		 Analytic_Orbit
+
+        ShapeName		 Oblate_Spheroid
+        Shape		        OblateSpheroid		
+        MajorAxis		  4.8730000000000000e+05
+        MinorAxis		  4.5470000000000000e+05
+
+        GravityModel		 ZonalsToJ4
+
+        ParentName		 Sun
+
+
+        PathGenerator		 Astrogator
+        PathGenerator		 GreatArc
+        PathGenerator		 HoldCBFPosition
+        PathGenerator		 HoldCBIPosition
+        PathGenerator		 HPOP
+        PathGenerator		 J2Perturbation
+        PathGenerator		 J4Perturbation
+        PathGenerator		 Rocket
+        PathGenerator		 SPICE
+        PathGenerator		 StkExternal
+        PathGenerator		 TwoBody
+
+    END AstroDefinition
+
+    BEGIN EphemerisData
+
+        EphemerisSource		 Analytic
+
+        JplIndex		 -1
+
+        JplSpiceId		 2000001
+
+        ApplyTDTtoTDBCorrectionForDE		 Yes
+
+        OrbitEpoch		  2.4512005000000000e+06
+        OrbitCrdSys		 ICRF
+        OrbitCrdSysEpoch		  2.4515450000000000e+06
+        OrbitMeanDist		  4.1373889194226001e+11
+        OrbitEcc		  7.8054160000000095e-02
+        OrbitInc		  2.7150360905601435e+01
+        OrbitRAAN		  2.3389932431847456e+01
+        OrbitPerLong		  1.5661238731471428e+02
+        OrbitMeanLong		  4.4894863731471423e+02
+        OrbitMeanDistDot		  0.0000000000000000e+00
+        OrbitEccDot		  0.0000000000000000e+00
+        OrbitIncDot		  0.0000000000000000e+00
+        OrbitRAANDot		  0.0000000000000000e+00
+        OrbitPerLongDot		  0.0000000000000000e+00
+        OrbitMeanLongDot		  2.1429037440797999e-01
+
+    END EphemerisData
+
+    BEGIN SpinData
+
+        RotationDefinitionFile		 CeresAttitude2009.rot
+
+    END SpinData
+
+    BEGIN Ceres
+
+    END Ceres
+
+    ReadOnly		 No
+
+END CentralBody

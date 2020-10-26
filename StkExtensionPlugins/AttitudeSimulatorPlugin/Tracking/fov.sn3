@@ -1,0 +1,72 @@
+VO_V120		
+Translucency		 0.85
+IsShowingRadialLines		 No
+RadialLineIncr		 4
+IsShowingBoresight		 No
+IsShowingFill		 No
+FillTranslucency		 0.5
+FillResolution		  4.0000000000000000e+00
+PulseStyle		 Sin
+PulseAmplitude		 0.5
+PulseWavelength		 500000
+PulseFreq		 0.167
+PulseAntiAliased		 No
+PulseReversed		 No
+PulseFrameDependent		 Yes
+IsShowingPulse		 No
+TranslucentLines		 Yes
+PersistSpaceProjLines		 No
+PersistPartialCBProjLines		 Yes
+UseConstExtensionLength		 No
+ExtensionLength		 50000000
+UseSpaceExtLenTimeList		 No
+UseTgtExtLenTimeList		 No
+TargetExtensionLength		 0
+UseRangeCnstrntMinMax		 Yes
+IsShowingCompleteDome		 No
+Inherit2dProjection		 No
+ShowDomesWith2dProjection		 No
+InheritModelPosOffset		 Yes
+UseModelPosOffset		 No
+ModelPosOffset		 0 0 0
+FixVectorAxesScaleToAttSph		 No
+BEGIN GeneralVectorAxes
+    PersistentLineWidth		 2
+    Scale		 158489.319246
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Boresight"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 Yes
+        Name		 "Inertial"
+        CentralBody		 Earth
+    END
+    Duration		 600
+    IsShowing		 No
+    IsPersistent		 Yes
+    IsTransparent		 No
+    UseTrueScale		 No
+    DrawAtCentralBody		 No
+    ConnectType		 Trace
+    ColorIndex		 #ff0000
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAngle
+    FractionalScale		 1
+    SupportingDihedralArcLineWidth		 1
+    ArcLineWidth		 2
+    PixelThreshold		 2
+END
+BEGIN Plane
+END
+UseAttachPoint		 No
+SensorRadius		 0
+ShowStarsInFOV		 No
+UseDefStarCollection		 Yes

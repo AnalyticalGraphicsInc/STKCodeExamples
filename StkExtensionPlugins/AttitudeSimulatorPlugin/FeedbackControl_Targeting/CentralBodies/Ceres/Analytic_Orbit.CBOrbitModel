@@ -1,0 +1,27 @@
+<!-- STKv4.0 Format="XML" -->
+<STKOBJECT>
+<OBJECT Class = "CBOrbitModel" Name = "Analytic_Orbit">
+    <OBJECT Class = "double" Name = "a"> 413738891942.2601 m </OBJECT>
+    <OBJECT Class = "string" Name = "Category"> &quot;Ceres&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "Clonable"> True </OBJECT>
+    <OBJECT Class = "double" Name = "da/dt"> 0 m*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "de/dt"> 0 &quot;&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Description"> &quot;Analytic Orbit Element Set with Rates&quot; </OBJECT>
+    <OBJECT Class = "double" Name = "di/dt"> 0 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "dL/dt"> 4.328787718461395e-08 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "dlp/dt"> 0 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "draan/dt"> 0 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "Epoch"> 2451200.5 &quot;&quot; </OBJECT>
+    <OBJECT Class = "double" Name = "e"> 0.07805416000000004 &quot;&quot; </OBJECT>
+    <OBJECT Class = "double" Name = "i"> 0.1847244446715518 rad </OBJECT>
+    <OBJECT Class = "double" Name = "lp"> 2.695383014310555 rad </OBJECT>
+    <OBJECT Class = "double" Name = "L"> 7.797613099743828 rad </OBJECT>
+    <OBJECT Class = "double" Name = "raan"> 1.404961053988167 rad </OBJECT>
+    <OBJECT Class = "bool" Name = "ReadOnly"> False </OBJECT>
+    <OBJECT Class = "container" Name = "ShooterControls" />
+    <OBJECT Class = "int" Name = "STKVersion"> 1150 </OBJECT>
+    <OBJECT Class = "string" Name = "Type"> &quot;AnalyticSimple&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "UserComment"> &quot;Analytic Orbit Element Set with Rates&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Version"> &quot;1.0.0 a&quot; </OBJECT>
+</OBJECT>
+</STKOBJECT>
