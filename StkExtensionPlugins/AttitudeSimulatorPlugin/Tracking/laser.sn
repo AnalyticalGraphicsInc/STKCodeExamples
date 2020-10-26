@@ -1,0 +1,242 @@
+stk.v.12.0
+WrittenBy    STK_v12.0.0
+
+BEGIN Sensor
+
+    Name		 laser
+
+    BEGIN Pattern
+
+        BEGIN SimpleCone
+
+            ConeAngle		  2.9999999999999999e-01
+            AngularPatternResolution		  4.0000000000000000e+00
+
+        END SimpleCone
+
+        DetailedTerrainHorizon		 Yes
+
+
+    END Pattern
+
+    BEGIN Pointing
+
+        BEGIN Targeted
+
+            TargetMode		 Fixed
+            BEGIN Fixed
+                PointingMethod		 AzEl
+                Sequence		 323
+                Qx		  0.0000000000000000e+00
+                Qy		  0.0000000000000000e+00
+                Qz		  0.0000000000000000e+00
+                Qs		  1.0000000000000000e+00
+            END Fixed
+
+            BEGIN AssignedTargets
+
+                Missile/scud
+
+            END AssignedTargets
+
+            BEGIN TargetInviews
+
+
+            END TargetInviews
+
+            SaveTargetAccesses		 Yes
+
+            UseTargetSchedule		 No
+
+            BEGIN Stable
+                Use		 No
+                Mode		 NorthStable
+            END Stable
+            AdjustPointingToTargetsDuringAccessToTargets		 No
+            UseTrackControl		 No
+
+        END Targeted
+
+    END Pointing
+
+    BEGIN Optics
+
+        FocalLength		  1.0000000000000000e+02
+        DetectorPitch		  1.0000000000000000e-03
+        IQConstant		  0.0000000000000000e+00
+        GsdCoefficient		  0.0000000000000000e+00
+
+    END Optics
+
+    BEGIN Extensions
+
+        BEGIN ExternData
+        END ExternData
+
+        BEGIN ADFFileData
+        END ADFFileData
+
+        BEGIN AccessConstraints
+            FieldOfView IncludeIntervals
+            LineOfSight IncludeIntervals
+
+            UsePreferredMaxStep No
+            PreferredMaxStep 360
+        END AccessConstraints
+
+        BEGIN ObjectCoverage
+        END ObjectCoverage
+
+        BEGIN Desc
+        END Desc
+
+        BEGIN Refraction
+            RefractionModel		 Effective Radius Method
+
+            UseRefractionInAccess		 No
+
+            BEGIN ModelData
+                RefractionCeiling		  5.0000000000000000e+03
+                MaxTargetAltitude		  1.0000000000000000e+04
+                EffectiveRadius		  1.3333333333333299e+00
+
+                UseExtrapolation		 Yes
+
+
+            END ModelData
+        END Refraction
+
+        BEGIN Crdn
+            BEGIN ANGLE
+                Type		 ANGLE_BETWEEN
+                Name		 Error
+                Description		 <Enter description>
+                Origin		
+                BEGIN VECTOR
+                    Type		 VECTOR_LINKTO
+                    Name		 Boresight
+                    RelativePath		 Satellite/Reference/Sensor/ref_sensor
+                END VECTOR
+                Destination		
+                BEGIN VECTOR
+                    Type		 VECTOR_LINKTO
+                    Name		 Boresight
+                END VECTOR
+                Sampling		
+                BEGIN SAMPLING
+                    AbsolutePath		 Satellite/Tracking/Sensor/laser
+                    Method		 AdaptiveStepValueError
+                    AbsoluteTolerance		  1.0000000000000000e-02
+                    RelativeTolerance		  1.0000000000000000e-03
+                    CurvatureTolerance		  1.0000000000000001e-01
+                    FixedTimeStep		  6.0000000000000000e+01
+                    MinTimeStep		  1.0000000000000000e-03
+                    MaxTimeStep		  1.0000000000000000e+01
+                    BoundTimeStep		  1.0000000000000000e-02
+                    MaxAngularDisp		  5.2359877559829882e-01
+                END SAMPLING
+                Convergence		
+                BEGIN CONVERGE
+                    AbsolutePath		 Satellite/Tracking/Sensor/laser
+                    Sense		 Above
+                    AbsoluteTolerance		  1.0000000000000000e-14
+                    RelativeTolerance		  1.0000000000000000e-08
+                    TimeTolerance		  1.0000000000000000e-03
+                END CONVERGE
+            END ANGLE
+        END Crdn
+
+        BEGIN Graphics
+
+            BEGIN Attributes
+
+                Inherit		 No
+                Show		 Yes
+                LineStyle		 0
+                LineWidth		 1
+                PatternColor		 #ff0000
+
+            END Attributes
+
+            BEGIN Display
+
+                NumberOfPatterns		 1
+                PersistenceDuration		  0.0000000000000000e+00
+                PersistenceIgnoreDefChg		 No
+                UpdatesDefnOften		 No
+                MinDisplayAltitude		  0.0000000000000000e+00
+                MaxDisplayAltitude		  1.0000000000000000e+07
+                AltitudeIntersectSense		 Either
+                ShowBothAltCrossings		 No
+                IntersectType		 CentralBody
+                ShowGround		 Yes
+                UseProjectionRadii		 No
+                ExcludeHorizonArcs		 No
+                ForwardPersist		 No
+                FillPersist		 No
+                DsplyTmHidesPersist		 No
+                SpaceLength		  5.0000000000000000e+07
+                TgtExtLength		  0.0000000000000000e+00
+                FOVHalfAngle		 No
+                HalfAngle		  0.0000000000000000e+00
+                ProjDisplay		 Sphere
+                DisplayType		 ConstantRadius
+                DisplayFOVWithConstraints		 No
+                ShowBoresight		 No
+                BoresightMarker		 4
+                BoresightColor		 #ffffff
+                ShowFill		 No
+                FillTranslucency		 0.5
+                ShowOn2DMap		 Yes
+
+            END Display
+
+            BEGIN Swath
+
+                MaxStep		  6.0000000000000000e+01
+                MinStep		  1.0000000000000001e-01
+                CloseSwath		 Yes
+                Tolerance		  4.0000000000000000e+00
+                MatchTolerance		  9.0000000000000000e+01
+                ShowSwath		 No
+                ComputationalMethod		 Numerical
+                Color		 #f0ffff
+                LineStyle		 0
+                LineWidth		 1
+                SwathIntervalPtr		
+                BEGIN EVENTINTERVAL
+                    BEGIN Interval
+                        Start		 1 Jun 2002 12:00:00.000000000
+                        Stop		 2 Jun 2002 12:00:00.000000000
+                    END Interval
+                    IntervalState		 Explicit
+                END EVENTINTERVAL
+
+
+            END Swath
+
+            BEGIN DisplayTimes
+                DisplayType		 UseAccessObjects
+                BEGIN AccessObjects
+                    Missile/scud
+                END AccessObjects
+            END DisplayTimes
+        END Graphics
+
+        BEGIN Swath
+        END Swath
+
+        BEGIN VO
+        END VO
+
+        BEGIN DIS
+        END DIS
+
+    END Extensions
+
+    BEGIN SubObjects
+
+    END SubObjects
+
+END Sensor
+

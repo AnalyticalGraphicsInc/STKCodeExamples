@@ -1,0 +1,171 @@
+VO_V120		
+InitializeSolarPanels		 No
+Modelfile		 Land\facility.mdl
+UseModelList		 No
+ModelDefaultColorFromMarker		 No
+IgnoreModelBoundRadius		 No
+IsShowingModel		 Yes
+ModelScale		 1
+UseModelFilePosOffset		 No
+UseModelPosOffset		 No
+ModelPosOffset		  0.0000000000000000e+00  0.0000000000000000e+00 -0.0000000000000000e+00
+UseModelRotation		 No
+ModelRotation		  0.0000000000000000e+00  0.0000000000000000e+00  0.0000000000000000e+00
+IsSwapped		 Yes
+Level0SwapDistance		 16000
+Level1SwapDistance		 32000
+Level2SwapDistance		 40000000
+Level3SwapDistance		 80000000
+Level4SwapDistance		 160000000
+ShowMarker		 Yes
+BEGIN Marker
+    Show		 Yes
+    Type		 LineGraphic
+    Shape		 Point
+    IsTransparent		 No
+    OneOneBlend		 No
+    Rotate		 No
+    Angle		 0
+    HorizOrigin		 Center
+    VertOrigin		 Center
+    MinSize		 5
+    SizeInMeters		 No
+    RotateRelToNorth		 No
+    UseDirectionAngle		 No
+END
+FixVectorAxesScaleToModel		 Yes
+FixVectorAxesScaleToAttSph		 No
+VectorAxesAngleSwapDist		 -0.5
+PlaneSwapDist		 -2.5
+BEGIN GeneralVectorAxes
+    PersistentLineWidth		 2
+    Scale		 158.4893189999999
+END
+BEGIN VectorAngle
+    FractionalScale		 1
+    SupportingDihedralArcLineWidth		 1
+    ArcLineWidth		 2
+    PixelThreshold		 1
+END
+BEGIN Plane
+END
+BEGIN Point
+    Show		 No
+    Size		 5
+END Point
+SetModelColorArtic		 No
+SaveArticStateAsDef		 No
+DontSaveArticFile		 No
+ArticulationFileEnabled		 No
+ArticulationFile		 Cape_Canaveral.fma
+ObscurationToObject		 No
+AzElMaskTranslucency		 0.004000000189989805
+AzElMaskLineTransparency		 0.00800000037997961
+AzElMaskLineThickness		 1
+AzElMaskAtRangeTranslucency		 0.7999998927116394
+AzElMaskAtRangeLineThickness		 1
+AzElMaskAtRangeLineTransparency		 0
+AzElMaskLabelCompassShow		 No
+AzElMaskLabelAltShow		 No
+AzElMaskNumAltLabels		 20
+AzElMaskLabelUnits		 4
+AzElMaskLabelDecDigits		 3
+AzElMaskLblSwapDist		 -2.5
+ShowRangeContours		 No
+TranslRangeCntrLines		 No
+RangeCntrLineTransl		 0
+RangeLblSwapDist		 -2.5
+AOULblSwapDist		 -1.5
+BorderWallShowOnOff		 No
+BorderWallUseTerrainAltFileOnOff		 No
+BorderWallTransparencyOnOff		 No
+BorderWallLineTransparencyOnOff		 No
+BorderWallTransparency		 0.699999988079071
+BorderWallLineTransparency		 0.699999988079071
+BorderWallTopCapType		 WGS84
+BorderWallTopCap		 0
+BorderWallBotCapType		 WGS84
+BorderWallBotCap		 0
+BorderWallSampleRate		 2
+UseLabelOffset		 No
+LabelOffsetInPixels		 No
+LabelXYZ		 0 10 10
+UseObjLineAttachPt		 No
+IsShowingVaporTrail		 No
+VaporMaxPuffs		 100
+VaporColorIndex		 #ffffff
+VaporWindSpeed		 0 0 0
+VaporIsInSpace		 No
+VaporUseAttachPoint		 No
+VaporOutputRate		  5.0000000000000000e-01
+VaporRadius		 1000
+VaporExpansionRate		 0.01
+VaporStartTime		 0
+VaporEndTime		 47700
+VaporIntervalPtr		
+BEGIN EVENTINTERVAL
+    EventInterval		
+    BEGIN EVENTINTERVAL
+        Type		 EVENTINTERVAL_LINKTO
+        Name		 AnalysisInterval
+        AbsolutePath		 Scenario
+    END EVENTINTERVAL
+    IntervalState		 Implicit
+END EVENTINTERVAL
+
+VaporTexturemap		 smoke.pgm
+BEGIN AttitudeSphere
+    BEGIN LatLonSphere
+        Show		 No
+        FixScaleToModel		 Yes
+        Scale		 31.622777
+        MinDegDim		 0.1
+        MaxDegDim		 90
+        DegDim		 90
+        FogDistanceFactor		 75
+        LabelType		 EveryOther
+        TransparentLines		 Yes
+        FontIndex		 0
+        LineColorIndex		 #aacd32
+        ZeroDegLineColorIndex		 #ffff00
+        LabelColorIndex		 #ffff00
+        PixelThreshold		 180
+        LabelPointSize		 2
+        LineWidth		 1
+        ZeroDegLineWidth		 2
+        BEGIN CentralBody
+            Name		 Earth
+            Show		 Yes
+            ShowLabel		 No
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #4169e1
+        END
+        BEGIN CentralBody
+            Name		 Moon
+            Show		 Yes
+            ShowLabel		 Yes
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #ffffff
+        END
+        BEGIN CentralBody
+            Name		 Sun
+            Show		 Yes
+            ShowLabel		 Yes
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #ffff00
+        END
+        BEGIN AttSphRefCrdnAxes
+            BEGIN AXES
+                Type		 AXES_LINKTO
+                Name		 Body
+                RelativePath		 Facility/Cape_Canaveral
+            END AXES
+        END
+    END
+END

@@ -1,0 +1,81 @@
+
+BEGIN CentralBody
+
+    Name		 Tethys
+
+    FuncCbInit		 AsterInit
+    FuncCbFree		 PlanetFree
+    FuncCbLoad		 PlanetLoad
+    FuncCbSave		 PlanetSave
+
+    Prefix		 Planeto
+
+    ShortDescription		 Asteroid
+
+    Description		 Asteroid
+
+    Type		 Planet
+
+
+    BEGIN AstroDefinition
+
+        Gm		  4.1209168918513298e+10
+        MaxAltitude		  0.0000000000000000e+00
+        MinAltitude		 -2.3300000000000000e+04
+        AtmosphereAltitude		  0.0000000000000000e+00
+        DtedSearchScale		 0.5
+
+        AttitudeName		 RotationCoefficientsFile
+
+        OrbitName		 JPL_SPICE
+
+        ShapeName		 Triaxial_Ellipsoid
+        Shape		        TriAxialEllipsoid		
+        MajorAxis		  5.3840000000000000e+05
+        MinorAxis		  5.2630000000000000e+05
+        MiddleAxis		  5.2830000000000000e+05
+
+        GravityModel		 ZonalsToJ4
+
+        ParentName		 Saturn
+
+
+        PathGenerator		 Astrogator
+        PathGenerator		 GreatArc
+        PathGenerator		 HoldCBFPosition
+        PathGenerator		 HoldCBIPosition
+        PathGenerator		 J2Perturbation
+        PathGenerator		 J4Perturbation
+        PathGenerator		 Rocket
+        PathGenerator		 SimpleAscent
+        PathGenerator		 SPICE
+        PathGenerator		 StkExternal
+        PathGenerator		 TwoBody
+
+    END AstroDefinition
+
+    BEGIN EphemerisData
+
+        EphemerisSource		 JplSpice
+
+        JplIndex		 -1
+
+        JplSpiceId		 603
+
+        ApplyTDTtoTDBCorrectionForDE		 Yes
+
+    END EphemerisData
+
+    BEGIN SpinData
+
+        RotationDefinitionFile		 TethysAttitude2009.rot
+
+    END SpinData
+
+    BEGIN Tethys
+
+    END Tethys
+
+    ReadOnly		 No
+
+END CentralBody

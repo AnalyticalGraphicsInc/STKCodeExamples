@@ -1,0 +1,54 @@
+<?xml version = "1.0" standalone = "yes"?>
+<AgXMLPropertyBagData version = "1.0">
+    <Object clsid = "{BF7138D3-77CC-4633-9F50-4C8345490EC8}">
+        <CatSourceCount Value = "24" VarType = "VT_I4" />
+        <CatID0 Value = "{149566CB-B342-4dbf-9998-9A14B20613CD}" VarType = "VT_BSTR" />
+        <SourceID0 Value = "{293617D2-EBE7-4ce5-BA37-5098ED8E7A6B}" VarType = "VT_BSTR" />
+        <CatID1 Value = "{149566CB-B342-4dbf-9998-9A14B20613CD}" VarType = "VT_BSTR" />
+        <SourceName1 Value = "Favorites" VarType = "VT_BSTR" />
+        <CatID2 Value = "{95A2E88C-165B-492C-877D-BDA0E0C79C7D}" VarType = "VT_BSTR" />
+        <SourceID2 Value = "{20E5C1DB-868A-49da-88B7-C35E4BABEAEA}" VarType = "VT_BSTR" />
+        <CatID3 Value = "{95A2E88C-165B-492C-877D-BDA0E0C79C7D}" VarType = "VT_BSTR" />
+        <SourceID3 Value = "{F58F232F-1B95-416F-B427-5314508930BF}" VarType = "VT_BSTR" />
+        <CatID4 Value = "{95A2E88C-165B-492C-877D-BDA0E0C79C7D}" VarType = "VT_BSTR" />
+        <SourceName4 Value = "Favorites" VarType = "VT_BSTR" />
+        <CatID5 Value = "{95A2E88C-165B-492C-877D-BDA0E0C79C7D}" VarType = "VT_BSTR" />
+        <SourceID5 Value = "{539CDF2B-C93D-4F45-BD1D-8365821AF741}" VarType = "VT_BSTR" />
+        <CatID6 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID6 Value = "{293617D2-EBE7-4ce5-BA37-5098ED8E7A6B}" VarType = "VT_BSTR" />
+        <CatID7 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID7 Value = "{51596B24-A7A9-4771-9215-768B43459C42}" VarType = "VT_BSTR" />
+        <CatID8 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID8 Value = "{4980CD5B-315A-4a80-B0C2-A1797BA6DA1C}" VarType = "VT_BSTR" />
+        <CatID9 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID9 Value = "{20E5C1DB-868A-49da-88B7-C35E4BABEAEA}" VarType = "VT_BSTR" />
+        <CatID10 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID10 Value = "{6E675760-2F6F-4eed-98D5-F38EA3D9B0FF}" VarType = "VT_BSTR" />
+        <CatID11 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID11 Value = "{2CC00DCE-882C-4C67-9E0F-75790DF623BC}" VarType = "VT_BSTR" />
+        <CatID12 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID12 Value = "{F58F232F-1B95-416F-B427-5314508930BF}" VarType = "VT_BSTR" />
+        <CatID13 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID13 Value = "{E00E6E71-22C7-4426-ADF8-2348AA96DA7D}" VarType = "VT_BSTR" />
+        <CatID14 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceName14 Value = "Favorites" VarType = "VT_BSTR" />
+        <CatID15 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID15 Value = "{539CDF2B-C93D-4F45-BD1D-8365821AF741}" VarType = "VT_BSTR" />
+        <CatID16 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID16 Value = "{0B8364BB-3378-4632-91EE-6FBA7F88107F}" VarType = "VT_BSTR" />
+        <CatID17 Value = "{912B8474-8083-4783-98F2-0DA1086AAAA8}" VarType = "VT_BSTR" />
+        <SourceID17 Value = "{A856CEDA-EFFD-4239-B441-BEF3E4D6C9C0}" VarType = "VT_BSTR" />
+        <CatID18 Value = "{D4FE48FD-E31D-4571-ACD3-BEEFAC82EAE8}" VarType = "VT_BSTR" />
+        <SourceID18 Value = "{4980CD5B-315A-4a80-B0C2-A1797BA6DA1C}" VarType = "VT_BSTR" />
+        <CatID19 Value = "{D4FE48FD-E31D-4571-ACD3-BEEFAC82EAE8}" VarType = "VT_BSTR" />
+        <SourceName19 Value = "Favorites" VarType = "VT_BSTR" />
+        <CatID20 Value = "{67393ED6-1687-471C-8AA0-8BECF886624C}" VarType = "VT_BSTR" />
+        <SourceID20 Value = "{51596B24-A7A9-4771-9215-768B43459C42}" VarType = "VT_BSTR" />
+        <CatID21 Value = "{67393ED6-1687-471C-8AA0-8BECF886624C}" VarType = "VT_BSTR" />
+        <SourceID21 Value = "{2CC00DCE-882C-4C67-9E0F-75790DF623BC}" VarType = "VT_BSTR" />
+        <CatID22 Value = "{67393ED6-1687-471C-8AA0-8BECF886624C}" VarType = "VT_BSTR" />
+        <SourceName22 Value = "Favorites" VarType = "VT_BSTR" />
+        <CatID23 Value = "{67393ED6-1687-471C-8AA0-8BECF886624C}" VarType = "VT_BSTR" />
+        <SourceID23 Value = "{0B8364BB-3378-4632-91EE-6FBA7F88107F}" VarType = "VT_BSTR" />
+    </Object>
+</AgXMLPropertyBagData>
