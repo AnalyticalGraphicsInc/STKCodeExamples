@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using AGI.STKObjects;
+using System.Windows.Forms;
 
 namespace StkMetadataExtractor
 {
@@ -99,10 +100,99 @@ namespace StkMetadataExtractor
                 case AgESTKObjectType.ePlanet:
                     break;
                 case AgESTKObjectType.eRadar:
+                    var radar = stkObject as IAgRadar;
+                    IAgRadarModel radarModel = radar.Model as IAgRadarModel;
+                    summary.Properties.Add(new Property("Radar Model", radarModel.Name.ToString()));
+                    if (radarModel.Name.ToString().Equals("Monostatic"))
+                    {
+                        IAgRadarModelMonostatic radarMonostatic = radarModel as IAgRadarModelMonostatic;
+                        summary.Properties.Add(new Property("Radar Mode", radarMonostatic.Mode.Name.ToString()));
+                        IAgRadarReceiver radarReceiver = radarMonostatic.Receiver as IAgRadarReceiver;
+                        summary.Properties.Add(new Property("Radar Receiver Frequency", radarReceiver.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Radar Receiver LNA Bandwidth", radarReceiver.LNABandwidth.ToString()));
+                        summary.Properties.Add(new Property("Radar Receiver LNA Gain", radarReceiver.LnaGain.ToString()));
+                        summary.Properties.Add(new Property("Radar Receiver LNA To Receiver Line Loss", radarReceiver.LnaToReceiverLineLoss.ToString()));
+                        summary.Properties.Add(new Property("Radar Receiver Use Rain", radarReceiver.UseRain.ToString()));
+                        summary.Properties.Add(new Property("Radar Receiver Rain Outage Percent", radarReceiver.RainOutagePercent.ToString()));
+                        IAgRadarTransmitter radarTransmitter = radarMonostatic.Transmitter as IAgRadarTransmitter;
+                        summary.Properties.Add(new Property("Radar Transmitter Frequency", radarTransmitter.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Radar Transmitter Power", radarTransmitter.Power.ToString()));
+                        summary.Properties.Add(new Property("Radar Transmitter Power Amp Bandwidth", radarTransmitter.PowerAmpBandwidth.ToString()));
+                        summary.Properties.Add(new Property("Radar Transmitter Wavelength", radarTransmitter.Wavelength.ToString()));
+                    }
                     break;
                 case AgESTKObjectType.eReceiver:
                     var receiver = stkObject as IAgReceiver;
-                    summary.Properties.Add(new Property("ReceiverModelType", receiver.Model.Type.ToString()));
+                    summary.Properties.Add(new Property("Receiver Model", receiver.Model.Name.ToString()));
+                    if (receiver.Model.Name.ToString().Equals("Complex Receiver Model"))
+                    {
+                        IAgReceiverModelComplex complexReceiver = receiver.Model as IAgReceiverModelComplex;
+                        summary.Properties.Add(new Property("Frequency", complexReceiver.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Auto-Track Frequency", complexReceiver.AutoTrackFrequency.ToString()));
+                        summary.Properties.Add(new Property("Use Rain", complexReceiver.UseRain.ToString()));
+                        summary.Properties.Add(new Property("Rain Outage Percent", complexReceiver.RainOutagePercent.ToString()));
+                        summary.Properties.Add(new Property("Bandwidth", complexReceiver.Bandwidth.ToString()));
+                        summary.Properties.Add(new Property("Antenna To LNA Line Loss", complexReceiver.AntennaToLnaLineLoss.ToString()));
+                        IAgAntennaModel antennaModel = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModel;
+                        summary.Properties.Add(new Property("Antenna Design Frequency", antennaModel.DesignFrequency.ToString()));
+                        summary.Properties.Add(new Property("Antenna Model Name", antennaModel.Name.ToString()));
+                        //Adding some "common" antenna types to reveal additional properties
+                        if (antennaModel.Name.ToString().Equals("Gaussian"))
+                        {
+                            IAgAntennaModelGaussian antennaGaussian = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelGaussian;
+                            summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaGaussian.MainlobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaGaussian.BacklobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Diameter", antennaGaussian.Diameter.ToString()));
+                            summary.Properties.Add(new Property("Antenna Beamwidth", antennaGaussian.Beamwidth.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Dipole"))
+                        {
+                            IAgAntennaModelDipole antennaDipole = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelDipole;
+                            summary.Properties.Add(new Property("Antenna Length", antennaDipole.Length.ToString()));
+                            summary.Properties.Add(new Property("Antenna Length/Wavelength Ratio", antennaDipole.LengthToWavelengthRatio.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Parabolic"))
+                        {
+                            IAgAntennaModelParabolic antennaParabolic = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelParabolic;
+                            summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaParabolic.MainlobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaParabolic.BacklobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Diameter", antennaParabolic.Diameter.ToString()));
+                            summary.Properties.Add(new Property("Antenna Beamwidth", antennaParabolic.Beamwidth.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("External Antenna Pattern"))
+                        {
+                            IAgAntennaModelExternal antennaExternal = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelExternal;
+                            summary.Properties.Add(new Property("Antenna External File", antennaExternal.Filename.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Complex ANSYS ffd Format"))
+                        {
+                            IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelComplexANSYSffdFormat;
+                            //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
+                            //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                        }
+                    }
+                    if (receiver.Model.Name.ToString().Equals("Simple Receiver Model"))
+                    {
+                        IAgReceiverModelSimple simpleReceiver = receiver.Model as IAgReceiverModelSimple;
+                        summary.Properties.Add(new Property("Frequency", simpleReceiver.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Auto-Track Frequency", simpleReceiver.AutoTrackFrequency.ToString()));
+                        summary.Properties.Add(new Property("Use Rain", simpleReceiver.UseRain.ToString()));
+                        summary.Properties.Add(new Property("Rain Outage Percent", simpleReceiver.RainOutagePercent.ToString()));
+                        summary.Properties.Add(new Property("Bandwidth", simpleReceiver.Bandwidth.ToString()));
+                        summary.Properties.Add(new Property("G/T", simpleReceiver.GOverT.ToString()));
+                    }
+                    if (receiver.Model.Name.ToString().Equals("Medium Receiver Model"))
+                    {
+                        IAgReceiverModelMedium mediumReceiver = receiver.Model as IAgReceiverModelMedium;
+                        summary.Properties.Add(new Property("Frequency", mediumReceiver.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Auto-Track Frequency", mediumReceiver.AutoTrackFrequency.ToString()));
+                        summary.Properties.Add(new Property("Use Rain", mediumReceiver.UseRain.ToString()));
+                        summary.Properties.Add(new Property("Rain Outage Percent", mediumReceiver.RainOutagePercent.ToString()));
+                        summary.Properties.Add(new Property("Bandwidth", mediumReceiver.Bandwidth.ToString()));
+                        summary.Properties.Add(new Property("LNA Gain", mediumReceiver.LnaGain.ToString()));
+                        summary.Properties.Add(new Property("LNA To Receiver Line Loss", mediumReceiver.LnaToReceiverLineLoss.ToString()));
+                        summary.Properties.Add(new Property("Antenna Gain", mediumReceiver.AntennaGain.ToString()));
+                    }
                     break;
                 case AgESTKObjectType.eSatellite:
                     var satellite = stkObject as IAgSatellite;
@@ -133,8 +223,69 @@ namespace StkMetadataExtractor
 
                     break;
                 case AgESTKObjectType.eTransmitter:
-                    var transmitter = stkObject as IAgTransmitter;
-                    summary.Properties.Add(new Property("ModelName", transmitter.Model.Name));
+                    IAgTransmitter transmitter = stkObject as IAgTransmitter;
+                    summary.Properties.Add(new Property("Transmitter Model", transmitter.Model.Name));
+                    if (transmitter.Model.Name.ToString().Equals("Complex Transmitter Model"))
+                    {
+                        IAgTransmitterModelComplex complexTransmitter = transmitter.Model as IAgTransmitterModelComplex;
+                        summary.Properties.Add(new Property("Frequency", complexTransmitter.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Power", complexTransmitter.Power.ToString()));
+                        summary.Properties.Add(new Property("Data Rate", complexTransmitter.DataRate.ToString()));
+                        summary.Properties.Add(new Property("Antenna Type", complexTransmitter.AntennaControl.EmbeddedModel.Name.ToString()));
+                        IAgAntennaModel antennaModel = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModel;
+                        summary.Properties.Add(new Property("Antenna Design Frequency", antennaModel.DesignFrequency.ToString()));
+                        summary.Properties.Add(new Property("Antenna Model Name", antennaModel.Name.ToString()));
+                        //Adding some "common" antenna types to reveal additional properties
+                        if (antennaModel.Name.ToString().Equals("Gaussian"))
+                        {
+                            IAgAntennaModelGaussian antennaGaussian = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelGaussian;
+                            summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaGaussian.MainlobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaGaussian.BacklobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Diameter", antennaGaussian.Diameter.ToString()));
+                            summary.Properties.Add(new Property("Antenna Beamwidth", antennaGaussian.Beamwidth.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Dipole"))
+                        {
+                            IAgAntennaModelDipole antennaDipole = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelDipole;
+                            summary.Properties.Add(new Property("Antenna Length", antennaDipole.Length.ToString()));
+                            summary.Properties.Add(new Property("Antenna Length/Wavelength Ratio", antennaDipole.LengthToWavelengthRatio.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Parabolic"))
+                        {
+                            IAgAntennaModelParabolic antennaParabolic = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelParabolic;
+                            summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaParabolic.MainlobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaParabolic.BacklobeGain.ToString()));
+                            summary.Properties.Add(new Property("Antenna Diameter", antennaParabolic.Diameter.ToString()));
+                            summary.Properties.Add(new Property("Antenna Beamwidth", antennaParabolic.Beamwidth.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("External Antenna Pattern"))
+                        {
+                            IAgAntennaModelExternal antennaExternal = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelExternal;
+                            summary.Properties.Add(new Property("Antenna External File", antennaExternal.Filename.ToString()));
+                        }
+                        if (antennaModel.Name.ToString().Equals("Complex ANSYS ffd Format"))
+                        {
+                            IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelComplexANSYSffdFormat;
+                            //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
+                            //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                        }
+
+                    }
+                    if (transmitter.Model.Name.ToString().Equals("Simple Transmitter Model"))
+                    {
+                        IAgTransmitterModelSimple simpleTransmitter = transmitter.Model as IAgTransmitterModelSimple;
+                        summary.Properties.Add(new Property("Frequency", simpleTransmitter.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Power", simpleTransmitter.Eirp.ToString()));
+                        summary.Properties.Add(new Property("Data Rate", simpleTransmitter.DataRate.ToString()));
+                    }
+                    if (transmitter.Model.Name.ToString().Equals("Medium Transmitter Model"))
+                    {
+                        IAgTransmitterModelMedium mediumTransmitter = transmitter.Model as IAgTransmitterModelMedium;
+                        summary.Properties.Add(new Property("Frequency", mediumTransmitter.Frequency.ToString()));
+                        summary.Properties.Add(new Property("Power", mediumTransmitter.Power.ToString()));
+                        summary.Properties.Add(new Property("Data Rate", mediumTransmitter.DataRate.ToString()));
+                        summary.Properties.Add(new Property("Antenna Gain", mediumTransmitter.AntennaGain.ToString()));
+                    }
                     break;
                 case AgESTKObjectType.eFigureOfMerit:
                     var fom = stkObject as IAgFigureOfMerit;
@@ -155,6 +306,39 @@ namespace StkMetadataExtractor
                 case AgESTKObjectType.eAntenna:
                     var antenna = stkObject as IAgAntenna;
                     summary.Properties.Add(new Property("ModelName",antenna.Model.Name));
+                    if (antenna.Model.Name.ToString().Equals("Gaussian"))
+                    {
+                        IAgAntennaModelGaussian antennaGaussian = antenna.Model as IAgAntennaModelGaussian;
+                        summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaGaussian.MainlobeGain.ToString()));
+                        summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaGaussian.BacklobeGain.ToString()));
+                        summary.Properties.Add(new Property("Antenna Diameter", antennaGaussian.Diameter.ToString()));
+                        summary.Properties.Add(new Property("Antenna Beamwidth", antennaGaussian.Beamwidth.ToString()));
+                    }
+                    if (antenna.Model.Name.ToString().Equals("Dipole"))
+                    {
+                        IAgAntennaModelDipole antennaDipole = antenna.Model as IAgAntennaModelDipole;
+                        summary.Properties.Add(new Property("Antenna Length", antennaDipole.Length.ToString()));
+                        summary.Properties.Add(new Property("Antenna Length/Wavelength Ratio", antennaDipole.LengthToWavelengthRatio.ToString()));
+                    }
+                    if (antenna.Model.Name.ToString().Equals("Parabolic"))
+                    {
+                        IAgAntennaModelParabolic antennaParabolic = antenna.Model as IAgAntennaModelParabolic;
+                        summary.Properties.Add(new Property("Antenna Mainlobe Gain", antennaParabolic.MainlobeGain.ToString()));
+                        summary.Properties.Add(new Property("Antenna Backlobe Gain", antennaParabolic.BacklobeGain.ToString()));
+                        summary.Properties.Add(new Property("Antenna Diameter", antennaParabolic.Diameter.ToString()));
+                        summary.Properties.Add(new Property("Antenna Beamwidth", antennaParabolic.Beamwidth.ToString()));
+                    }
+                    if (antenna.Model.Name.ToString().Equals("External Antenna Pattern"))
+                    {
+                        IAgAntennaModelExternal antennaExternal = antenna.Model as IAgAntennaModelExternal;
+                        summary.Properties.Add(new Property("Antenna External File", antennaExternal.Filename.ToString()));
+                    }
+                    if (antenna.Model.Name.ToString().Equals("Complex ANSYS ffd Format"))
+                    {
+                        IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = antenna.Model as IAgAntennaModelComplexANSYSffdFormat;
+                        //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
+                        //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                    }
                     break;
                 case AgESTKObjectType.ePlace:
                     var place = stkObject as IAgPlace;
