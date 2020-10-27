@@ -1,0 +1,17 @@
+<!-- STKv4.0 Format="XML" -->
+<STKOBJECT>
+<OBJECT Class = "CBSpinModel" Name = "RotationCoefficientsFile">
+    <OBJECT Class = "string" Name = "Category"> &quot;Mimas&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "Clonable"> True </OBJECT>
+    <OBJECT Class = "string" Name = "Description"> &quot;Attitude Definition defined by coefficients in a file&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Filename"> &quot;CentralBodies\Mimas\MimasAttitude2009.rot&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "ModelName"> &quot;Coefficients from the IAU 2009 parameter set&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Model"> &quot;Coefficients from the IAU 2009 parameter set&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "ReadOnly"> False </OBJECT>
+    <OBJECT Class = "container" Name = "ShooterControls" />
+    <OBJECT Class = "int" Name = "STKVersion"> 1150 </OBJECT>
+    <OBJECT Class = "string" Name = "Type"> &quot;RotCoeffFile&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "UserComment"> &quot;Attitude Definition defined by coefficients in a file&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Version"> &quot;1.0.0 a&quot; </OBJECT>
+</OBJECT>
+</STKOBJECT>

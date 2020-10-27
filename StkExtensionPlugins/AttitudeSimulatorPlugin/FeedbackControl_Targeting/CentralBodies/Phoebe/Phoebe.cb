@@ -1,0 +1,81 @@
+
+BEGIN CentralBody
+
+    Name		 Phoebe
+
+    FuncCbInit		 AsterInit
+    FuncCbFree		 PlanetFree
+    FuncCbLoad		 PlanetLoad
+    FuncCbSave		 PlanetSave
+
+    Prefix		 Planeto
+
+    ShortDescription		 Asteroid
+
+    Description		 Asteroid
+
+    Type		 Planet
+
+
+    BEGIN AstroDefinition
+
+        Gm		  5.5327435716820896e+08
+        MaxAltitude		  0.0000000000000000e+00
+        MinAltitude		 -2.3300000000000000e+04
+        AtmosphereAltitude		  0.0000000000000000e+00
+        DtedSearchScale		 0.5
+
+        AttitudeName		 RotationCoefficientsFile
+
+        OrbitName		 JPL_SPICE
+
+        ShapeName		 Triaxial_Ellipsoid
+        Shape		        TriAxialEllipsoid		
+        MajorAxis		  1.0940000000000000e+05
+        MinorAxis		  1.0180000000000000e+05
+        MiddleAxis		  1.0850000000000000e+05
+
+        GravityModel		 ZonalsToJ4
+
+        ParentName		 Saturn
+
+
+        PathGenerator		 Astrogator
+        PathGenerator		 GreatArc
+        PathGenerator		 HoldCBFPosition
+        PathGenerator		 HoldCBIPosition
+        PathGenerator		 J2Perturbation
+        PathGenerator		 J4Perturbation
+        PathGenerator		 Rocket
+        PathGenerator		 SimpleAscent
+        PathGenerator		 SPICE
+        PathGenerator		 StkExternal
+        PathGenerator		 TwoBody
+
+    END AstroDefinition
+
+    BEGIN EphemerisData
+
+        EphemerisSource		 JplSpice
+
+        JplIndex		 -1
+
+        JplSpiceId		 609
+
+        ApplyTDTtoTDBCorrectionForDE		 Yes
+
+    END EphemerisData
+
+    BEGIN SpinData
+
+        RotationDefinitionFile		 PhoebeAttitude2006.rot
+
+    END SpinData
+
+    BEGIN Phoebe
+
+    END Phoebe
+
+    ReadOnly		 No
+
+END CentralBody
