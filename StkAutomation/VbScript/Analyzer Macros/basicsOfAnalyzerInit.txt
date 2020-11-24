@@ -1,0 +1,13 @@
+' THIS MACRO WILL BE EXECUTED FOR THE CURRENT STK SCENARIO
+'
+' Use this macro to create new variables and other initialization tasks.
+'
+' variable: unsavedRuns double input
+' active=true
+'
+'
+sub onInit()
+
+app.setValue"Model.STK.unsavedRuns",0
+
+end sub

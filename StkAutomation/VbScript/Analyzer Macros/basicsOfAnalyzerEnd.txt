@@ -1,0 +1,13 @@
+' THIS MACRO WILL BE EXECUTED FOR THE CURRENT STK SCENARIO
+'
+' Use this macro for any clean up that needs to occur when STKAnalyzer shuts down.
+'
+'
+' active=true
+' preserveVariables = false
+'
+sub onEnd()
+
+ ' your code here
+
+end sub
