@@ -84,11 +84,10 @@
             this.imageList2.Images.SetKeyName(3, "layers.png");
             this.imageList2.Images.SetKeyName(4, "paint-brush.png");
             this.imageList2.Images.SetKeyName(5, "home.png");
-            this.imageList2.Images.SetKeyName(6, "settings.png");
             // 
             // imageList1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
@@ -178,11 +177,12 @@
             this.SSRDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SSRDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SSRDetails.ForeColor = System.Drawing.Color.White;
-            this.SSRDetails.Location = new System.Drawing.Point(9, 416);
+            this.SSRDetails.Location = new System.Drawing.Point(9, 420);
             this.SSRDetails.Margin = new System.Windows.Forms.Padding(2);
             this.SSRDetails.Multiline = true;
             this.SSRDetails.Name = "SSRDetails";
             this.SSRDetails.ReadOnly = true;
+            this.SSRDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.SSRDetails.Size = new System.Drawing.Size(329, 170);
             this.SSRDetails.TabIndex = 37;
             // 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using AGI.STKObjects;
 
@@ -6,10 +8,11 @@ namespace OperatorsToolbox.GroundEvents
 {
     public partial class NewGroundEventForm : Form
     {
+        private GroundEvent _contactEvent;
         public NewGroundEventForm()
         {
             InitializeComponent();
-
+            _contactEvent = new GroundEvent();
             ManualSSR.Checked = true;
             SSRFromFile.Checked = false;
             FileText.Enabled = false;
@@ -29,6 +32,14 @@ namespace OperatorsToolbox.GroundEvents
             Latitude.Text = "0";
             Longitude.Text = "0";
             CountryText.Text = "Global";
+
+            foreach (string c in Enum.GetNames(typeof(CustomUserInterface.ColorOptions)))
+            {
+                ColorSelection.Items.Add(c);
+                SheetColor.Items.Add(c);
+            }
+            ColorSelection.SelectedIndex = 0;
+            SheetColor.SelectedIndex = 0;
         }
 
         private void SSRFromFile_CheckedChanged(object sender, EventArgs e)
@@ -47,6 +58,8 @@ namespace OperatorsToolbox.GroundEvents
                 TypeSelect.Enabled = false;
                 FileText.Enabled = true;
                 Browse.Enabled = true;
+                SheetColor.Enabled = true;
+                ColorSelection.Enabled = false;
 
             }
         }
@@ -67,6 +80,8 @@ namespace OperatorsToolbox.GroundEvents
                 FileText.Enabled = false;
                 Browse.Enabled = false;
                 TypeSelect.Enabled = true;
+                SheetColor.Enabled = false;
+                ColorSelection.Enabled = true;
             }
         }
 
@@ -78,7 +93,7 @@ namespace OperatorsToolbox.GroundEvents
                 if (fieldCheck == 0)
                 {
                     GroundEvent current = new GroundEvent();
-                    current.Id = IDText.Text;
+                    current.Id  = Regex.Replace(IDText.Text, @"[^0-9a-zA-Z_]+", "");
                     current.Country = CountryText.Text;
                     current.Latitude = Latitude.Text;
                     current.Longitude = Longitude.Text;
@@ -108,8 +123,25 @@ namespace OperatorsToolbox.GroundEvents
                     current.Description = DesciptionText.Text;
                     current.SsrType = TypeSelect.Text;
 
+                    if (!String.IsNullOrEmpty(_contactEvent.Poc))
+                    {
+                        current.Poc = _contactEvent.Poc;
+                    }
+                    if (!String.IsNullOrEmpty(_contactEvent.PocPhone))
+                    {
+                        current.PocPhone = _contactEvent.PocPhone;
+                    }
+                    if (!String.IsNullOrEmpty(_contactEvent.PocEmail))
+                    {
+                        current.PocEmail = _contactEvent.PocEmail;
+                    }
+
+                    current.ColorOption = ColorSelection.Text;
                     CommonData.CurrentEvents.Add(current);
+
                     GroundEventFunctions.CreateGroundEvent(current);
+                    CreatorFunctions.ChangeObjectColor("Place/" + current.Id, (CustomUserInterface.ColorOptions)Enum.Parse(typeof(CustomUserInterface.ColorOptions), ColorSelection.Text));
+
                     ReadWrite.WriteEventFile(CommonData.EventFileStr);
                 }
                 CommonData.NewSsrCreated = true;
@@ -121,7 +153,7 @@ namespace OperatorsToolbox.GroundEvents
                 {
                     importOption = 1;
                 }
-                ReadWrite.ImportEventSheet(FileText.Text, importOption);
+                ReadWrite.ImportEventSheet(FileText.Text, importOption, SheetColor.Text);
                 CommonData.NewSsrCreated = true;
             }
             this.Close();
@@ -172,6 +204,12 @@ namespace OperatorsToolbox.GroundEvents
                 MessageBox.Show("Longitude field not a number");
                 check = 1;
             }
+            bool exists = CommonData.StkRoot.ObjectExists("Place/" + Regex.Replace(IDText.Text, @"[^0-9a-zA-Z_]+", ""));
+            if (exists)
+            {
+                MessageBox.Show("Object with this name already exists in the scenario");
+                check = 1;
+            }
 
 
             return check;
@@ -200,6 +238,28 @@ namespace OperatorsToolbox.GroundEvents
             if (ImportAll.Checked)
             {
                 ImportActive.Checked = false;
+            }
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Contact_Click(object sender, EventArgs e)
+        {
+            ContactInfoForm form = new ContactInfoForm();
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                _contactEvent.Poc = form.contactEvent.Poc;
+                _contactEvent.PocPhone = form.contactEvent.PocPhone;
+                _contactEvent.PocEmail = form.contactEvent.PocEmail;
             }
         }
     }

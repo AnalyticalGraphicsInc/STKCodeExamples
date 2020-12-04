@@ -254,8 +254,11 @@ namespace OperatorsToolbox.Coverage
                         if (UseConstraintObject.Checked)
                         {
                             _currentData.UseConstraint = true;
-                            _currentData.ConstraintObject = _constraintObjects[ConstraintObject.SelectedIndex];
-                            CoverageFunctions.SetGridConstraint(cd, ConstraintClass.SelectedItem.ToString(), _constraintObjects[ConstraintObject.SelectedIndex]);
+                            if (ConstraintObject.SelectedIndex != -1)
+                            {
+                                _currentData.ConstraintObject = _constraintObjects[ConstraintObject.SelectedIndex];
+                                CoverageFunctions.SetGridConstraint(cd, ConstraintClass.SelectedItem.ToString(), _constraintObjects[ConstraintObject.SelectedIndex]);
+                            }
                         }
 
                         //Assign assets to coverage definition
@@ -337,33 +340,57 @@ namespace OperatorsToolbox.Coverage
                         IAgCvAssetListCollection aList = cd.AssetList;
                         aList.RemoveAll();
                         IAgStkObject fomObj = CreatorFunctions.GetCreateFigureOfMerit(cdObj, oaName + "_FOM");
-
-                        result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */AreaTarget/" + areaTargetName);
-                        if (result[0] == "1")
+                        List<string> atNames = new List<string>();
+                        if (areaTargetName.Contains("-Group"))
                         {
+                            atNames = ReadWrite.ReadATGroup(CommonData.InstallDir + "\\Databases\\AreaTargets\\" + areaTargetName + ".txt");
+                            foreach (var atObj in atNames)
+                            {
+                                try
+                                {
+                                    string atPath = CommonData.InstallDir + "\\Databases\\AreaTargets\\" + atObj + ".at";
+                                    cmd = "Load / */AreaTarget " + "\"" + atPath + "\"";
+                                    CommonData.StkRoot.ExecuteCommand(cmd);
+                                    //atNames.Add(atObj);
+                                }
+                                catch (Exception)
+                                {
+
+                                }
+                            }
                         }
                         else
                         {
-                            //CommonData.CoverageList.Add(currentData);
-                            cmd = "Load / */AreaTarget " + "\"" + "C:\\ProgramData\\AGI\\STK 11 (x64)\\Plugins\\OperatorsToolbox\\Databases\\AreaTargets\\" + areaTargetName + ".at\"";
-                            CommonData.StkRoot.ExecuteCommand(cmd);
-                            //cmd = "Graphics */AreaTarget/" + areaTargetName + " SetColor red";
-                            // CommonData.StkRoot.ExecuteCommand(cmd);
-
-                            //Rename for Convention
-                            //cmd = "Rename */AreaTarget/" + areaTargetName + " " + oaName;
-                            //CommonData.StkRoot.ExecuteCommand(cmd);
+                            result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */AreaTarget/" + areaTargetName);
+                            if (result[0] == "1")
+                            {
+                            }
+                            else
+                            {
+                                //string filename = areaTargetName + ".at";
+                                //string path = Path.Combine(@CommonData.InstallDir, "Databases\\AreaTargets\\", filename);
+                                //CommonData.StkRoot.Children.ImportObject(path);
+                                CommonData.CoverageList.Add(_currentData);
+                                string atPath = CommonData.InstallDir + "\\Databases\\AreaTargets\\" +
+                                    areaTargetName + ".at";
+                                cmd = "Load / */AreaTarget " + "\"" + atPath + "\"";
+                                CommonData.StkRoot.ExecuteCommand(cmd);
+                                atNames.Add(areaTargetName);
+                            }
                         }
 
                         //Create coverage definition and FOM
                         //Tie to area target, set points, clear access, turn Auto Recompute off
-                        CoverageFunctions.DefineCoverage(oaName, areaTargetName, PointGran.Text);
+                        CoverageFunctions.DefineCoverage(oaName, atNames, PointGran.Text);
 
                         if (UseConstraintObject.Checked)
                         {
                             _currentData.UseConstraint = true;
-                            _currentData.ConstraintObject = _constraintObjects[ConstraintObject.SelectedIndex];
-                            CoverageFunctions.SetGridConstraint(cd, ConstraintClass.SelectedItem.ToString(), _constraintObjects[ConstraintObject.SelectedIndex]);
+                            if (ConstraintObject.SelectedIndex != -1)
+                            {
+                                _currentData.ConstraintObject = _constraintObjects[ConstraintObject.SelectedIndex];
+                                CoverageFunctions.SetGridConstraint(cd, ConstraintClass.SelectedItem.ToString(), _constraintObjects[ConstraintObject.SelectedIndex]);
+                            }
                         }
 
                         //Assign assets to coverage definition
@@ -381,7 +408,6 @@ namespace OperatorsToolbox.Coverage
                         _currentData.ContourStop = ContourStop.Text;
                         _currentData.ContourStep = ContourStep.Text;
                         _currentData.UseConstraint = UseConstraintObject.Checked;
-                        _currentData.ConstraintObject = _constraintObjects[ConstraintObject.SelectedIndex];
 
                         CommonData.StkRoot.ExecuteCommand("Cov */CoverageDefinition/" + oaName + " Interval \"" + _startTimeStk + "\" \"" + _stopTimeStk + "\"");
 

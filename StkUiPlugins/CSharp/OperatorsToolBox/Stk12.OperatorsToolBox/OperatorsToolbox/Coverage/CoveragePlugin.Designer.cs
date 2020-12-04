@@ -43,6 +43,7 @@
             this.HomeView = new System.Windows.Forms.Button();
             this.Compute = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.ClearLegends = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label13
@@ -65,8 +66,8 @@
             this.Cancel.ForeColor = System.Drawing.Color.White;
             this.Cancel.ImageIndex = 3;
             this.Cancel.ImageList = this.imageList3;
-            this.Cancel.Location = new System.Drawing.Point(243, 2);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Location = new System.Drawing.Point(318, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
             this.Cancel.TabIndex = 32;
@@ -78,19 +79,20 @@
             this.imageList3.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList3.ImageStream")));
             this.imageList3.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList3.Images.SetKeyName(0, "add.png");
-            this.imageList3.Images.SetKeyName(1, "delete.png");
-            this.imageList3.Images.SetKeyName(2, "paint-brush.png");
+            this.imageList3.Images.SetKeyName(1, "paint-brush.png");
+            this.imageList3.Images.SetKeyName(2, "delete.png");
             this.imageList3.Images.SetKeyName(3, "x-mark.png");
-            this.imageList3.Images.SetKeyName(4, "home.png");
-            this.imageList3.Images.SetKeyName(5, "refresh.png");
+            this.imageList3.Images.SetKeyName(4, "refresh.png");
+            this.imageList3.Images.SetKeyName(5, "home.png");
+            this.imageList3.Images.SetKeyName(6, "broom.png");
             // 
             // EditCoverage
             // 
             this.EditCoverage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EditCoverage.ImageIndex = 2;
+            this.EditCoverage.ImageIndex = 1;
             this.EditCoverage.ImageList = this.imageList3;
             this.EditCoverage.Location = new System.Drawing.Point(-2, 86);
-            this.EditCoverage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EditCoverage.Margin = new System.Windows.Forms.Padding(2);
             this.EditCoverage.Name = "EditCoverage";
             this.EditCoverage.Size = new System.Drawing.Size(40, 40);
             this.EditCoverage.TabIndex = 47;
@@ -113,10 +115,10 @@
             this.CoverageList.HideSelection = false;
             this.CoverageList.LargeImageList = this.imageList3;
             this.CoverageList.Location = new System.Drawing.Point(40, 48);
-            this.CoverageList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CoverageList.Margin = new System.Windows.Forms.Padding(2);
             this.CoverageList.MultiSelect = false;
             this.CoverageList.Name = "CoverageList";
-            this.CoverageList.Size = new System.Drawing.Size(226, 210);
+            this.CoverageList.Size = new System.Drawing.Size(301, 265);
             this.CoverageList.SmallImageList = this.imageList3;
             this.CoverageList.TabIndex = 46;
             this.CoverageList.UseCompatibleStateImageBehavior = false;
@@ -133,7 +135,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(7, 262);
+            this.label1.Location = new System.Drawing.Point(7, 318);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 17);
@@ -148,21 +150,21 @@
             this.CoverageDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CoverageDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CoverageDetails.ForeColor = System.Drawing.Color.White;
-            this.CoverageDetails.Location = new System.Drawing.Point(9, 281);
-            this.CoverageDetails.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CoverageDetails.Location = new System.Drawing.Point(9, 342);
+            this.CoverageDetails.Margin = new System.Windows.Forms.Padding(2);
             this.CoverageDetails.Multiline = true;
             this.CoverageDetails.Name = "CoverageDetails";
             this.CoverageDetails.ReadOnly = true;
-            this.CoverageDetails.Size = new System.Drawing.Size(258, 163);
+            this.CoverageDetails.Size = new System.Drawing.Size(333, 163);
             this.CoverageDetails.TabIndex = 44;
             // 
             // RemoveCoverage
             // 
             this.RemoveCoverage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.RemoveCoverage.ImageIndex = 1;
+            this.RemoveCoverage.ImageIndex = 2;
             this.RemoveCoverage.ImageList = this.imageList3;
             this.RemoveCoverage.Location = new System.Drawing.Point(-2, 174);
-            this.RemoveCoverage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RemoveCoverage.Margin = new System.Windows.Forms.Padding(2);
             this.RemoveCoverage.Name = "RemoveCoverage";
             this.RemoveCoverage.Size = new System.Drawing.Size(40, 40);
             this.RemoveCoverage.TabIndex = 43;
@@ -176,7 +178,7 @@
             this.NewCoverage.ImageIndex = 0;
             this.NewCoverage.ImageList = this.imageList3;
             this.NewCoverage.Location = new System.Drawing.Point(-2, 42);
-            this.NewCoverage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NewCoverage.Margin = new System.Windows.Forms.Padding(2);
             this.NewCoverage.Name = "NewCoverage";
             this.NewCoverage.Size = new System.Drawing.Size(40, 40);
             this.NewCoverage.TabIndex = 42;
@@ -187,10 +189,10 @@
             // HomeView
             // 
             this.HomeView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.HomeView.ImageIndex = 4;
+            this.HomeView.ImageIndex = 5;
             this.HomeView.ImageList = this.imageList3;
             this.HomeView.Location = new System.Drawing.Point(-2, 218);
-            this.HomeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.HomeView.Margin = new System.Windows.Forms.Padding(2);
             this.HomeView.Name = "HomeView";
             this.HomeView.Size = new System.Drawing.Size(40, 40);
             this.HomeView.TabIndex = 41;
@@ -201,10 +203,10 @@
             // Compute
             // 
             this.Compute.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Compute.ImageIndex = 5;
+            this.Compute.ImageIndex = 4;
             this.Compute.ImageList = this.imageList3;
             this.Compute.Location = new System.Drawing.Point(-2, 130);
-            this.Compute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Compute.Margin = new System.Windows.Forms.Padding(2);
             this.Compute.Name = "Compute";
             this.Compute.Size = new System.Drawing.Size(40, 40);
             this.Compute.TabIndex = 48;
@@ -218,12 +220,26 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // ClearLegends
+            // 
+            this.ClearLegends.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ClearLegends.ImageIndex = 6;
+            this.ClearLegends.ImageList = this.imageList3;
+            this.ClearLegends.Location = new System.Drawing.Point(-2, 262);
+            this.ClearLegends.Margin = new System.Windows.Forms.Padding(2);
+            this.ClearLegends.Name = "ClearLegends";
+            this.ClearLegends.Size = new System.Drawing.Size(40, 40);
+            this.ClearLegends.TabIndex = 49;
+            this.ClearLegends.UseVisualStyleBackColor = true;
+            this.ClearLegends.Click += new System.EventHandler(this.ClearLegends_Click);
+            this.ClearLegends.MouseHover += new System.EventHandler(this.ClearLegends_MouseHover);
+            // 
             // CoveragePlugin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
-            this.ClientSize = new System.Drawing.Size(269, 569);
+            this.Controls.Add(this.ClearLegends);
             this.Controls.Add(this.Compute);
             this.Controls.Add(this.EditCoverage);
             this.Controls.Add(this.CoverageList);
@@ -234,9 +250,9 @@
             this.Controls.Add(this.HomeView);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.Cancel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoveragePlugin";
-            this.Text = "CoveragePlugin";
+            this.Size = new System.Drawing.Size(344, 624);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,5 +273,6 @@
         private System.Windows.Forms.Button HomeView;
         private System.Windows.Forms.Button Compute;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button ClearLegends;
     }
 }

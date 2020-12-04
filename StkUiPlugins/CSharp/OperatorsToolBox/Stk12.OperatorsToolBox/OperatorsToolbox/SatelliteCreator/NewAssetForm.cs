@@ -43,7 +43,7 @@ namespace OperatorsToolbox.SatelliteCreator
             ImportType.Items.Add("TLE/TCE");
             ImportType.Items.Add("Ephemeris");
             ImportType.Items.Add("Satellite Database");
-            ImportType.SelectedIndex = 1;
+            ImportType.SelectedIndex = 3;
 
             ConstType.Items.Add("Default Constellation");
             ConstType.Items.Add("Existing Constellation");

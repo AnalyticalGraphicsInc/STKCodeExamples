@@ -296,6 +296,17 @@ namespace OperatorsToolbox.Coverage
             ToolTip toolTip1 = new ToolTip();
             toolTip1.SetToolTip(this.HomeView, "Home View");
         }
+
+        private void ClearLegends_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+            toolTip1.SetToolTip(this.ClearLegends, "Clear FOM Legends");
+        }
         #endregion
+
+        private void ClearLegends_Click(object sender, EventArgs e)
+        {
+            CoverageFunctions.RemoveFomLegends();
+        }
     }
 }

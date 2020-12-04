@@ -56,7 +56,7 @@
             this.SubObjectList.HideSelection = false;
             this.SubObjectList.LargeImageList = this.imageList1;
             this.SubObjectList.Location = new System.Drawing.Point(1, 18);
-            this.SubObjectList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SubObjectList.Margin = new System.Windows.Forms.Padding(2);
             this.SubObjectList.MultiSelect = false;
             this.SubObjectList.Name = "SubObjectList";
             this.SubObjectList.Size = new System.Drawing.Size(152, 184);
@@ -120,7 +120,7 @@
             this.NameValue.BackColor = System.Drawing.Color.DimGray;
             this.NameValue.ForeColor = System.Drawing.Color.White;
             this.NameValue.Location = new System.Drawing.Point(242, 38);
-            this.NameValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NameValue.Margin = new System.Windows.Forms.Padding(2);
             this.NameValue.Name = "NameValue";
             this.NameValue.Size = new System.Drawing.Size(134, 20);
             this.NameValue.TabIndex = 5;
@@ -130,7 +130,7 @@
             this.LatitudeValue.BackColor = System.Drawing.Color.DimGray;
             this.LatitudeValue.ForeColor = System.Drawing.Color.White;
             this.LatitudeValue.Location = new System.Drawing.Point(242, 71);
-            this.LatitudeValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LatitudeValue.Margin = new System.Windows.Forms.Padding(2);
             this.LatitudeValue.Name = "LatitudeValue";
             this.LatitudeValue.Size = new System.Drawing.Size(134, 20);
             this.LatitudeValue.TabIndex = 6;
@@ -140,7 +140,7 @@
             this.LongitudeValue.BackColor = System.Drawing.Color.DimGray;
             this.LongitudeValue.ForeColor = System.Drawing.Color.White;
             this.LongitudeValue.Location = new System.Drawing.Point(242, 106);
-            this.LongitudeValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LongitudeValue.Margin = new System.Windows.Forms.Padding(2);
             this.LongitudeValue.Name = "LongitudeValue";
             this.LongitudeValue.Size = new System.Drawing.Size(134, 20);
             this.LongitudeValue.TabIndex = 7;
@@ -152,7 +152,7 @@
             this.SubObjectType.ForeColor = System.Drawing.Color.White;
             this.SubObjectType.FormattingEnabled = true;
             this.SubObjectType.Location = new System.Drawing.Point(242, 142);
-            this.SubObjectType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SubObjectType.Margin = new System.Windows.Forms.Padding(2);
             this.SubObjectType.Name = "SubObjectType";
             this.SubObjectType.Size = new System.Drawing.Size(134, 21);
             this.SubObjectType.TabIndex = 8;
@@ -163,7 +163,7 @@
             this.Add.BackColor = System.Drawing.Color.SteelBlue;
             this.Add.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Add.Location = new System.Drawing.Point(1, 206);
-            this.Add.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Add.Margin = new System.Windows.Forms.Padding(2);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(56, 29);
             this.Add.TabIndex = 9;
@@ -176,9 +176,9 @@
             this.Remove.BackColor = System.Drawing.Color.SteelBlue;
             this.Remove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Remove.Location = new System.Drawing.Point(61, 206);
-            this.Remove.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Remove.Margin = new System.Windows.Forms.Padding(2);
             this.Remove.Name = "Remove";
-            this.Remove.Size = new System.Drawing.Size(54, 29);
+            this.Remove.Size = new System.Drawing.Size(59, 29);
             this.Remove.TabIndex = 10;
             this.Remove.Text = "Remove";
             this.Remove.UseVisualStyleBackColor = false;
@@ -189,7 +189,7 @@
             this.Apply.BackColor = System.Drawing.Color.SteelBlue;
             this.Apply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Apply.Location = new System.Drawing.Point(182, 232);
-            this.Apply.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Apply.Margin = new System.Windows.Forms.Padding(2);
             this.Apply.Name = "Apply";
             this.Apply.Size = new System.Drawing.Size(94, 32);
             this.Apply.TabIndex = 11;
@@ -202,7 +202,7 @@
             this.Cancel.BackColor = System.Drawing.Color.SteelBlue;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Cancel.Location = new System.Drawing.Point(283, 232);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(94, 32);
             this.Cancel.TabIndex = 12;
@@ -217,7 +217,7 @@
             this.ZoomLevel.ForeColor = System.Drawing.Color.White;
             this.ZoomLevel.FormattingEnabled = true;
             this.ZoomLevel.Location = new System.Drawing.Point(242, 180);
-            this.ZoomLevel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ZoomLevel.Margin = new System.Windows.Forms.Padding(2);
             this.ZoomLevel.Name = "ZoomLevel";
             this.ZoomLevel.Size = new System.Drawing.Size(134, 21);
             this.ZoomLevel.TabIndex = 14;
@@ -256,7 +256,7 @@
             this.Controls.Add(this.SubObjectList);
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SubObjectsForm";
             this.Text = "Insert Sub-Object";
             this.ResumeLayout(false);

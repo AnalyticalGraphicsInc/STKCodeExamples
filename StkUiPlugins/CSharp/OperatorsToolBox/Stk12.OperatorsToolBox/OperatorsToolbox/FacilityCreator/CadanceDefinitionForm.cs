@@ -13,6 +13,11 @@ namespace OperatorsToolbox.FacilityCreator
         {
             InitializeComponent();
             CurFacilityList = new List<FcFacility>();
+            foreach (string c in Enum.GetNames(typeof(CustomUserInterface.ColorOptions)))
+            {
+                ColorSelection.Items.Add(c);
+            }
+            ColorSelection.SelectedIndex = 0;
             if (CommonData.CadenceEdit)
             {
                 SensorCadance cadance = CreateDuplicateCadance(CommonData.Cadences[CommonData.CadenceSelected]);
@@ -21,13 +26,21 @@ namespace OperatorsToolbox.FacilityCreator
                 NumOptical.Text = cadance.NumOptical.ToString();
                 NumRadar.Text = cadance.NumRadars.ToString();
                 CadanceName.Text = cadance.Name;
-                if (cadance.SaveToDatabase)
+
+                try
                 {
-                    SaveToDatabase.Checked = true;
+                    if (cadance.CadenceColor != null)
+                    {
+                        ColorSelection.SelectedIndex = ColorSelection.FindStringExact(cadance.CadenceColor);
+                    }
+                    else
+                    {
+                        ColorSelection.SelectedIndex = ColorSelection.Items.Count - 1;
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    SaveToDatabase.Checked = false;
+                    ColorSelection.SelectedIndex = ColorSelection.Items.Count - 1;
                 }
             }
             else
@@ -75,7 +88,25 @@ namespace OperatorsToolbox.FacilityCreator
         private void AddFacility_Click(object sender, EventArgs e)
         {
             FcFacility facility = new FcFacility();
+            FCSensor sensor = new FCSensor();
             facility.Name = "New_Facility";
+            bool exists = CommonData.StkRoot.ObjectExists("Facility/Sensor1");
+            if (exists)
+            {
+                for (int i = 0; i < 99; i++)
+                {
+                    exists = CommonData.StkRoot.ObjectExists("Facility/Sensor"+i.ToString());
+                    if (!exists)
+                    {
+                        sensor.SensorName = "Sensor" + i.ToString();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                sensor.SensorName = "Sensor1";
+            }
             facility.Latitude = "0";
             facility.Longitude = "0";
             facility.Altitude = "0";
@@ -84,11 +115,13 @@ namespace OperatorsToolbox.FacilityCreator
             RadarParams rParams = new RadarParams();
             rParams.MinEl = "0";
             rParams.MaxEl = "90";
-            rParams.MinRange = "1600";
+            rParams.MinRange = "300";
             rParams.MaxRange = "40000";
             rParams.SolarExAngle = "10";
             rParams.HalfAngle = "85";
-            facility.RParams = rParams;
+            rParams.MinAz = "0";
+            rParams.MaxAz = "360";
+            sensor.RParams = rParams;
             OpticalParams oParams = new OpticalParams();
             oParams.MinEl = "0";
             oParams.MaxEl = "90";
@@ -97,8 +130,11 @@ namespace OperatorsToolbox.FacilityCreator
             oParams.LunarExAngle = "10";
             oParams.SunElAngle = "-12";
             oParams.HalfAngle = "70";
-            facility.OParams = oParams;
+            oParams.MinAz = "0";
+            oParams.MaxAz = "360";
+            sensor.OParams = oParams;
             facility.UseDefaultCnst = true;
+            facility.Sensors.Add(sensor);
             CurFacilityList.Add(facility);
             PopulateCadance();
             CadanceList.FocusedItem = CadanceList.Items[CadanceList.Items.Count - 1];
@@ -151,15 +187,9 @@ namespace OperatorsToolbox.FacilityCreator
                 newName = Regex.Replace(newName, @"[^0-9a-zA-Z_]+", "");
                 cadance.Name = newName;
                 cadance.FacilityList = CurFacilityList;
+                cadance.CadenceColor = ColorSelection.Text;
+                cadance.SaveToDatabase = true;
 
-                if (SaveToDatabase.Checked)
-                {
-                    cadance.SaveToDatabase = true;
-                }
-                else
-                {
-                    cadance.SaveToDatabase = false;
-                }
                 if (CommonData.CadenceEdit)
                 {
                     CommonData.Cadences[CommonData.CadenceSelected] = cadance;
@@ -311,7 +341,7 @@ namespace OperatorsToolbox.FacilityCreator
         {
             if (SensorType.SelectedIndex==0)
             {
-                if (CurFacilityList[CadanceList.FocusedItem.Index].OParams == null)
+                if (CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].OParams == null)
                 {
                     OpticalParams oParams = new OpticalParams();
                     oParams.MinEl = "0";
@@ -321,24 +351,20 @@ namespace OperatorsToolbox.FacilityCreator
                     oParams.LunarExAngle = "10";
                     oParams.SunElAngle = "-12";
                     oParams.HalfAngle = "70";
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams = oParams;
+                    oParams.MinAz = "0";
+                    oParams.MaxAz = "360";
+                    CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].OParams = oParams;
                 }
-                ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].OParams);
+                ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].Sensors, true);
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.HalfAngle = form.OParams.HalfAngle;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.LunarExAngle = form.OParams.LunarExAngle;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.MinEl = form.OParams.MinEl;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.MaxEl = form.OParams.MaxEl;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.MinRange = form.OParams.MinRange;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.MaxRange = form.OParams.MaxRange;
-                    CurFacilityList[CadanceList.FocusedItem.Index].OParams.SunElAngle = form.OParams.SunElAngle;
+                    CurFacilityList[CadanceList.FocusedItem.Index].Sensors = form.sensors;
                 }
             }
             else if(SensorType.SelectedIndex==1)
             {
-                if (CurFacilityList[CadanceList.FocusedItem.Index].RParams == null)
+                if (CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].RParams == null)
                 {
                     RadarParams rParams = new RadarParams();
                     rParams.MinEl = "0";
@@ -347,18 +373,15 @@ namespace OperatorsToolbox.FacilityCreator
                     rParams.MaxRange = "40000";
                     rParams.SolarExAngle = "10";
                     rParams.HalfAngle = "85";
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams = rParams;
+                    rParams.MinAz = "0";
+                    rParams.MaxAz = "360";
+                    CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].RParams = rParams;
                 }
-                ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].RParams);
+                ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].Sensors, false);
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.HalfAngle = form.RParams.HalfAngle;
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.SolarExAngle = form.RParams.SolarExAngle;
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.MinEl = form.RParams.MinEl;
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.MaxEl = form.RParams.MaxEl;
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.MinRange = form.RParams.MinRange;
-                    CurFacilityList[CadanceList.FocusedItem.Index].RParams.MaxRange = form.RParams.MaxRange;
+                    CurFacilityList[CadanceList.FocusedItem.Index].Sensors = form.sensors;
                 }
             }
 
@@ -366,7 +389,7 @@ namespace OperatorsToolbox.FacilityCreator
 
         private void DefaultConstraints_CheckedChanged(object sender, EventArgs e)
         {
-            if (!_onStart)
+            if (!_onStart && CadanceList.FocusedItem != null)
             {
                 if (DefaultConstraints.Checked)
                 {
@@ -391,8 +414,8 @@ namespace OperatorsToolbox.FacilityCreator
             newCadance.NumRadars = og.NumRadars;
             newCadance.SaveToDatabase = og.SaveToDatabase;
             newCadance.Type = og.Type;
+            newCadance.CadenceColor = og.CadenceColor;
             return newCadance;
         }
-
     }
 }

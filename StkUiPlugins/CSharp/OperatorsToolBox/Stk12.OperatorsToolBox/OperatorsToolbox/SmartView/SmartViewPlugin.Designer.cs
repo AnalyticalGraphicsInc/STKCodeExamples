@@ -53,7 +53,7 @@
             this.SelectView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SelectView.ForeColor = System.Drawing.Color.White;
             this.SelectView.Location = new System.Drawing.Point(9, 252);
-            this.SelectView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectView.Margin = new System.Windows.Forms.Padding(2);
             this.SelectView.Name = "SelectView";
             this.SelectView.Size = new System.Drawing.Size(96, 31);
             this.SelectView.TabIndex = 15;
@@ -67,8 +67,8 @@
             this.Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Refresh.ImageIndex = 3;
             this.Refresh.ImageList = this.SideButtons;
-            this.Refresh.Location = new System.Drawing.Point(234, 164);
-            this.Refresh.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Refresh.Location = new System.Drawing.Point(266, 164);
+            this.Refresh.Margin = new System.Windows.Forms.Padding(2);
             this.Refresh.Name = "Refresh";
             this.Refresh.Size = new System.Drawing.Size(40, 40);
             this.Refresh.TabIndex = 14;
@@ -92,8 +92,8 @@
             this.Reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Reset.ImageIndex = 4;
             this.Reset.ImageList = this.SideButtons;
-            this.Reset.Location = new System.Drawing.Point(234, 208);
-            this.Reset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reset.Location = new System.Drawing.Point(266, 208);
+            this.Reset.Margin = new System.Windows.Forms.Padding(2);
             this.Reset.Name = "Reset";
             this.Reset.Size = new System.Drawing.Size(40, 40);
             this.Reset.TabIndex = 13;
@@ -115,11 +115,12 @@
             this.StoredViewList.ForeColor = System.Drawing.SystemColors.Window;
             this.StoredViewList.FullRowSelect = true;
             this.StoredViewList.GridLines = true;
+            this.StoredViewList.HideSelection = false;
             this.StoredViewList.Location = new System.Drawing.Point(9, 32);
-            this.StoredViewList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StoredViewList.Margin = new System.Windows.Forms.Padding(2);
             this.StoredViewList.MultiSelect = false;
             this.StoredViewList.Name = "StoredViewList";
-            this.StoredViewList.Size = new System.Drawing.Size(222, 216);
+            this.StoredViewList.Size = new System.Drawing.Size(254, 216);
             this.StoredViewList.TabIndex = 12;
             this.StoredViewList.UseCompatibleStateImageBehavior = false;
             this.StoredViewList.View = System.Windows.Forms.View.Details;
@@ -141,8 +142,8 @@
             this.EditView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.EditView.ImageIndex = 2;
             this.EditView.ImageList = this.SideButtons;
-            this.EditView.Location = new System.Drawing.Point(234, 76);
-            this.EditView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.EditView.Location = new System.Drawing.Point(266, 76);
+            this.EditView.Margin = new System.Windows.Forms.Padding(2);
             this.EditView.Name = "EditView";
             this.EditView.Size = new System.Drawing.Size(40, 40);
             this.EditView.TabIndex = 11;
@@ -156,8 +157,8 @@
             this.RemoveView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.RemoveView.ImageIndex = 1;
             this.RemoveView.ImageList = this.SideButtons;
-            this.RemoveView.Location = new System.Drawing.Point(234, 120);
-            this.RemoveView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RemoveView.Location = new System.Drawing.Point(266, 120);
+            this.RemoveView.Margin = new System.Windows.Forms.Padding(2);
             this.RemoveView.Name = "RemoveView";
             this.RemoveView.Size = new System.Drawing.Size(40, 40);
             this.RemoveView.TabIndex = 10;
@@ -171,8 +172,8 @@
             this.NewView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.NewView.ImageIndex = 0;
             this.NewView.ImageList = this.SideButtons;
-            this.NewView.Location = new System.Drawing.Point(234, 32);
-            this.NewView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.NewView.Location = new System.Drawing.Point(266, 32);
+            this.NewView.Margin = new System.Windows.Forms.Padding(2);
             this.NewView.Name = "NewView";
             this.NewView.Size = new System.Drawing.Size(40, 40);
             this.NewView.TabIndex = 9;
@@ -186,8 +187,8 @@
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Cancel.ImageIndex = 0;
             this.Cancel.ImageList = this.x;
-            this.Cancel.Location = new System.Drawing.Point(259, 2);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Location = new System.Drawing.Point(291, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
             this.Cancel.TabIndex = 28;
@@ -224,7 +225,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
-            this.ClientSize = new System.Drawing.Size(285, 569);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.SelectView);
@@ -234,9 +234,9 @@
             this.Controls.Add(this.EditView);
             this.Controls.Add(this.RemoveView);
             this.Controls.Add(this.NewView);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SmartViewPlugin";
-            this.Text = "SmartViewPlugin";
+            this.Size = new System.Drawing.Size(317, 569);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,5 +10,7 @@ namespace OperatorsToolbox.FacilityCreator
         public string Type { get; set; }
         public List<FcFacility> FacilityList { get; set; }
         public bool SaveToDatabase { get; set; }
+
+        public string CadenceColor { get; set; }
     }
 }
