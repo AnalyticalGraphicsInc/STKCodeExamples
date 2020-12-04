@@ -17,6 +17,8 @@ namespace OperatorsToolbox
     public static class CommonData
     {
         public static AppPreferences Preferences { get; set; }
+        public static int _numPlugins = 13;
+        public static List<string> PluginOptions;
         public static AgStkObjectRoot StkRoot { get; set; }
         public static string InstallDir { get; set; }
         public static int PanelHeight { get; set; }

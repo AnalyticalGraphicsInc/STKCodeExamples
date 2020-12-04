@@ -1,0 +1,34 @@
+Operator's Toolbox V1.1 Release - 12/04/2020
+
+-The following Tools were added to the toolbox
+	-Plane Crossing Utility
+-The followng Features were added
+	-Interface: Interchangable tools on the main toolbar. This can be accessed via the settings page. Maximum of 10 plugins on the toolbar. Settings button cannot be removed
+	-Interface: Button image updates
+	-Interface: Settings page has been split into different tabs once the page is open
+	-Templates: Added support for MTO objects
+	-Templates: Added "erase and replace" functionality when importing a template
+	-Satellite Creator: Satellite Database option opens by default
+	-Facility Creator: The user can now define multiple sensors on each site and define custom constraints for each sensor
+	-Facility Creator: Azimuth Angle was added as a constraint option to all sensors
+	-Facility Creator: There is now an option to specify the cadence color for importing
+	-Facility Creator: Added an Import from File option. This is available under "Single Facility". At this time the specified file must be a comma separated txt file with this format: <FacilityName>,<Lat>,<Long>,<Alt>
+	-Facility Creator: Save to Database option was removed. All cadences are now saved to the same database
+	-Ground Events: Contact information for event is now exposed to the user for editing
+	-Ground Events: Events can now be generated based on a specified color for both manual creation and spreadsheet importing
+	-Station Access: Expanded available object classes to include: Transmitters, Receivers, Antennas, and Radars
+	-Coverage Utility: Added "Remove all FOM graphics" button to main coverage interface
+	-Solar Angle Utility: Renamed from Beta Angle Calculator
+	-Solar Angle Utility: Added option for Solar Phase/CATS angle
+	-Solar Angle Utility: Added ability to specify condition bounds, resulting in the creation of a conditional in AWB that can be used elsewhere in STK
+	-Volume Creator: Azimuth Angle was added as a contraint to volume definition
+	-Volume Creator: Ability to specify volume color on creation has been added
+-The following bugs were resolved in this release
+	-Passive Safety: The tool would tie the PassiveSat to orbital elements in LEO regardless of analysis location. This was tied to impuslive maneuvers in Astrogator and has been resolved
+	-Ground Events: Event Details textbox would cut off if desciption was too long. This was fixed
+	-Interface: When using an alternate install location it was possible to choose the wrong install directory and not be able to change it. A Reset directory option has been added in the event that the tool can not find the preferences
+	
+
+Operator's Toolbox V1.0 Release - 8/11/2020
+
+-Initial public release of toolbox

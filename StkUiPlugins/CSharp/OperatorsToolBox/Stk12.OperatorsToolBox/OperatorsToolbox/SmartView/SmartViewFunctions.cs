@@ -120,19 +120,27 @@ namespace OperatorsToolbox.SmartView
 
             if (view.ObjectHideShow)
             {
-                try
+                string message = "Error changing Hide/Show for following objects: \n";
+                int errorCount = 0;
+                if (view.ViewObjectData.Count != 0)
                 {
-                    if (view.ViewObjectData.Count != 0)
+                    foreach (ObjectData item in view.ViewObjectData)
                     {
-                        foreach (ObjectData item in view.ViewObjectData)
+                        try
                         {
                             SetObjectVisibility(item);
                         }
+                        catch (Exception e)
+                        {
+                            message = message + item.SimpleName + "\n";
+                            errorCount++;
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not update Hide/Show Options");
+
+                    if (errorCount != 0)
+                    {
+                        MessageBox.Show(message);
+                    }
                 }
             }
         }
@@ -209,19 +217,27 @@ namespace OperatorsToolbox.SmartView
 
             if (view.ObjectHideShow)
             {
-                try
+                string message = "Error changing Hide/Show for following objects: \n";
+                int errorCount = 0;
+                if (view.ViewObjectData.Count != 0)
                 {
-                    if (view.ViewObjectData.Count != 0)
+                    foreach (ObjectData item in view.ViewObjectData)
                     {
-                        foreach (ObjectData item in view.ViewObjectData)
+                        try
                         {
                             SetObjectVisibility(item);
                         }
+                        catch (Exception e)
+                        {
+                            message = message + item.SimpleName + "\n";
+                            errorCount++;
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not update Hide/Show Options");
+
+                    if (errorCount != 0)
+                    {
+                        MessageBox.Show(message);
+                    }
                 }
             }
         }
@@ -412,19 +428,27 @@ namespace OperatorsToolbox.SmartView
 
             if (view.ObjectHideShow)
             {
-                try
+                string message = "Error changing Hide/Show for following objects: \n";
+                int errorCount = 0;
+                if (view.ViewObjectData.Count != 0)
                 {
-                    if (view.ViewObjectData.Count != 0)
+                    foreach (ObjectData item in view.ViewObjectData)
                     {
-                        foreach (ObjectData item in view.ViewObjectData)
+                        try
                         {
                             SetObjectVisibility(item);
                         }
+                        catch (Exception e)
+                        {
+                            message = message + item.SimpleName + "\n";
+                            errorCount++;
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not update Hide/Show Options");
+
+                    if (errorCount != 0)
+                    {
+                        MessageBox.Show(message);
+                    }
                 }
             }
 
@@ -505,19 +529,27 @@ namespace OperatorsToolbox.SmartView
 
             if (view.ObjectHideShow)
             {
-                try
+                string message = "Error changing Hide/Show for following objects: \n";
+                int errorCount = 0;
+                if (view.ViewObjectData.Count != 0)
                 {
-                    if (view.ViewObjectData.Count != 0)
+                    foreach (ObjectData item in view.ViewObjectData)
                     {
-                        foreach (ObjectData item in view.ViewObjectData)
+                        try
                         {
                             SetObjectVisibility(item);
                         }
+                        catch (Exception e)
+                        {
+                            message = message + item.SimpleName + "\n";
+                            errorCount++;
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not update Hide/Show Options");
+
+                    if (errorCount != 0)
+                    {
+                        MessageBox.Show(message);
+                    }
                 }
             }
         }
@@ -810,25 +842,41 @@ namespace OperatorsToolbox.SmartView
             else if (className == "Transmitter")
             {
                 IAgTransmitter myObject = CommonData.StkRoot.GetObjectFromPath(simplePath) as IAgTransmitter;
-                if (objectData.HideShow)
+                //Try/Catch for when object above it is already turned off
+                try
                 {
-                    myObject.Graphics.Show = true;
+                    if (objectData.HideShow)
+                    {
+                        myObject.Graphics.Show = true;
+                    }
+                    else
+                    {
+                        myObject.Graphics.Show = false;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    myObject.Graphics.Show = false;
+
                 }
             }
             else if (className == "Receiver")
             {
                 IAgReceiver myObject = CommonData.StkRoot.GetObjectFromPath(simplePath) as IAgReceiver;
-                if (objectData.HideShow)
+                //Try/Catch for when object above it is already turned off
+                try
                 {
-                    myObject.Graphics.Show = true;
+                    if (objectData.HideShow)
+                    {
+                        myObject.Graphics.Show = true;
+                    }
+                    else
+                    {
+                        myObject.Graphics.Show = false;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    myObject.Graphics.Show = false;
+
                 }
             }
             else if (className == "CoverageDefinition")

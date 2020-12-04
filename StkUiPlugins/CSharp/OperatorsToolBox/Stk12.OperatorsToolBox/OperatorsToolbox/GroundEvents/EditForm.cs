@@ -6,16 +6,29 @@ namespace OperatorsToolbox.GroundEvents
 {
     public partial class EditForm : Form
     {
+        private GroundEvent _contactEvent { get; set; }
         public EditForm()
         {
             InitializeComponent();
-
+            _contactEvent = new GroundEvent();
             IDText.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Id;
             CountryText.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Country;
             Latitude.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Latitude;
             Longitude.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Longitude;
             StartTimeText.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].StartTime;
             StopTimeText.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].StopTime;
+            if (!String.IsNullOrEmpty(CommonData.CurrentEvents[CommonData.EventSelectedIndex].Poc))
+            {
+                _contactEvent.Poc = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Poc;
+            }
+            if (!String.IsNullOrEmpty(CommonData.CurrentEvents[CommonData.EventSelectedIndex].PocPhone))
+            {
+                _contactEvent.PocPhone = CommonData.CurrentEvents[CommonData.EventSelectedIndex].PocPhone;
+            }
+            if (!String.IsNullOrEmpty(CommonData.CurrentEvents[CommonData.EventSelectedIndex].PocEmail))
+            {
+                _contactEvent.PocPhone = CommonData.CurrentEvents[CommonData.EventSelectedIndex].PocEmail;
+            }
             //Populate description if not null
             if (CommonData.CurrentEvents[CommonData.EventSelectedIndex].Description !=null)
             {
@@ -131,6 +144,18 @@ namespace OperatorsToolbox.GroundEvents
                 check = 1;
             }
             return check;
+        }
+
+        private void Contact_Click(object sender, EventArgs e)
+        {
+            ContactInfoForm form = new ContactInfoForm(_contactEvent);
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                _contactEvent.Poc = form.contactEvent.Poc;
+                _contactEvent.PocPhone = form.contactEvent.PocPhone;
+                _contactEvent.PocEmail = form.contactEvent.PocEmail;
+            }
         }
     }
 }

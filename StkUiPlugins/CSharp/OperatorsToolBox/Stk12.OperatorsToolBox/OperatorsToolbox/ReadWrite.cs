@@ -12,9 +12,11 @@ using Newtonsoft.Json.Linq;
 using OperatorsToolbox.Coverage;
 using OperatorsToolbox.FacilityCreator;
 using OperatorsToolbox.GroundEvents;
+using OperatorsToolbox.PlaneCrossingUtility;
 using OperatorsToolbox.SatelliteCreator;
 using OperatorsToolbox.SmartView;
 using OperatorsToolbox.VolumeCreator;
+using System.Text.RegularExpressions;
 
 namespace OperatorsToolbox
 {
@@ -81,24 +83,6 @@ namespace OperatorsToolbox
         public static void WriteObjectData(string fileStr)
         {
             SerializeObject(CommonData.SavedViewList, fileStr);
-            //File.WriteAllText(fileStr, String.Empty);
-            //string fullText = null;
-            //string section = null;
-            //foreach (var item in CommonData.SavedViewList)
-            //{
-            //    if (item.ViewObjectData!=null &&item.ObjectHideShow)
-            //    {
-            //        section = CreateObjectDataSection(item);
-            //        fullText = fullText + section;
-            //    }
-            //}
-
-            //using (StreamWriter writer = new StreamWriter(@fileStr))
-            //{
-            //    writer.WriteLine(fullText);
-
-            //}
-
         }
 
         //Read satellite catalog 
@@ -285,7 +269,7 @@ namespace OperatorsToolbox
 
             foreach (var item in CommonData.Cadences)
                 if (item.SaveToDatabase)
-                    SerializeObject(CommonData.Cadences, dbFileStr, true);
+                    SerializeObject(CommonData.Cadences, dbFileStr, false);
                 else
                     SerializeObject(CommonData.Cadences, localFileStr, true);
         }
@@ -293,6 +277,109 @@ namespace OperatorsToolbox
         public static List<SensorCadance> ReadCadences(string fileStr)
         {
             return DeserializeObject<List<SensorCadance>>(fileStr);
+        }
+
+        public static void ImportCadenceFromFile(string fileStr)
+        {
+            using (StreamReader reader = new StreamReader(@fileStr))
+            {
+                string line = reader.ReadLine();
+                string[] linepeices;
+                while (line != null || reader.EndOfStream)
+                {
+                    GroundLocation location = new GroundLocation();
+                    linepeices = line.Split();
+                    location.LocationName = linepeices[0];
+                    location.Latitude = Double.Parse(linepeices[1]);
+                    location.Longitude = Double.Parse(linepeices[2]);
+                    location.Altitude = Double.Parse(linepeices[3]);
+                }
+            }
+        }
+
+        public static List<GroundLocation> ReadFacilityFile(string filestr)
+        {
+            List<GroundLocation> locations = new List<GroundLocation>();
+            bool exists = File.Exists(filestr);
+            if (exists)
+            {
+                using (StreamReader reader = new StreamReader(@filestr))
+                {
+                    string line;
+                    string errorString = "There was an error importing the following facilities:\n";
+                    int errorCount = 0;
+                    int localErrorCount = 0;
+                    int lineCounter = 0;
+                    double temp;
+                    bool isNumerical;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        lineCounter++;
+                        GroundLocation loc = new GroundLocation();
+                        string[] lineComponents = line.Split(',');
+                        //Check for right number of inputs
+                        if (lineComponents.Length == 4)
+                        {
+                            localErrorCount = 0;
+                            //Get Name of Facility
+                            loc.LocationName = Regex.Replace(lineComponents[0], @"[^0-9a-zA-Z_]+", "");
+                            //Check if LLA values are numerical
+                            isNumerical = Double.TryParse(lineComponents[1].Trim(), out temp);
+                            if (isNumerical)
+                            {
+                                loc.Latitude = temp;
+                            }
+                            else
+                            {
+                                errorString = errorString + "Line " + lineCounter.ToString() + " - Latitude not a valid number\n";
+                                errorCount++;
+                                localErrorCount++;
+                            }
+                            isNumerical = Double.TryParse(lineComponents[2].Trim(), out temp);
+                            if (isNumerical)
+                            {
+                                loc.Longitude = temp;
+                            }
+                            else
+                            {
+                                errorString = errorString + "Line " + lineCounter.ToString() + " - Latitude not a valid number\n";
+                                errorCount++;
+                                localErrorCount++;
+                            }
+                            isNumerical = Double.TryParse(lineComponents[3].Trim(), out temp);
+                            if (isNumerical)
+                            {
+                                loc.Altitude = temp;
+                            }
+                            else
+                            {
+                                errorString = errorString + "Line " + lineCounter.ToString() + " - Latitude not a valid number\n";
+                                errorCount++;
+                                localErrorCount++;
+                            }
+                            //Add facility to list if there are no errors on the line
+                            if (localErrorCount == 0)
+                            {
+                                locations.Add(loc);
+                            }
+                        }
+                        else
+                        {
+                            errorString = errorString + "Line " + lineCounter.ToString() + " - Invalid format\n";
+                            errorCount++;
+                        }
+                    }
+                    if (errorCount != 0)
+                    {
+                        MessageBox.Show(errorString);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Filepath does not exist");
+            }
+            return locations;
         }
 
         //Ground Event Functions
@@ -308,8 +395,8 @@ namespace OperatorsToolbox
 
         public static void RemoveEvent()
         {
-            if (CommonData.SelectedIndex == -1) return;
-                CommonData.CurrentEvents.RemoveAt(CommonData.SelectedIndex);
+            if (CommonData.EventSelectedIndex == -1) return;
+                CommonData.CurrentEvents.RemoveAt(CommonData.EventSelectedIndex);
                 WriteEventFile(CommonData.EventFileStr);
         }
 
@@ -330,7 +417,7 @@ namespace OperatorsToolbox
             return details;
         }
 
-        public static void ImportEventSheet(string fileStr, int importOption)
+        public static void ImportEventSheet(string fileStr, int importOption, string colorOption)
         {
             Excel.Workbook myBook = null;
             Excel.Application myApp = null;
@@ -490,6 +577,7 @@ namespace OperatorsToolbox
                                 currentGroundEvent.Longitude = xlRange[i, 22].ToString();
 
                                 GroundEventFunctions.CreateGroundEvent(currentGroundEvent);
+                                CreatorFunctions.ChangeObjectColor("Place/" + currentGroundEvent.Id, (CustomUserInterface.ColorOptions)Enum.Parse(typeof(CustomUserInterface.ColorOptions), colorOption));
                                 CommonData.CurrentEvents.Add(currentGroundEvent);
                             }
                         }
@@ -564,6 +652,22 @@ namespace OperatorsToolbox
             return DeserializeObject<List<CoverageData>>(fileStr);
         }
 
+        public static List<string> ReadATGroup(string filepath)
+        {
+            List<string> atGroup = new List<string>();
+            using (StreamReader reader = new StreamReader(filepath))
+            {                
+                string line = null;
+                line = reader.ReadLine();
+                while (!string.IsNullOrEmpty(line))
+                {
+                    atGroup.Add(line);
+                    line = reader.ReadLine();
+                }
+            }
+            return atGroup;
+        }
+
         public static void WriteCoverageData(string fileStr)
         {
             SerializeObject(CommonData.CoverageList, fileStr);
@@ -596,7 +700,7 @@ namespace OperatorsToolbox
             return tempNames;
         } 
 
-        public static void ImportTemplate(string dirPath, List<string> objectNames)
+        public static void ImportTemplate(string dirPath, List<string> objectNames, bool eraseReplace)
         {
             if (File.Exists(dirPath+"Order.txt"))
             {
@@ -606,14 +710,26 @@ namespace OperatorsToolbox
                 using (StreamReader reader = new StreamReader(dirPath + "Order.txt"))
                 {
                     string line = null;
+                    string className = null;
+                    bool objExists = false;
                     string objPath = null;
                     line = reader.ReadLine();
-                    IAgStkObjectCollection children = CommonData.StkRoot.CurrentScenario.Children;                  
+                    IAgStkObjectCollection children = CommonData.StkRoot.CurrentScenario.Children;
                     while ((line != null && line != ""))
                     {
                         string[] linepeices = line.Split('.');
                         if (objectNames.Contains(linepeices[0]))
                         {
+                            if (eraseReplace)
+                            {
+                                className = GetClassFromExtension("." + linepeices[1]);
+                                objExists = CommonData.StkRoot.ObjectExists(className + "/" + linepeices[0]);
+                                if (objExists)
+                                {
+                                    IAgStkObject oldObj = CommonData.StkRoot.GetObjectFromPath(className + "/" + linepeices[0]);
+                                    oldObj.Unload();
+                                }
+                            }
                             try
                             {
                                 children.ImportObject(Path.Combine(dirPath,line));
@@ -685,6 +801,44 @@ namespace OperatorsToolbox
             return objectNames;
         }
 
+        //Plane Crossing Utility Functions
+        public static void WritePlaneCrossingOutput(string satRefName, List<PlaneCrossingGroup> crossingGroups)
+        {
+            string filename = satRefName + "_PlaneCrossings_" + DateTime.Now.ToString().Replace("/","-").Replace(":",".");
+            string filepath = Path.Combine(@CommonData.DirectoryStr, filename);
+
+            string fullText = null;
+            foreach (var group in crossingGroups)
+            {
+                fullText = fullText + "Orbit Plane Reference: " + group.PlaneReferenceObjectName + "\n";
+                fullText = fullText + "Crossing Object: " + group.CrossingObjectName + "\n";
+                if (group.PlaneCrossings[0].IsBounded)
+                {
+                    fullText = fullText + "Is Bounded: " + group.PlaneCrossings[0].IsBounded.ToString() + " Lower Bound: " + group.PlaneCrossings[0].LowerBound.ToString() + " deg UpperBound: " + group.PlaneCrossings[0].UpperBound.ToString() + " deg" + "\n";
+                    fullText = fullText + "Crossing Time (UTCG) | Lower Bound Crossing Time (UTCG) | Upper Bound Crossing Time (UTCG)\n";
+                    foreach (var crossing in group.PlaneCrossings)
+                    {
+                        fullText = fullText +crossing.CrossingTime + " " + crossing.LowerBoundCrossingTime + " " + crossing.UpperBoundCrossingTime +"\n";
+                    }
+                }
+                else
+                {
+                    fullText = fullText + "Is Bounded: " + group.PlaneCrossings[0].IsBounded.ToString() + "\n";
+                    fullText = fullText + "Crossing Time (UTCG) |\n";
+                    foreach (var crossing in group.PlaneCrossings)
+                    {
+                        fullText = fullText + crossing.CrossingTime + "\n";
+                    }
+                }
+
+            }
+
+            using (StreamWriter writer = new StreamWriter(@filepath))
+            {
+                writer.WriteLine(fullText);
+            }
+        }
+
         //Helper functions
         public static string GetExtension(IAgStkObject stkObject)
         {
@@ -754,7 +908,85 @@ namespace OperatorsToolbox
             {
                 ext = ".at";
             }
+            else if (className == "MTO")
+            {
+                ext = ".mt";
+            }
             return ext;
+        }
+
+        public static string GetClassFromExtension(string ext)
+        {
+            string className = null;
+            if (ext == ".sa")
+            {
+                className = "Satellite";
+            }
+            else if (ext == ".mi")
+            {
+                className = "Missile";
+            }
+            else if (ext == ".ac")
+            {
+                className = "Aircraft";
+            }
+            else if (ext == ".lv")
+            {
+                className = "LaunchVehicle";
+            }
+            else if (ext == ".gv")
+            {
+                className = "GroundVehicle";
+            }
+            else if (ext == ".sh")
+            {
+                className = "Ship";
+            }
+            else if (ext == ".cv")
+            {
+                className = "CoverageDefinition";
+            }
+            else if (ext == ".cs")
+            {
+                className = "CommSystem";
+            }
+            else if (ext == ".c")
+            {
+                className = "Chain";
+            }
+            else if (ext == ".cn")
+            {
+                className = "Constellation";
+            }
+            else if (ext == ".ca")
+            {
+                className = "AdvCAT";
+            }
+            else if (ext == ".f")
+            {
+                className = "Facility";
+            }
+            else if (ext == ".plc")
+            {
+                className = "Place";
+            }
+            else if (ext == ".t")
+            {
+                className = "Target";
+            }
+            else if (ext == ".vo")
+            {
+                className = "Volumetric";
+            }
+            else if (ext == ".at")
+            {
+                className = "AreaTarget";               
+            }
+            else if (ext == ".mt")
+            {
+                className = "MTO";
+            }
+            return className;
         }
 
         public static string CheckNullCell(object input)
@@ -796,6 +1028,8 @@ namespace OperatorsToolbox
 
             return output;
         }
+
+
 
     }
 }

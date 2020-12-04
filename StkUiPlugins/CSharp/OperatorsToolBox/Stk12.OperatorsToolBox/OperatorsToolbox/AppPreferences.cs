@@ -4,6 +4,8 @@ namespace OperatorsToolbox
 {
     public class AppPreferences
     {
+        //Plugin toolbar config
+        public List<int> PluginConfigList;
         //Event Type Data
         public List<string> EventTypeList;
         public List<string> EventImageLocations;
@@ -22,6 +24,7 @@ namespace OperatorsToolbox
         {
             EventTypeList = new List<string>();
             EventImageLocations = new List<string>();
+            PluginConfigList = new List<int>();
         }
     }
 }
