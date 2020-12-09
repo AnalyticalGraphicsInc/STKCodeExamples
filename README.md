@@ -48,9 +48,10 @@ If You redistribute the Code Examples, in whole or in part, You must provide a c
 <!--### What if I have questions about STK -->
 ![Questions](https://user-images.githubusercontent.com/60275830/96517136-3b1c6400-121d-11eb-8316-239dfd653c52.PNG)
 
-Contact [AGI support](mail:support@agi.com) with any questions regarding STK, STK Engine or any other AGI products.
+Contact [AGI support](mail:support@agi.com) with questions regarding STK, STK Engine or any other AGI products.
 
 AGI's software helps engineers, operators, and analysts deliver digital engineering value at any stage of a program life cycle: from planning and design to training and operations. Our modeling, analysis and visualization tools, coupled with legendary customer support, help those in aerospace and defense organizations make critical decisions faster and more accurately in an operational context.
+
 
 For more information, please visit the [AGI website](https://www.agi.com "AGI's Homepage") and follow us on our social media profiles below.
 
