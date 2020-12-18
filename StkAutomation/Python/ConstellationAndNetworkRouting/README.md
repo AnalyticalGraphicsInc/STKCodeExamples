@@ -17,6 +17,13 @@ The associated example scenarios can be found on our [**Constellation and Networ
 * See the impacts on network connectivity when nodes are removed
 * Load data back into STK for visualization and for reports/graphs
 
+## MultiConstellationMultiHop.ipynb
+
+This is the most up-to-date and capable notebook using chainPathLib2. Computes the "best" multihop path between a starting and ending nodes. Supports a series of hops between multiple constellations, finding the top N best pathways and merging results into one network. The constellation order concept is similar to a chain but multiple hops between each constellation are permitted. Shows an example with satellites, sensors, transitters and recievers.
+<img src="MultipleConstellations.JPG" alt="Drawing" style="width: 400px;"/>
+
+## Older notebooks examples using the chainPathLib
+
 ## ConstellationAnalysisUsingPrebuiltChains.ipynb
 
 Walks through types of analysis described above using prebuilt chains in STK
@@ -34,7 +41,4 @@ Computes the "best" multihop path between a starting and ending constellations t
 <img src="TransmitterAndReceiver.JPG" alt="Drawing" style="width: 600px;"/>
 
 
-## ConstellationAnalysisMultiConstellationMultiHop.ipynb
 
-Computes the "best" multihop path between a starting and ending constellations, but now through a series of constellations. Similar to a chain but multiple hops between each constellation are permitted. Shows an example with satellites, sensors, transitters and recievers.
-<img src="MultipleConstellations.JPG" alt="Drawing" style="width: 400px;"/>
