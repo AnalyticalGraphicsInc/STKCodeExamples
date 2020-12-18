@@ -9,5 +9,7 @@
         public string MaxRange { get; set; }
         public string MinEl { get; set; }
         public string MaxEl { get; set; }
+        public string MinAz { get; set; }
+        public string MaxAz { get; set; }
     }
 }

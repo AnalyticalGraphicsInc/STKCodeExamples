@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewConfigForm));
             this.label17 = new System.Windows.Forms.Label();
             this.ConfigName = new System.Windows.Forms.TextBox();
             this.Create = new System.Windows.Forms.Button();
@@ -53,9 +54,17 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.Cancel = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.MaxAz = new System.Windows.Forms.TextBox();
+            this.MinAz = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label17
@@ -76,9 +85,9 @@
             this.ConfigName.BackColor = System.Drawing.Color.DimGray;
             this.ConfigName.ForeColor = System.Drawing.Color.White;
             this.ConfigName.Location = new System.Drawing.Point(46, 10);
-            this.ConfigName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ConfigName.Margin = new System.Windows.Forms.Padding(2);
             this.ConfigName.Name = "ConfigName";
-            this.ConfigName.Size = new System.Drawing.Size(136, 20);
+            this.ConfigName.Size = new System.Drawing.Size(171, 20);
             this.ConfigName.TabIndex = 15;
             // 
             // Create
@@ -87,8 +96,8 @@
             this.Create.BackColor = System.Drawing.Color.SteelBlue;
             this.Create.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Create.ForeColor = System.Drawing.Color.White;
-            this.Create.Location = new System.Drawing.Point(8, 271);
-            this.Create.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Create.Location = new System.Drawing.Point(8, 355);
+            this.Create.Margin = new System.Windows.Forms.Padding(2);
             this.Create.Name = "Create";
             this.Create.Size = new System.Drawing.Size(76, 29);
             this.Create.TabIndex = 17;
@@ -100,7 +109,7 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(122, 48);
+            this.label9.Location = new System.Drawing.Point(157, 48);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(25, 13);
@@ -119,19 +128,19 @@
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox3.Location = new System.Drawing.Point(9, 192);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(170, 75);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(205, 75);
             this.groupBox3.TabIndex = 16;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Launch Elevation Constraint";
+            this.groupBox3.Text = "Elevation Constraint";
             // 
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(122, 24);
+            this.label10.Location = new System.Drawing.Point(157, 24);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(25, 13);
@@ -145,9 +154,9 @@
             this.MaxEl.BackColor = System.Drawing.Color.DimGray;
             this.MaxEl.ForeColor = System.Drawing.Color.White;
             this.MaxEl.Location = new System.Drawing.Point(46, 48);
-            this.MaxEl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaxEl.Margin = new System.Windows.Forms.Padding(2);
             this.MaxEl.Name = "MaxEl";
-            this.MaxEl.Size = new System.Drawing.Size(73, 20);
+            this.MaxEl.Size = new System.Drawing.Size(108, 20);
             this.MaxEl.TabIndex = 4;
             // 
             // MinEl
@@ -157,9 +166,9 @@
             this.MinEl.BackColor = System.Drawing.Color.DimGray;
             this.MinEl.ForeColor = System.Drawing.Color.White;
             this.MinEl.Location = new System.Drawing.Point(46, 22);
-            this.MinEl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinEl.Margin = new System.Windows.Forms.Padding(2);
             this.MinEl.Name = "MinEl";
-            this.MinEl.Size = new System.Drawing.Size(73, 20);
+            this.MinEl.Size = new System.Drawing.Size(108, 20);
             this.MinEl.TabIndex = 3;
             // 
             // label11
@@ -214,10 +223,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox1.Location = new System.Drawing.Point(9, 32);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox1.Size = new System.Drawing.Size(170, 75);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(205, 75);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Altitude Constraint";
@@ -226,7 +235,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(122, 48);
+            this.label4.Location = new System.Drawing.Point(157, 48);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(21, 13);
@@ -237,7 +246,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(122, 24);
+            this.label3.Location = new System.Drawing.Point(157, 24);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
@@ -251,9 +260,9 @@
             this.MaxAlt.BackColor = System.Drawing.Color.DimGray;
             this.MaxAlt.ForeColor = System.Drawing.Color.White;
             this.MaxAlt.Location = new System.Drawing.Point(46, 48);
-            this.MaxAlt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaxAlt.Margin = new System.Windows.Forms.Padding(2);
             this.MaxAlt.Name = "MaxAlt";
-            this.MaxAlt.Size = new System.Drawing.Size(73, 20);
+            this.MaxAlt.Size = new System.Drawing.Size(108, 20);
             this.MaxAlt.TabIndex = 4;
             // 
             // MinAlt
@@ -263,9 +272,9 @@
             this.MinAlt.BackColor = System.Drawing.Color.DimGray;
             this.MinAlt.ForeColor = System.Drawing.Color.White;
             this.MinAlt.Location = new System.Drawing.Point(46, 22);
-            this.MinAlt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinAlt.Margin = new System.Windows.Forms.Padding(2);
             this.MinAlt.Name = "MinAlt";
-            this.MinAlt.Size = new System.Drawing.Size(73, 20);
+            this.MinAlt.Size = new System.Drawing.Size(108, 20);
             this.MinAlt.TabIndex = 3;
             // 
             // groupBox2
@@ -280,10 +289,10 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox2.Location = new System.Drawing.Point(9, 112);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(170, 75);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(205, 75);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ground Range Constraint";
@@ -292,7 +301,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(122, 48);
+            this.label5.Location = new System.Drawing.Point(157, 48);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 13);
@@ -303,7 +312,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(122, 24);
+            this.label6.Location = new System.Drawing.Point(157, 24);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(21, 13);
@@ -317,9 +326,9 @@
             this.MaxRange.BackColor = System.Drawing.Color.DimGray;
             this.MaxRange.ForeColor = System.Drawing.Color.White;
             this.MaxRange.Location = new System.Drawing.Point(46, 48);
-            this.MaxRange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MaxRange.Margin = new System.Windows.Forms.Padding(2);
             this.MaxRange.Name = "MaxRange";
-            this.MaxRange.Size = new System.Drawing.Size(73, 20);
+            this.MaxRange.Size = new System.Drawing.Size(108, 20);
             this.MaxRange.TabIndex = 4;
             // 
             // MinRange
@@ -329,9 +338,9 @@
             this.MinRange.BackColor = System.Drawing.Color.DimGray;
             this.MinRange.ForeColor = System.Drawing.Color.White;
             this.MinRange.Location = new System.Drawing.Point(46, 22);
-            this.MinRange.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinRange.Margin = new System.Windows.Forms.Padding(2);
             this.MinRange.Name = "MinRange";
-            this.MinRange.Size = new System.Drawing.Size(73, 20);
+            this.MinRange.Size = new System.Drawing.Size(108, 20);
             this.MinRange.TabIndex = 3;
             // 
             // label7
@@ -360,8 +369,8 @@
             this.Cancel.BackColor = System.Drawing.Color.SteelBlue;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Cancel.ForeColor = System.Drawing.Color.White;
-            this.Cancel.Location = new System.Drawing.Point(104, 271);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Location = new System.Drawing.Point(139, 355);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(74, 29);
             this.Cancel.TabIndex = 20;
@@ -369,12 +378,99 @@
             this.Cancel.UseVisualStyleBackColor = false;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.label13);
+            this.groupBox4.Controls.Add(this.label14);
+            this.groupBox4.Controls.Add(this.MaxAz);
+            this.groupBox4.Controls.Add(this.MinAz);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox4.Location = new System.Drawing.Point(11, 271);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Size = new System.Drawing.Size(205, 75);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Azimuth Constraint";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(157, 48);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 13);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "deg";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(157, 24);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(25, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "deg";
+            // 
+            // MaxAz
+            // 
+            this.MaxAz.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MaxAz.BackColor = System.Drawing.Color.DimGray;
+            this.MaxAz.ForeColor = System.Drawing.Color.White;
+            this.MaxAz.Location = new System.Drawing.Point(46, 48);
+            this.MaxAz.Margin = new System.Windows.Forms.Padding(2);
+            this.MaxAz.Name = "MaxAz";
+            this.MaxAz.Size = new System.Drawing.Size(108, 20);
+            this.MaxAz.TabIndex = 4;
+            // 
+            // MinAz
+            // 
+            this.MinAz.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MinAz.BackColor = System.Drawing.Color.DimGray;
+            this.MinAz.ForeColor = System.Drawing.Color.White;
+            this.MinAz.Location = new System.Drawing.Point(46, 22);
+            this.MinAz.Margin = new System.Windows.Forms.Padding(2);
+            this.MinAz.Name = "MinAz";
+            this.MinAz.Size = new System.Drawing.Size(108, 20);
+            this.MinAz.TabIndex = 3;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(4, 24);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(27, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Min:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(4, 50);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Max:";
+            // 
             // NewConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ClientSize = new System.Drawing.Size(187, 308);
+            this.ClientSize = new System.Drawing.Size(222, 392);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.ConfigName);
@@ -382,7 +478,8 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewConfigForm";
             this.Text = "New Volume";
             this.groupBox3.ResumeLayout(false);
@@ -391,6 +488,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,5 +522,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox MaxAz;
+        private System.Windows.Forms.TextBox MinAz;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

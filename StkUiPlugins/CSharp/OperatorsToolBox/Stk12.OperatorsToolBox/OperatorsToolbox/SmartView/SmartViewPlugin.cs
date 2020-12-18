@@ -78,7 +78,7 @@ namespace OperatorsToolbox.SmartView
 
                         StoredViewList.Items.Add(listItem);
                     }
-                    ReadWrite.WriteObjectData(CommonData.DirectoryStr + "\\StoredObjectData.txt");
+                    ReadWrite.WriteSavedViews(CommonData.DirectoryStr + "\\StoredObjectData.json");
                 }
             }
         }

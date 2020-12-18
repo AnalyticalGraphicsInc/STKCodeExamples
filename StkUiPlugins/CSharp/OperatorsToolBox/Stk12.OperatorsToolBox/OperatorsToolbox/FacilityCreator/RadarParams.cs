@@ -8,6 +8,9 @@
         public string MinEl { get; set; }
         public string MaxEl { get; set; }
         public string HalfAngle { get; set; }
+        public string MinAz { get; set; }
+        public string MaxAz { get; set; }
+
 
         public RadarParams()
         {
@@ -24,6 +27,8 @@
                 MaxRange = "40000";
                 SolarExAngle = "10";
                 HalfAngle = "85";
+                MinAz = "0";
+                MaxAz = "360";
             }
             else
             {
@@ -33,6 +38,8 @@
                 MinEl = data.MinEl;
                 MaxEl = data.MaxEl;
                 HalfAngle = data.HalfAngle;
+                MinAz = data.MinAz;
+                MaxAz = data.MaxAz;
             }
         }
 

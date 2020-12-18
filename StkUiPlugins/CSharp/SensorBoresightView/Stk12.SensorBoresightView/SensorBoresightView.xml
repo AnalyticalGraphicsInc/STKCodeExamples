@@ -3,10 +3,10 @@
    <CategoryRegistry>
         <Category Name = "UiPlugins">
            <NETUiPlugin 
-                DisplayName="Sensor Boresight View"
+                DisplayName="SensorBoresightViewPlugin"
                 TypeName="SensorBoresightViewPlugin.SensorBoresightViewPlugin"
-                AssemblyName="SensorBoresightViewPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-                CodeBase="Directory of code base">
+                AssemblyName="SensorBoresightViewPlugin"
+                CodeBase="C:\ProgramData\AGI\Plugins\SensorBoresightPlugin">
            </NETUiPlugin>
 	</Category>
    </CategoryRegistry>

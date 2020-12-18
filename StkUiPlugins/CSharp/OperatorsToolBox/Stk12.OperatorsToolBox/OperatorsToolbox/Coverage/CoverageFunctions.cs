@@ -8,11 +8,19 @@ namespace OperatorsToolbox.Coverage
 {
     public static class CoverageFunctions
     {
-        public static void DefineCoverage(string cdName, string oaName,string pointGran)
+        public static void DefineCoverage(string cdName, List<string> oaNames,string pointGran)
         {
             try
             {
-                CommonData.StkRoot.ExecuteCommand("Cov */CoverageDefinition/" + cdName + " Grid AreaOfInterest Custom AreaTarget AreaTarget/" + oaName);
+                IAgCoverageDefinition covDef = CommonData.StkRoot.GetObjectFromPath("CoverageDefinition/" + cdName) as IAgCoverageDefinition;
+                covDef.Grid.BoundsType = AgECvBounds.eBoundsCustomRegions;
+                IAgCvBoundsCustomRegions grid = covDef.Grid.Bounds as IAgCvBoundsCustomRegions;
+                foreach  (string oaName in oaNames)
+                {
+                    grid.AreaTargets.Add("AreaTarget/" + oaName);
+                }
+        
+                //CommonData.StkRoot.ExecuteCommand("Cov */CoverageDefinition/" + cdName + " Grid AreaOfInterest Custom AreaTarget AreaTarget/" + oaName);
                 CommonData.StkRoot.ExecuteCommand("Cov */CoverageDefinition/" + cdName + " Grid PointGranularity LatLon " + pointGran);
                 CommonData.StkRoot.ExecuteCommand("Graphics */CoverageDefinition/" + cdName + " Static Points Off");
                 CommonData.StkRoot.ExecuteCommand("Cov */CoverageDefinition/" + cdName + " Access Clear");

@@ -59,10 +59,11 @@
             this.NumOptical = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.Save = new System.Windows.Forms.Button();
-            this.SaveToDatabase = new System.Windows.Forms.CheckBox();
             this.DefaultConstraints = new System.Windows.Forms.CheckBox();
             this.DefineConstraints = new System.Windows.Forms.Button();
             this.Duplicate = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.ColorSelection = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // CadanceList
@@ -393,19 +394,6 @@
             this.Save.UseVisualStyleBackColor = false;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
-            // SaveToDatabase
-            // 
-            this.SaveToDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SaveToDatabase.AutoSize = true;
-            this.SaveToDatabase.ForeColor = System.Drawing.Color.White;
-            this.SaveToDatabase.Location = new System.Drawing.Point(114, 275);
-            this.SaveToDatabase.Margin = new System.Windows.Forms.Padding(2);
-            this.SaveToDatabase.Name = "SaveToDatabase";
-            this.SaveToDatabase.Size = new System.Drawing.Size(116, 17);
-            this.SaveToDatabase.TabIndex = 80;
-            this.SaveToDatabase.Text = "Save To Database";
-            this.SaveToDatabase.UseVisualStyleBackColor = true;
-            // 
             // DefaultConstraints
             // 
             this.DefaultConstraints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -450,16 +438,42 @@
             this.Duplicate.UseVisualStyleBackColor = true;
             this.Duplicate.Click += new System.EventHandler(this.Duplicate_Click);
             // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(432, 213);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 15);
+            this.label11.TabIndex = 85;
+            this.label11.Text = "Color:";
+            // 
+            // ColorSelection
+            // 
+            this.ColorSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ColorSelection.BackColor = System.Drawing.Color.DimGray;
+            this.ColorSelection.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ColorSelection.ForeColor = System.Drawing.Color.White;
+            this.ColorSelection.FormattingEnabled = true;
+            this.ColorSelection.Location = new System.Drawing.Point(476, 212);
+            this.ColorSelection.Margin = new System.Windows.Forms.Padding(2);
+            this.ColorSelection.Name = "ColorSelection";
+            this.ColorSelection.Size = new System.Drawing.Size(138, 21);
+            this.ColorSelection.TabIndex = 84;
+            // 
             // CadanceDefinitionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
             this.ClientSize = new System.Drawing.Size(823, 311);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.ColorSelection);
             this.Controls.Add(this.Duplicate);
             this.Controls.Add(this.DefaultConstraints);
             this.Controls.Add(this.DefineConstraints);
-            this.Controls.Add(this.SaveToDatabase);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.NumOptical);
             this.Controls.Add(this.label10);
@@ -523,9 +537,10 @@
         private System.Windows.Forms.TextBox NumOptical;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button Save;
-        private System.Windows.Forms.CheckBox SaveToDatabase;
         private System.Windows.Forms.CheckBox DefaultConstraints;
         private System.Windows.Forms.Button DefineConstraints;
         private System.Windows.Forms.Button Duplicate;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox ColorSelection;
     }
 }

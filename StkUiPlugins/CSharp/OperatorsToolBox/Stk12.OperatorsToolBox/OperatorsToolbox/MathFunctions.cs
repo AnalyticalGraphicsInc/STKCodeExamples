@@ -6,7 +6,7 @@ namespace OperatorsToolbox
     {
         public static double ArrayMin(Array thisArray)
         {
-            double min = 99999;
+            double min = 9999999;
             double current = 0.0;
             try
             {
@@ -28,8 +28,8 @@ namespace OperatorsToolbox
 
         public static double ArrayMax(Array thisArray)
         {
-            double max = 0.0;
-            double current = -99999;
+            double max = -9999999;
+            double current = -9999999;
             try
             {
                 foreach (var item in thisArray)
@@ -50,7 +50,7 @@ namespace OperatorsToolbox
 
         public static double ArrayMinAbs(Array thisArray)
         {
-            double min = 99999;
+            double min = 9999999;
             double current = 0.0;
             try
             {

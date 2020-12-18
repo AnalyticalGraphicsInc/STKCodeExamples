@@ -9,8 +9,6 @@ using System.Text;
 using System.Windows.Forms;
 using AGI.Ui.Plugins;
 using AGI.STKObjects;
-using System.Threading;
-using System.Collections.Specialized;
 using System.IO;
 using OperatorsToolbox.BetaAngleCalculator;
 using OperatorsToolbox.Coverage;
@@ -24,6 +22,7 @@ using OperatorsToolbox.SmartView;
 using OperatorsToolbox.StationAccess;
 using OperatorsToolbox.Templates;
 using OperatorsToolbox.VolumeCreator;
+using OperatorsToolbox.PlaneCrossingUtility;
 
 namespace OperatorsToolbox
 {
@@ -38,9 +37,6 @@ namespace OperatorsToolbox
         int _toolbarWidth;
         bool _panelHidden = false;
         bool _onStart=true;
-
-       
-
         public int NumPanels
         {
             get { return _controlsList.Count; }
@@ -54,7 +50,9 @@ namespace OperatorsToolbox
             _panelWidth = _panelHeight / 2;
             _controlsList = new List<UserControl>();
             InitializeComponent();
+            CommonData.PluginOptions = new List<string>();
 
+            //Read Settings and reseting install if required
             Properties.Settings.Default.Upgrade();
             if (Directory.Exists(Properties.Settings.Default.InstallDir))
             {
@@ -66,7 +64,34 @@ namespace OperatorsToolbox
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("Error: Could not read preferences. Check file location");
+                    DialogResult result = MessageBox.Show("Error: Could not read preferences. Check file location. Would like to reset the install directory?", "Choose Install Directory", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        string installDir = BrowseFileExplorer("C:\\", "Choose Install Directory");
+                        if (!String.IsNullOrEmpty(installDir))
+                        {
+                            Properties.Settings.Default.InstallDir = installDir;
+                            Properties.Settings.Default.Save();
+                            CommonData.InstallDir = installDir;
+                            prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
+                            try
+                            {
+                                ReadWrite.ReadPrefs(prefpath);
+                                CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
+                                CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
+                                CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
+                                ReadWrite.WritePrefs(prefpath);
+                                MessageBox.Show("Install location updated successfully. New Install Location: \n" +
+                                    Properties.Settings.Default.InstallDir +
+                                    "\n\nAll database directories updated based on install location.\n" +
+                                    "Please check event image paths in settings. These paths do not update based on install change");
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Error: Could not read preferences. Check file location.");
+                            }
+                        }
+                    }
                 }
             }
             else
@@ -77,43 +102,269 @@ namespace OperatorsToolbox
                     Properties.Settings.Default.InstallDir = installDir;
                     Properties.Settings.Default.Save();
                     CommonData.InstallDir = installDir;
-                    MessageBox.Show(Properties.Settings.Default.InstallDir);
                     string prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
                     try
                     {
                         ReadWrite.ReadPrefs(prefpath);
+                        CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
+                        CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
+                        CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
+                        ReadWrite.WritePrefs(prefpath);
+                        MessageBox.Show("Install location updated successfully. New Install Location: \n" +
+                            Properties.Settings.Default.InstallDir +
+                            "\n\nAll database directories updated based on install location.\n" +
+                            "Please check event image paths in settings. These paths do not update based on install change");
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("Error: Could not read preferences. Check file location");
+                        DialogResult result = MessageBox.Show("Error: Could not read preferences. Check file location. Would like to reset the install directory?", "Choose Install Directory", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            installDir = BrowseFileExplorer("C:\\", "Choose Install Directory");
+                            if (!String.IsNullOrEmpty(installDir))
+                            {
+                                Properties.Settings.Default.InstallDir = installDir;
+                                Properties.Settings.Default.Save();
+                                CommonData.InstallDir = installDir;
+                                prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
+                                try
+                                {
+                                    ReadWrite.ReadPrefs(prefpath);
+                                    CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
+                                    CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
+                                    CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
+                                    ReadWrite.WritePrefs(prefpath);
+                                    MessageBox.Show("Install location updated successfully. New Install Location: \n" +
+                                        Properties.Settings.Default.InstallDir +
+                                        "\n\nAll database directories updated based on install location.\n" +
+                                        "Please check event image paths in settings. These paths do not update based on install change");
+                                }
+                                catch (Exception)
+                                {
+                                    MessageBox.Show("Error: Could not read preferences. Check file location.");
+                                }
+                            }
+                        }
                     }
                 }
             }
 
-            _toolbarWidth = this.tableLayoutPanel1.Width+4;
-
-        }
-
-        public static string BrowseFileExplorer(string initialDirectory, string title)
-        {
-            string dirStr = null;
-            // Launch file explorer:
-            FolderBrowserDialog fileExplorer = new FolderBrowserDialog();
-            fileExplorer.Description = "Choose Install Directory";
-
-            if (fileExplorer.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //Initializing plugin options as enumeration
+            for (int i = 0; i < CommonData._numPlugins; i++)
             {
-                dirStr = fileExplorer.SelectedPath;
+                CommonData.PluginOptions.Add(((PluginType)i).ToString());
             }
-            return dirStr;
+            _toolbarWidth = this.tableLayoutPanel1.Width;
+            PluginConfigList = CommonData.Preferences.PluginConfigList;
+
+            //Set buttons based on user settings
+            SetButtonImagesAndVisability();
+
         }
 
-        private void SetButton(Button button, int width, int height, int x, int y)
+        #region Plugin Enumeration Functions
+        public List<int> PluginConfigList = new List<int>();
+        public enum PluginType
         {
-            button.Width = width;
-            button.Height = height;
-            button.Location = new Point(x, y);
+            Templates = 0,
+            SatelliteCreator = 1,
+            UdlTleImport = 2,
+            EpochUpdate = 3,
+            FacilityCreator = 4,
+            GroundEvents = 5,
+            SmartView = 6,
+            StationAccess = 7,
+            Coverage = 8,
+            PassiveSafety = 9,
+            VolumeCreator = 10,
+            SolarAnglesUtility = 11,
+            PlaneCrossingTimes = 12
         }
+
+        public UserControl OpenTool(PluginType pluginType, Control control)
+        {
+            switch (pluginType)
+            {
+                case PluginType.Templates:
+                    TemplatesPlugin templatesPlugin = new TemplatesPlugin();
+                    templatesPlugin.PanelClose += PanelRemoved;
+                    return templatesPlugin;
+                case PluginType.SatelliteCreator:
+                    NewAssetForm newAssetForm = new NewAssetForm();
+                    newAssetForm.PanelClose += PanelRemoved;
+                    return newAssetForm;
+                case PluginType.UdlTleImport:
+                    InsertTleFromUdl insertTleFromUdl = new InsertTleFromUdl();
+                    insertTleFromUdl.PanelClose += PanelRemoved;
+                    return insertTleFromUdl;
+                case PluginType.EpochUpdate:
+                    SatelliteEpochUpdatePlugin satelliteEpochUpdatePlugin = new SatelliteEpochUpdatePlugin();
+                    satelliteEpochUpdatePlugin.PanelClose += PanelRemoved;
+                    return satelliteEpochUpdatePlugin;
+                case PluginType.FacilityCreator:
+                    FacilityCreatorPlugin facilityCreatorPlugin = new FacilityCreatorPlugin();
+                    facilityCreatorPlugin.PanelClose += PanelRemoved;
+                    return facilityCreatorPlugin;
+                case PluginType.GroundEvents:
+                    GroundEventsPlugin groundEventsPlugin = new GroundEventsPlugin();
+                    groundEventsPlugin.PanelClose += PanelRemoved;
+                    return groundEventsPlugin;
+                case PluginType.SmartView:
+                    PopulateContextViews();
+                    SmartViewDropdown.Show(control, new Point(0, control.Height));
+                    return null;
+                case PluginType.StationAccess:
+                    StationAccessPlugin stationAccessPlugin = new StationAccessPlugin();
+                    stationAccessPlugin.PanelClose += PanelRemoved;
+                    return stationAccessPlugin;
+                case PluginType.Coverage:
+                    CoveragePlugin coveragePlugin = new CoveragePlugin();
+                    coveragePlugin.PanelClose += PanelRemoved;
+                    return coveragePlugin;
+                case PluginType.PassiveSafety:
+                    PassiveSafetyPlugin passiveSafetyPlugin = new PassiveSafetyPlugin();
+                    passiveSafetyPlugin.PanelClose += PanelRemoved;
+                    return passiveSafetyPlugin;
+                case PluginType.VolumeCreator:
+                    VolumePlugin volumePlugin = new VolumePlugin();
+                    volumePlugin.PanelClose += PanelRemoved;
+                    return volumePlugin;
+                case PluginType.SolarAnglesUtility:
+                    SolarPhasePlugin solarPhasePlugin = new SolarPhasePlugin();
+                    solarPhasePlugin.PanelClose += PanelRemoved;
+                    return solarPhasePlugin;
+                case PluginType.PlaneCrossingTimes:
+                    PlaneCrossingPlugin planeCrossingPlugin = new PlaneCrossingPlugin();
+                    planeCrossingPlugin.PanelClose += PanelRemoved;
+                    return planeCrossingPlugin;
+                default:
+                    return null;
+            }
+        }
+
+        public static int StringToPluginType(string pluginName)
+        {
+            switch (pluginName)
+            {
+                case "Templates":
+                    return 0;
+                case "SatelliteCreator":
+                    return 1;
+                case "UdlTleImport":
+                    return 2;
+                case "EpochUpdate":
+                    return 3;
+                case "FacilityCreator":
+                    return 4;
+                case "GroundEvents":
+                    return 5;
+                case "SmartView":
+                    return 6;
+                case "StationAccess":
+                    return 7;
+                case "Coverage":
+                    return 8;
+                case "PassiveSafety":
+                    return 9;
+                case "VolumeCreator":
+                    return 10;
+                case "SolarAnglesUtility":
+                    return 11;
+                case "PlaneCrossingTimes":
+                    return 12;
+                default:
+                    return -1;
+            }
+        }
+
+        public static string GetPluginDescription(PluginType plugin)
+        {
+            string description = null;
+
+            switch (plugin)
+            {
+                case PluginType.Templates:
+                    break;
+                case PluginType.SatelliteCreator:
+                    break;
+                case PluginType.UdlTleImport:
+                    break;
+                case PluginType.EpochUpdate:
+                    break;
+                case PluginType.FacilityCreator:
+                    break;
+                case PluginType.GroundEvents:
+                    break;
+                case PluginType.SmartView:
+                    break;
+                case PluginType.StationAccess:
+                    break;
+                case PluginType.Coverage:
+                    break;
+                case PluginType.PassiveSafety:
+                    break;
+                case PluginType.VolumeCreator:
+                    break;
+                case PluginType.SolarAnglesUtility:
+                    break;
+                case PluginType.PlaneCrossingTimes:
+                    break;
+                default:
+                    break;
+            }
+
+
+            return description;
+        }
+
+        public static string GetPluginToolTip(PluginType plugin)
+        {
+            switch (plugin)
+            {
+                case PluginType.Templates:
+                    return "Templates";
+                case PluginType.SatelliteCreator:
+                    return "Satellite Creator";
+                case PluginType.UdlTleImport:
+                    return "UDL TLE Import";
+                case PluginType.EpochUpdate:
+                    return "Satellite Epoch Updater";
+                case PluginType.FacilityCreator:
+                    return "Facility Creator";
+                case PluginType.GroundEvents:
+                    return "Ground Events";
+                case PluginType.SmartView:
+                    return "Smart View";
+                case PluginType.StationAccess:
+                    return "Station Access";
+                case PluginType.Coverage:
+                    return "Coverage";
+                case PluginType.PassiveSafety:
+                    return "Passive Safety";
+                case PluginType.VolumeCreator:
+                    return "Volume Creator";
+                case PluginType.SolarAnglesUtility:
+                    return "Beta Angle Calculator";
+                case PluginType.PlaneCrossingTimes:
+                    return "Plane Crossing Times";
+                default:
+                    return null;
+            }
+        }
+
+        public enum ColorOptions
+        {
+            Blue = 0,
+            Cyan = 1,
+            Red = 2,
+            Green = 3,
+            Yellow = 4,
+            Orange = 5,
+            Purple = 6,
+            White = 7,
+            Custom = 8
+        }
+        #endregion
 
         #region IAgUiPluginEmbeddedControl Implementation
         public stdole.IPictureDisp GetIcon()
@@ -154,110 +405,56 @@ namespace OperatorsToolbox
 
         #endregion
 
-        #region Sample code
-        void m_root_OnStkObjectDeleted(object sender)
+        #region Main Plugin interface Functions
+        public static string BrowseFileExplorer(string initialDirectory, string title)
         {
-            string objectPath = sender.ToString();
-            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
-            //cbStkObjects.Items.Remove(simpleName);
-        }
+            
+            string dirStr = null;
+            // Launch file explorer:
+            FolderBrowserDialog fileExplorer = new FolderBrowserDialog();
+            fileExplorer.Description = "Choose Install Directory";
 
-        void m_root_OnStkObjectAdded(object sender)
-        {
-            string objectPath = sender.ToString();
-            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
-            //cbStkObjects.Items.Add(simpleName);
-        }
-        #endregion
-        //EXAMPLE: Progress bar
-        private void TestProgressBar()
-        {
-            _mUiPlugin.ProgressBar.BeginTracking(AgEProgressTrackingOptions.eProgressTrackingOptionNoCancel, AgEProgressTrackingType.eTrackAsProgressBar);
-            for (int i = 0; i <= 100; i++)
+            if (fileExplorer.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                _mUiPlugin.ProgressBar.SetProgress(i, string.Format("Progress is at {0}...", i));
-                Thread.Sleep(100);
-                if (!_mUiPlugin.ProgressBar.Continue)
-                    break;
+                dirStr = fileExplorer.SelectedPath;
             }
-            _mUiPlugin.ProgressBar.EndTracking();
+            return dirStr;
         }
 
 
-        private void SatelliteCreator_Click(object sender, EventArgs e)
+        private void SetButtonSizePosition(Button button, int width, int height, int x, int y)
         {
-            PopulateSatOptions();
-            SatelliteImportDropdown.Show(SatelliteCreator, new Point(0, SatelliteCreator.Height));
-
+            button.Width = width;
+            button.Height = height;
+            button.Location = new Point(x, y);
         }
 
-        private void FacilityCreator_Click(object sender, EventArgs e)
+        private void SetButtonImagesAndVisability()
         {
-            FacilityCreatorPlugin facilityCreatorPlugin = new FacilityCreatorPlugin();
-            facilityCreatorPlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(facilityCreatorPlugin);
-            AutoSize();
+            SetButton(ToolbarButton0, PluginConfigList[0]);
+            SetButton(ToolbarButton1, PluginConfigList[1]);
+            SetButton(ToolbarButton2, PluginConfigList[2]);
+            SetButton(ToolbarButton3, PluginConfigList[3]);
+            SetButton(ToolbarButton4, PluginConfigList[4]);
+            SetButton(ToolbarButton5, PluginConfigList[5]);
+            SetButton(ToolbarButton6, PluginConfigList[6]);
+            SetButton(ToolbarButton7, PluginConfigList[7]);
+            SetButton(ToolbarButton8, PluginConfigList[8]);
+            SetButton(ToolbarButton9, PluginConfigList[9]);
         }
-
-        private void SmartView_Click(object sender, EventArgs e)
+        private void SetButton(Button control, int index)
         {
-            PopulateContextViews();
-            SmartViewDropdown.Show(SmartView, new Point(0, SmartView.Height));
-        }
-
-        private void GroundStationAccess_Click(object sender, EventArgs e)
-        {
-            StationAccessPlugin stationAccessPlugin = new StationAccessPlugin();
-            stationAccessPlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(stationAccessPlugin);
-            AutoSize();
-        }
-
-        private void PassiveSafety_Click(object sender, EventArgs e)
-        {
-            PassiveSafetyPlugin passiveSafetyPlugin = new PassiveSafetyPlugin();
-            passiveSafetyPlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(passiveSafetyPlugin);
-            AutoSize();
-        }
-
-        private void ThreatVolume_Click(object sender, EventArgs e)
-        {
-            VolumePlugin volumePlugin = new VolumePlugin();
-            volumePlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(volumePlugin);
-            AutoSize();
-        }
-
-        private void SolarPhase_Click(object sender, EventArgs e)
-        {
-            SolarPhasePlugin solarPhasePlugin = new SolarPhasePlugin();
-            solarPhasePlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(solarPhasePlugin);
-            AutoSize();
-        }
-        private void GroundEvents_Click(object sender, EventArgs e)
-        {
-            GroundEventsPlugin groundEventsPlugin = new GroundEventsPlugin();
-            groundEventsPlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(groundEventsPlugin);
-            AutoSize();
-        }
-
-        private void Coverage_Click_1(object sender, EventArgs e)
-        {
-            CoveragePlugin coveragePlugin = new CoveragePlugin();
-            coveragePlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(coveragePlugin);
-            AutoSize();
-        }
-
-        private void Templates_Click(object sender, EventArgs e)
-        {
-            TemplatesPlugin templatesPlugin = new TemplatesPlugin();
-            templatesPlugin.PanelClose += PanelRemoved;
-            _controlsList.Add(templatesPlugin);
-            AutoSize();
+            if (index == -1)
+            {
+                control.Visible = false;
+                control.Enabled = false;
+            }
+            else
+            {
+                control.Visible = true;
+                control.Enabled = true;
+                control.ImageIndex = index;
+            }
         }
 
         private void AutoSize()
@@ -274,8 +471,8 @@ namespace OperatorsToolbox
                 userControl.Width = _panelWidth - 2;
                 userControl.Height = this.Height;
                 userControl.BorderStyle = BorderStyle.Fixed3D;
-                userControl.MinimumSize = new Size(_panelWidth,_panelHeight);
-                userControl.MaximumSize = new Size(_panelWidth, _panelHeight+500);
+                userControl.MinimumSize = new Size(_panelWidth, _panelHeight);
+                userControl.MaximumSize = new Size(_panelWidth, _panelHeight + 500);
                 PluginPanel.Controls.Add(userControl);
             }
         }
@@ -286,11 +483,143 @@ namespace OperatorsToolbox
             AutoSize();
         }
 
-        private void SmartViewDropdown_Opening(object sender, CancelEventArgs e)
-        {
 
+        private void CustomUserInterface_Resize(object sender, EventArgs e)
+        {
+            foreach (var userControl in _controlsList)
+            {
+                userControl.Height = PluginPanel.Height - 2;
+            }
         }
-        
+        #endregion
+
+        #region Toolbar Button Click Events
+        private void ToolbarButton0_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[0];
+            UserControl control = OpenTool(type, ToolbarButton0);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton1_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[1];
+            UserControl control = OpenTool(type, ToolbarButton1);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton2_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[2];
+            UserControl control = OpenTool(type, ToolbarButton2);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton3_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[3];
+            UserControl control = OpenTool(type, ToolbarButton3);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton4_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[4];
+            UserControl control = OpenTool(type, ToolbarButton4);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton5_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[5];
+            UserControl control = OpenTool(type, ToolbarButton5);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton6_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[6];
+            UserControl control = OpenTool(type, ToolbarButton6);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton7_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[7];
+            UserControl control = OpenTool(type, ToolbarButton7);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton8_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[8];
+            UserControl control = OpenTool(type, ToolbarButton8);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void ToolbarButton9_Click(object sender, EventArgs e)
+        {
+            PluginType type = (PluginType)PluginConfigList[9];
+            UserControl control = OpenTool(type, ToolbarButton9);
+            if (control != null)
+            {
+                _controlsList.Add(control);
+                AutoSize();
+            }
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            SettingsForm form = new SettingsForm();
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.Yes)
+            {
+                Properties.Settings.Default.PanelHeight = CommonData.PanelHeight;
+                Properties.Settings.Default.Save();
+                PluginConfigList = CommonData.Preferences.PluginConfigList;
+                SetButtonImagesAndVisability();
+            }
+        }
+
+        #endregion
+
+        #region Plugin Specific Functions
         private void SmartViewDropDown_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if (e.ClickedItem.Text == "Open Smart View")
@@ -331,17 +660,31 @@ namespace OperatorsToolbox
             }
         }
 
-        private void Settings_Click(object sender, EventArgs e)
+        private void AWBToolsDropdown_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            SettingsForm form = new SettingsForm();
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.Yes)
+            if (e.ClickedItem.Text == "Beta Angle Calculator")
             {
-                Properties.Settings.Default.PanelHeight = CommonData.PanelHeight;
-                Properties.Settings.Default.Save();
+                SolarPhasePlugin solarPhasePlugin = new SolarPhasePlugin();
+                solarPhasePlugin.PanelClose += PanelRemoved;
+                _controlsList.Add(solarPhasePlugin);
+                AutoSize();
+            }
+            else if (e.ClickedItem.Text == "Plane Crossing Times")
+            {
+                PlaneCrossingPlugin planeCrossingPlugin = new PlaneCrossingPlugin();
+                planeCrossingPlugin.PanelClose += PanelRemoved;
+                _controlsList.Add(planeCrossingPlugin);
+                AutoSize();
             }
         }
 
+        private void PopulateAWBTools()
+        {
+            AWBToolsDropdown.Items.Clear();
+            AWBToolsDropdown.Items.Add("Beta Angle Calculator");
+            AWBToolsDropdown.Items.Add("-");
+            AWBToolsDropdown.Items.Add("Plane Crossing Times");
+        }
         private void PopulateContextViews()
         {
             SmartViewDropdown.Items.Clear();
@@ -395,59 +738,107 @@ namespace OperatorsToolbox
             }
 
         }
+
+        #endregion
+
         #region Tool tips 
-        private void SatelliteCreator_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton0_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.SatelliteCreator, "Satellite Creator");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[0]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton0, tip);
+            }
+        }
+        private void ToolbarButton1_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[1]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton1, tip);
+            }
         }
 
-        private void FacilityCreator_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton2_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.FacilityCreator, "Facility Creator");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[2]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton2, tip);
+            }
         }
 
-        private void SmartView_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton3_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.SmartView, "Smart View");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[3]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton3, tip);
+            }
         }
 
-        private void GroundStationAccess_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton4_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.GroundStationAccess, "Ground Station Access");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[4]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton4, tip);
+            }
         }
 
-        private void PassiveSafety_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton5_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.PassiveSafety, "Passive Safety Checker");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[5]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton5, tip);
+            }
         }
 
-        private void ThreatVolume_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton6_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.ThreatVolume, "Volume Creator");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[6]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton6, tip);
+            }
         }
 
-        private void SolarPhase_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton7_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.SolarPhase, "Beta Angle Calculator");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[7]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton7, tip);
+            }
         }
 
-        private void GroundEvents_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton8_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.GroundEvents, "Ground Events");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[8]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton8, tip);
+            }
         }
 
-        private void Coverage_MouseHover(object sender, EventArgs e)
+        private void ToolbarButton9_MouseHover(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.Coverage, "Coverage");
+            string tip = GetPluginToolTip((PluginType)PluginConfigList[9]);
+            if (tip != null)
+            {
+                toolTip1.SetToolTip(this.ToolbarButton9, tip);
+            }
         }
 
         private void Settings_MouseHover(object sender, EventArgs e)
@@ -455,20 +846,22 @@ namespace OperatorsToolbox
             ToolTip toolTip1 = new ToolTip();
             toolTip1.SetToolTip(this.Settings, "Settings");
         }
-
-        private void Templates_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.Templates, "Templates");
-        }
         #endregion
 
-        private void CustomUserInterface_Resize(object sender, EventArgs e)
+        #region Sample code
+        void m_root_OnStkObjectDeleted(object sender)
         {
-            foreach (var userControl in _controlsList)
-            {
-                userControl.Height = PluginPanel.Height-2;
-            }
+            string objectPath = sender.ToString();
+            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
+            //cbStkObjects.Items.Remove(simpleName);
         }
+
+        void m_root_OnStkObjectAdded(object sender)
+        {
+            string objectPath = sender.ToString();
+            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
+            //cbStkObjects.Items.Add(simpleName);
+        }
+        #endregion
     }
 }

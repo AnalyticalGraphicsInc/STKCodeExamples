@@ -1,0 +1,5 @@
+<?xml version = "1.0" standalone = "yes"?>
+<VersionIndependentGUID>
+    <Item Description = "AGI AgUserProperties Class" VIGuid = "{21306355-2B56-47BA-AB2F-72F8DF5B6B9E}" />
+    <Item Description = "AGI AgFlightWindModelConstant Class" VIGuid = "{45C4D7DC-47D3-4bd3-BD95-BC3CF102C837}" />
+</VersionIndependentGUID>

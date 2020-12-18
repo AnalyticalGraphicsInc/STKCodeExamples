@@ -66,7 +66,7 @@
             this.Cancel.ImageIndex = 0;
             this.Cancel.ImageList = this.imageList1;
             this.Cancel.Location = new System.Drawing.Point(229, 2);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
             this.Cancel.TabIndex = 31;
@@ -135,8 +135,9 @@
             this.columnHeader1});
             this.SatelliteList.ForeColor = System.Drawing.Color.White;
             this.SatelliteList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.SatelliteList.HideSelection = false;
             this.SatelliteList.Location = new System.Drawing.Point(39, 145);
-            this.SatelliteList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SatelliteList.Margin = new System.Windows.Forms.Padding(2);
             this.SatelliteList.Name = "SatelliteList";
             this.SatelliteList.Size = new System.Drawing.Size(205, 169);
             this.SatelliteList.TabIndex = 44;
@@ -154,7 +155,7 @@
             this.RemoveSatellite.ImageIndex = 1;
             this.RemoveSatellite.ImageList = this.imageList1;
             this.RemoveSatellite.Location = new System.Drawing.Point(3, 183);
-            this.RemoveSatellite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RemoveSatellite.Margin = new System.Windows.Forms.Padding(2);
             this.RemoveSatellite.Name = "RemoveSatellite";
             this.RemoveSatellite.Size = new System.Drawing.Size(35, 35);
             this.RemoveSatellite.TabIndex = 46;
@@ -168,7 +169,7 @@
             this.AddSatellite.ImageIndex = 2;
             this.AddSatellite.ImageList = this.imageList1;
             this.AddSatellite.Location = new System.Drawing.Point(3, 145);
-            this.AddSatellite.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddSatellite.Margin = new System.Windows.Forms.Padding(2);
             this.AddSatellite.Name = "AddSatellite";
             this.AddSatellite.Size = new System.Drawing.Size(35, 35);
             this.AddSatellite.TabIndex = 45;
@@ -182,7 +183,7 @@
             this.ASTGRunCheck.AutoSize = true;
             this.ASTGRunCheck.ForeColor = System.Drawing.Color.White;
             this.ASTGRunCheck.Location = new System.Drawing.Point(14, 332);
-            this.ASTGRunCheck.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ASTGRunCheck.Margin = new System.Windows.Forms.Padding(2);
             this.ASTGRunCheck.Name = "ASTGRunCheck";
             this.ASTGRunCheck.Size = new System.Drawing.Size(189, 17);
             this.ASTGRunCheck.TabIndex = 47;
@@ -198,7 +199,7 @@
             this.Update.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Update.ForeColor = System.Drawing.Color.White;
             this.Update.Location = new System.Drawing.Point(81, 362);
-            this.Update.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Update.Margin = new System.Windows.Forms.Padding(2);
             this.Update.Name = "Update";
             this.Update.Size = new System.Drawing.Size(68, 30);
             this.Update.TabIndex = 48;
@@ -211,7 +212,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
-            this.ClientSize = new System.Drawing.Size(255, 569);
             this.Controls.Add(this.Update);
             this.Controls.Add(this.ASTGRunCheck);
             this.Controls.Add(this.RemoveSatellite);
@@ -223,9 +223,9 @@
             this.Controls.Add(this.dtp_start);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.Cancel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SatelliteEpochUpdatePlugin";
-            this.Text = "SatelliteEpochUpdatePlugin";
+            this.Size = new System.Drawing.Size(255, 569);
             this.ResumeLayout(false);
             this.PerformLayout();
 

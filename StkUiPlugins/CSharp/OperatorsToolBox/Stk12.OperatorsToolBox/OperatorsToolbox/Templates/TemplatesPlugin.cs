@@ -59,7 +59,7 @@ namespace OperatorsToolbox.Templates
                         objectNames.Add(item.Text);
                     }
                 }
-                ReadWrite.ImportTemplate(_fileStr + TemplateList.FocusedItem.Text + "\\", objectNames);
+                ReadWrite.ImportTemplate(_fileStr + TemplateList.FocusedItem.Text + "\\", objectNames, EraseReplace.Checked);
             }
         }
 
@@ -83,12 +83,20 @@ namespace OperatorsToolbox.Templates
         private void PopulateTemplates()
         {
             TemplateList.Items.Clear();
-            List<string> tempNames = ReadWrite.FindTemplates(_fileStr);
-            foreach (var item in tempNames)
+            bool dirExists = Directory.Exists(_fileStr);
+            if (dirExists)
             {
-                ListViewItem listItem = new ListViewItem();
-                listItem.Text = item;
-                TemplateList.Items.Add(listItem);
+                List<string> tempNames = ReadWrite.FindTemplates(_fileStr);
+                foreach (var item in tempNames)
+                {
+                    ListViewItem listItem = new ListViewItem();
+                    listItem.Text = item;
+                    TemplateList.Items.Add(listItem);
+                }
+            }
+            else
+            {
+                MessageBox.Show("File Error. Check Templates DIrectory in Settings");
             }
         }
     }

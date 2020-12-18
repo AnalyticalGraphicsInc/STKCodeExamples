@@ -57,6 +57,7 @@ namespace OperatorsToolbox.PassiveSafety
                     IAgStkObject passiveSatObj = CreatorFunctions.GetCreateSatellite("PassiveCheck");
                     IAgSatellite passiveSat = passiveSatObj as IAgSatellite;
                     passiveSat.VO.OrbitSystems.InertialByWindow.IsVisible = false;
+                    passiveSat.VO.OrbitSystems.RemoveAll();
                     passiveSat.VO.OrbitSystems.Add("Satellite/" + CommonData.TargetName + " VVLH System");
                     passiveSat.SetPropagatorType(AgEVePropagatorType.ePropagatorAstrogator);
                     IAgVADriverMCS passiveDriver = passiveSat.Propagator as IAgVADriverMCS;

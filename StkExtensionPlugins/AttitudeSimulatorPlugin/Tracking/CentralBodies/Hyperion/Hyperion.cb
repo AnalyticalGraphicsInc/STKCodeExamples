@@ -1,0 +1,117 @@
+
+BEGIN CentralBody
+
+    Name		 Hyperion
+
+    FuncCbInit		 AsterInit
+    FuncCbFree		 PlanetFree
+    FuncCbLoad		 PlanetLoad
+    FuncCbSave		 PlanetSave
+
+    Prefix		 Planeto
+
+    ShortDescription		 Asteroid
+
+    Description		 Asteroid
+
+    Type		 Planet
+
+
+    BEGIN AstroDefinition
+
+        Gm		  3.7236803635761398e+08
+        MaxAltitude		  0.0000000000000000e+00
+        MinAltitude		 -2.3300000000000000e+04
+        AtmosphereAltitude		  0.0000000000000000e+00
+        DtedSearchScale		 0.5
+
+        AttitudeName		 IAU_1994
+
+        OrbitName		 JPL_SPICE
+
+        ShapeName		 Triaxial_Ellipsoid
+        Shape		        TriAxialEllipsoid		
+        MajorAxis		  1.8010000000000000e+05
+        MinorAxis		  1.0270000000000000e+05
+        MiddleAxis		  1.3300000000000000e+05
+
+        GravityModel		 ZonalsToJ4
+
+        ParentName		 Saturn
+
+
+        PathGenerator		 Astrogator
+        PathGenerator		 GreatArc
+        PathGenerator		 HoldCBFPosition
+        PathGenerator		 HoldCBIPosition
+        PathGenerator		 J2Perturbation
+        PathGenerator		 J4Perturbation
+        PathGenerator		 Rocket
+        PathGenerator		 SimpleAscent
+        PathGenerator		 SPICE
+        PathGenerator		 StkExternal
+        PathGenerator		 TwoBody
+
+    END AstroDefinition
+
+    BEGIN EphemerisData
+
+        EphemerisSource		 JplSpice
+
+        JplIndex		 -1
+
+        JplSpiceId		 607
+
+        ApplyTDTtoTDBCorrectionForDE		 Yes
+
+    END EphemerisData
+
+    BEGIN SpinData
+
+        RotationEpoch		  2.4515450000000000e+06
+
+        BEGIN RotationalElement
+            Type		 SpinAxisRightAscension
+            Constant		  0.0000000000000000e+00
+            Rate		  0.0000000000000000e+00
+            RateDot		  0.0000000000000000e+00
+            SineOrCosine		 Sin
+            NumberOfTerms		 0
+
+            Coefficients		
+
+        END RotationalElement
+
+        BEGIN RotationalElement
+            Type		 SpinAxisDeclination
+            Constant		  9.0000000000000000e+01
+            Rate		  0.0000000000000000e+00
+            RateDot		  0.0000000000000000e+00
+            SineOrCosine		 Sin
+            NumberOfTerms		 0
+
+            Coefficients		
+
+        END RotationalElement
+
+        BEGIN RotationalElement
+            Type		 Rotation
+            Constant		  0.0000000000000000e+00
+            Rate		  9.5175148703039997e+02
+            RateDot		  0.0000000000000000e+00
+            SineOrCosine		 Sin
+            NumberOfTerms		 0
+
+            Coefficients		
+
+        END RotationalElement
+
+    END SpinData
+
+    BEGIN Hyperion
+
+    END Hyperion
+
+    ReadOnly		 No
+
+END CentralBody

@@ -153,6 +153,7 @@
             // 
             // Save
             // 
+            this.Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Save.BackColor = System.Drawing.Color.SteelBlue;
             this.Save.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Save.ForeColor = System.Drawing.Color.White;

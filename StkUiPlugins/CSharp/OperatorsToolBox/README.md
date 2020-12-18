@@ -64,9 +64,14 @@ The Volume Creator allows the user to create analytical volumes in space based o
 This can be used for situational awareness, threat assessments, or any other use case involving a 3D keep out zone or area of regard. The tool saves the volumes and locations in a database so they 
 can be used in any scenario after they are initially created.
  
-BETA ANGLE CALCULATOR 
-This tool is designed to calculate the beta angle between any number of observers and targets. 
+SOLAR ANGLE UTILITY
+This tool is designed to calculate the beta angle and/or Solar Phase/CATS angle between any number of observers and targets. 
 This tool will create all of the Analysis Workbench components required to report out the angle values.
+
+PLANE CROSSING UTILITY
+This tool is designed to calculate the times when a satellite or stationary ground object crosses the orbital plane of a satellite of interest. The tool will create all required AWB components for the calculation.
+The tool has the option to constrain the times to specific angle bounds, allowing the user to report out crossing times in and out of a region relative to orbital plane. 
+The tool can export the data as a report, a text file, and provides an interface to see the results internally. 
 
 # Instructions  
  
