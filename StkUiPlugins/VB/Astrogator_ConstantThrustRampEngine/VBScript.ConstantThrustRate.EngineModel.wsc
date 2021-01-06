@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="VBScript.ConstantThrustRate.EngineModel"
+	    progid="VBScript.ConstantThrustRate.EngineModel.WSC"
+	    version="1.00"
+	    classid="{F8B289DF-EAC4-418a-BB43-0213DEE8B96C}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"	get="GetName"/>
+		<property name="Thrust"	get="GetThrust"	put="SetThrust"/>
+		<property name="ThrustRate"    	get="GetThrustRate"    	put="SetThrustRate"/>
+		<property name="MassFlowRate" 	get="GetMassFlowRate" 	put="SetMassFlowRate"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="site"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="result"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="result"/>
+		</method>
+		<method name="PostPropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="VBScript" src="VBScript.ConstantThrustRate.EngineModel.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
