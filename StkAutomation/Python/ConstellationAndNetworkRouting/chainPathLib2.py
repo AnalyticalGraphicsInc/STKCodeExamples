@@ -10,7 +10,308 @@ import pickle
 import os
 import time
 
+## Potential Future Work ##
 
+#  Maximize bandwidth, which is not just summing a bandwidth value of the edges along the path, because the network may be bottlenecked by individual edges.
+# Potential Issues: nx find the shortest number of hops and then uses the edge weight, it doesnt investigate alternate paths with more hops where bandwidths might be better. The best bandwidth path would be limited by the minimum edge of the path. nx looks for minimums not maximums along a path. This might need to be a custom algorithm and not an nx native one.
+
+# # Start of adding bandwidth 
+# metric = 'bandwidth'
+# bandwidthBetweenConstellations = {('ObservingSatsTransmitters','ObservingSatsReceivers'):1/2,('RelaySats','RelaySats'):1/10}
+# bandwidthDefault = 10
+# timesEdgesDistancesDelaysBandwidths = addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,bandwidthBetweenConstellations,defaultValue=bandwidthDefault)
+
+
+#### Adding Multi path and load functions
+
+def generateDiNetworkBandwidth(t,timeEdgesDistancesDelaysBandwidth,timeNodePos):
+    G = nx.DiGraph()
+    for edge,distanceDelayBandwidth in timeEdgesDistancesDelaysBandwidth[t].items():
+        distance = distanceDelayBandwidth[0]
+        timeDelay = distanceDelayBandwidth[1]
+        bandwidth = distanceDelayBandwidth[2]
+        G.add_edge(*edge,distance=distance,timeDelay=timeDelay,bandwidth=bandwidth)
+    for node,pos in timeNodePos[t].items():
+        G.add_node(node,Type=node.split('/')[0],Position=pos)
+    return G
+
+def addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,constellationPairsDict,defaultValue=0):
+
+    # Get possible edges from the constellation pairs dict 
+    edgesBandwith = []
+    for constellationPair,bandwidth in constellationPairsDict.items():
+        nodesCon1 = getNodesFromConstellation(stkRoot,constellationPair[0])
+        nodesCon2 = getNodesFromConstellation(stkRoot,constellationPair[1])
+        edgesBandwith.append([(start,end,bandwidth) for start,end in itertools.product(nodesCon1, nodesCon2)])
+    edgesBandwith = {(item[0],item[1]):item[2] for sublist in edgesBandwith for item in sublist}
+    
+    # Add the new metric to timesEdgesDistancesDelays
+    timesEdgesDistancesDelaysBandwidths = {}
+    edgesDistanceDelayBandwidths = {}
+    for t,edgesDistanceDelays in timesEdgesDistancesDelays.items():
+        edges = edgesDistanceDelays.keys()
+        for edge in edges:
+            distance = edgesDistanceDelays[edge][0]
+            delay = edgesDistanceDelays[edge][1]
+            if edge in edgesBandwith.keys():
+                edgesDistanceDelayBandwidths[edge] = (distance,delay,edgesBandwith[edge])
+            else:
+                edgesDistanceDelayBandwidths[edge] = (distance,delay,defaultValue)    
+        timesEdgesDistancesDelaysBandwidths[t] = edgesDistanceDelayBandwidths
+    return timesEdgesDistancesDelaysBandwidths
+
+def createColorRamp(rgb1,rgb2,data):
+    rgb1 = np.array(rgb1)
+    rgb2 = np.array(rgb2)
+    data = np.array(data)
+
+    minData = min(data)
+    maxData = max(data)
+    scale = maxData-minData
+    dRGB = rgb2-rgb1
+
+    colors = np.array([(item-minData)/(scale)*dRGB+rgb1 for item in data]).astype(int)
+    colorsDict = {data[ii]:'%{:03d}{:03d}{:03d}'.format(colors[ii,0],colors[ii,1],colors[ii,2]) for ii in range(colors.shape[0])}
+    return colorsDict
+
+def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,useColorRamp=True,rampColor1=[255,255,255],rampColor2=[255,0,0],colorScale=np.nan):
+    if deleteOldLines == True:
+        stkRoot.ExecuteCommand('VO * ObjectLine DeleteAll')
+    
+    # Get unique Edges
+    uniqueEdges = list(set(timeEdgeCountAll[:,1]))
+
+    # Color by count
+    if useColorRamp == True:
+        uniqueCountsAll = np.array(list(set(timeEdgeCountAll[:,2])))
+        colorDict = createColorRamp(rampColor1,rampColor2,uniqueCountsAll)
+        
+        for uniqueEdge in uniqueEdges:
+            # Get data for unique Edges
+            mask = [True if edge==uniqueEdge else False for edge in timeEdgeCountAll[:,1]]
+            timeEdgeUniqueCount = timeEdgeCountAll[mask,:]
+
+            # Color each edge by count number at a time, unfortunately you cannot do this with line width
+            uniqueCounts = list(set(timeEdgeUniqueCount[:,2]))
+            add = True
+            for uniqueCount in uniqueCounts:
+                mask2 = [True if count==uniqueCount else False for count in timeEdgeUniqueCount[:,2]]
+                timeEdgeUniqueCountUnique = timeEdgeUniqueCount[mask2,:]
+
+                # Create merged intervals 
+                timeUnique = timeEdgeUniqueCountUnique[:,0]
+                intervalsNum = np.stack((timeUnique-step/2,timeUnique+step/2),axis=1)
+                mergedIntervals = np.array(mergeIntervals(intervalsNum))
+
+                # Build and execute Connect Commaands to add Object Lines to STK
+                strIntervals = mergedIntervals.astype(str)
+                startStop = ['" "'.join(intervalii) for intervalii in strIntervals]
+                node1 = uniqueEdge[0]
+                node2 = uniqueEdge[1]
+                numIntervals = len(mergedIntervals)
+                intervals = '"'+'" "'.join(startStop)+'"'
+                if add == True:
+                    cmd = 'VO * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+colorDict[uniqueCount]+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+                    stkRoot.ExecuteCommand(cmd)
+                    cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+                    stkRoot.ExecuteCommand(cmd)
+                    add = False
+                else: # If an edge already exists add additionalintervals, each interval color has to be modified seperately
+                    cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+                    stkRoot.ExecuteCommand(cmd)
+                    for startStopii in startStop:
+                        cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' ModifyInterval "'+startStopii +'" Color '+colorDict[uniqueCount]
+                        stkRoot.ExecuteCommand(cmd)
+
+    else:
+        for uniqueEdge in uniqueEdges:
+            # Get data for unique Edges
+            mask = [True if edge==uniqueEdge else False for edge in timesEdgeCountAll[:,1]]
+            timeEdgeUniqueCount = timesEdgeCountAll[mask,:]
+
+            # Create merged intervals 
+            timeUnique = timeEdgeUniqueCount[:,0]
+            intervalsNum = np.stack((timeUnique-step/2,timeUnique+step/2),axis=1)
+            mergedIntervals = np.array(mergeIntervals(intervalsNum))
+
+            # Build and execute Connect Commands to add all intervals as Object Lines to STK
+            strIntervals = mergedIntervals.astype(str)
+            startStop = ['" "'.join(intervalii) for intervalii in strIntervals]
+            node1 = uniqueEdge[0]
+            node2 = uniqueEdge[1]
+            numIntervals = len(mergedIntervals)
+            intervals = '"'+'" "'.join(startStop)+'"'
+            cmd = 'VO * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+color+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+            stkRoot.ExecuteCommand(cmd)
+            cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+            stkRoot.ExecuteCommand(cmd)
+        
+    return
+
+def topNShortestPaths(G,t,startingNode,endingNode,metric,topN=3):
+    allPaths = nx.shortest_simple_paths(G,startingNode,endingNode,weight=metric)
+    ii = 1
+    timeStrandMetricTopN = []
+    try:
+        for path in allPaths:
+            metricVal = sum((G.edges[path[jj],path[jj+1]][metric] for jj in range(len(path)-1)))
+            timeStrandMetricTopN.append((t,path,metricVal))
+            if ii >= topN:
+                break
+            ii+= 1
+    except:
+        timeStrandMetricTopN.append((t,'',np.nan))
+    return timeStrandMetricTopN
+
+def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,startingNode,endingNode,metric,topN=3,overrideData=False,printTime=False,filename='',removeUsedNodes=False,removeUsedEdges=False):
+    
+    # Build new network at each time and gather metrics
+    t1 = time.time()
+    
+    # Use first nodes for the naming convention
+    if not filename:
+        filename = 'SavedNetworkData/dfTop{}{}{}.pkl'.format(topN,startingNode.split('/')[-1],endingNode.split('/')[-1])
+        
+    if os.path.exists(filename) and overrideData == False:
+        with open(filename,'rb') as f:
+            df = pickle.load(f)
+    else:
+        # Define initial variables
+        timeStrandMetric = []
+        i = 0
+        # Loop through each time
+        for t in np.arange(start,stop+step,step):
+            # Generate Network at each time
+            if metric.lower() == 'bandwidth':
+                G = generateDiNetworkBandwidth(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
+            else:
+                G = generateDiNetwork(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
+        
+            # find unique paths, remove previously used nodes and edges if desired
+            if removeUsedNodes == True: # note removing nodes also removes all associated edges
+                for ii in range(topN):
+                    timePathDelay = topNShortestPaths(G,t,startingNode,endingNode,metric,topN=1)
+                    timeStrandMetric.append(timePathDelay)
+                    nodesToRemove = timePathDelay[0][1][1:-1]
+                    Gnew = G.copy()
+                    Gnew.remove_nodes_from(nodesToRemove)
+                    G = Gnew.copy()
+            elif removeUsedEdges == True:
+                for ii in range(topN):
+                    timePathDelay = topNShortestPaths(G,t,startingNode,endingNode,metric,topN=1)
+                    timeStrandMetric.append(timePathDelay)
+                    nodesToRemove = timePathDelay[0][1]
+                    edgesToRemove = [(x,y) for x,y in zip(nodesToRemove,nodesToRemove[1:])]
+                    Gnew = G.copy()
+                    Gnew.remove_edges_from(edgesToRemove)
+                    G = Gnew.copy()
+            else:
+                timeStrandMetric.append(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
+            
+        # Unpack into a list, instead of a list of sublists
+        timeStrandMetric = [item for sublist in timeStrandMetric for item in sublist]
+        
+        # Build df
+        df = pd.DataFrame(timeStrandMetric,columns=['time','strand',metric])
+        df['num hops'] = df['strand'].apply(lambda x: len(x)-2)
+        df['num parent hops'] = df['strand'].apply(lambda x: len(set([str.split(obj,'/')[1] for obj in x]))-2) 
+        df.loc[df['num hops'] < 0,'num hops'] = np.nan
+        df.loc[df['num parent hops'] < 0,'num parent hops'] = np.nan
+        df[metric] = df[metric].astype(float)
+
+        # Save df
+        with open(filename,'wb') as f:
+            pickle.dump(df,f)
+
+    if printTime == True:
+        print(time.time()-t1)
+    return df
+
+def loadNetworkDfTopN(nodePairs,topN,filenames=''):
+    ii = 0
+    for nodePair in nodePairs:
+        # Figureout each filename
+        startingNode= nodePair[0]
+        endingNode = nodePair[1]
+        if not filenames:
+            filename = 'SavedNetworkData/dfTop{}{}{}.pkl'.format(topN,startingNode.split('/')[-1],endingNode.split('/')[-1])
+        else:
+            filename = filenames[ii]
+
+        # Read first file and get columns
+        if ii == 0:
+            with open(filename,'rb') as f:
+                columns = pickle.load(f).columns
+            df = np.empty((0,len(columns)))
+        
+        # Read each file
+        with open(filename,'rb') as f:
+            dfTemp = pickle.load(f).to_numpy()
+        
+        # Append dataframes
+        df = np.append(df,dfTemp,axis=0)
+        ii+=1
+    
+    # Assign columns and add delays
+    df = pd.DataFrame(df,columns=columns)
+
+    return df
+
+
+def loadNetworkDf(nodePairs,filenames=''):
+    ii = 0
+    for nodePair in nodePairs:
+        # Figureout each filename
+        startingNode= nodePair[0]
+        endingNode = nodePair[1]
+        if not filenames:
+            filename = 'SavedNetworkData/df{}{}.pkl'.format(startingNode.split('/')[-1],endingNode.split('/')[-1])
+        else:
+            filename = filenames[ii]
+
+        # Read first file and get columns
+        if ii == 0:
+            with open(filename,'rb') as f:
+                columns = pickle.load(f).columns
+            df = np.empty((0,len(columns)))
+        
+        # Read each file
+        with open(filename,'rb') as f:
+            dfTemp = pickle.load(f).to_numpy()
+            
+        # Append dataframes
+        df = np.append(df,dfTemp,axis=0)
+        ii+=1
+
+    # Assign columns and add delays
+    df = pd.DataFrame(df,columns=columns)
+
+    return df
+
+def createTimesEdgesCountFromDF(df):
+    # Read df of discrete values to numpy array
+    npArr = df.to_numpy()
+
+    # Loop through time, break down edges at each time
+    timesUnique = np.array(list(set(npArr[:,0])))
+    times = timesUnique[np.argsort(timesUnique)]
+    timeEdgeCountAll = np.empty((0,2))
+    for t in times:
+        npArrT = npArr[npArr[:,0] == t,:]
+        strandsAtT = npArrT[:,1]
+        edgesAtT = [(t,(strand[ii],strand[ii+1])) for strand in strandsAtT for ii in range(len(strand)-1)]
+        timeEdgeCount = np.array(list(Counter((edge for edge in edgesAtT)).items()))
+        timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
+    
+    # Rearranging data, there is probably a cleaner way to build this, but this works
+    timeArr,edgeArr = np.array(list(zip(*timeEdgeCountAll[:,0])))
+    countArr = timeEdgeCountAll[:,1]
+    timeEdgeCountAll = np.stack((timeArr,edgeArr,countArr),axis=1)
+    return timeEdgeCountAll
+
+
+
+######
 def addLightAndNodeDelays(df,timesEdgesDistancesDelays):
     if 'distance' in df.columns:
         df['timeDelay'] = [computePathDistanceDelay(tuple(df.iloc[i,1]),timesEdgesDistancesDelays[df.iloc[i,0]])[1] for i in range(len(df))]
@@ -1101,7 +1402,11 @@ def computeNetworkMetrics(start,stop,step,timeNodePos,timesEdgesDistancesDelays,
             
             # Generate Network at each time
             if diNetwork == True:
-                G = generateDiNetwork(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
+                if metric.lower() == 'bandwidth':
+                    G = generateDiNetworkBandwidth(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
+                else:
+                    G = generateDiNetwork(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
+            
             else:
                 G = generateNetwork(t,timesEdgesDistancesDelays,timeNodePos)
                 
