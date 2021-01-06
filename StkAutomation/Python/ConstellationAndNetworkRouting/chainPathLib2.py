@@ -152,17 +152,18 @@ def topNShortestPaths(G,t,startingNode,endingNode,metric,topN=3):
     allPaths = nx.shortest_simple_paths(G,startingNode,endingNode,weight=metric)
     ii = 1
     timeStrandMetricTopN = []
-    for path in allPaths:
-        metricVal = sum((G.edges[path[jj],path[jj+1]][metric] for jj in range(len(path)-1)))
-        timeStrandMetricTopN.append((t,path,metricVal))
-        if ii >= topN:
-            break
-        ii+= 1
-    if not timeStrandMetricTopN:
+    try:
+        for path in allPaths:
+            metricVal = sum((G.edges[path[jj],path[jj+1]][metric] for jj in range(len(path)-1)))
+            timeStrandMetricTopN.append((t,path,metricVal))
+            if ii >= topN:
+                break
+            ii+= 1
+    except:
         timeStrandMetricTopN.append((t,'',np.nan))
     return timeStrandMetricTopN
 
-def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,startingNode,endingNode,metric,topN=3,overrideData=False,printTime=False,filename=''):
+def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,startingNode,endingNode,metric,topN=3,overrideData=False,printTime=False,filename='',removeUsedNodes=False,removeUsedEdges=False):
     
     # Build new network at each time and gather metrics
     t1 = time.time()
@@ -185,7 +186,27 @@ def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,sta
                 G = generateDiNetworkBandwidth(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
             else:
                 G = generateDiNetwork(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
-            timeStrandMetric.append(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
+        
+            # find unique paths, remove previously used nodes and edges if desired
+            if removeUsedNodes == True: # note removing nodes also removes all associated edges
+                for ii in range(topN):
+                    timePathDelay = topNShortestPaths(G,t,startingNode,endingNode,metric,topN=1)
+                    timeStrandMetric.append(timePathDelay)
+                    nodesToRemove = timePathDelay[0][1][1:-1]
+                    Gnew = G.copy()
+                    Gnew.remove_nodes_from(nodesToRemove)
+                    G = Gnew.copy()
+            elif removeUsedEdges == True:
+                for ii in range(topN):
+                    timePathDelay = topNShortestPaths(G,t,startingNode,endingNode,metric,topN=1)
+                    timeStrandMetric.append(timePathDelay)
+                    nodesToRemove = timePathDelay[0][1]
+                    edgesToRemove = [(x,y) for x,y in zip(nodesToRemove,nodesToRemove[1:])]
+                    Gnew = G.copy()
+                    Gnew.remove_edges_from(edgesToRemove)
+                    G = Gnew.copy()
+            else:
+                timeStrandMetric.append(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
             
         # Unpack into a list, instead of a list of sublists
         timeStrandMetric = [item for sublist in timeStrandMetric for item in sublist]
