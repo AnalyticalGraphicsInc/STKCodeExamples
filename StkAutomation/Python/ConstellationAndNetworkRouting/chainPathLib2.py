@@ -301,7 +301,8 @@ def createTimesEdgesCountFromDF(df):
         strandsAtT = npArrT[:,1]
         edgesAtT = [(t,(strand[ii],strand[ii+1])) for strand in strandsAtT for ii in range(len(strand)-1)]
         timeEdgeCount = np.array(list(Counter((edge for edge in edgesAtT)).items()))
-        timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
+        if len(timeEdgeCount)>0:
+            timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
     
     # Rearranging data, there is probably a cleaner way to build this, but this works
     timeArr,edgeArr = np.array(list(zip(*timeEdgeCountAll[:,0])))
