@@ -68,11 +68,22 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 ![Social Media](https://user-images.githubusercontent.com/60275830/96517157-453e6280-121d-11eb-8350-0d4ea9aa48d7.PNG)
 
 <div align="left">
+<p style="white-space: nowrap;">
+<a href="https://www.facebook.com/AnalyticalGraphics">
+<img src="https://agi.widen.net/content/ittkxedjpm/jpeg/facebook.png" width="80" height="80" alt="Facebook">
+</a>
+<a href="https://www.youtube.com/user/AnalyticalGraphics">
+<img src="https://agi.widen.net/content/i5vb9swh4e/jpeg/Youtube.png" width="80" height="80" alt="Youtube">
+</a>
+<a href="https://www.linkedin.com/company/agi?trk=company_logo">
+<img src="https://agi.widen.net/content/foz3n4wgkh/jpeg/linkedin.png" width="80" height="80" alt="LinkedIn">
+</a>
+<a href="https://twitter.com/agitweets">
+<img src="https://agi.widen.net/content/xbt8vag5rw/jpeg/twitter.png" width="80" height="80" alt="Twitter">
+</a>
 
-[![Facebook](https://agi.widen.net/content/ittkxedjpm/jpeg/facebook.png?width=80&height=80)](https://www.facebook.com/AnalyticalGraphics)
-[![Youtube](https://agi.widen.net/content/i5vb9swh4e/jpeg/Youtube.png?width=80&height=80)](https://www.youtube.com/user/AnalyticalGraphics)
-[![LinkedIn](https://agi.widen.net/content/foz3n4wgkh/jpeg/linkedin.png?width=80&height=80)](https://www.linkedin.com/company/agi?trk=company_logo)
-[![Twitter](https://agi.widen.net/content/xbt8vag5rw/jpeg/twitter.png?width=80&height=80)](https://twitter.com/agitweets)
-                            
-![AGI](https://agi.widen.net/content/9fql14lj9u/jpeg/AGILOGO_2017_Vertical_Black.png?width=80&height=80)
+<a href="https://www.agi.com">
+<img src="https://agi.widen.net/content/9fql14lj9u/jpeg/AGILOGO_2017_Vertical_Black.png" width="80" height="80" alt="AGI" style="float:right">
+</a>
+</p>
 </div>
