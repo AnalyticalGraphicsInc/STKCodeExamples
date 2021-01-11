@@ -1,11 +1,19 @@
 <div align="left">
 
-<!--img src="https://embed.widencdn.net/svg/agi/z0svs3hr1p/STK_LogotypeLtBg01.svg?u=ivc64j" alt="STK_LogotypeLtBg02" width="640"-->
-
-![STK](https://user-images.githubusercontent.com/60275830/96516857-b6c9e100-121c-11eb-9483-773c013d9bd0.PNG) 
-[![Documents](https://user-images.githubusercontent.com/60275830/96516892-c6e1c080-121c-11eb-9f76-4a98bf8b9134.PNG)](https://help.agi.com/stkdevkit/index.htm)
-[![Get Certified](https://user-images.githubusercontent.com/60275830/96516954-e4168f00-121c-11eb-96b2-719c66cae3a5.PNG)](http://www.agi.com/training-and-certification#cert)
-[![Contact Support](https://user-images.githubusercontent.com/60275830/96516988-f42e6e80-121c-11eb-8ab1-ca7ed8f110b3.PNG)](mailto:support@agi.com)
+<p style="white-space: nowrap;">
+<a href="STK">
+<img src="https://user-images.githubusercontent.com/60275830/96516857-b6c9e100-121c-11eb-9483-773c013d9bd0.PNG" alt="STK">
+</a>
+<a href="https://help.agi.com/stkdevkit/index.htm">
+<img src="https://user-images.githubusercontent.com/60275830/96516892-c6e1c080-121c-11eb-9f76-4a98bf8b9134.PNG" alt="Documentation">
+</a>
+<a href="http://www.agi.com/training-and-certification#cert">
+<img src="https://user-images.githubusercontent.com/60275830/96516954-e4168f00-121c-11eb-96b2-719c66cae3a5.PNG" alt="Get Certified">
+</a>
+<a href="mailto:support@agi.com">
+<img src="https://user-images.githubusercontent.com/60275830/96516988-f42e6e80-121c-11eb-8ab1-ca7ed8f110b3.PNG" alt="Contact Support">
+</a>
+</p>
 
 </div>
 
