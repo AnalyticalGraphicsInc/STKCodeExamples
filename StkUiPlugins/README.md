@@ -2,7 +2,7 @@
 
 Example UiPlugin applications written in .NET for STK Desktop
 
-### Choose your languague
+### Choose your language
 
 * [CSharp](CSharp)
 * [VB.NET](VB.NET)
