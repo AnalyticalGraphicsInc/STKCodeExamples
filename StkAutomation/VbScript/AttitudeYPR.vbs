@@ -3,7 +3,7 @@
 ' point. It expects a gregorian date format
 '
 ' author: jens ramrath
-' date: 30 Sep 2009
+' date: 30 Sep 2009; updated 1/15/21
 
 set oArgs = wscript.arguments
 path = oArgs(0)
