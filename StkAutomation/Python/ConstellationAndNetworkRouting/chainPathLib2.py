@@ -74,7 +74,7 @@ def createColorRamp(rgb1,rgb2,data):
     colorsDict = {data[ii]:'%{:03d}{:03d}{:03d}'.format(colors[ii,0],colors[ii,1],colors[ii,2]) for ii in range(colors.shape[0])}
     return colorsDict
 
-def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,useColorRamp=True,rampColor1=[255,255,255],rampColor2=[255,0,0],colorScale=np.nan):
+def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,useColorRamp=True,rampColor1=[255,255,255],rampColor2=[255,0,0],colorScale=np.nan,addTo2D=False):
     if deleteOldLines == True:
         stkRoot.ExecuteCommand('VO * ObjectLine DeleteAll')
     
@@ -115,13 +115,24 @@ def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow'
                     stkRoot.ExecuteCommand(cmd)
                     cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
                     stkRoot.ExecuteCommand(cmd)
+                    if addTo2D==True:
+                        cmd = 'Graphics * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+colorDict[uniqueCount]+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+                        stkRoot.ExecuteCommand(cmd)
+                        cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+                        stkRoot.ExecuteCommand(cmd)
                     add = False
                 else: # If an edge already exists add additionalintervals, each interval color has to be modified seperately
                     cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
                     stkRoot.ExecuteCommand(cmd)
+                    if addTo2D==True:
+                        cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+                        stkRoot.ExecuteCommand(cmd)
                     for startStopii in startStop:
                         cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' ModifyInterval "'+startStopii +'" Color '+colorDict[uniqueCount]
                         stkRoot.ExecuteCommand(cmd)
+                        if addTo2D==True:
+                            cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' ModifyInterval "'+startStopii +'" Color '+colorDict[uniqueCount]
+                            stkRoot.ExecuteCommand(cmd)
 
     else:
         for uniqueEdge in uniqueEdges:
@@ -145,6 +156,11 @@ def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow'
             stkRoot.ExecuteCommand(cmd)
             cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
             stkRoot.ExecuteCommand(cmd)
+            if addTo2D==True:
+                cmd = 'Graphics * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+color+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+                stkRoot.ExecuteCommand(cmd)
+                cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+                stkRoot.ExecuteCommand(cmd)
         
     return
 
