@@ -1,0 +1,5 @@
+This simple MATLAB function requires an open STK 12 scenario with a satellite that has been propagated with the SGP4 propagator. This function will pull out the initial state of the SGP4 satellite in the ICRF frame then create and propagate a new satellite of the specified propagator type using that initial state. Place this file in your MATLAB working directory and then you can call it within other MATLAB scripts or directly from the command window.
+
+Example function call: convertTLEState('Satellite1','ePropagatorHPOP')
+
+NOTE: You must use single quotations to specify these string inputs, this is due to limitations of the SetPropagatorType method                                                                                                                                                                                                              
