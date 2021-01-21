@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version="1.0">
+	<CategoryRegistry>
+    <Category Name = "UiPlugins">
+      <NETUiPlugin
+           DisplayName="Custom Frame Ephemeris Export"
+           TypeName="Stk12.UiPlugin.CustomFrameEphemeris.Setup"
+           AssemblyName="STK12.UiPlugin.CustomFrameEphemeris"
+           CodeBase="C:\Visual Studio 2019\Stk12.UiPlugin.CustomFrameEphemeris\Stk12.UiPlugin.CustomFrameEphemeris\bin\x64\Debug">
+      </NETUiPlugin>
+    </Category>
+	</CategoryRegistry>
+</AGIRegistry>

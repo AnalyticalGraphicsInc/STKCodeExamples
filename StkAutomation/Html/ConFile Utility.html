@@ -1,0 +1,79 @@
+
+<!-- saved from url=(0120)http://agi.vo.llnwd.net/v1/s/resources/code-snippets-samples/ConFile.htm?e=1484836262&h=81608c2439c5a1b090cb8c428a7bad1d -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>ConFile Utility</title>
+		<meta name="description" content="Example utility that executes a ConFile">
+
+		<script language="VBSCRIPT">
+
+		    Dim stk
+		    Dim uiApp
+		    Dim fso
+		    Set uiApp = window.external
+		    Set stk = uiApp.personality2
+			Set fso = uiApp.CreateObject("Scripting.FileSystemObject")
+
+			stk.ExecuteCommand("ConControl / VerboseOff")
+
+			Function sendCommand(command)
+				Dim result
+				on error resume next
+				Set result = stk.ExecuteCommand(command)
+				sendCommand = result(0)
+			End Function
+
+		</script>
+
+		<script language="JavaScript">
+
+			function getUniqueName(path) {
+				count = 1;
+				name = path;
+				while (sendCommand("DoesObjExist / " + name) == 1){
+					name = path + count;
+					name = name.replace(/\d+$/,count);
+					count++;
+					}
+				return (name);
+				}
+
+			function showFile() {
+				filename = uiApp.FileOpenDialog("*.*", "All Files (*.*)|*.*|", ".");
+				if (filename) {
+					FileName.value = filename
+					}
+				}
+
+			function myFromFile() {
+				fn = FileName.value;
+				//alert(String(fn));
+				stk.ExecuteCommand("ConFile / \"" + String(fn) + "\"");
+				alert("Complete");
+			}
+
+		</script>
+
+	<link href="./ConFile Utility_files/htmlUtilities.css" rel="stylesheet" type="text/css" id="theStyle"></head>
+	
+	<body>
+	<h3> ConFile Reader </h3>
+	<h5> This utility loads a text file of connect commands (1 command per line) </h5>
+		<hr>
+
+		<table border="0" class="task_box" cellpadding="6" cellspacing="0">
+			<tbody><tr>
+				<td>File:</td>
+				<td width="100%"><input type="text" name="FileName" style="width: 100%"></td>
+				<td><input type="button" name="Browse" id="Browse" value="Browse" onclick="showFile()" class="submitsml"></td>
+			</tr>
+			<tr>
+				<td colspan="3"><input type="button" name="Run" value="Run" onclick="myFromFile()">
+				</td>
+			</tr>
+
+		</tbody></table>
+	<hr>
+
+	
+
+</body></html>
