@@ -6,6 +6,7 @@
 ' 
 ' author: jens ramrath
 ' date: 8 Jan 2010
+' updated: 21 Jan 2021
 
 
 set oArgs = wscript.arguments
