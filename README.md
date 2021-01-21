@@ -83,7 +83,7 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 </a>
 
 <a href="https://www.agi.com">
-<img src="https://agi.widen.net/content/9fql14lj9u/jpeg/AGILOGO_2017_Vertical_Black.png" width="80" height="80" alt="AGI" style="float:right">
+<img src="https://agi.widen.net/content/nzy6ztl5jb/jpeg/AGI-Logo_2C-K.png" width="148" height="80" alt="AGI" style="float:right">
 </a>
 </p>
 </div>
