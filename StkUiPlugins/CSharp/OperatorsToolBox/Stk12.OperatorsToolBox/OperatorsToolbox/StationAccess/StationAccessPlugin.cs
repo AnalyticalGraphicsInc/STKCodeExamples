@@ -44,7 +44,7 @@ namespace OperatorsToolbox.StationAccess
             string className = null;
             if (ToObjectList.FocusedItem != null)
             {
-                if (ToObjectType.SelectedIndex==4)
+                if (ToObjectType.Text == "Constellation")
                 {
                     CommonData.ToObjectNames.Clear();
                     foreach (ListViewItem item in ToObjectList.Items)
@@ -97,7 +97,7 @@ namespace OperatorsToolbox.StationAccess
             string path = null;
             if (FromObjectList.FocusedItem != null)
             {
-                if (FromObjectType.SelectedIndex==4)
+                if (FromObjectType.Text == "Constellation")
                 {
                     CommonData.FromObjectNames.Clear();
                     foreach (ListViewItem item in FromObjectList.Items)
@@ -149,26 +149,27 @@ namespace OperatorsToolbox.StationAccess
             if (ToObjectType.SelectedIndex != -1)
             {
                 CommonData.ToObjectNames.Clear();
-                if (ToObjectType.SelectedIndex == 0)
-                {
-                    PopulateObjectList(ToObjectList, "Satellite");
-                }
-                else if (ToObjectType.SelectedIndex == 1)
-                {
-                    PopulateObjectList(ToObjectList, "Aircraft");
-                }
-                else if (ToObjectType.SelectedIndex == 2)
-                {
-                    PopulateObjectList(ToObjectList, "Missile");
-                }
-                else if (ToObjectType.SelectedIndex == 3)
-                {
-                    PopulateObjectList(ToObjectList, "LaunchVehicle");
-                }
-                else if (ToObjectType.SelectedIndex == 4)
-                {
-                    PopulateObjectList(ToObjectList, "Constellation");
-                }
+                CreatorFunctions.PopulateObjectListByClass(ToObjectList, ToObjectType.Text);
+                //if (ToObjectType.SelectedIndex == 0)
+                //{
+                //    PopulateObjectList(ToObjectList, "Satellite");
+                //}
+                //else if (ToObjectType.SelectedIndex == 1)
+                //{
+                //    PopulateObjectList(ToObjectList, "Aircraft");
+                //}
+                //else if (ToObjectType.SelectedIndex == 2)
+                //{
+                //    PopulateObjectList(ToObjectList, "Missile");
+                //}
+                //else if (ToObjectType.SelectedIndex == 3)
+                //{
+                //    PopulateObjectList(ToObjectList, "LaunchVehicle");
+                //}
+                //else if (ToObjectType.SelectedIndex == 4)
+                //{
+                //    PopulateObjectList(ToObjectList, "Constellation");
+                //}
             }
         }
 
@@ -177,26 +178,27 @@ namespace OperatorsToolbox.StationAccess
             if (FromObjectType.SelectedIndex != -1)
             {
                 CommonData.FromObjectNames.Clear();
-                if (FromObjectType.SelectedIndex == 0)
-                {
-                    PopulateObjectList(FromObjectList, "Facility");
-                }
-                else if (FromObjectType.SelectedIndex == 1)
-                {
-                    PopulateObjectList(FromObjectList, "Place");
-                }
-                else if (FromObjectType.SelectedIndex == 2)
-                {
-                    PopulateObjectList(FromObjectList, "Target");
-                }
-                else if (FromObjectType.SelectedIndex == 3)
-                {
-                    PopulateObjectList(FromObjectList, "Sensor");
-                }
-                else if (FromObjectType.SelectedIndex == 4)
-                {
-                    PopulateObjectList(FromObjectList, "Constellation");
-                }
+                CreatorFunctions.PopulateObjectListByClass(FromObjectList, FromObjectType.Text);
+                //if (FromObjectType.SelectedIndex == 0)
+                //{
+                //    PopulateObjectList(FromObjectList, "Facility");
+                //}
+                //else if (FromObjectType.SelectedIndex == 1)
+                //{
+                //    PopulateObjectList(FromObjectList, "Place");
+                //}
+                //else if (FromObjectType.SelectedIndex == 2)
+                //{
+                //    PopulateObjectList(FromObjectList, "Target");
+                //}
+                //else if (FromObjectType.SelectedIndex == 3)
+                //{
+                //    PopulateObjectList(FromObjectList, "Sensor");
+                //}
+                //else if (FromObjectType.SelectedIndex == 4)
+                //{
+                //    PopulateObjectList(FromObjectList, "Constellation");
+                //}
             }
         }
 
@@ -221,7 +223,7 @@ namespace OperatorsToolbox.StationAccess
                 IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */Constellation/" + accessName + "_ToAccessConst");
 
                 string objPath;
-                if (ToObjectType.SelectedIndex!=4)
+                if (ToObjectType.Text != "Constellation")
                 {
                     if (result[0] == "0")
                     {
@@ -248,7 +250,7 @@ namespace OperatorsToolbox.StationAccess
             {
                 IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */Constellation/" + accessName + "_FromAccessConst");
                 string objPath;
-                if (FromObjectType.SelectedIndex!=4)
+                if (FromObjectType.Text != "Constellation")
                 {
                     if (result[0] == "0")
                     {
@@ -407,7 +409,10 @@ namespace OperatorsToolbox.StationAccess
             ToObjectType.Items.Add("Satellite");
             ToObjectType.Items.Add("Aircraft");
             ToObjectType.Items.Add("Missile");
-            ToObjectType.Items.Add("Launch Vehicle");
+            ToObjectType.Items.Add("LaunchVehicle");
+            ToObjectType.Items.Add("Receiver");
+            ToObjectType.Items.Add("Antenna");
+            ToObjectType.Items.Add("Facility");
             ToObjectType.Items.Add("Constellation");
             ToObjectType.SelectedIndex = 0;
         }
@@ -417,7 +422,11 @@ namespace OperatorsToolbox.StationAccess
             FromObjectType.Items.Add("Facility");
             FromObjectType.Items.Add("Place");
             FromObjectType.Items.Add("Target");
-            FromObjectType.Items.Add("Ground Sensor");
+            FromObjectType.Items.Add("Sensor");
+            FromObjectType.Items.Add("Transmitter");
+            FromObjectType.Items.Add("Antenna");
+            FromObjectType.Items.Add("Radar");
+            FromObjectType.Items.Add("Satellite");
             FromObjectType.Items.Add("Constellation");
             FromObjectType.SelectedIndex = 0;
         }
@@ -471,10 +480,12 @@ namespace OperatorsToolbox.StationAccess
                 classNameTemp = mStkObjectsLibrary.ClassNameFromObjectPath(path);
                 if (objectName == simpleName && classNameTemp != "Scenario")
                 {
-                    if (classNameTemp == "Sensor")
+                    if (classNameTemp == "Sensor" || classNameTemp == "Transmitter" || classNameTemp == "Receiver" || classNameTemp == "Antenna" || classNameTemp == "Radar")
                     {
                         truncPath = mStkObjectsLibrary.ObjectPathWithoutName(path);
                         truncPath = mStkObjectsLibrary.TruncatedObjectPath(truncPath);
+                        //int index = truncPath.LastIndexOf('/');
+                        //truncPath = truncPath.Substring(0, index);
                         className = truncPath;
                     }
                     else

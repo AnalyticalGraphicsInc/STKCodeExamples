@@ -1,0 +1,39 @@
+#
+# Based upon "Report of the IAU/IAG Working Group on Cartographic Coordinates and
+# Rotational Elements: 2009", Celestial Mechanics 109: 101-135, 2011.
+#
+
+BEGIN RotationalData
+
+	ModelName	IAU 2009
+
+    Description	Coefficients from the IAU 2009 parameter set
+
+    RotationEpoch                2451545.0000000
+
+	Begin RotationalElement
+	Type			SpinAxisRightAscension
+	Constant		291.0
+	Rate			0.0
+	RateDot		 	0.0
+	NumberOfTerms	0
+	End RotationalElement
+
+
+	Begin RotationalElement
+	Type			SpinAxisDeclination
+	Constant		59.0
+	Rate			0.0
+	RateDot		 	0.0
+	NumberOfTerms	0
+	End RotationalElement
+
+	Begin RotationalElement
+	Type			Rotation
+	Constant		170.90
+	Rate			952.1532
+	RateDot		   	0.0
+	NumberOfTerms	0
+	End RotationalElement
+
+END RotationalData

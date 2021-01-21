@@ -22,6 +22,13 @@ namespace OperatorsToolbox.BetaAngleCalculator
             TargetType.SelectedIndex = 0;
             PopulateObservers();
             PopulateTargets();
+            EnableConstraint.Checked = false;
+
+            AngleType.Items.Add("Beta Angle");
+            AngleType.Items.Add("Solar Phase/CATS");
+            AngleType.SelectedIndex = 0;
+            ConstraintMin.Text = "0";
+            ConstraintMax.Text = "180";
         }
 
         private void ObserverType_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,73 +90,117 @@ namespace OperatorsToolbox.BetaAngleCalculator
 
         private void Calculate_Click(object sender, EventArgs e)
         {
-            IAgStkObject obj = null;
-            IAgStkObject tar = null;
-            foreach (var observer in CommonData.SelectedObservers)
+            int check = FieldCheck();
+            if (check == 0)
             {
-                foreach (var target in CommonData.SelectedTargets)
+                IAgStkObject obj = null;
+                IAgStkObject tar = null;
+                foreach (var observer in CommonData.SelectedObservers)
                 {
-                    if (observer != target)
+                    foreach (var target in CommonData.SelectedTargets)
                     {
-                        if (TargetType.SelectedIndex==0)
+                        if (observer != target)
                         {
-                            tar = CommonData.StkRoot.GetObjectFromPath("Satellite/" + target);
-                        }
-                        else if (TargetType.SelectedIndex == 1)
-                        {
-                            tar = CommonData.StkRoot.GetObjectFromPath("Missile/" + target);
-                        }
-                        else if (TargetType.SelectedIndex == 2)
-                        {
-                            tar = CommonData.StkRoot.GetObjectFromPath("Aircraft/" + target);
-                        }
-
-                        if (ObserverType.SelectedIndex == 0)
-                        {
-                            obj = CommonData.StkRoot.GetObjectFromPath("Satellite/" + observer);
-                        }
-                        else if (ObserverType.SelectedIndex == 1)
-                        {
-                            obj = CommonData.StkRoot.GetObjectFromPath("Facility/" + observer);
-                        }
-                        else
-                        {
-                            IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Sensor");
-                            if (result[0] != "None")
+                            if (TargetType.SelectedIndex == 0)
                             {
-                                string[] sensorArray = result[0].Split(null);
-                                foreach (var item in sensorArray)
+                                tar = CommonData.StkRoot.GetObjectFromPath("Satellite/" + target);
+                            }
+                            else if (TargetType.SelectedIndex == 1)
+                            {
+                                tar = CommonData.StkRoot.GetObjectFromPath("Missile/" + target);
+                            }
+                            else if (TargetType.SelectedIndex == 2)
+                            {
+                                tar = CommonData.StkRoot.GetObjectFromPath("Aircraft/" + target);
+                            }
+
+                            if (ObserverType.SelectedIndex == 0)
+                            {
+                                obj = CommonData.StkRoot.GetObjectFromPath("Satellite/" + observer);
+                            }
+                            else if (ObserverType.SelectedIndex == 1)
+                            {
+                                obj = CommonData.StkRoot.GetObjectFromPath("Facility/" + observer);
+                            }
+                            else
+                            {
+                                IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Sensor");
+                                if (result[0] != "None")
                                 {
-                                    if (item.Contains(observer))
+                                    string[] sensorArray = result[0].Split(null);
+                                    foreach (var item in sensorArray)
                                     {
-                                        int scenarioPos = item.LastIndexOf("/Scenario/");
-                                        int scenarioNameSlashPos = item.IndexOf("/", scenarioPos + 10);
-                                        item.Remove(0, scenarioNameSlashPos);
-                                        obj = CommonData.StkRoot.GetObjectFromPath(item);
+                                        if (item.Contains(observer))
+                                        {
+                                            int scenarioPos = item.LastIndexOf("/Scenario/");
+                                            int scenarioNameSlashPos = item.IndexOf("/", scenarioPos + 10);
+                                            item.Remove(0, scenarioNameSlashPos);
+                                            obj = CommonData.StkRoot.GetObjectFromPath(item);
+                                        }
                                     }
                                 }
                             }
-                        }
-                        IAgCrdnProvider objVgtPrv = obj.Vgt;
-                        IAgCrdnProvider tarVgt = tar.Vgt;
-                        IAgCrdnVectorDisplacement dispVector;
-                        if (objVgtPrv.Vectors.Contains("To_" + target))
-                        {
-                            dispVector = objVgtPrv.Vectors["To_" + target] as IAgCrdnVectorDisplacement;
-                        }
-                        else
-                        {
-                            dispVector = objVgtPrv.Vectors.Factory.CreateDisplacementVector("To_" + target, objVgtPrv.Points["Center"], tarVgt.Points["Center"]);
-                        }
-                        if (!objVgtPrv.Angles.Contains("To_" + target + "SolarPhaseAngle"))
-                        {
-                            IAgCrdnAngleBetweenVectors angle = (IAgCrdnAngleBetweenVectors)objVgtPrv.Angles.Factory.Create("To_" + target + "SolarPhaseAngle", "", AgECrdnAngleType.eCrdnAngleTypeBetweenVectors);
-                            angle.FromVector.SetVector(dispVector as IAgCrdnVector);
-                            angle.ToVector.SetVector(objVgtPrv.Vectors["Sun"]);
+                            IAgCrdnProvider objVgtPrv = obj.Vgt;
+                            IAgCrdnProvider tarVgt = tar.Vgt;
+                            IAgCrdnAngleBetweenVectors angle = null;
+                            IAgCrdnVectorDisplacement dispVector = AWBFunctions.GetCreateDisplacementVector(objVgtPrv, objVgtPrv.Points["Center"], tarVgt.Points["Center"], "To_" + target);
+
+                            //Create either solar phase or beta angle depending on user specified selection
+                            string angleName = null;
+                            if (AngleType.SelectedIndex == 0)
+                            {
+                                angleName = "To_" + target + "BetaAngle";
+                                angle = AWBFunctions.GetCreateAngleBetweenVectors(objVgtPrv, dispVector as IAgCrdnVector, objVgtPrv.Vectors["Sun"], angleName, "");
+                            }
+                            else if (AngleType.SelectedIndex == 1)
+                            {
+                                angleName = "To_" + target + "SolarPhaseAngle";
+                                angle = AWBFunctions.GetCreateAngleBetweenVectors(objVgtPrv, dispVector as IAgCrdnVector, tarVgt.Vectors["Sun"], angleName, "");
+                            }
+                            //Create Calc Scalar of angle
+                            IAgCrdnCalcScalarAngle cScalar = AWBFunctions.GetCreateAngleCalcScalar(objVgtPrv, angle as IAgCrdnAngle, angleName);
+
+                            //If a conditional is requested, then create it here
+                            if (EnableConstraint.Checked)
+                            {
+                                IAgCrdnConditionScalarBounds condition = AWBFunctions.GetCreateConditionScalarBounds(objVgtPrv, cScalar as IAgCrdnCalcScalar, angleName + "_Condition", AgECrdnConditionThresholdOption.eCrdnConditionThresholdOptionInsideMinMax);
+                                AWBFunctions.SetAngleConditionScalarBounds(condition, Double.Parse(ConstraintMin.Text), Double.Parse(ConstraintMax.Text));
+                            }
                         }
                     }
                 }
+                MessageBox.Show("Component Creation Completed");
             }
+        }
+
+        private int FieldCheck()
+        {
+            int check = 0;
+            double tempmin = 0.0;
+            double tempmax = 0.0;
+            bool isNumeric = Double.TryParse(ConstraintMin.Text, out tempmin);
+            if (!isNumeric)
+            {
+                check = 1;
+                MessageBox.Show("Condition minimum not a valid number");
+            }
+            isNumeric = Double.TryParse(ConstraintMin.Text, out tempmax);
+            if (!isNumeric)
+            {
+                check = 1;
+                MessageBox.Show("Condition maximum not a valid number");
+            }
+            if (tempmin > tempmax)
+            {
+                check = 1;
+                MessageBox.Show("Conditional minimum cannot be above the maximum");
+            }
+            if (tempmin < 0 || tempmin > 180 || tempmax < 0 || tempmax > 180)
+            {
+                check = 1;
+                MessageBox.Show("Conditional bounds must be between 0-180 deg");
+            }
+            return check;
         }
 
         private void PopulateObservers()
@@ -210,6 +261,18 @@ namespace OperatorsToolbox.BetaAngleCalculator
         private void TargetType_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateTargets();
+        }
+
+        private void EnableConstraint_CheckedChanged(object sender, EventArgs e)
+        {
+            if (EnableConstraint.Checked)
+            {
+                ConstraintOptions.Enabled = true;
+            }
+            else
+            {
+                ConstraintOptions.Enabled = false;
+            }
         }
     }
 }

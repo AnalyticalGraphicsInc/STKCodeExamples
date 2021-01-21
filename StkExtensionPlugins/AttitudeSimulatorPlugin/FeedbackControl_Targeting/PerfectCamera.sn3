@@ -1,0 +1,282 @@
+VO_V120		
+Translucency		 0.8
+IsShowingRadialLines		 No
+RadialLineIncr		 4
+IsShowingBoresight		 No
+IsShowingFill		 No
+FillTranslucency		 0.5
+FillResolution		  4.0000000000000000e+00
+PulseStyle		 Sin
+PulseAmplitude		 0.5
+PulseWavelength		 500000
+PulseFreq		 0.167
+PulseAntiAliased		 No
+PulseReversed		 No
+PulseFrameDependent		 Yes
+IsShowingPulse		 No
+TranslucentLines		 No
+PersistSpaceProjLines		 No
+PersistPartialCBProjLines		 Yes
+UseConstExtensionLength		 No
+ExtensionLength		 50000000
+UseSpaceExtLenTimeList		 No
+UseTgtExtLenTimeList		 No
+TargetExtensionLength		 0
+UseRangeCnstrntMinMax		 Yes
+IsShowingCompleteDome		 No
+Inherit2dProjection		 No
+ShowDomesWith2dProjection		 No
+InheritModelPosOffset		 Yes
+UseModelPosOffset		 No
+ModelPosOffset		 0 0 0
+FixVectorAxesScaleToAttSph		 No
+BEGIN GeneralVectorAxes
+    PersistentLineWidth		 2
+    Scale		 15.848932
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Boresight"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #f08080
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Up"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #0000ff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Spin"
+        MagUnit		 deg/sec
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #ff00ff
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #87cefa
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 No
+        IsCentralBodyFrame		 Yes
+        Name		 "J2000"
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #8fbc8f
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAxes
+    BEGIN CrdnDef
+        IsVector		 Yes
+        IsCentralBodyFrame		 No
+        Name		 "Sun"
+        MagUnit		 m
+    END
+    BEGIN RefCrdn
+        IsVector		 No
+        IsCentralBodyFrame		 No
+        Name		 "Body"
+        Object		 _Default
+    END
+    Duration		 3600
+    IsShowing		 No
+    IsPersistent		 No
+    IsTransparent		 No
+    UseTrueScale		 No
+    Label		 Name
+    DrawAtCentralBody		 No
+    ConnectType		 Sweep
+    ColorIndex		 #ffff00
+    IntervalType		 AlwaysOn
+    Thickness		 10
+    AngleUnit		 deg
+END
+BEGIN VectorAngle
+    FractionalScale		 1
+    SupportingDihedralArcLineWidth		 1
+    ArcLineWidth		 2
+    PixelThreshold		 0.5
+    BEGIN VectorAngleData
+        Name		 "Sun"
+        Show		 No
+        ShowLabel		 Yes
+        ShowAngle		 Yes
+        ShowDihedralAngleSupportingArcs		 Yes
+        ColorIndex		 #ff69b4
+        IntervalType		 AlwaysOn
+        Unit		 deg
+    END
+END
+BEGIN Plane
+END
+UseAttachPoint		 No
+SensorRadius		 0
+ShowStarsInFOV		 No
+UseDefStarCollection		 Yes
+BEGIN DynamicDataText
+    Name		 "Boresight AzEl"
+    Show		 No
+    ShowTitle		 Yes
+    ShowObjName		 Yes
+    ReportFormat		 Horizontal
+    Type		 ORTHOGRAPHIC
+    AttachX		 MIN
+    AttachY		 MAX
+    X		 10
+    Y		 10
+    FontIndex		 0
+    TextColorIndex		 #ffff00
+    BGEnabled		 No
+    IsBGTransparent		 No
+    BGWidth		 100
+    BGHeight		 50
+    AutoSizeWidth		 Yes
+    AutoSizeHeight		 Yes
+    BGColorIndex		 #999999
+    Version		 0
+    VertTextAlign		 BOTTOM
+    BGTranslucency		 1
+END
+BEGIN DynamicDataText
+    Name		 "Boresight Grazing Point LLA"
+    Show		 No
+    ShowTitle		 Yes
+    ShowObjName		 Yes
+    ReportFormat		 Horizontal
+    Type		 ORTHOGRAPHIC
+    AttachX		 MIN
+    AttachY		 MAX
+    X		 10
+    Y		 10
+    FontIndex		 0
+    TextColorIndex		 #ffff00
+    BGEnabled		 No
+    IsBGTransparent		 No
+    BGWidth		 100
+    BGHeight		 50
+    AutoSizeWidth		 Yes
+    AutoSizeHeight		 Yes
+    BGColorIndex		 #999999
+    Version		 0
+    VertTextAlign		 BOTTOM
+    BGTranslucency		 1
+END
+BEGIN DynamicDataText
+    Name		 "Boresight Intersection"
+    Show		 No
+    ShowTitle		 Yes
+    ShowObjName		 Yes
+    ReportFormat		 Horizontal
+    Type		 ORTHOGRAPHIC
+    AttachX		 MIN
+    AttachY		 MAX
+    X		 10
+    Y		 10
+    FontIndex		 0
+    TextColorIndex		 #ffff00
+    BGEnabled		 No
+    IsBGTransparent		 No
+    BGWidth		 100
+    BGHeight		 50
+    AutoSizeWidth		 Yes
+    AutoSizeHeight		 Yes
+    BGColorIndex		 #999999
+    Version		 0
+    VertTextAlign		 BOTTOM
+    BGTranslucency		 1
+END

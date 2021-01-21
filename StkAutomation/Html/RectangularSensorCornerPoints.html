@@ -1,0 +1,221 @@
+
+<html>
+<head>
+<title>Rectangular Sensor Corner Points</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="description" content="This HTML page is the user interface for computing a rectangular sensor's corner points.">
+<script language="VBSCRIPT">
+<!--
+    Dim uiApp, scen, root
+	
+	Sub InitPage()
+
+    	Set uiApp = window.external
+    	Set root = uiApp.Personality2
+    	Set scen = root.CurrentScenario
+		
+		loadSatOption()
+		loadSensorOption()
+
+	End Sub
+
+	Sub loadSatOption()
+		Dim tmpSat, arrSatObjs, tmpSatObj, tmpSatName, arrSatNames(), j
+		
+		Dim intLen
+		'remove previous stuff
+		intLen = optObj.length
+		for i = 0 to intLen - 1
+			optObj.remove(0)
+		next
+
+		' add all Satellties to pull-down
+		Set tmpSat = root.ExecuteCommand("ShowNames * Class Satellite")
+		arrSatObjs = split(tmpSat(0))
+		
+		For j = 1 to Ubound(arrSatObjs) step 1
+			ReDim Preserve arrSatNames(j)
+			tmpSatPath = arrSatObjs(j)
+			Set tmpSatObj = root.GetObjectFromPath(tmpSatPath)
+			tmpSatName = tmpSatObj.InstanceName
+			arrSatNames(j) = tmpSatName
+			addSatOptions(arrSatNames(j))
+		Next
+
+	End Sub
+
+	Sub loadSensorOption()
+		Dim tmpSensorNames, arrSensorObjs, arrSensorNames(), SelectName, tmpSensorName, tmpSensorObj, tmpSensorPath, k
+
+		Dim intLen
+		'remove previous stuff
+		intLen = optSensor.length
+		for i = 0 to intLen - 1
+			optSensor.remove(0)
+		next
+
+		' add all Senors to pull-down
+		SelectName = optObj.Options(optObj.SelectedIndex).Text
+		set satellite = root.GetObjectFromPath("*/Satellite/" & SelectName)
+		
+		for each sensor in satellite.Children.GetElements(20)
+			sensorPatternType = sensor.PatternType
+			if sensorPatternType = 3 then
+				addSensorOptions(sensor.InstanceName)
+			end if
+		Next
+
+	End Sub
+
+	Sub execute()
+
+		Dim SatObj,verticalHalfAngle_Rad,horizontalHalfAngle_Rad,Azimuth_Deg,Elevation_Deg,Azimuth_Rad,Elevation_Rad,sensorExist
+
+		SatName = optObj.Options(optObj.SelectedIndex).Text
+		SensorName = optSensor.Options(optSensor.SelectedIndex).Text
+		
+		Set sensorExist = root.ExecuteCommand("DoesObjExist / */Satellite/" & SatName & "/Sensor/FrontRight")
+		
+		if sensorExist(0) = 1 then
+			root.ExecuteCommand("Unload / */Satellite/" & SatName & "/Sensor/FrontRight")
+			root.ExecuteCommand("Unload / */Satellite/" & SatName & "/Sensor/BackRight")
+			root.ExecuteCommand("Unload / */Satellite/" & SatName & "/Sensor/FrontLeft")
+			root.ExecuteCommand("Unload / */Satellite/" & SatName & "/Sensor/BackLeft")
+		end if
+
+		Set SensorObj = root.GetObjectFromPath("*/Satellite/"& SatName &"/Sensor/"& SensorName &"")
+
+		pi=4*Atn(1)
+
+		verticalHalfAngle_Rad = (SensorObj.Pattern.VerticalHalfAngle)*(pi/180)
+		horizontalHalfAngle_Rad = (SensorObj.Pattern.HorizontalHalfAngle)*(pi/180)
+
+		Azimuth_Rad = Atn(tan(verticalHalfAngle_Rad)/tan(horizontalHalfAngle_Rad))
+		Elevation_Rad = Atn(tan(verticalHalfAngle_Rad)/sin(Azimuth_Rad))
+
+		Azimuth_Deg = Azimuth_Rad * (180/pi)
+		Elevation_Deg = 90 - (Elevation_Rad * (180/pi))
+
+		root.ExecuteCommand("BatchGraphics * On")
+
+		' Create four new sensor objects:
+		root.ExecuteCommand("New / */Satellite/"& SatName &"/Sensor FrontRight")
+		root.ExecuteCommand("New / */Satellite/"& SatName &"/Sensor BackRight")
+		root.ExecuteCommand("New / */Satellite/"& SatName &"/Sensor FrontLeft")
+		root.ExecuteCommand("New / */Satellite/"& SatName &"/Sensor BackLeft")
+
+		' Define the properties of the sensors:
+		root.ExecuteCommand("Define */Satellite/"& SatName &"/Sensor/FrontRight SimpleCone 0.5")
+		root.ExecuteCommand("Define */Satellite/"& SatName &"/Sensor/BackRight SimpleCone 0.5")
+		root.ExecuteCommand("Define */Satellite/"& SatName &"/Sensor/FrontLeft SimpleCone 0.5")
+		root.ExecuteCommand("Define */Satellite/"& SatName &"/Sensor/BackLeft SimpleCone 0.5")
+
+		root.ExecuteCommand("Graphics */Satellite/"& SatName &"/Sensor/FrontRight Projection ShowOn2dMap Off")
+		root.ExecuteCommand("Graphics */Satellite/"& SatName &"/Sensor/BackRight Projection ShowOn2dMap Off")
+		root.ExecuteCommand("Graphics */Satellite/"& SatName &"/Sensor/FrontLeft Projection ShowOn2dMap Off")
+		root.ExecuteCommand("Graphics */Satellite/"& SatName &"/Sensor/BackLeft Projection ShowOn2dMap Off")
+
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontRight FillTranslucency 100")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackRight FillTranslucency 100")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontLeft FillTranslucency 100")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackLeft FillTranslucency 100")
+
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontRight Projection Intersection None")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackRight Projection Intersection None")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontLeft Projection Intersection None")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackLeft Projection Intersection None")
+
+		root.ExecuteCommand("BatchGraphics * Off")
+
+		' Point the sensors along the edge of the main sensor projection using custom axes:
+		root.ExecuteCommand("Point */Satellite/"& SatName &"/Sensor/FrontRight FixedInRef AzEl " & Azimuth_Deg & " " & Elevation_Deg & " ""Satellite/"& SatName &"/Sensor/"& SensorName &" Body""")
+		root.ExecuteCommand("Point */Satellite/"& SatName &"/Sensor/BackRight FixedInRef AzEl " & (180 - Azimuth_Deg) & " " & Elevation_Deg & " ""Satellite/"& SatName &"/Sensor/"& SensorName &" Body""")
+		root.ExecuteCommand("Point */Satellite/"& SatName &"/Sensor/FrontLeft FixedInRef AzEl " & ((-1)*Azimuth_Deg) & " " & Elevation_Deg & " ""Satellite/"& SatName &"/Sensor/"& SensorName &" Body""")
+		root.ExecuteCommand("Point */Satellite/"& SatName &"/Sensor/BackLeft FixedInRef AzEl " & (180 + Azimuth_Deg) & " " & Elevation_Deg & " ""Satellite/"& SatName &"/Sensor/"& SensorName &" Body""")
+				
+		' Turn on the data displays for the boresight intersection report:
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontRight DynDataText DataDisplay ""Boresight Intersection"" Show On Position Left 10 Top 10")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/FrontLeft DynDataText DataDisplay ""Boresight Intersection"" Show On Position Left 10 Top 130")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackRight DynDataText DataDisplay ""Boresight Intersection"" Show On Position Left 10 Top 250")
+		root.ExecuteCommand("VO */Satellite/"& SatName &"/Sensor/BackLeft DynDataText DataDisplay ""Boresight Intersection"" Show On Position Left 10 Top 370")
+
+		root.ExecuteCommand("Animate * Step Forward")
+		root.ExecuteCommand("Animate * Step Reverse")
+		
+	End Sub
+	
+	Sub UnLoadPage()
+        Set uiApp = Nothing
+        Set stk = Nothing
+    End Sub
+// -->
+</script>
+
+<SCRIPT language="JavaScript">
+<!--
+function addSatOptions(optText)
+{
+		var oOption = document.createElement("OPTION");
+		oOption.text=optText;
+		optObj.add(oOption);
+}
+
+function addSensorOptions(optText)
+{
+		var oOption = document.createElement("OPTION");
+		oOption.text=optText;
+		optSensor.add(oOption);
+}
+-->
+</script>
+
+<head>
+
+<BODY onLoad="InitPage()" onUnLoad="UnLoadPage()" class="light" marginheight="0" marginwidth="0" leftmargin="0" topmargin="0">
+<TABLE border="0" cellpadding="0" cellspacing="0" align="center" class="task_box" width="100%" height="100%">
+	<tr>
+		<td align="center" valign="top">
+			<table border="0" cellpadding="6" cellspacing="0">
+				<tr>
+					<td align="center" colspan="2" class="demoScenarioHeaderCenter"><strong><FONT COLOR=Navy><u>Rectangular Sensor Corner Points<u/><br></td>
+				</tr>
+
+
+
+<!-- Select Satellite -->
+
+				<tr>
+					<th align="center"colspan="8"> Select Satellite: </th>
+				</tr>
+				<tr>
+				    <td align="center"colspan="8">
+					<select id=optObj onChange="loadSensorOption()"></select>
+				    </td>
+				</tr>
+
+<!-- Select Sensor -->
+				
+				<tr>
+					<th align="center"colspan="8"> Select Sensor: </th>
+				</tr>
+				<tr>
+				    <td align="center"colspan="8">
+					<select id=optSensor></select>
+				    </td>
+				</tr>						
+				
+<!-- Click button to Run -->
+				<tr>
+					<td align="center" colspan="2"><input type="button" value="GO!" onClick="execute()" class="submit"><br></td>
+				</tr>
+
+				<tr>
+					<td width="25%"><br></td><td width="75%"><br></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</TABLE>
+
+</body>
+</html>

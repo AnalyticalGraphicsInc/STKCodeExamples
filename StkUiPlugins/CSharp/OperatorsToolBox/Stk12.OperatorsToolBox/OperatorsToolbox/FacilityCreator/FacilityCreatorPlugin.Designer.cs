@@ -44,6 +44,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Duplicate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.FileBrowse = new System.Windows.Forms.Button();
+            this.FilenameText = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ImportFromFile = new System.Windows.Forms.RadioButton();
+            this.ManualInput = new System.Windows.Forms.RadioButton();
             this.FacilityName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.GenerateSingle = new System.Windows.Forms.Button();
@@ -244,6 +249,11 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.FileBrowse);
+            this.groupBox2.Controls.Add(this.FilenameText);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.ImportFromFile);
+            this.groupBox2.Controls.Add(this.ManualInput);
             this.groupBox2.Controls.Add(this.FacilityName);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.GenerateSingle);
@@ -268,17 +278,78 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(334, 252);
+            this.groupBox2.Size = new System.Drawing.Size(334, 290);
             this.groupBox2.TabIndex = 44;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Single Facility";
+            // 
+            // FileBrowse
+            // 
+            this.FileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FileBrowse.BackColor = System.Drawing.Color.SteelBlue;
+            this.FileBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.FileBrowse.ForeColor = System.Drawing.Color.White;
+            this.FileBrowse.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.FileBrowse.Location = new System.Drawing.Point(297, 214);
+            this.FileBrowse.Margin = new System.Windows.Forms.Padding(2);
+            this.FileBrowse.Name = "FileBrowse";
+            this.FileBrowse.Size = new System.Drawing.Size(28, 21);
+            this.FileBrowse.TabIndex = 64;
+            this.FileBrowse.Text = "...";
+            this.FileBrowse.UseVisualStyleBackColor = false;
+            this.FileBrowse.Click += new System.EventHandler(this.FileBrowse_Click);
+            // 
+            // FilenameText
+            // 
+            this.FilenameText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.FilenameText.BackColor = System.Drawing.Color.DimGray;
+            this.FilenameText.ForeColor = System.Drawing.Color.White;
+            this.FilenameText.Location = new System.Drawing.Point(89, 214);
+            this.FilenameText.Margin = new System.Windows.Forms.Padding(2);
+            this.FilenameText.Name = "FilenameText";
+            this.FilenameText.Size = new System.Drawing.Size(204, 20);
+            this.FilenameText.TabIndex = 62;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 215);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 13);
+            this.label9.TabIndex = 63;
+            this.label9.Text = "Filename:";
+            // 
+            // ImportFromFile
+            // 
+            this.ImportFromFile.AutoSize = true;
+            this.ImportFromFile.Location = new System.Drawing.Point(107, 17);
+            this.ImportFromFile.Name = "ImportFromFile";
+            this.ImportFromFile.Size = new System.Drawing.Size(99, 17);
+            this.ImportFromFile.TabIndex = 61;
+            this.ImportFromFile.TabStop = true;
+            this.ImportFromFile.Text = "Import From File";
+            this.ImportFromFile.UseVisualStyleBackColor = true;
+            this.ImportFromFile.CheckedChanged += new System.EventHandler(this.ImportFromFile_CheckedChanged);
+            // 
+            // ManualInput
+            // 
+            this.ManualInput.AutoSize = true;
+            this.ManualInput.Location = new System.Drawing.Point(14, 17);
+            this.ManualInput.Name = "ManualInput";
+            this.ManualInput.Size = new System.Drawing.Size(87, 17);
+            this.ManualInput.TabIndex = 60;
+            this.ManualInput.TabStop = true;
+            this.ManualInput.Text = "Manual Input";
+            this.ManualInput.UseVisualStyleBackColor = true;
+            this.ManualInput.CheckedChanged += new System.EventHandler(this.ManualInput_CheckedChanged);
             // 
             // FacilityName
             // 
             this.FacilityName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FacilityName.BackColor = System.Drawing.Color.DimGray;
             this.FacilityName.ForeColor = System.Drawing.Color.White;
-            this.FacilityName.Location = new System.Drawing.Point(88, 21);
+            this.FacilityName.Location = new System.Drawing.Point(89, 40);
             this.FacilityName.Margin = new System.Windows.Forms.Padding(2);
             this.FacilityName.Name = "FacilityName";
             this.FacilityName.Size = new System.Drawing.Size(235, 20);
@@ -289,7 +360,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(10, 24);
+            this.label3.Location = new System.Drawing.Point(11, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 13);
             this.label3.TabIndex = 46;
@@ -301,7 +372,7 @@
             this.GenerateSingle.BackColor = System.Drawing.Color.SteelBlue;
             this.GenerateSingle.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.GenerateSingle.ForeColor = System.Drawing.Color.White;
-            this.GenerateSingle.Location = new System.Drawing.Point(3, 206);
+            this.GenerateSingle.Location = new System.Drawing.Point(3, 244);
             this.GenerateSingle.Margin = new System.Windows.Forms.Padding(2);
             this.GenerateSingle.Name = "GenerateSingle";
             this.GenerateSingle.Size = new System.Drawing.Size(96, 32);
@@ -317,7 +388,7 @@
             this.SensorType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SensorType.ForeColor = System.Drawing.Color.White;
             this.SensorType.FormattingEnabled = true;
-            this.SensorType.Location = new System.Drawing.Point(88, 48);
+            this.SensorType.Location = new System.Drawing.Point(89, 67);
             this.SensorType.Margin = new System.Windows.Forms.Padding(2);
             this.SensorType.Name = "SensorType";
             this.SensorType.Size = new System.Drawing.Size(235, 21);
@@ -329,7 +400,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(260, 122);
+            this.label7.Location = new System.Drawing.Point(231, 141);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(21, 13);
             this.label7.TabIndex = 59;
@@ -340,10 +411,10 @@
             this.Altitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Altitude.BackColor = System.Drawing.Color.DimGray;
             this.Altitude.ForeColor = System.Drawing.Color.White;
-            this.Altitude.Location = new System.Drawing.Point(88, 119);
+            this.Altitude.Location = new System.Drawing.Point(89, 138);
             this.Altitude.Margin = new System.Windows.Forms.Padding(2);
             this.Altitude.Name = "Altitude";
-            this.Altitude.Size = new System.Drawing.Size(169, 20);
+            this.Altitude.Size = new System.Drawing.Size(139, 20);
             this.Altitude.TabIndex = 58;
             // 
             // label8
@@ -351,7 +422,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(10, 122);
+            this.label8.Location = new System.Drawing.Point(11, 141);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 13);
             this.label8.TabIndex = 57;
@@ -363,7 +434,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(260, 99);
+            this.label5.Location = new System.Drawing.Point(231, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(25, 13);
             this.label5.TabIndex = 56;
@@ -374,10 +445,10 @@
             this.Longitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Longitude.BackColor = System.Drawing.Color.DimGray;
             this.Longitude.ForeColor = System.Drawing.Color.White;
-            this.Longitude.Location = new System.Drawing.Point(88, 97);
+            this.Longitude.Location = new System.Drawing.Point(89, 116);
             this.Longitude.Margin = new System.Windows.Forms.Padding(2);
             this.Longitude.Name = "Longitude";
-            this.Longitude.Size = new System.Drawing.Size(169, 20);
+            this.Longitude.Size = new System.Drawing.Size(139, 20);
             this.Longitude.TabIndex = 55;
             // 
             // label6
@@ -385,7 +456,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(10, 99);
+            this.label6.Location = new System.Drawing.Point(11, 118);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 54;
@@ -397,7 +468,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(260, 76);
+            this.label4.Location = new System.Drawing.Point(231, 95);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 13);
             this.label4.TabIndex = 53;
@@ -408,10 +479,10 @@
             this.Latitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Latitude.BackColor = System.Drawing.Color.DimGray;
             this.Latitude.ForeColor = System.Drawing.Color.White;
-            this.Latitude.Location = new System.Drawing.Point(88, 74);
+            this.Latitude.Location = new System.Drawing.Point(89, 93);
             this.Latitude.Margin = new System.Windows.Forms.Padding(2);
             this.Latitude.Name = "Latitude";
-            this.Latitude.Size = new System.Drawing.Size(169, 20);
+            this.Latitude.Size = new System.Drawing.Size(139, 20);
             this.Latitude.TabIndex = 49;
             // 
             // label2
@@ -419,7 +490,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(10, 76);
+            this.label2.Location = new System.Drawing.Point(11, 95);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 48;
@@ -428,7 +499,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 146);
+            this.label11.Location = new System.Drawing.Point(11, 165);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(104, 13);
@@ -440,7 +511,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(10, 52);
+            this.label1.Location = new System.Drawing.Point(11, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 48;
@@ -452,7 +523,7 @@
             this.ConstType.BackColor = System.Drawing.Color.DimGray;
             this.ConstType.ForeColor = System.Drawing.Color.White;
             this.ConstType.FormattingEnabled = true;
-            this.ConstType.Location = new System.Drawing.Point(118, 144);
+            this.ConstType.Location = new System.Drawing.Point(119, 163);
             this.ConstType.Margin = new System.Windows.Forms.Padding(2);
             this.ConstType.Name = "ConstType";
             this.ConstType.Size = new System.Drawing.Size(209, 21);
@@ -464,7 +535,7 @@
             this.ConstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ConstName.BackColor = System.Drawing.Color.DimGray;
             this.ConstName.ForeColor = System.Drawing.Color.White;
-            this.ConstName.Location = new System.Drawing.Point(118, 171);
+            this.ConstName.Location = new System.Drawing.Point(119, 190);
             this.ConstName.Margin = new System.Windows.Forms.Padding(2);
             this.ConstName.Name = "ConstName";
             this.ConstName.Size = new System.Drawing.Size(211, 20);
@@ -473,7 +544,7 @@
             // NameLabel
             // 
             this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(10, 172);
+            this.NameLabel.Location = new System.Drawing.Point(11, 191);
             this.NameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.NameLabel.Name = "NameLabel";
             this.NameLabel.Size = new System.Drawing.Size(101, 13);
@@ -486,7 +557,7 @@
             this.ExistingConst.BackColor = System.Drawing.Color.DimGray;
             this.ExistingConst.ForeColor = System.Drawing.Color.White;
             this.ExistingConst.FormattingEnabled = true;
-            this.ExistingConst.Location = new System.Drawing.Point(118, 170);
+            this.ExistingConst.Location = new System.Drawing.Point(119, 189);
             this.ExistingConst.Margin = new System.Windows.Forms.Padding(2);
             this.ExistingConst.Name = "ExistingConst";
             this.ExistingConst.Size = new System.Drawing.Size(211, 21);
@@ -545,5 +616,10 @@
         private System.Windows.Forms.ColumnHeader Type;
         private System.Windows.Forms.ColumnHeader Trackers;
         private System.Windows.Forms.Button Duplicate;
+        private System.Windows.Forms.TextBox FilenameText;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RadioButton ImportFromFile;
+        private System.Windows.Forms.RadioButton ManualInput;
+        private System.Windows.Forms.Button FileBrowse;
     }
 }

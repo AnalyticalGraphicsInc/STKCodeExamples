@@ -1,0 +1,11 @@
+<?xml version = "1.0" standalone = "yes"?>
+<TimelineLine_Prefs STK_version = "10.0.2">
+    <Views Type = "Content">
+        <ContentView Name = "Scenario Availability">
+            <Row ComponentName = "AvailabilityIntervals" DisplayName = "FeedbackControl AvailabilityIntervals" IsDefaultName = "True" IsExpanded = "False" IsGroup = "False" IsHidden = "False" Path = "/Application/STK/Scenario/FeedbackControl" Type = "IntervalList" />
+        </ContentView>
+    </Views>
+    <Views Type = "Time">
+        <TimeView FullViewRulerStartTime = "0" FullViewRulerStopTime = "0" GlobalIntervalComp = "AnalysisInterval" GlobalIntervalCompPath = "/Application/STK/Scenario/FeedbackControl" GlobalStartOffset = "0" GlobalStopOffset = "0" MaxFullViewTime = "0" MinFullViewTime = "0" Name = "Scenario Analysis Period" ViewportStartTime = "0" ViewportStopTime = "0" />
+    </Views>
+</TimelineLine_Prefs>

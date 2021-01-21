@@ -1,16 +1,17 @@
-﻿namespace OperatorsToolbox.FacilityCreator
+﻿using System.Collections.Generic;
+
+namespace OperatorsToolbox.FacilityCreator
 {
     public class FcFacility
     {
         public string Name { get; set; }
+        public List<FCSensor> Sensors { get; set; }
         public string Type { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string Altitude { get; set; }
         public string CadanceName { get; set; }
         public bool IsOpt { get; set; }
-        public RadarParams RParams { get; set; }
-        public OpticalParams OParams { get; set; }
         public bool UseDefaultCnst { get; set; }
 
         public FcFacility(FcFacility curFac)
@@ -22,14 +23,18 @@
             Altitude = curFac.Altitude;
             CadanceName = curFac.CadanceName;
             IsOpt = curFac.IsOpt;
-            RParams = new RadarParams(curFac.RParams);
-            OParams = new OpticalParams(curFac.OParams);
+            Sensors = new List<FCSensor>();
+            foreach (FCSensor sensor in curFac.Sensors)
+            {
+                Sensors.Add(new FCSensor(sensor));
+            }
+
             UseDefaultCnst = curFac.UseDefaultCnst;
         }
 
         public FcFacility()
         {
-
+            Sensors = new List<FCSensor>();
         }
 
     }

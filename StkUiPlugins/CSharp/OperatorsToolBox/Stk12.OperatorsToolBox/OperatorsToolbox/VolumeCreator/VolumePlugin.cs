@@ -16,6 +16,12 @@ namespace OperatorsToolbox.VolumeCreator
             CommonData.MissileFilePath = Path.Combine(@CommonData.InstallDir, "Databases\\VolumeDirectory.json");
             CommonData.LocationFilePath = Path.Combine(@CommonData.InstallDir, "Databases\\LocationDirectory.json");
             PopulateLists();
+
+            foreach  (string c in Enum.GetNames(typeof(CustomUserInterface.ColorOptions)))
+            {
+                ColorSelection.Items.Add(c);
+            }
+            ColorSelection.SelectedIndex = 0;
         }
 
         private void CreateNew_Click(object sender, EventArgs e)
@@ -101,16 +107,22 @@ namespace OperatorsToolbox.VolumeCreator
                 altConstraint.EnableMax = true;
                 altConstraint.Max = Double.Parse(CommonData.VolumeList[CommonData.TvSelectedIndex].MaxAlt);
 
+                //Add Azimuth Constraint
+                IAgAccessCnstrMinMax azConstraint =  CreatorFunctions.GetAzCnst(constraints);
+                CreatorFunctions.SetCnstMinMax(azConstraint, Double.Parse(CommonData.VolumeList[CommonData.TvSelectedIndex].MinAz), Double.Parse(CommonData.VolumeList[CommonData.TvSelectedIndex].MaxAz));
+
                 try
                 {
                     sensor.Graphics.Projection.UseConstraints = true;
                     sensor.Graphics.Projection.EnableConstraint("ElevationAngle");
+                    sensor.Graphics.Projection.EnableConstraint("AzimuthAngle");
                     CommonData.StkRoot.ExecuteCommand("Animate * Refresh");
                 }
                 catch (Exception)
                 {
 
                 }
+                CreatorFunctions.ChangeObjectColor(sensorObj.Path,(CustomUserInterface.ColorOptions)Enum.Parse(typeof(CustomUserInterface.ColorOptions), ColorSelection.Text));
             }
 
 

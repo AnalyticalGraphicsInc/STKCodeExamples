@@ -67,6 +67,8 @@ namespace Agi.Ui.GreatArc.Stk12
             if (MenuTitle.Contains("Insert"))
             {
                 
+                // update support compatibility for pictures
+
                 //Add a Menu Item to the Insert menu
                 stdole.IPictureDisp picture1;
                 picture1 = (stdole.IPictureDisp)Microsoft.VisualBasic.Compatibility.VB6.Support.ImageToIPicture(Agi.Ui.GreatArc.Stk12.Properties.Resources.acRoute64);
@@ -75,6 +77,15 @@ namespace Agi.Ui.GreatArc.Stk12
                     "Aircraft from Search Pattern...",
                     "Define an Aircraft based on search criteria",
                     picture1);
+                
+                //Add a Menu Item to the Insert menu
+                stdole.IPictureDisp picture;
+                picture = (stdole.IPictureDisp)Microsoft.VisualBasic.Compatibility.VB6.Support.IconToIPicture(Resources.direction64);
+                MenuBuilder.InsertMenuItem(4,
+                    "GvFromDirections.LaunchInterface",
+                    "Ground Vehicle from Directions...",
+                    "Define a GroundVehicle based on a bing map route.",
+                    picture);
             }
 
             if (MenuBarKind == AgEUiPluginMenuBarKind.eUiPluginMenuBarContextMenu)
@@ -127,7 +138,7 @@ namespace Agi.Ui.GreatArc.Stk12
         public void Exec(string CommandName, IAgProgressTrackCancel TrackCancel, 
             IAgUiPluginCommandParameters Parameters)
         {
-                        
+
             if (string.Compare(CommandName, "EnterEditMode", true) == 0)
             {
                 IAgStkObject oSelectedObject = m_root.GetObjectFromPath(m_pSite.Selection[0].Path);
@@ -139,7 +150,13 @@ namespace Agi.Ui.GreatArc.Stk12
                 //Window3d * InpDevMode Mode EditOK
 
             }
-            
+
+            if (string.Compare(CommandName, "GvFromDirections.LaunchInterface", true) == 0)
+            {
+                m_progress = TrackCancel;
+                OpenDirectionsUserInterface();
+            }
+
             if (string.Compare(CommandName, "RasterSearch.LaunchInterface", true) == 0)
             {
                 m_progress = TrackCancel;
@@ -245,7 +262,24 @@ namespace Agi.Ui.GreatArc.Stk12
             get { return m_progress; }
         }
 
-       
+        private void OpenDirectionsUserInterface()
+        {
+            //Open a User Interface
+            IAgUiPluginWindowSite windows = m_pSite as IAgUiPluginWindowSite;
+            if (windows == null)
+            {
+                MessageBox.Show("Host application is unable to open windows.");
+            }
+            else
+            {
+                IntPtr hMainWnd = (IntPtr)Site.MainWindow;
+                DirectionsUI gvFromDir = new DirectionsUI(STKRoot);
+                NativeWindow nativeWindow = new NativeWindow();
+                nativeWindow.AssignHandle(hMainWnd);
+                gvFromDir.Show(nativeWindow);
+            }
+        }
+
         private void OpenRasterUserInterface()
         {
             //Open a User Interface

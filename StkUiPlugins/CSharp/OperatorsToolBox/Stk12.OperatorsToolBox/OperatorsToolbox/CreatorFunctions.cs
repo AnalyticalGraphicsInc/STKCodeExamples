@@ -59,6 +59,28 @@ namespace OperatorsToolbox
             return obj;
         }
 
+        public static IAgStkObject GetCreateTarget(string objectName)
+        {
+            IAgStkObject obj = null;
+            try
+            {
+                IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */Target/" + objectName);
+                if (result[0] == "0")
+                {
+                    obj = CommonData.StkRoot.CurrentScenario.Children.New(AgESTKObjectType.eTarget, objectName);
+                }
+                else
+                {
+                    obj = CommonData.StkRoot.GetObjectFromPath("Target/" + objectName);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return obj;
+        }
+
         public static IAgStkObject GetCreateSatellite(string objectName)
         {
             IAgStkObject obj = null;
@@ -355,13 +377,37 @@ namespace OperatorsToolbox
 
         }
 
+        public static IAgStkObject GetCreateGroundLocation(GroundLocation location, string className)
+        {
+            IAgStkObject newLocation = null;
+            if (className == "Facility")
+            {
+                newLocation = GetCreateFacility(location.LocationName);
+                IAgFacility fac = newLocation as IAgFacility;
+                fac.Position.AssignGeodetic(location.Latitude, location.Longitude, location.Altitude);
+            }
+            else if (className == "Place")
+            {
+                newLocation = GetCreatePlace(location.LocationName);
+                IAgPlace place = newLocation as IAgPlace;
+                place.Position.AssignGeodetic(location.Latitude, location.Longitude, location.Altitude);
+            }
+            else if (className == "Target")
+            {
+                newLocation = GetCreateTarget(location.LocationName);
+                IAgTarget tar = newLocation as IAgTarget;
+                tar.Position.AssignGeodetic(location.Latitude, location.Longitude, location.Altitude);
+            }
+            return newLocation;
+        }
+
         //Constraint functions
         public static void SetCnstMinMax(IAgAccessCnstrMinMax constraint, double min,double max)
         {
             constraint.EnableMin = true;
             constraint.Min = min;
             constraint.EnableMax = true;
-            constraint.Max = max;
+            constraint.Max = max;            
         }
 
         public static IAgAccessCnstrMinMax GetRangeCnst(IAgAccessConstraintCollection constraints)
@@ -392,6 +438,21 @@ namespace OperatorsToolbox
             }
 
             return elConstraint;
+        }
+
+        public static IAgAccessCnstrMinMax GetAzCnst(IAgAccessConstraintCollection constraints)
+        {
+            IAgAccessCnstrMinMax azConstraint;
+            if (constraints.IsConstraintActive(AgEAccessConstraints.eCstrAzimuthAngle))
+            {
+                azConstraint = constraints.GetActiveConstraint(AgEAccessConstraints.eCstrAzimuthAngle) as IAgAccessCnstrMinMax;
+            }
+            else
+            {
+                azConstraint = constraints.AddConstraint(AgEAccessConstraints.eCstrAzimuthAngle) as IAgAccessCnstrMinMax;
+            }
+
+            return azConstraint;
         }
 
         public static IAgAccessCnstrMinMax GetSunElCnst(IAgAccessConstraintCollection constraints)
@@ -452,58 +513,6 @@ namespace OperatorsToolbox
             }
 
             return sunConstraint;
-        }
-
-        public static IAgStkObject AttachFacilityRadar(IAgStkObject parent, string radarName, RadarParams rParams)
-        {
-            IAgStkObject sensorObj = CreatorFunctions.GetCreateSensor(parent, radarName);
-            IAgSensor sensor = sensorObj as IAgSensor;
-            sensor.Graphics.IsObjectGraphicsVisible = false;
-            IAgSnSimpleConicPattern pattern = sensor.Pattern as IAgSnSimpleConicPattern;
-            pattern.ConeAngle = Double.Parse(rParams.HalfAngle);
-
-            IAgAccessConstraintCollection constraints = sensor.AccessConstraints;
-            IAgAccessCnstrMinMax elConstraint;
-            IAgAccessCnstrMinMax rangeConstraint;
-            IAgAccessCnstrAngle solarExConstraint;
-
-            elConstraint = CreatorFunctions.GetElCnst(constraints);
-            CreatorFunctions.SetCnstMinMax(elConstraint, Double.Parse(rParams.MinEl), Double.Parse(rParams.MaxEl));
-            rangeConstraint = CreatorFunctions.GetRangeCnst(constraints);
-            CreatorFunctions.SetCnstMinMax(rangeConstraint, Double.Parse(rParams.MinRange), Double.Parse(rParams.MaxRange));
-            solarExConstraint = CreatorFunctions.GetSunExCnst(constraints);
-            solarExConstraint.Angle = rParams.SolarExAngle;
-
-            return sensorObj;
-        }
-
-        public static IAgStkObject AttachFacilityOptical(IAgStkObject parent, string radarName, OpticalParams rParams)
-        {
-            IAgStkObject sensorObj = CreatorFunctions.GetCreateSensor(parent, radarName);
-            IAgSensor sensor = sensorObj as IAgSensor;
-            sensor.Graphics.IsObjectGraphicsVisible = false;
-            IAgSnSimpleConicPattern pattern = sensor.Pattern as IAgSnSimpleConicPattern;
-            pattern.ConeAngle = Double.Parse(rParams.HalfAngle);
-
-            IAgAccessConstraintCollection constraints = sensor.AccessConstraints;
-            IAgAccessCnstrMinMax elConstraint;
-            IAgAccessCnstrMinMax rangeConstraint;
-            IAgAccessCnstrMinMax sunElConstraint;
-            IAgAccessCnstrAngle lunExConstraint;
-
-            elConstraint = CreatorFunctions.GetElCnst(constraints);
-            CreatorFunctions.SetCnstMinMax(elConstraint, Double.Parse(rParams.MinEl), Double.Parse(rParams.MaxEl));
-
-            sunElConstraint = CreatorFunctions.GetSunElCnst(constraints);
-            CreatorFunctions.SetCnstMinMax(sunElConstraint, -90, Double.Parse(rParams.SunElAngle));
-
-            rangeConstraint = CreatorFunctions.GetRangeCnst(constraints);
-            CreatorFunctions.SetCnstMinMax(rangeConstraint, Double.Parse(rParams.MinRange), Double.Parse(rParams.MaxRange));
-
-            lunExConstraint = CreatorFunctions.GetLunExCnst(constraints);
-            lunExConstraint.Angle = rParams.LunarExAngle;
-
-            return sensorObj;
         }
 
         //Interface population functions
@@ -707,9 +716,117 @@ namespace OperatorsToolbox
                     }
                 }
             }
+            else if (className == "LaunchVehicle")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class LaunchVehicle");
+                if (result[0] != "None")
+                {
+                    string[] facArray = result[0].Split(null);
+                    foreach (var item in facArray)
+                    {
+                        string facName = item.Split('/').Last();
+                        if (facName != "" && facName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = facName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
             else if (className == "Sensor")
             {
                 result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Sensor");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        string sensorName = item.Split('/').Last();
+                        if (sensorName != "" && sensorName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = sensorName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
+            else if (className == "Transmitter")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Transmitter");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        string sensorName = item.Split('/').Last();
+                        if (sensorName != "" && sensorName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = sensorName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
+            else if (className == "Receiver")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Receiver");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        string sensorName = item.Split('/').Last();
+                        if (sensorName != "" && sensorName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = sensorName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
+            else if (className == "Antenna")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Antenna");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        string sensorName = item.Split('/').Last();
+                        if (sensorName != "" && sensorName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = sensorName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
+            else if (className == "Radar")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Radar");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        string sensorName = item.Split('/').Last();
+                        if (sensorName != "" && sensorName != null)
+                        {
+                            var listItem = new ListViewItem();
+                            listItem.Text = sensorName;
+                            view.Items.Add(listItem);
+                        }
+                    }
+                }
+            }
+            else if (className == "Constellation")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Constellation");
                 if (result[0] != "None")
                 {
                     string[] sensorArray = result[0].Split(null);
@@ -1060,6 +1177,36 @@ namespace OperatorsToolbox
                     }
                 }
             }
+            else if (className == "Radaar")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Radar");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
+            else if (className == "Constellation")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Constellation");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
             return objectPaths;
         }
 
@@ -1157,7 +1304,7 @@ namespace OperatorsToolbox
         public static void ChangeSatColor(string satPath, int satCatIndex)
         {
             string fofo = CommonData.SatCatItemList[satCatIndex].Fofo;
-            IAgSatellite sat = CommonData.StkRoot.GetObjectFromPath(satPath) as IAgSatellite;
+            dynamic sat = CommonData.StkRoot.GetObjectFromPath(satPath);
             IAgVeGfxAttributesBasic graphics = sat.Graphics.Attributes as IAgVeGfxAttributesBasic;
             string colorRgb = null;
             string colorBgr = null;
@@ -1188,6 +1335,49 @@ namespace OperatorsToolbox
             }
             //colorBGR = colorRGB.Substring(4, 5) +colorRGB.Substring(2,3)+colorRGB.Substring(0,1);
             //int decColor = Convert.ToInt32(colorBGR, 16);
+        }
+
+        public static void ChangeObjectColor(string objPath, CustomUserInterface.ColorOptions option)
+        {
+            dynamic sat = CommonData.StkRoot.GetObjectFromPath(objPath);
+            dynamic graphics;
+            try
+            {
+                graphics = sat.Graphics.Attributes as IAgVeGfxAttributesBasic;
+            }
+            catch (Exception)
+            {
+                graphics = sat.Graphics;
+            }
+            switch (option)
+            {
+                case CustomUserInterface.ColorOptions.Blue:
+                    graphics.Color = System.Drawing.Color.Blue;
+                    break;
+                case CustomUserInterface.ColorOptions.Cyan:
+                    graphics.Color = System.Drawing.Color.Cyan;
+                    break;
+                case CustomUserInterface.ColorOptions.Red:
+                    graphics.Color = System.Drawing.Color.Red;
+                    break;
+                case CustomUserInterface.ColorOptions.Green:
+                    graphics.Color = System.Drawing.Color.Green;
+                    break;
+                case CustomUserInterface.ColorOptions.Yellow:
+                    graphics.Color = System.Drawing.Color.Yellow;
+                    break;
+                case CustomUserInterface.ColorOptions.Orange:
+                    graphics.Color = System.Drawing.Color.Orange;
+                    break;
+                case CustomUserInterface.ColorOptions.Purple:
+                    graphics.Color = System.Drawing.Color.Purple;
+                    break;
+                case CustomUserInterface.ColorOptions.White:
+                    graphics.Color = System.Drawing.Color.White;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

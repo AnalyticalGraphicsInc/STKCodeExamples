@@ -1,0 +1,21 @@
+<!-- STKv4.0 Format="XML" -->
+<STKOBJECT>
+<OBJECT Class = "CBSpinModel" Name = "IAU_1994">
+    <OBJECT Class = "string" Name = "Category"> &quot;Hyperion&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "Clonable"> True </OBJECT>
+    <OBJECT Class = "double" Name = "dDec/dt"> 0 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "Dec"> 1.570796326794897 rad </OBJECT>
+    <OBJECT Class = "string" Name = "Description"> &quot;IAU 1994 Attitude Definition&quot; </OBJECT>
+    <OBJECT Class = "double" Name = "dRA/dt"> 0 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "Epoch"> 2451545 &quot;&quot; </OBJECT>
+    <OBJECT Class = "double" Name = "Offset"> 0 rad </OBJECT>
+    <OBJECT Class = "double" Name = "Rate"> 0.0001922592258036179 rad*sec^-1 </OBJECT>
+    <OBJECT Class = "double" Name = "RA"> 0 rad </OBJECT>
+    <OBJECT Class = "bool" Name = "ReadOnly"> False </OBJECT>
+    <OBJECT Class = "container" Name = "ShooterControls" />
+    <OBJECT Class = "int" Name = "STKVersion"> 1150 </OBJECT>
+    <OBJECT Class = "string" Name = "Type"> &quot;IAU1994&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "UserComment"> &quot;IAU 1994 Attitude Definition&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Version"> &quot;1.0.0 a&quot; </OBJECT>
+</OBJECT>
+</STKOBJECT>

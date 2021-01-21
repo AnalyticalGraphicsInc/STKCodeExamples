@@ -1,0 +1,273 @@
+VO_V120		
+InitializeSolarPanels		 No
+Modelfile		 Space\sbirs-low.mdl
+UseCatalogModelFile		 Yes
+ModelDefaultColorFromMarker		 No
+IsShowingModel		 Yes
+ModelScale		 10000
+UseModelFilePosOffset		 No
+UseModelPosOffset		 No
+ModelPosOffset		  0.0000000000000000e+00  0.0000000000000000e+00  0.0000000000000000e+00
+UseModelRotation		 No
+ModelRotation		  0.0000000000000000e+00 -1.5707963267950000e+00  0.0000000000000000e+00
+IsSwapped		 Yes
+Level0SwapDistance		 7000000
+Level1SwapDistance		 14000000
+Level2SwapDistance		 48000000
+Level3SwapDistance		 350000000
+Level4SwapDistance		 350000000
+ShowMarker		 Yes
+BEGIN Marker
+    Show		 Yes
+    Type		 LineGraphic
+    Shape		 Circle
+    IsTransparent		 No
+    OneOneBlend		 No
+    Rotate		 No
+    Angle		 0
+    HorizOrigin		 Center
+    VertOrigin		 Center
+    MinSize		 10
+    SizeInMeters		 No
+    RotateRelToNorth		 No
+    UseDirectionAngle		 No
+END
+BEGIN GlintMarker
+    Show		 No
+    Type		 LineGraphic
+    Shape		 Point
+    IsTransparent		 No
+    OneOneBlend		 No
+    Rotate		 No
+    Angle		 0
+    HorizOrigin		 Center
+    VertOrigin		 Center
+    MinSize		 -5459
+    SizeInMeters		 No
+    RotateRelToNorth		 No
+    UseDirectionAngle		 No
+END
+BEGIN OrbitFrames
+    InertialCoordFrame		 Yes
+    PersistCBIForAllPasses		 No
+    FixedCoordFrame		 No
+    PersistCBFForAllPasses		 No
+END OrbitFrames
+BEGIN Covariance
+    UseProbability		 Yes
+    Probability		 95
+    Scale		 2.795483176684912
+    NonIntervalLineWidth		 1
+    NonIntervalTranslucency		 0
+    NonIntervalShow		 No
+    NonIntervalColorIndex		 #f0ffff
+    DefaultIntervalLineWidth		 1
+    DefaultIntervalTranslucency		 0
+    DefaultIntervalShow		 Yes
+    DefaultIntervalColorIndex		 #4d4d4d
+    UseIntervals		 No
+    UseEllipticCoord		 No
+END
+BEGIN PointingCovarianceList
+    FixScaleToModel		 Yes
+    ConeScale		 50000
+END
+DontSaveArticFile		 No
+ArticulationFileEnabled		 No
+ArticulationFile		 Reference.sama
+ObscurationToObject		 No
+Inherit2DPassGfx		 No
+GtLeadingType		 NoPass
+GtTrailingType		 NoPass
+OrbitLeadingType		 OnePass
+OrbitTrailingType		 OnePass
+GtArcDrawRouteOnSurface		 No
+FixVectorAxesScaleToModel		 Yes
+FixVectorAxesScaleToAttSph		 No
+VectorAxesAngleSwapDist		 -0.5
+PlaneSwapDist		 -2.5
+BEGIN GeneralVectorAxes
+    PersistentLineWidth		 2
+    Scale		 50000
+END
+BEGIN VectorAngle
+    FractionalScale		 1
+    SupportingDihedralArcLineWidth		 1
+    ArcLineWidth		 2
+    PixelThreshold		 2
+END
+BEGIN Plane
+END
+SetModelColorArtic		 No
+SaveArticStateAsDef		 No
+ShowElevFov		 No
+ShowElevFovCones		 Yes
+ElevFovTranslucency		 0.7
+ShowElevContourFill		 No
+ElevContourFillTranslucency		 0.5
+ShowRangeContours		 No
+TranslRangeCntrLines		 No
+RangeCntrLineTransl		 0.7
+RangeLblSwapDist		 -2.5
+AOULblSwapDist		 -1.5
+BorderWallShowOnOff		 No
+BorderWallUseTerrainAltFileOnOff		 No
+BorderWallTransparencyOnOff		 No
+BorderWallLineTransparencyOnOff		 No
+BorderWallTransparency		 0.699999988079071
+BorderWallLineTransparency		 0.699999988079071
+BorderWallTopCapType		 WGS84
+BorderWallTopCap		 0
+BorderWallBotCapType		 WGS84
+BorderWallBotCap		 0
+BorderWallSampleRate		 2
+ShowSAAContour		 No
+IsShowingGeoBox		 No
+GeoBoxColorIndex		 #ff0000
+GeoBoxNS		  1.7453292520000000e-02
+GeoBoxEW		  1.7453292520000000e-02
+GeoBoxTickSpacing		  3.4906585000000000e-03
+TrkTickFrequencyTime		 60
+ShowOrbTrkTicks		 No
+OrbTrkTickWidth		 50000
+OrbTrkPointSize		 3
+OrbTrkLinWidth		 1
+OrbTrkStyle		 Radial
+ShowGrdTrkTicks		 No
+GrdTrkTickWidth		 50000
+GrdTrkPointSize		 3
+GrdTrkLinWidth		 1
+GrdTrkStyle		 CrossTrack
+BEGIN ControlBox
+    Show		 No
+    ShowLabels		 No
+    ShowUserText		 No
+    ColorIndex		 #00ffff
+    LineStyle		 0
+    LineWidth		 1
+    BEGIN RefFrame
+        VNC(CBF)		
+    END
+    UseTranslucency		 No
+    Translucency		 0.8999999761581421
+    XLength		 60000
+    YLength		 50000
+    ZLength		 20000
+    XOffset		 0
+    YOffset		 0
+    ZOffset		 0
+    BorderWallShowOnOff		 No
+    BorderWallUseTerrainAltFileOnOff		 No
+    BorderWallTransparencyOnOff		 No
+    BorderWallLineTransparencyOnOff		 No
+    BorderWallTransparency		 0.699999988079071
+    BorderWallLineTransparency		 0.699999988079071
+    BorderWallTopCapType		 WGS84
+    BorderWallTopCap		 0
+    BorderWallBotCapType		 WGS84
+    BorderWallBotCap		 0
+    BorderWallSampleRate		 2
+END
+UseObjLineAttachPt		 No
+DropLinesTo		 Ellipsoid
+IsShowingVaporTrail		 No
+VaporMaxPuffs		 100
+VaporColorIndex		 #ffffff
+VaporWindSpeed		 0 0 0
+VaporIsInSpace		 No
+VaporUseAttachPoint		 No
+VaporOutputRate		  5.0000000000000000e-01
+VaporRadius		 1000
+VaporExpansionRate		 0.01
+VaporStartTime		 0
+VaporEndTime		 86400
+VaporIntervalPtr		
+BEGIN EVENTINTERVAL
+    EventInterval		
+    BEGIN EVENTINTERVAL
+        Type		 EVENTINTERVAL_LINKTO
+        Name		 AnalysisInterval
+        AbsolutePath		 Scenario
+    END EVENTINTERVAL
+    IntervalState		 Implicit
+END EVENTINTERVAL
+
+VaporTexturemap		 smoke.pgm
+BEGIN AttitudeSphere
+    BEGIN LatLonSphere
+        Show		 No
+        FixScaleToModel		 Yes
+        Scale		 50000
+        MinDegDim		 0.1
+        MaxDegDim		 90
+        DegDim		 90
+        FogDistanceFactor		 87
+        LabelType		 All
+        TransparentLines		 Yes
+        FontIndex		 0
+        LineColorIndex		 #87cefa
+        ZeroDegLineColorIndex		 #00ff00
+        LabelColorIndex		 #00ff00
+        PixelThreshold		 180
+        LabelPointSize		 2
+        LineWidth		 1
+        ZeroDegLineWidth		 1
+        BEGIN CentralBody
+            Name		 Earth
+            Show		 Yes
+            ShowLabel		 No
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #4169e1
+        END
+        BEGIN CentralBody
+            Name		 Moon
+            Show		 Yes
+            ShowLabel		 Yes
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #ffffff
+        END
+        BEGIN CentralBody
+            Name		 Sun
+            Show		 Yes
+            ShowLabel		 Yes
+            ShowVolume		 No
+            LineWidth		 2
+            PointSize		 1
+            ColorIndex		 #ffff00
+        END
+        BEGIN AttSphRefCrdnAxes
+            BEGIN AXES
+                Type		 AXES_LINKTO
+                Name		 VVLH
+                RelativePath		 Satellite/Reference
+            END AXES
+        END
+    END
+END
+BEGIN Point
+    Show		 No
+    Size		 5
+END Point
+UseLabelOffset		 No
+LabelOffsetInPixels		 No
+LabelXYZ		 0 10 10
+ShowGroundMarker		 No
+BEGIN GroundMarker
+    Show		 No
+    Type		 LineGraphic
+    Shape		 Point
+    IsTransparent		 No
+    OneOneBlend		 No
+    Rotate		 No
+    Angle		 0
+    HorizOrigin		 Center
+    VertOrigin		 Center
+    MinSize		 -5459
+    SizeInMeters		 No
+    RotateRelToNorth		 No
+    UseDirectionAngle		 No
+END
