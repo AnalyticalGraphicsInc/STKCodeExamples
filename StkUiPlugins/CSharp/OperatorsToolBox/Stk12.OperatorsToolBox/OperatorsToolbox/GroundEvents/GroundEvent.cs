@@ -20,6 +20,7 @@ namespace OperatorsToolbox.GroundEvents
         public string PocPhone { get; set; }
         public string PocEmail { get; set; }
         public string Classification { get; set; }
+        public string ColorOption { get; set; }
         public List<string> AssetList { get; set; }
         public List<SubObject> SubObjects { get; set; }
         

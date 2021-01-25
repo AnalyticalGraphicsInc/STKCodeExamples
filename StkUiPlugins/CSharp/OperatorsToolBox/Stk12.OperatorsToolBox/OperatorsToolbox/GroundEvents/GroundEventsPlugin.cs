@@ -150,13 +150,18 @@ namespace OperatorsToolbox.GroundEvents
                         CommonData.StkRoot.ExecuteCommand(unloadcmd);
                     }
                 }
-                string cmd = "Unload / */Place/" + CommonData.CurrentEvents[CommonData.EventSelectedIndex].Id;
-                CommonData.StkRoot.ExecuteCommand(cmd);
-                CommonData.StkRoot.ExecuteCommand("Timeline * Refresh");
+                try
+                {
+                    string cmd = "Unload / */Place/" + CommonData.CurrentEvents[CommonData.EventSelectedIndex].Id;
+                    CommonData.StkRoot.ExecuteCommand(cmd);
+                    CommonData.StkRoot.ExecuteCommand("Timeline * Refresh");
+                }
+                catch (Exception)
+                {
+                    //Likely the user deleted the object manually in the browser and it no longer exists or a timeline view is not present to change
+                }
                 ReadWrite.RemoveEvent();
                 ListSSR.Items.RemoveAt(CommonData.EventSelectedIndex);
-                ReadWrite.WriteEventFile(CommonData.EventFileStr);
-
             }
         }
 

@@ -65,7 +65,7 @@
             this.AccessName.Location = new System.Drawing.Point(98, 32);
             this.AccessName.Margin = new System.Windows.Forms.Padding(2);
             this.AccessName.Name = "AccessName";
-            this.AccessName.Size = new System.Drawing.Size(140, 20);
+            this.AccessName.Size = new System.Drawing.Size(184, 20);
             this.AccessName.TabIndex = 32;
             // 
             // label3
@@ -91,7 +91,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(230, 117);
+            this.groupBox1.Size = new System.Drawing.Size(274, 117);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Data Output Options";
@@ -107,7 +107,7 @@
             this.DataType.Location = new System.Drawing.Point(48, 25);
             this.DataType.Margin = new System.Windows.Forms.Padding(2);
             this.DataType.Name = "DataType";
-            this.DataType.Size = new System.Drawing.Size(162, 21);
+            this.DataType.Size = new System.Drawing.Size(206, 21);
             this.DataType.TabIndex = 19;
             // 
             // label2
@@ -220,10 +220,11 @@
             this.FromName});
             this.FromObjectList.ForeColor = System.Drawing.Color.White;
             this.FromObjectList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.FromObjectList.HideSelection = false;
             this.FromObjectList.Location = new System.Drawing.Point(42, 234);
             this.FromObjectList.Margin = new System.Windows.Forms.Padding(2);
             this.FromObjectList.Name = "FromObjectList";
-            this.FromObjectList.Size = new System.Drawing.Size(196, 114);
+            this.FromObjectList.Size = new System.Drawing.Size(240, 114);
             this.FromObjectList.TabIndex = 25;
             this.FromObjectList.UseCompatibleStateImageBehavior = false;
             this.FromObjectList.View = System.Windows.Forms.View.Details;
@@ -242,10 +243,11 @@
             this.ToName});
             this.ToObjectList.ForeColor = System.Drawing.Color.White;
             this.ToObjectList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.ToObjectList.HideSelection = false;
             this.ToObjectList.Location = new System.Drawing.Point(42, 84);
             this.ToObjectList.Margin = new System.Windows.Forms.Padding(2);
             this.ToObjectList.Name = "ToObjectList";
-            this.ToObjectList.Size = new System.Drawing.Size(196, 114);
+            this.ToObjectList.Size = new System.Drawing.Size(240, 114);
             this.ToObjectList.TabIndex = 24;
             this.ToObjectList.UseCompatibleStateImageBehavior = false;
             this.ToObjectList.View = System.Windows.Forms.View.Details;
@@ -266,7 +268,7 @@
             this.FromObjectType.Location = new System.Drawing.Point(116, 207);
             this.FromObjectType.Margin = new System.Windows.Forms.Padding(2);
             this.FromObjectType.Name = "FromObjectType";
-            this.FromObjectType.Size = new System.Drawing.Size(122, 21);
+            this.FromObjectType.Size = new System.Drawing.Size(166, 21);
             this.FromObjectType.TabIndex = 23;
             this.FromObjectType.SelectedIndexChanged += new System.EventHandler(this.FromObjectType_SelectedIndexChanged);
             // 
@@ -291,7 +293,7 @@
             this.ToObjectType.Location = new System.Drawing.Point(116, 59);
             this.ToObjectType.Margin = new System.Windows.Forms.Padding(2);
             this.ToObjectType.Name = "ToObjectType";
-            this.ToObjectType.Size = new System.Drawing.Size(122, 21);
+            this.ToObjectType.Size = new System.Drawing.Size(166, 21);
             this.ToObjectType.TabIndex = 21;
             this.ToObjectType.SelectedIndexChanged += new System.EventHandler(this.ToObjectType_SelectedIndexChanged);
             // 
@@ -305,7 +307,7 @@
             this.Generate.Location = new System.Drawing.Point(62, 486);
             this.Generate.Margin = new System.Windows.Forms.Padding(2);
             this.Generate.Name = "Generate";
-            this.Generate.Size = new System.Drawing.Size(96, 26);
+            this.Generate.Size = new System.Drawing.Size(140, 26);
             this.Generate.TabIndex = 20;
             this.Generate.Text = "Generate Access";
             this.Generate.UseVisualStyleBackColor = false;
@@ -341,7 +343,7 @@
             this.Cancel.ForeColor = System.Drawing.Color.White;
             this.Cancel.ImageIndex = 0;
             this.Cancel.ImageList = this.imageList1;
-            this.Cancel.Location = new System.Drawing.Point(229, 2);
+            this.Cancel.Location = new System.Drawing.Point(273, 2);
             this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
@@ -354,7 +356,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
-            this.ClientSize = new System.Drawing.Size(255, 569);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.AccessName);
@@ -374,7 +375,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StationAccessPlugin";
-            this.Text = "StationAccessPlugin";
+            this.Size = new System.Drawing.Size(299, 569);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

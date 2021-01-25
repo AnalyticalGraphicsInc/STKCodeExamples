@@ -33,19 +33,20 @@
             this.PluginPanel = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SmartViewDropdown = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.Coverage = new System.Windows.Forms.Button();
-            this.GroundEvents = new System.Windows.Forms.Button();
-            this.SolarPhase = new System.Windows.Forms.Button();
-            this.ThreatVolume = new System.Windows.Forms.Button();
-            this.PassiveSafety = new System.Windows.Forms.Button();
-            this.GroundStationAccess = new System.Windows.Forms.Button();
-            this.SmartView = new System.Windows.Forms.Button();
-            this.FacilityCreator = new System.Windows.Forms.Button();
-            this.SatelliteCreator = new System.Windows.Forms.Button();
-            this.Templates = new System.Windows.Forms.Button();
-            this.Settings = new System.Windows.Forms.Button();
             this.SatelliteImportDropdown = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.AWBToolsDropdown = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolbarButton0 = new System.Windows.Forms.Button();
+            this.ToolbarButton2 = new System.Windows.Forms.Button();
+            this.ToolbarButton1 = new System.Windows.Forms.Button();
+            this.Settings = new System.Windows.Forms.Button();
+            this.ToolbarButton6 = new System.Windows.Forms.Button();
+            this.ToolbarButton9 = new System.Windows.Forms.Button();
+            this.ToolbarButton3 = new System.Windows.Forms.Button();
+            this.ToolbarButton8 = new System.Windows.Forms.Button();
+            this.ToolbarButton4 = new System.Windows.Forms.Button();
+            this.ToolbarButton7 = new System.Windows.Forms.Button();
+            this.ToolbarButton5 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,244 +66,27 @@
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "edit-tools.png");
-            this.imageList1.Images.SetKeyName(1, "radio-antenna.png");
-            this.imageList1.Images.SetKeyName(2, "rebound.png");
-            this.imageList1.Images.SetKeyName(3, "retinal-scan.png");
-            this.imageList1.Images.SetKeyName(4, "rocket.png");
-            this.imageList1.Images.SetKeyName(5, "earth.png");
-            this.imageList1.Images.SetKeyName(6, "shield-64.png");
-            this.imageList1.Images.SetKeyName(7, "timeline.png");
+            this.imageList1.Images.SetKeyName(0, "layout (1).png");
+            this.imageList1.Images.SetKeyName(1, "satellite (1).png");
+            this.imageList1.Images.SetKeyName(2, "molecule.png");
+            this.imageList1.Images.SetKeyName(3, "clock.png");
+            this.imageList1.Images.SetKeyName(4, "radio-antenna.png");
+            this.imageList1.Images.SetKeyName(5, "gps.png");
+            this.imageList1.Images.SetKeyName(6, "retinal-scan.png");
+            this.imageList1.Images.SetKeyName(7, "edit-tools.png");
             this.imageList1.Images.SetKeyName(8, "worldwide.png");
-            this.imageList1.Images.SetKeyName(9, "layout.png");
-            this.imageList1.Images.SetKeyName(10, "setting.png");
+            this.imageList1.Images.SetKeyName(9, "shield-64.png");
+            this.imageList1.Images.SetKeyName(10, "rocket.png");
+            this.imageList1.Images.SetKeyName(11, "rebound.png");
+            this.imageList1.Images.SetKeyName(12, "angle.png");
+            this.imageList1.Images.SetKeyName(13, "setting.png");
             // 
             // SmartViewDropdown
             // 
             this.SmartViewDropdown.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.SmartViewDropdown.Name = "SmartViewDropdown";
             this.SmartViewDropdown.Size = new System.Drawing.Size(61, 4);
-            this.SmartViewDropdown.Opening += new System.ComponentModel.CancelEventHandler(this.SmartViewDropdown_Opening);
             this.SmartViewDropdown.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.SmartViewDropDown_ItemClicked);
-            // 
-            // Coverage
-            // 
-            this.Coverage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Coverage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Coverage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Coverage.ForeColor = System.Drawing.Color.White;
-            this.Coverage.ImageIndex = 8;
-            this.Coverage.ImageList = this.imageList1;
-            this.Coverage.Location = new System.Drawing.Point(2, 332);
-            this.Coverage.Margin = new System.Windows.Forms.Padding(2);
-            this.Coverage.MinimumSize = new System.Drawing.Size(39, 42);
-            this.Coverage.Name = "Coverage";
-            this.Coverage.Size = new System.Drawing.Size(51, 51);
-            this.Coverage.TabIndex = 9;
-            this.Coverage.UseVisualStyleBackColor = true;
-            this.Coverage.Click += new System.EventHandler(this.Coverage_Click_1);
-            this.Coverage.MouseHover += new System.EventHandler(this.Coverage_MouseHover);
-            // 
-            // GroundEvents
-            // 
-            this.GroundEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroundEvents.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GroundEvents.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GroundEvents.ForeColor = System.Drawing.Color.White;
-            this.GroundEvents.ImageIndex = 7;
-            this.GroundEvents.ImageList = this.imageList1;
-            this.GroundEvents.Location = new System.Drawing.Point(2, 167);
-            this.GroundEvents.Margin = new System.Windows.Forms.Padding(2);
-            this.GroundEvents.MinimumSize = new System.Drawing.Size(39, 42);
-            this.GroundEvents.Name = "GroundEvents";
-            this.GroundEvents.Size = new System.Drawing.Size(51, 51);
-            this.GroundEvents.TabIndex = 8;
-            this.GroundEvents.UseVisualStyleBackColor = true;
-            this.GroundEvents.Click += new System.EventHandler(this.GroundEvents_Click);
-            this.GroundEvents.MouseHover += new System.EventHandler(this.GroundEvents_MouseHover);
-            // 
-            // SolarPhase
-            // 
-            this.SolarPhase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SolarPhase.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SolarPhase.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SolarPhase.ForeColor = System.Drawing.Color.White;
-            this.SolarPhase.ImageIndex = 2;
-            this.SolarPhase.ImageList = this.imageList1;
-            this.SolarPhase.Location = new System.Drawing.Point(2, 497);
-            this.SolarPhase.Margin = new System.Windows.Forms.Padding(2);
-            this.SolarPhase.MinimumSize = new System.Drawing.Size(39, 42);
-            this.SolarPhase.Name = "SolarPhase";
-            this.SolarPhase.Size = new System.Drawing.Size(51, 51);
-            this.SolarPhase.TabIndex = 6;
-            this.SolarPhase.UseVisualStyleBackColor = true;
-            this.SolarPhase.Click += new System.EventHandler(this.SolarPhase_Click);
-            this.SolarPhase.MouseHover += new System.EventHandler(this.SolarPhase_MouseHover);
-            // 
-            // ThreatVolume
-            // 
-            this.ThreatVolume.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ThreatVolume.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ThreatVolume.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.ThreatVolume.ForeColor = System.Drawing.Color.White;
-            this.ThreatVolume.ImageIndex = 4;
-            this.ThreatVolume.ImageList = this.imageList1;
-            this.ThreatVolume.Location = new System.Drawing.Point(2, 442);
-            this.ThreatVolume.Margin = new System.Windows.Forms.Padding(2);
-            this.ThreatVolume.MinimumSize = new System.Drawing.Size(39, 42);
-            this.ThreatVolume.Name = "ThreatVolume";
-            this.ThreatVolume.Size = new System.Drawing.Size(51, 51);
-            this.ThreatVolume.TabIndex = 5;
-            this.ThreatVolume.UseVisualStyleBackColor = true;
-            this.ThreatVolume.Click += new System.EventHandler(this.ThreatVolume_Click);
-            this.ThreatVolume.MouseHover += new System.EventHandler(this.ThreatVolume_MouseHover);
-            // 
-            // PassiveSafety
-            // 
-            this.PassiveSafety.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PassiveSafety.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.PassiveSafety.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.PassiveSafety.ForeColor = System.Drawing.Color.White;
-            this.PassiveSafety.ImageIndex = 6;
-            this.PassiveSafety.ImageList = this.imageList1;
-            this.PassiveSafety.Location = new System.Drawing.Point(2, 387);
-            this.PassiveSafety.Margin = new System.Windows.Forms.Padding(2);
-            this.PassiveSafety.MinimumSize = new System.Drawing.Size(39, 42);
-            this.PassiveSafety.Name = "PassiveSafety";
-            this.PassiveSafety.Size = new System.Drawing.Size(51, 51);
-            this.PassiveSafety.TabIndex = 4;
-            this.PassiveSafety.UseVisualStyleBackColor = true;
-            this.PassiveSafety.Click += new System.EventHandler(this.PassiveSafety_Click);
-            this.PassiveSafety.MouseHover += new System.EventHandler(this.PassiveSafety_MouseHover);
-            // 
-            // GroundStationAccess
-            // 
-            this.GroundStationAccess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroundStationAccess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.GroundStationAccess.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.GroundStationAccess.ForeColor = System.Drawing.Color.White;
-            this.GroundStationAccess.ImageIndex = 0;
-            this.GroundStationAccess.ImageList = this.imageList1;
-            this.GroundStationAccess.Location = new System.Drawing.Point(2, 277);
-            this.GroundStationAccess.Margin = new System.Windows.Forms.Padding(2);
-            this.GroundStationAccess.MinimumSize = new System.Drawing.Size(39, 42);
-            this.GroundStationAccess.Name = "GroundStationAccess";
-            this.GroundStationAccess.Size = new System.Drawing.Size(51, 51);
-            this.GroundStationAccess.TabIndex = 3;
-            this.GroundStationAccess.UseVisualStyleBackColor = true;
-            this.GroundStationAccess.Click += new System.EventHandler(this.GroundStationAccess_Click);
-            this.GroundStationAccess.MouseHover += new System.EventHandler(this.GroundStationAccess_MouseHover);
-            // 
-            // SmartView
-            // 
-            this.SmartView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SmartView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SmartView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SmartView.ForeColor = System.Drawing.Color.White;
-            this.SmartView.ImageIndex = 3;
-            this.SmartView.ImageList = this.imageList1;
-            this.SmartView.Location = new System.Drawing.Point(2, 222);
-            this.SmartView.Margin = new System.Windows.Forms.Padding(2);
-            this.SmartView.MinimumSize = new System.Drawing.Size(39, 42);
-            this.SmartView.Name = "SmartView";
-            this.SmartView.Size = new System.Drawing.Size(51, 51);
-            this.SmartView.TabIndex = 2;
-            this.SmartView.UseVisualStyleBackColor = true;
-            this.SmartView.Click += new System.EventHandler(this.SmartView_Click);
-            this.SmartView.MouseHover += new System.EventHandler(this.SmartView_MouseHover);
-            // 
-            // FacilityCreator
-            // 
-            this.FacilityCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.FacilityCreator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.FacilityCreator.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.FacilityCreator.ForeColor = System.Drawing.Color.White;
-            this.FacilityCreator.ImageIndex = 1;
-            this.FacilityCreator.ImageList = this.imageList1;
-            this.FacilityCreator.Location = new System.Drawing.Point(2, 112);
-            this.FacilityCreator.Margin = new System.Windows.Forms.Padding(2);
-            this.FacilityCreator.MinimumSize = new System.Drawing.Size(39, 42);
-            this.FacilityCreator.Name = "FacilityCreator";
-            this.FacilityCreator.Size = new System.Drawing.Size(51, 51);
-            this.FacilityCreator.TabIndex = 1;
-            this.FacilityCreator.UseVisualStyleBackColor = true;
-            this.FacilityCreator.Click += new System.EventHandler(this.FacilityCreator_Click);
-            this.FacilityCreator.MouseHover += new System.EventHandler(this.FacilityCreator_MouseHover);
-            // 
-            // SatelliteCreator
-            // 
-            this.SatelliteCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SatelliteCreator.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.SatelliteCreator.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.SatelliteCreator.ForeColor = System.Drawing.Color.White;
-            this.SatelliteCreator.Image = global::OperatorsToolbox.Properties.Resources.Orbit;
-            this.SatelliteCreator.Location = new System.Drawing.Point(2, 57);
-            this.SatelliteCreator.Margin = new System.Windows.Forms.Padding(2);
-            this.SatelliteCreator.MinimumSize = new System.Drawing.Size(39, 42);
-            this.SatelliteCreator.Name = "SatelliteCreator";
-            this.SatelliteCreator.Size = new System.Drawing.Size(51, 51);
-            this.SatelliteCreator.TabIndex = 0;
-            this.SatelliteCreator.UseVisualStyleBackColor = true;
-            this.SatelliteCreator.Click += new System.EventHandler(this.SatelliteCreator_Click);
-            this.SatelliteCreator.MouseHover += new System.EventHandler(this.SatelliteCreator_MouseHover);
-            // 
-            // Templates
-            // 
-            this.Templates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Templates.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Templates.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Templates.ForeColor = System.Drawing.Color.White;
-            this.Templates.ImageKey = "layout.png";
-            this.Templates.ImageList = this.imageList1;
-            this.Templates.Location = new System.Drawing.Point(2, 2);
-            this.Templates.Margin = new System.Windows.Forms.Padding(2);
-            this.Templates.MinimumSize = new System.Drawing.Size(39, 42);
-            this.Templates.Name = "Templates";
-            this.Templates.Size = new System.Drawing.Size(51, 51);
-            this.Templates.TabIndex = 10;
-            this.Templates.UseVisualStyleBackColor = true;
-            this.Templates.Click += new System.EventHandler(this.Templates_Click);
-            this.Templates.MouseHover += new System.EventHandler(this.Templates_MouseHover);
-            // 
-            // Settings
-            // 
-            this.Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Settings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Settings.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Settings.ForeColor = System.Drawing.Color.White;
-            this.Settings.ImageIndex = 10;
-            this.Settings.ImageList = this.imageList1;
-            this.Settings.Location = new System.Drawing.Point(2, 552);
-            this.Settings.Margin = new System.Windows.Forms.Padding(2);
-            this.Settings.MinimumSize = new System.Drawing.Size(39, 42);
-            this.Settings.Name = "Settings";
-            this.Settings.Size = new System.Drawing.Size(51, 51);
-            this.Settings.TabIndex = 11;
-            this.Settings.UseVisualStyleBackColor = true;
-            this.Settings.Click += new System.EventHandler(this.Settings_Click);
-            this.Settings.MouseHover += new System.EventHandler(this.Settings_MouseHover);
             // 
             // SatelliteImportDropdown
             // 
@@ -315,17 +99,17 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel1.Controls.Add(this.Templates, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.FacilityCreator, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.SatelliteCreator, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton0, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.Settings, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.Coverage, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.SolarPhase, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.GroundEvents, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.ThreatVolume, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.SmartView, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.PassiveSafety, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.GroundStationAccess, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton6, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton9, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton3, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton8, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton4, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton7, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.ToolbarButton5, 0, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -345,6 +129,232 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(55, 700);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
+            // AWBToolsDropdown
+            // 
+            this.AWBToolsDropdown.Name = "AWBToolsDropdown";
+            this.AWBToolsDropdown.Size = new System.Drawing.Size(61, 4);
+            this.AWBToolsDropdown.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.AWBToolsDropdown_ItemClicked);
+            // 
+            // ToolbarButton0
+            // 
+            this.ToolbarButton0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton0.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton0.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton0.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton0.ImageKey = "layout (1).png";
+            this.ToolbarButton0.ImageList = this.imageList1;
+            this.ToolbarButton0.Location = new System.Drawing.Point(2, 2);
+            this.ToolbarButton0.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton0.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton0.Name = "ToolbarButton0";
+            this.ToolbarButton0.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton0.TabIndex = 10;
+            this.ToolbarButton0.UseVisualStyleBackColor = true;
+            this.ToolbarButton0.Click += new System.EventHandler(this.ToolbarButton0_Click);
+            this.ToolbarButton0.MouseHover += new System.EventHandler(this.ToolbarButton0_MouseHover);
+            // 
+            // ToolbarButton2
+            // 
+            this.ToolbarButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton2.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton2.ImageIndex = 4;
+            this.ToolbarButton2.ImageList = this.imageList1;
+            this.ToolbarButton2.Location = new System.Drawing.Point(2, 112);
+            this.ToolbarButton2.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton2.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton2.Name = "ToolbarButton2";
+            this.ToolbarButton2.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton2.TabIndex = 1;
+            this.ToolbarButton2.UseVisualStyleBackColor = true;
+            this.ToolbarButton2.Click += new System.EventHandler(this.ToolbarButton2_Click);
+            this.ToolbarButton2.MouseHover += new System.EventHandler(this.ToolbarButton2_MouseHover);
+            // 
+            // ToolbarButton1
+            // 
+            this.ToolbarButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton1.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton1.ImageIndex = 1;
+            this.ToolbarButton1.ImageList = this.imageList1;
+            this.ToolbarButton1.Location = new System.Drawing.Point(2, 57);
+            this.ToolbarButton1.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton1.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton1.Name = "ToolbarButton1";
+            this.ToolbarButton1.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton1.TabIndex = 0;
+            this.ToolbarButton1.UseVisualStyleBackColor = true;
+            this.ToolbarButton1.Click += new System.EventHandler(this.ToolbarButton1_Click);
+            this.ToolbarButton1.MouseHover += new System.EventHandler(this.ToolbarButton1_MouseHover);
+            // 
+            // Settings
+            // 
+            this.Settings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Settings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Settings.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Settings.ForeColor = System.Drawing.Color.White;
+            this.Settings.ImageIndex = 13;
+            this.Settings.ImageList = this.imageList1;
+            this.Settings.Location = new System.Drawing.Point(2, 552);
+            this.Settings.Margin = new System.Windows.Forms.Padding(2);
+            this.Settings.MinimumSize = new System.Drawing.Size(39, 42);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(51, 51);
+            this.Settings.TabIndex = 11;
+            this.Settings.UseVisualStyleBackColor = true;
+            this.Settings.Click += new System.EventHandler(this.Settings_Click);
+            this.Settings.MouseHover += new System.EventHandler(this.Settings_MouseHover);
+            // 
+            // ToolbarButton6
+            // 
+            this.ToolbarButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton6.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton6.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton6.ImageIndex = 8;
+            this.ToolbarButton6.ImageList = this.imageList1;
+            this.ToolbarButton6.Location = new System.Drawing.Point(2, 332);
+            this.ToolbarButton6.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton6.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton6.Name = "ToolbarButton6";
+            this.ToolbarButton6.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton6.TabIndex = 9;
+            this.ToolbarButton6.UseVisualStyleBackColor = true;
+            this.ToolbarButton6.Click += new System.EventHandler(this.ToolbarButton6_Click);
+            this.ToolbarButton6.MouseHover += new System.EventHandler(this.ToolbarButton6_MouseHover);
+            // 
+            // ToolbarButton9
+            // 
+            this.ToolbarButton9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton9.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton9.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton9.ImageIndex = 11;
+            this.ToolbarButton9.ImageList = this.imageList1;
+            this.ToolbarButton9.Location = new System.Drawing.Point(2, 497);
+            this.ToolbarButton9.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton9.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton9.Name = "ToolbarButton9";
+            this.ToolbarButton9.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton9.TabIndex = 6;
+            this.ToolbarButton9.UseVisualStyleBackColor = true;
+            this.ToolbarButton9.Click += new System.EventHandler(this.ToolbarButton9_Click);
+            this.ToolbarButton9.MouseHover += new System.EventHandler(this.ToolbarButton9_MouseHover);
+            // 
+            // ToolbarButton3
+            // 
+            this.ToolbarButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton3.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton3.ImageIndex = 5;
+            this.ToolbarButton3.ImageList = this.imageList1;
+            this.ToolbarButton3.Location = new System.Drawing.Point(2, 167);
+            this.ToolbarButton3.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton3.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton3.Name = "ToolbarButton3";
+            this.ToolbarButton3.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton3.TabIndex = 8;
+            this.ToolbarButton3.UseVisualStyleBackColor = true;
+            this.ToolbarButton3.Click += new System.EventHandler(this.ToolbarButton3_Click);
+            this.ToolbarButton3.MouseHover += new System.EventHandler(this.ToolbarButton3_MouseHover);
+            // 
+            // ToolbarButton8
+            // 
+            this.ToolbarButton8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton8.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton8.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton8.ImageIndex = 10;
+            this.ToolbarButton8.ImageList = this.imageList1;
+            this.ToolbarButton8.Location = new System.Drawing.Point(2, 442);
+            this.ToolbarButton8.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton8.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton8.Name = "ToolbarButton8";
+            this.ToolbarButton8.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton8.TabIndex = 5;
+            this.ToolbarButton8.UseVisualStyleBackColor = true;
+            this.ToolbarButton8.Click += new System.EventHandler(this.ToolbarButton8_Click);
+            this.ToolbarButton8.MouseHover += new System.EventHandler(this.ToolbarButton8_MouseHover);
+            // 
+            // ToolbarButton4
+            // 
+            this.ToolbarButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton4.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton4.ImageIndex = 6;
+            this.ToolbarButton4.ImageList = this.imageList1;
+            this.ToolbarButton4.Location = new System.Drawing.Point(2, 222);
+            this.ToolbarButton4.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton4.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton4.Name = "ToolbarButton4";
+            this.ToolbarButton4.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton4.TabIndex = 2;
+            this.ToolbarButton4.UseVisualStyleBackColor = true;
+            this.ToolbarButton4.Click += new System.EventHandler(this.ToolbarButton4_Click);
+            this.ToolbarButton4.MouseHover += new System.EventHandler(this.ToolbarButton4_MouseHover);
+            // 
+            // ToolbarButton7
+            // 
+            this.ToolbarButton7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton7.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton7.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton7.ImageIndex = 9;
+            this.ToolbarButton7.ImageList = this.imageList1;
+            this.ToolbarButton7.Location = new System.Drawing.Point(2, 387);
+            this.ToolbarButton7.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton7.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton7.Name = "ToolbarButton7";
+            this.ToolbarButton7.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton7.TabIndex = 4;
+            this.ToolbarButton7.UseVisualStyleBackColor = true;
+            this.ToolbarButton7.Click += new System.EventHandler(this.ToolbarButton7_Click);
+            this.ToolbarButton7.MouseHover += new System.EventHandler(this.ToolbarButton7_MouseHover);
+            // 
+            // ToolbarButton5
+            // 
+            this.ToolbarButton5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ToolbarButton5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ToolbarButton5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ToolbarButton5.ForeColor = System.Drawing.Color.White;
+            this.ToolbarButton5.ImageIndex = 7;
+            this.ToolbarButton5.ImageList = this.imageList1;
+            this.ToolbarButton5.Location = new System.Drawing.Point(2, 277);
+            this.ToolbarButton5.Margin = new System.Windows.Forms.Padding(2);
+            this.ToolbarButton5.MinimumSize = new System.Drawing.Size(39, 42);
+            this.ToolbarButton5.Name = "ToolbarButton5";
+            this.ToolbarButton5.Size = new System.Drawing.Size(51, 51);
+            this.ToolbarButton5.TabIndex = 3;
+            this.ToolbarButton5.UseVisualStyleBackColor = true;
+            this.ToolbarButton5.Click += new System.EventHandler(this.ToolbarButton5_Click);
+            this.ToolbarButton5.MouseHover += new System.EventHandler(this.ToolbarButton5_MouseHover);
+            // 
             // CustomUserInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,21 +372,22 @@
 
         #endregion
 
-        private System.Windows.Forms.Button SatelliteCreator;
-        private System.Windows.Forms.Button FacilityCreator;
-        private System.Windows.Forms.Button SmartView;
-        private System.Windows.Forms.Button GroundStationAccess;
-        private System.Windows.Forms.Button PassiveSafety;
-        private System.Windows.Forms.Button ThreatVolume;
-        private System.Windows.Forms.Button SolarPhase;
+        private System.Windows.Forms.Button ToolbarButton1;
+        private System.Windows.Forms.Button ToolbarButton2;
+        private System.Windows.Forms.Button ToolbarButton4;
+        private System.Windows.Forms.Button ToolbarButton5;
+        private System.Windows.Forms.Button ToolbarButton7;
+        private System.Windows.Forms.Button ToolbarButton8;
+        private System.Windows.Forms.Button ToolbarButton9;
         private System.Windows.Forms.Panel PluginPanel;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ContextMenuStrip SmartViewDropdown;
-        private System.Windows.Forms.Button GroundEvents;
-        private System.Windows.Forms.Button Coverage;
-        private System.Windows.Forms.Button Templates;
+        private System.Windows.Forms.Button ToolbarButton3;
+        private System.Windows.Forms.Button ToolbarButton6;
+        private System.Windows.Forms.Button ToolbarButton0;
         private System.Windows.Forms.Button Settings;
         private System.Windows.Forms.ContextMenuStrip SatelliteImportDropdown;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ContextMenuStrip AWBToolsDropdown;
     }
 }

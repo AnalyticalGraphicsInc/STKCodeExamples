@@ -10,6 +10,8 @@
         public string MinEl { get; set; }
         public string MaxEl { get; set; }
         public string HalfAngle { get; set; }
+        public string MinAz { get; set; }
+        public string MaxAz { get; set; }
 
         public OpticalParams()
         {
@@ -27,6 +29,8 @@
                 LunarExAngle = "10";
                 SunElAngle = "-12";
                 HalfAngle = "70";
+                MinAz = "0";
+                MaxAz = "360";
             }
             else
             {
@@ -38,6 +42,8 @@
                 MinEl = data.MinEl;
                 MaxEl = data.MaxEl;
                 HalfAngle = data.HalfAngle;
+                MinAz = data.MinAz;
+                MaxAz = data.MaxAz;
             }
         }
     }

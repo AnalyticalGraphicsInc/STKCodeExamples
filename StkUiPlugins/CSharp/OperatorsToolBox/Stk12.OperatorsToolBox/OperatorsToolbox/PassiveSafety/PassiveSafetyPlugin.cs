@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using AGI.STKObjects;
@@ -50,20 +51,31 @@ namespace OperatorsToolbox.PassiveSafety
                     IAgStkObject satObj = CommonData.StkRoot.GetObjectFromPath("Satellite/" + ActorSat.Text);
                     IAgSatellite sat = satObj as IAgSatellite;
 
-                    //Get all maneuver data for actor satellite
+                    //Get all maneuver end times for actor satellite
                     IAgDataProviderGroup maneuverDpGroup = satObj.DataProviders["Astrogator Maneuver Ephemeris Block Final"] as IAgDataProviderGroup;
                     IAgDataPrvTimeVar maneuverDp = maneuverDpGroup.Group["Cartesian Elems"] as IAgDataPrvTimeVar;
                     IAgDrResult result = maneuverDp.Exec(scenario.StartTime, scenario.StopTime, 60);
                     IAgDrDataSetCollection maneuverData = result.DataSets;
 
+
+
                     //If there is maneuvers, run iterations for each maneuver. If no maneuvers then just pull closest RIC data for entire trajectory 
                     if (maneuverData.Count != 0)
                     {
                         CommonData.HasManeuvers = true;
+
+                        //Get maneuver numbers
                         IAgDataPrvInterval summaryDp = satObj.DataProviders["Maneuver Summary"] as IAgDataPrvInterval;
                         IAgDrResult summaryResult = summaryDp.Exec(scenario.StartTime, scenario.StopTime);
                         Array maneuverNumbers = summaryResult.DataSets.GetDataSetByName("Maneuver Number").GetValues();
                         int maxManeuverNum = maneuverNumbers.Length;
+
+                        //Get handles to cartesian position and velocity to seed passive safety runs
+                        IAgDataProviderGroup cartPos = satObj.DataProviders["Cartesian Position"] as IAgDataProviderGroup;
+                        IAgDataPrvTimeVar cartPosDP = cartPos.Group["ICRF"] as IAgDataPrvTimeVar;
+
+                        IAgDataProviderGroup cartVel = satObj.DataProviders["Cartesian Velocity"] as IAgDataProviderGroup;
+                        IAgDataPrvTimeVar cartVelDP = cartVel.Group["ICRF"] as IAgDataPrvTimeVar;
 
                         //Create passive safety satellite. Set to Astrogator and pull handles to initial state and propagate segments
                         IAgStkObject passiveSatObj = CreatorFunctions.GetCreateSatellite("PassiveCheck");
@@ -85,16 +97,29 @@ namespace OperatorsToolbox.PassiveSafety
                         Array x;
                         Array y;
                         Array z;
+                        String epochCur;
+                        DateTime dateCur;
                         //Assign cartesian elements to PassiveCheck satellite from actor maneuver maneuver data. Run each iteration to see if resulting trajectory violates constraints
-                        for (int i = 0; i < maxManeuverNum * 7; i += 7)
+                        for (int i = 0; i < maxManeuverNum; i ++)
                         {
-                            epoch = maneuverData[i].GetValues();
-                            vx = maneuverData[i + 1].GetValues();
-                            vy = maneuverData[i + 2].GetValues();
-                            vz = maneuverData[i + 3].GetValues();
-                            x = maneuverData[i + 4].GetValues();
-                            y = maneuverData[i + 5].GetValues();
-                            z = maneuverData[i + 6].GetValues();
+                            //Get maneuver time and offset in time by 0.25 sec to account for boundrary conditions around impulsive maneuvers
+                            epoch = maneuverData[0 + (i * 7)].GetValues();
+                            epochCur = epoch.GetValue(0).ToString();
+                            dateCur = DateTime.Parse(epochCur);
+                            dateCur = dateCur.AddMilliseconds(250);
+                            //dateCur = DateTime.ParseExact(epochCur, "dd MMM yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
+                            epochCur = dateCur.ToString("dd MMM yyyy HH:mm:ss.fff");
+
+                            //Get cartesian state vector for given time
+                            result = cartPosDP.ExecSingle(epochCur);
+                            x = result.DataSets.GetDataSetByName("x").GetValues();
+                            y = result.DataSets.GetDataSetByName("y").GetValues();
+                            z = result.DataSets.GetDataSetByName("z").GetValues();
+
+                            result = cartVelDP.ExecSingle(epochCur);
+                            vx = result.DataSets.GetDataSetByName("x").GetValues();
+                            vy = result.DataSets.GetDataSetByName("y").GetValues();
+                            vz = result.DataSets.GetDataSetByName("z").GetValues();
 
                             //Create passive run output to be used in visualization
                             PassiveRun run = new PassiveRun();
@@ -102,7 +127,7 @@ namespace OperatorsToolbox.PassiveSafety
                             run.UserMinR = Double.Parse(RMag.Text) / 1000;
                             run.UserMinI = Double.Parse(IMag.Text) / 1000;
                             run.UserMinC = Double.Parse(CMag.Text) / 1000;
-                            intState.OrbitEpoch = epoch.GetValue(0).ToString();
+                            intState.OrbitEpoch = epochCur;
                             element.Vx = Double.Parse(vx.GetValue(0).ToString());
                             element.Vy = Double.Parse(vy.GetValue(0).ToString());
                             element.Vz = Double.Parse(vz.GetValue(0).ToString());
@@ -133,7 +158,8 @@ namespace OperatorsToolbox.PassiveSafety
                             run.MinIntrack = MathFunctions.ArrayMinAbs(run.Intrack);
                             run.MinCrosstrack = MathFunctions.ArrayMinAbs(run.Crosstrack);
                             run.MinRadial = MathFunctions.ArrayMinAbs(run.Radial);
-                            run.ManeuverTime = epoch.GetValue(0).ToString();
+                            //run.ManeuverTime = epoch.GetValue(0).ToString();
+                            run.ManeuverTime = epochCur;
 
                             //spherical
                             if (radioButton1.Checked)

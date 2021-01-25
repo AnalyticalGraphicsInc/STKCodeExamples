@@ -41,6 +41,8 @@ namespace OperatorsToolbox.VolumeCreator
                 current.MaxEl = MaxEl.Text;
                 current.MinRange = MinRange.Text;
                 current.MaxRange = MaxRange.Text;
+                current.MinAz = MinAz.Text;
+                current.MaxAz = MaxAz.Text;
                 string name = Regex.Replace(ConfigName.Text, @"\s", "_");
                 current.Name = name;
                 CommonData.VolumeName = name;
@@ -63,6 +65,8 @@ namespace OperatorsToolbox.VolumeCreator
                 MaxRange.Text = CommonData.VolumeList[CommonData.TvSelectedIndex].MaxRange;
                 MinEl.Text = CommonData.VolumeList[CommonData.TvSelectedIndex].MinEl;
                 MaxEl.Text = CommonData.VolumeList[CommonData.TvSelectedIndex].MaxEl;
+                MinAz.Text = CommonData.VolumeList[CommonData.TvSelectedIndex].MinAz;
+                MaxAz.Text = CommonData.VolumeList[CommonData.TvSelectedIndex].MaxAz;
             }
             else
             {
@@ -72,6 +76,8 @@ namespace OperatorsToolbox.VolumeCreator
                 MaxRange.Text = "2000";
                 MinEl.Text = "10";
                 MaxEl.Text = "80";
+                MinAz.Text = "0";
+                MaxAz.Text = "360";
             }
 
         }

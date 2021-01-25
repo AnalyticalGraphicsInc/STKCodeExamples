@@ -125,13 +125,45 @@ namespace OperatorsToolbox
                 listBox1.Items.Add(type);
             }
 
+            for (int i = 0; i < CommonData._numPlugins; i++)
+            {
+                ListViewItem listItem = new ListViewItem();
+                listItem.SubItems.Add(i.ToString());
+                listItem.Text = ((CustomUserInterface.PluginType)i).ToString();
+                AvailablePluginList.Items.Add(listItem);
+            }
+            AvailablePluginList.Items.Add("Empty_Slot");
 
+            foreach (int item in CommonData.Preferences.PluginConfigList)
+            {
+                string pluginName = null;
+                ListViewItem listItem = new ListViewItem();
+                listItem.SubItems.Add(item.ToString());
+                if (item != -1)
+                {
+                    pluginName = ((CustomUserInterface.PluginType)item).ToString();
+                    //ToolbarPlugins.Items.Add(pluginName);
+                    for (int i = 0; i < AvailablePluginList.Items.Count; i++)
+                    {
+                        if (AvailablePluginList.Items[i].Text.ToString() == pluginName)
+                        {
+                            AvailablePluginList.Items.RemoveAt(i);
+                        }
+                    }
+                    listItem.Text = ((CustomUserInterface.PluginType)item).ToString();
+                }
+                else
+                {
+                    listItem.Text = "Empty_Slot";
+                }
+                ToolbarPlugins.Items.Add(listItem);
+            }
         }
         public static void BrowseFileExplorer(string initialDirectory, string title, TextBox textBox)
         {
             // Launch file explorer:
             OpenFileDialog fileExplorer = new OpenFileDialog();
-            fileExplorer.InitialDirectory = initialDirectory;
+            fileExplorer.InitialDirectory = new FileInfo(initialDirectory).DirectoryName;
             fileExplorer.Title = title;
 
             if (fileExplorer.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -150,6 +182,27 @@ namespace OperatorsToolbox
             int check = FieldCheck();
             if (check!=1)
             {
+                int type = -1;
+                CommonData.Preferences.PluginConfigList.Clear();
+                foreach (ListViewItem item in ToolbarPlugins.Items)
+                {
+                    if (String.IsNullOrEmpty(item.Text) || item.Text == "Empty_Slot")
+                    {
+                        type = -1;
+                    }
+                    else
+                    {
+                        type = CustomUserInterface.StringToPluginType(item.Text);
+                    }
+                    CommonData.Preferences.PluginConfigList.Add(type);
+                }
+                if (ToolbarPlugins.Items.Count < 10)
+                {
+                    while (CommonData.Preferences.PluginConfigList.Count < 10)
+                    {
+                        CommonData.Preferences.PluginConfigList.Add(-1);
+                    }
+                }
                 CommonData.Preferences.UdlUrl = UdlAddress.Text;
                 CommonData.Preferences.SatCatLocation = SatCatPath.Text;
                 CommonData.Preferences.SatDatabaseLocation = SatDataPath.Text;
@@ -176,7 +229,7 @@ namespace OperatorsToolbox
             }
             if (temp<300)
             {
-                MessageBox.Show("Pixel sixe must be greater than 300");
+                MessageBox.Show("Pixel size must be greater than 300");
                 check = 1;
             }
             return check;
@@ -293,6 +346,75 @@ namespace OperatorsToolbox
             {
                 TemplatesPath.Text = "";
             }
+        }
+
+        private void AddTool_Click(object sender, EventArgs e)
+        {
+            if (AvailablePluginList.SelectedItems != null && AvailablePluginList.FocusedItem != null)
+            {
+                if (ToolbarPlugins.Items.Count >= 10)
+                {
+                    MessageBox.Show("You cannot have more than 10 tools on the toolbar at once. Please remove a tool to add another");
+                }
+                else
+                {
+                    ToolbarPlugins.Items.Add(AvailablePluginList.SelectedItems[0].Text);
+                    if (AvailablePluginList.SelectedItems[0].Text != "Empty_Slot")
+                    {
+                        AvailablePluginList.Items.RemoveAt(AvailablePluginList.SelectedIndices[0]);
+                    }
+                }
+            }
+        }
+
+        private void RemoveTool_Click(object sender, EventArgs e)
+        {
+            if (ToolbarPlugins.SelectedItems != null && ToolbarPlugins.FocusedItem != null)
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = ToolbarPlugins.SelectedItems[0].Text;
+                if (item.Text != "Empty_Slot")
+                {
+                    AvailablePluginList.Items.Add(item);
+                }
+                ToolbarPlugins.Items.RemoveAt(ToolbarPlugins.SelectedIndices[0]);
+            }
+        }
+
+        private void ToolbarUp_Click(object sender, EventArgs e)
+        {
+            if (ToolbarPlugins.SelectedItems !=null && ToolbarPlugins.FocusedItem !=null)
+            {
+                ListViewItem copyItem = new ListViewItem(ToolbarPlugins.SelectedItems[0].Text);
+                int index = ToolbarPlugins.SelectedIndices[0];
+                ToolbarPlugins.Items.RemoveAt(index);
+                ToolbarPlugins.Items.Insert(index - 1, copyItem);
+                ToolbarPlugins.FocusedItem = ToolbarPlugins.Items[index - 1];
+                ToolbarPlugins.FocusedItem.Selected = true;
+            }
+        }
+
+        private void ToolbarDown_Click(object sender, EventArgs e)
+        {
+            if (ToolbarPlugins.SelectedItems != null && ToolbarPlugins.FocusedItem != null)
+            {
+                ListViewItem copyItem = new ListViewItem(ToolbarPlugins.SelectedItems[0].Text);
+                int index = ToolbarPlugins.SelectedIndices[0];
+                ToolbarPlugins.Items.RemoveAt(index);
+                ToolbarPlugins.Items.Insert(index + 1, copyItem);
+                ToolbarPlugins.FocusedItem = ToolbarPlugins.Items[index + 1];
+                ToolbarPlugins.FocusedItem.Selected = true;
+            }
+        }
+
+        private void ToolbarPlugins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AvailablePluginList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

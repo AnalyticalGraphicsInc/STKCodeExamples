@@ -95,8 +95,9 @@ namespace OperatorsToolbox.GroundEvents
             LatitudeValue.Text = CommonData.CurrentEvents[CommonData.EventSelectedIndex].Latitude.ToString();
             NameValue.Text = newSub.Name;
 
-            //Create sub-object
+            //Create sub-object and change color to match higher level object
             GroundEventFunctions.CreateSubObject(CommonData.CurrentEvents[CommonData.EventSelectedIndex],newSub);
+            CreatorFunctions.ChangeObjectColor("Place/" + CommonData.CurrentEvents[CommonData.EventSelectedIndex].Id + "-" + newSub.Name, (CustomUserInterface.ColorOptions)Enum.Parse(typeof(CustomUserInterface.ColorOptions), CommonData.CurrentEvents[CommonData.EventSelectedIndex].ColorOption));
         }
 
         private void Apply_Click(object sender, EventArgs e)

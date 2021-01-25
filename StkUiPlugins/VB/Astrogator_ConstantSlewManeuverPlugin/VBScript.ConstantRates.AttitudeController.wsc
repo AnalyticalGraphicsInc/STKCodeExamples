@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="VBScript.ConstantRates.AttitudeController"
+	    progid="VBScript.ConstantRates.AttitudeController.WSC"
+	    version="1.00"
+	    classid="{137FEEA8-518B-4f31-A73A-93848F5E004E}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"		get="GetName"/>
+		<property name="Yaw" 		get="GetYaw" 		put="SetYaw"/>
+		<property name="YawRate" 	get="GetYawRate" 	put="SetYawRate"/>
+		<property name="Pitch" 		get="GetPitch" 		put="SetPitch"/>
+		<property name="PitchRate" 	get="GetPitchRate" 	put="SetPitchRate"/>
+		<property name="Roll" 		get="GetRoll" 		put="SetRoll"/>
+		<property name="RollRate" 	get="GetRollRate" 	put="SetRollRate"/>
+		<property name="RefAxes" 	get="GetRefAxes" 	put="SetRefAxes"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="site"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="result"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="result"/>
+		</method>
+		<method name="PostPropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="VBScript" src="VBScript.ConstantRates.AttitudeController.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
