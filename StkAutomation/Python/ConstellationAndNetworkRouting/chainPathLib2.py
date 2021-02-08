@@ -35,6 +35,28 @@ def generateDiNetworkBandwidth(t,timeEdgesDistancesDelaysBandwidth,timeNodePos):
         G.add_node(node,Type=node.split('/')[0],Position=pos)
     return G
 
+
+def recomputeMissingData(strands,dfStrands,nodesTimesPos,strandsAtTimes,recomputeIfDataIsMissing=True):
+
+    computedNodeTimes = np.unique([item for nodeDict in list(nodesTimesPos.values()) for item in list(nodeDict.keys())])
+    missingDataTimes = [t for t in np.array(list(strandsAtTimes.keys())) if t not in computedNodeTimes]
+
+    
+    if len(missingDataTimes) > 0:
+        print('Data for nodes is missing at the following times')
+        print(missingDataTimes)
+        print('Adjust the start, stop or step to match previously saved data time or the recompute data')
+        if recomputeIfDataIsMissing == True:
+            print('Recalculating Strands')
+            strands,dfStrands = getAllStrands(stkRoot,chainNames,start,stop,overrideData=True)
+            print('Recalculating Node Positions')
+            nodesTimesPos = computeNodesPosOverTime(stkRoot,strands,start,stop,step,overrideData=True) # Pull node position over time
+            print('Rebuilding strandsAtTimes')
+            strandsAtTimes = getStrandsAtTimes(strands,start,stop,step) # Discretize strand intervals into times
+        
+    return strands,dfStrands,nodesTimesPos,strandsAtTimes
+
+
 def addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,constellationPairsDict,defaultValue=0):
 
     # Get possible edges from the constellation pairs dict 
@@ -187,16 +209,35 @@ def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,sta
     # Use first nodes for the naming convention
     if not filename:
         filename = 'SavedNetworkData/dfTop{}{}{}.pkl'.format(topN,startingNode.split('/')[-1],endingNode.split('/')[-1])
-        
+    
+    needToCompute = True
     if os.path.exists(filename) and overrideData == False:
         with open(filename,'rb') as f:
             df = pickle.load(f)
-    else:
+        computedTimes = np.array(df['time'])
+        neededTimes = np.array(list(timesEdgesDistancesDelays.keys()))
+        missingDataTimes = [t for t in neededTimes if t not in computedTimes]
+        if len(missingDataTimes)==0:
+            needToCompute = False
+            if len(computedTimes) != len(neededTimes):
+                index = 0
+                indices = []
+                for t in computedTimes:
+                    if t in neededTimes:
+                        indices.append(index)
+                    index+=1
+                df = df.iloc[indices,:]
+            
+            
+            
+    if needToCompute == True:
         # Define initial variables
         timeStrandMetric = []
         i = 0
         # Loop through each time
-        for t in np.arange(start,stop+step,step):
+        times = np.arange(start,stop,step)
+        times = np.append(times,stop)
+        for t in times:
             # Generate Network at each time
             if metric.lower() == 'bandwidth':
                 G = generateDiNetworkBandwidth(t,timesEdgesDistancesDelays,timeNodePos) # Build a directed network if two constellations are used
@@ -243,7 +284,7 @@ def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,sta
         print(time.time()-t1)
     return df
 
-def loadNetworkDfTopN(nodePairs,topN,filenames=''):
+def loadNetworkDfTopN(nodePairs,topN,neededTimes=[],filenames=''):
     ii = 0
     for nodePair in nodePairs:
         # Figureout each filename
@@ -264,6 +305,23 @@ def loadNetworkDfTopN(nodePairs,topN,filenames=''):
         with open(filename,'rb') as f:
             dfTemp = pickle.load(f).to_numpy()
         
+        # Filter down to only neededTimes
+        if len(neededTimes)>0:
+            computedTimes = dfTemp[:,0]
+            missingDataTimes = [t for t in neededTimes if t not in computedTimes]
+            if len(missingDataTimes)==0:
+                needToCompute = False
+                if len(computedTimes) != len(neededTimes):
+                    index = 0
+                    indices = []
+                    for t in computedTimes:
+                        if t in neededTimes:
+                            indices.append(index)
+                        index+=1
+                    dfTemp = dfTemp[indices,:]
+            else:
+                print('Missing some needed times in {} Please recompute the network'.format(filename))
+        
         # Append dataframes
         df = np.append(df,dfTemp,axis=0)
         ii+=1
@@ -274,7 +332,7 @@ def loadNetworkDfTopN(nodePairs,topN,filenames=''):
     return df
 
 
-def loadNetworkDf(nodePairs,filenames=''):
+def loadNetworkDf(nodePairs,neededTimes=[],filenames=''):
     ii = 0
     for nodePair in nodePairs:
         # Figureout each filename
@@ -294,6 +352,23 @@ def loadNetworkDf(nodePairs,filenames=''):
         # Read each file
         with open(filename,'rb') as f:
             dfTemp = pickle.load(f).to_numpy()
+        
+        # Filter down to only neededTimes
+        if len(neededTimes)>0:
+            computedTimes = dfTemp[:,0]
+            missingDataTimes = [t for t in neededTimes if t not in computedTimes]
+            if len(missingDataTimes)==0:
+                needToCompute = False
+                if len(computedTimes) != len(neededTimes):
+                    index = 0
+                    indices = []
+                    for t in computedTimes:
+                        if t in neededTimes:
+                            indices.append(index)
+                        index+=1
+                    dfTemp = dfTemp[indices,:]
+            else:
+                print('Missing some needed times in {} Please recompute the network'.format(filename))
             
         # Append dataframes
         df = np.append(df,dfTemp,axis=0)
@@ -526,13 +601,15 @@ def getStrandsDoesntWork(stkRoot,chainName,start,stop):
     strands = tuple(zip(strandNames,starts,stops))
     return strands
 
-def getStrands(stkRoot,chainName,start,stop,overrideData=False):
+def getStrands(stkRoot,chainName,start,stop,overrideData=False,printLoadedMessage=True):
     filename = 'SavedStrands/{}.pkl'.format(chainName)
     
     # Read in existing strands
     if os.path.exists(filename) and overrideData==False:
         with open(filename, 'rb') as f:
             strands = pickle.load(f)
+        if printLoadedMessage:
+            print('Loaded {}.pkl'.format(chainName))
             
     # Compute and parse strands
     else:
@@ -572,8 +649,8 @@ def getStrands(stkRoot,chainName,start,stop,overrideData=False):
             
     return strands
 
-def getAllStrands(stkRoot,chainNames,start,stop,overrideData=False):
-    strands = mergeStrands([getStrands(stkRoot,chainName,start,stop,overrideData=overrideData) for chainName in chainNames])
+def getAllStrands(stkRoot,chainNames,start,stop,overrideData=False,printLoadedMessage=True):
+    strands = mergeStrands([getStrands(stkRoot,chainName,start,stop,overrideData=overrideData,printLoadedMessage=printLoadedMessage) for chainName in chainNames])
     dfStrands = pd.DataFrame(strands,columns=['strand','start','stop']).sort_values(['start','stop'])
     dfStrands['dur'] = dfStrands['stop'] - dfStrands['start']
     dfStrands['num hops'] = dfStrands['strand'].apply(lambda x: len(x)-2)
@@ -666,7 +743,8 @@ def getStrandsAtTimes(strands,start,stop,step):
     starts = strands[:,1]
     stops = strands[:,2]
     strandsAtTimes = {}
-    times = np.arange(start,stop+step,step)
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
     for t in times:
         strandsAtTime = list(strands[(t >= starts) & (t <= stops),0])
         strandsAtTimes.update({t:strandsAtTime})
@@ -690,7 +768,8 @@ def computeNodesPosOverTime(stkRoot,strands,start,stop,step,overrideData=False):
         else:
             movingNodes.append(node)
     # Compute position of stationary nodes in Fixed frame
-    times = np.arange(start,stop+step,step)
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
     nodesTimesPos = {}
     for node in stationaryNodes:
         filename = 'SavedPositions/{}.pkl'.format(node.split('/')[-1])
@@ -739,7 +818,8 @@ def computeTimeStrandsDistancesDelays(strandsAtTimes,timeEdgesDistancesDelays,st
     timeStrandsDistances = {t: strandsAtTimeToStrandDistanceDelay(t,strandsAtTime,timeEdgesDistancesDelays[t]) for t,strandsAtTime in strandsAtTimes.items()}
 
     # Turn into sorted dataframe
-    times = np.arange(start,stop+step,step)
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
     dfTimeStrandsDistances = pd.DataFrame([(t,strand,distanceDelay[0],distanceDelay[1]) for t in times for strand,distanceDelay in timeStrandsDistances[t].items()],columns=['time','strand','distance','time delay'])
 
     dfTimeStrandsDistances['num hops'] = dfTimeStrandsDistances['strand'].apply(lambda x: len(x)-2)
@@ -773,7 +853,8 @@ def computeTimeStrandsDistances3(strandsAtTimes,timeEdgesDistances,start,stop,st
     timeStrandsDistances = {t: strandsAtTimeToStrandDistance3(t,strandsAtTime,timeEdgesDistances[t]) for t,strandsAtTime in strandsAtTimes.items()}
 
     # Turn into sorted dataframe
-    times = np.arange(start,stop+step,step)
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
     dfTimeStrandsDistances = pd.DataFrame([(t,strand,distance) for t in times for strand,distance in timeStrandsDistances[t].items()],columns=['time','strand','distance'])
     dfTimeStrandsDistances['num hops'] = dfTimeStrandsDistances['strand'].apply(lambda x: len(x)-2)
     dfTimeStrandsDistances.loc[dfTimeStrandsDistances['num hops'] < 0,'num hops'] = np.nan
@@ -893,7 +974,7 @@ def createDfIntervals(df,stop,step):
 
 
 # Add strands back to STK with object lines and intervals
-def addStrandsAsObjectLines(stkRoot,dfIntervals,color='red',lineWidth=4,deleteOldLines = True):
+def addStrandsAsObjectLines(stkRoot,dfIntervals,color='red',lineWidth=4,deleteOldLines = True,addTo2D=False):
     # Get Edges and intervals
     edges = []
     starts = []
@@ -927,6 +1008,11 @@ def addStrandsAsObjectLines(stkRoot,dfIntervals,color='red',lineWidth=4,deleteOl
         stkRoot.ExecuteCommand(cmd)
         cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
         stkRoot.ExecuteCommand(cmd)
+        if addTo2D==True:
+            cmd = 'Graphics * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+color+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+            stkRoot.ExecuteCommand(cmd)
+            cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+            stkRoot.ExecuteCommand(cmd)
     return
 
 # Add data back to STK
@@ -1402,10 +1488,25 @@ def computeNetworkMetrics(start,stop,step,timeNodePos,timesEdgesDistancesDelays,
         endingNode = endingNodes[0].split('/')[-1]
         filename = 'SavedNetworkData/df{}{}.pkl'.format(startingNode,endingNode)
         
+    needToCompute = True
     if os.path.exists(filename) and overrideData == False:
         with open(filename,'rb') as f:
             df = pickle.load(f)
-    else:
+        computedTimes = np.array(df['time'])
+        neededTimes = np.array(list(timesEdgesDistancesDelays.keys()))
+        missingDataTimes = [t for t in neededTimes if t not in computedTimes]
+        if len(missingDataTimes)==0:
+            needToCompute = False
+            if len(computedTimes) != len(neededTimes):
+                index = 0
+                indices = []
+                for t in computedTimes:
+                    if t in neededTimes:
+                        indices.append(index)
+                    index+=1
+                df = df.iloc[indices,:]
+        
+    if needToCompute == True:
         # Define initial variables
         strandsShort = []
         distances = []
@@ -1415,7 +1516,9 @@ def computeNetworkMetrics(start,stop,step,timeNodePos,timesEdgesDistancesDelays,
         i = 0
 
         # Loop through each time
-        for t in np.arange(start,stop+step,step):
+        times = np.arange(start,stop,step)
+        times = np.append(times,stop)
+        for t in times:
             
             # Generate Network at each time
             if diNetwork == True:
@@ -1750,7 +1853,8 @@ def minRangeIntervals2(timesMinStrandsDistances):
 
 # Convert intervals into discrete time steps
 def getStrandsAtTimesOld(strands,start,stop,step):
-    times = np.arange(start,stop+step,step)
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
     strandsAtTimes = {}
     for t in times:
         strandsAtTime = []
