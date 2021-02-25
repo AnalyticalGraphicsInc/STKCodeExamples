@@ -385,7 +385,7 @@ def deckAccessReportToDF(deckAccessFileName):
     f = open(deckAccessFileName,'r')
     txt = f.readlines()
     f.close()
-    header = txt[4].replace('[','').replace(']','').split()
+    header = txt[5].replace('[','').replace(']','').split()
     dfAccess = pd.DataFrame(txt[6:])[0].str.split(expand=True)
     if len(dfAccess.columns) == 10:
         dfAccess[1] = dfAccess[1]+' '+dfAccess[2]+' '+dfAccess[3]+' '+dfAccess[4]
@@ -393,7 +393,7 @@ def deckAccessReportToDF(deckAccessFileName):
         dfAccess = dfAccess.drop([2,3,4,6,7,8],axis=1)
 
     dfAccess.columns = [header[0],header[1]+' '+header[2]+' '+header[3],header[4]+' '+header[5]+' '+header[6],header[7]+' '+header[8]]
-    return dfAccess
+    return dfAccess.iloc[1:]
 
 def LoadSats(root,dfLoad,startTime,stopTime,TLEFileName,satTransmitterName,satReceiverName):
     root.BeginUpdate()
