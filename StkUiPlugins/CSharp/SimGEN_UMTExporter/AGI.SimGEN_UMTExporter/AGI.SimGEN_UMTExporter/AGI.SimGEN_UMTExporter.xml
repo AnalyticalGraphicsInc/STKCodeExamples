@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+  <CategoryRegistry>
+    <Category Name = "UiPlugins">
+<NETUiPlugin 
+         DisplayName="SimGEN UMT Exporter"
+         TypeName="AGI.SimGEN_UMTExporter.UMTExporterPluginSetup"
+         AssemblyName="AGI.SimGEN_UMTExporter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+         CodeBase="Directory of code base">
+	  </NETUiPlugin>
+	</Category>
+  </CategoryRegistry>
+</AGIRegistry>

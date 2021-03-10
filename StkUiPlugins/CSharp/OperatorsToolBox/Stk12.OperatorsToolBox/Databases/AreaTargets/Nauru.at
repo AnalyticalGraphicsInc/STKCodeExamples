@@ -1,0 +1,105 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Nauru
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -5.245690e-001
+		EcfLongitude           1.669264e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     11
+
+		BEGIN PolygonPoints
+
+			-5.52217916695255e-001	1.66929136323103e+002	0.00000000000000e+000
+			-5.51526916694613e-001	1.66919572323094e+002	0.00000000000000e+000
+			-5.44717916688271e-001	1.66909145323084e+002	0.00000000000000e+000
+			-5.32363916676772e-001	1.66904418323080e+002	0.00000000000000e+000
+			-5.11945916657751e-001	1.66907745323083e+002	0.00000000000000e+000
+			-4.98054916644818e-001	1.66918163323093e+002	0.00000000000000e+000
+			-4.93335916640419e-001	1.66930545323104e+002	0.00000000000000e+000
+			-4.98054916644818e-001	1.66950672323123e+002	0.00000000000000e+000
+			-5.14235916659885e-001	1.66957045323129e+002	0.00000000000000e+000
+			-5.49235916692481e-001	1.66937881323111e+002	0.00000000000000e+000
+			-5.52217916695255e-001	1.66929136323103e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    83
+ObjectID : 241
+FIPS_CNTRY : NR
+GMI_CNTRY : NRU
+ISO_2DIGIT : NR
+ISO_3DIGIT : NRU
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

@@ -65,27 +65,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AGI.STKObjects.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STKUtil.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STKVgt.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.Ui.Application.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Application.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Application.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.Ui.Core.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Core.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Core.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.Ui.Plugins.Interop">
-      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Plugins.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Plugins.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

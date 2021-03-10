@@ -1,0 +1,114 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Cayman_Is
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.931661e+001
+		EcfLongitude           -8.126250e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     20
+
+		BEGIN PolygonPoints
+
+			1.93261091018179e+001	-8.13950089081669e+001	0.00000000000000e+000
+			1.93080541018011e+001	-8.13695909081433e+001	0.00000000000000e+000
+			1.93038911017972e+001	-8.13555639081302e+001	0.00000000000000e+000
+			1.93041641017974e+001	-8.13416729081173e+001	0.00000000000000e+000
+			1.93070821018002e+001	-8.13140359080915e+001	0.00000000000000e+000
+			1.93122181018049e+001	-8.13013909080798e+001	0.00000000000000e+000
+			1.93275001018192e+001	-8.12709819080514e+001	0.00000000000000e+000
+			1.93433271018339e+001	-8.12752819080554e+001	0.00000000000000e+000
+			1.93538821018438e+001	-8.12544549080360e+001	0.00000000000000e+000
+			1.93541641018440e+001	-8.11500089079388e+001	0.00000000000000e+000
+			1.93529181018428e+001	-8.11116729079031e+001	0.00000000000000e+000
+			1.93454181018359e+001	-8.10976359078900e+001	0.00000000000000e+000
+			1.93327731018241e+001	-8.10930639078857e+001	0.00000000000000e+000
+			1.93126361018053e+001	-8.10956999078882e+001	0.00000000000000e+000
+			1.93027731017961e+001	-8.11055639078974e+001	0.00000000000000e+000
+			1.92650001017610e+001	-8.12636179080446e+001	0.00000000000000e+000
+			1.92672181017630e+001	-8.13913999081636e+001	0.00000000000000e+000
+			1.92852731017799e+001	-8.14008359081724e+001	0.00000000000000e+000
+			1.93104181018033e+001	-8.13998639081715e+001	0.00000000000000e+000
+			1.93261091018179e+001	-8.13950089081669e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 50
+FIPS_CNTRY : CJ
+GMI_CNTRY : CYM
+ISO_2DIGIT : KY
+ISO_3DIGIT : CYM
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

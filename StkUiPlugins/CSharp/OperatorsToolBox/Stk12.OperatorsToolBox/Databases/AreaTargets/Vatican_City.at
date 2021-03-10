@@ -1,0 +1,102 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Vatican_City
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            4.190403e+001
+		EcfLongitude           1.245065e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     8
+
+		BEGIN PolygonPoints
+
+			4.19063641228474e+001	1.24487451792319e+001	0.00000000000000e+000
+			4.19083911228493e+001	1.24518911792348e+001	0.00000000000000e+000
+			4.19040001228452e+001	1.24577181792402e+001	0.00000000000000e+000
+			4.19013911228427e+001	1.24566911792393e+001	0.00000000000000e+000
+			4.19008911228423e+001	1.24501361792332e+001	0.00000000000000e+000
+			4.19027181228440e+001	1.24444731792279e+001	0.00000000000000e+000
+			4.19044451228456e+001	1.24448631792283e+001	0.00000000000000e+000
+			4.19063641228474e+001	1.24487451792319e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    77
+ObjectID : 129
+FIPS_CNTRY : VT
+GMI_CNTRY : VTC
+ISO_2DIGIT : 
+ISO_3DIGIT :
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

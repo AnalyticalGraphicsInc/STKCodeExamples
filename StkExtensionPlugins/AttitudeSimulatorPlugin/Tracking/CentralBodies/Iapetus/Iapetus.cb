@@ -1,0 +1,80 @@
+
+BEGIN CentralBody
+
+    Name		 Iapetus
+
+    FuncCbInit		 AsterInit
+    FuncCbFree		 PlanetFree
+    FuncCbLoad		 PlanetLoad
+    FuncCbSave		 PlanetSave
+
+    Prefix		 Planeto
+
+    ShortDescription		 Asteroid
+
+    Description		 Asteroid
+
+    Type		 Planet
+
+
+    BEGIN AstroDefinition
+
+        Gm		  1.2050732730661200e+11
+        MaxAltitude		  0.0000000000000000e+00
+        MinAltitude		 -2.3300000000000000e+04
+        AtmosphereAltitude		  0.0000000000000000e+00
+        DtedSearchScale		 0.5
+
+        AttitudeName		 RotationCoefficientsFile
+
+        OrbitName		 JPL_SPICE
+
+        ShapeName		 Oblate_Spheroid
+        Shape		        OblateSpheroid		
+        MajorAxis		  7.4570000000000000e+05
+        MinorAxis		  7.1210000000000000e+05
+
+        GravityModel		 ZonalsToJ4
+
+        ParentName		 Saturn
+
+
+        PathGenerator		 Astrogator
+        PathGenerator		 GreatArc
+        PathGenerator		 HoldCBFPosition
+        PathGenerator		 HoldCBIPosition
+        PathGenerator		 J2Perturbation
+        PathGenerator		 J4Perturbation
+        PathGenerator		 Rocket
+        PathGenerator		 SimpleAscent
+        PathGenerator		 SPICE
+        PathGenerator		 StkExternal
+        PathGenerator		 TwoBody
+
+    END AstroDefinition
+
+    BEGIN EphemerisData
+
+        EphemerisSource		 JplSpice
+
+        JplIndex		 -1
+
+        JplSpiceId		 608
+
+        ApplyTDTtoTDBCorrectionForDE		 Yes
+
+    END EphemerisData
+
+    BEGIN SpinData
+
+        RotationDefinitionFile		 IapetusAttitude2009.rot
+
+    END SpinData
+
+    BEGIN Iapetus
+
+    END Iapetus
+
+    ReadOnly		 No
+
+END CentralBody

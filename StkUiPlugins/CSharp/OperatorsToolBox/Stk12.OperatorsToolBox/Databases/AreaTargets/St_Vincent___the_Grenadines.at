@@ -1,0 +1,110 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        St_Vincent___the_Grenadines
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            1.324845e+001
+		EcfLongitude           -6.119062e+001
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     16
+
+		BEGIN PolygonPoints
+
+			1.31302820960476e+001	-6.11844458893444e+001	0.00000000000000e+000
+			1.31561090960716e+001	-6.12436178893995e+001	0.00000000000000e+000
+			1.31783360960923e+001	-6.12630638894176e+001	0.00000000000000e+000
+			1.32056910961178e+001	-6.12801458894335e+001	0.00000000000000e+000
+			1.32502730961593e+001	-6.12780638894316e+001	0.00000000000000e+000
+			1.32730540961805e+001	-6.12655548894199e+001	0.00000000000000e+000
+			1.33693090962702e+001	-6.12070908893655e+001	0.00000000000000e+000
+			1.33831910962831e+001	-6.11798638893401e+001	0.00000000000000e+000
+			1.33762450962766e+001	-6.11424998893053e+001	0.00000000000000e+000
+			1.33283270962320e+001	-6.11229178892871e+001	0.00000000000000e+000
+			1.33075000962126e+001	-6.11202818892846e+001	0.00000000000000e+000
+			1.32458360961552e+001	-6.11237548892879e+001	0.00000000000000e+000
+			1.32202730961314e+001	-6.11300088892937e+001	0.00000000000000e+000
+			1.31677730960825e+001	-6.11480548893105e+001	0.00000000000000e+000
+			1.31344450960514e+001	-6.11697908893307e+001	0.00000000000000e+000
+			1.31302820960476e+001	-6.11844458893444e+001	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 40
+FIPS_CNTRY : VC
+GMI_CNTRY : VCT
+ISO_2DIGIT : VC
+ISO_3DIGIT : VCT
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+

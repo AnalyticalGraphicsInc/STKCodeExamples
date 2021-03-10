@@ -1,0 +1,15 @@
+<?xml version = "1.0" standalone = "yes"?>
+<AgXMLPropertyBagData version = "1.0">
+    <Object clsid = "{45C4D7DC-47D3-4bd3-BD95-BC3CF102C837}">
+        <_BSTRUniqueID Value = "{B70E2C5A-ED8A-412E-9813-4CFDBB1DCD94}" VarType = "VT_BSTR" />
+        <DisplayName Value = "Constant Wind" VarType = "VT_BSTR" />
+        <BlendTime Value = "5.0000000000000000e+00" VarType = "VT_R8" />
+        <WindSpeed Value = "0.0000000000000000e+00" VarType = "VT_R8" />
+        <WindBearing Value = "0.0000000000000000e+00" VarType = "VT_R8" />
+        <UserProperties VarType = "VT_UNKNOWN">
+            <Object clsid = "{21306355-2B56-47BA-AB2F-72F8DF5B6B9E}">
+                <PropertyCount Value = "0" VarType = "VT_I4" />
+            </Object>
+        </UserProperties>
+    </Object>
+</AgXMLPropertyBagData>

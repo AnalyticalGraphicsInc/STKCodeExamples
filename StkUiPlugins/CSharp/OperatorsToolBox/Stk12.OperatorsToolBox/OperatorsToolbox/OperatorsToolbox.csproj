@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8D4A2CB9-9E50-4BFD-98F5-EF7615615CC2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OperatorsToolbox</RootNamespace>
+    <AssemblyName>OperatorsToolbox</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>operatorsToolBox.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AGI.Astrogator.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Astrogator.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Astrogator.Plugin.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Astrogator.Plugin.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Plugin.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Plugin.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STK.Plugin.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STK.Plugin.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKGraphics.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKGraphics.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKObjects.Astrogator.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKObjects.Astrogator.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKObjects.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKUtil.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKVgt.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Application.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Application.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Core.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Core.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Plugins.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Ui.Plugins.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppPreferences.cs" />
+    <Compile Include="AWBFunctions.cs" />
+    <Compile Include="FacilityCreator\CadanceDefinitionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FacilityCreator\CadanceDefinitionForm.Designer.cs">
+      <DependentUpon>CadanceDefinitionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\ChangeConstraintsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FacilityCreator\ChangeConstraintsForm.Designer.cs">
+      <DependentUpon>ChangeConstraintsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonData.cs" />
+    <Compile Include="Coverage\CoverageData.cs" />
+    <Compile Include="Coverage\CoverageFunctions.cs" />
+    <Compile Include="Coverage\CoverageOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Coverage\CoverageOptionsForm.Designer.cs">
+      <DependentUpon>CoverageOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Coverage\CoveragePlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Coverage\CoveragePlugin.Designer.cs">
+      <DependentUpon>CoveragePlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreatorFunctions.cs" />
+    <Compile Include="CustomConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomConfigPage.Designer.cs">
+      <DependentUpon>CustomConfigPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomUserInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomUserInterface.Designer.cs">
+      <DependentUpon>CustomUserInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\FacilityCreatorFunctions.cs" />
+    <Compile Include="FacilityCreator\FCSensor.cs" />
+    <Compile Include="GroundEvents\ContactInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroundEvents\ContactInfoForm.Designer.cs">
+      <DependentUpon>ContactInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpsPluginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PlaneCrossingUtility\CrossingOutputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlaneCrossingUtility\CrossingOutputForm.Designer.cs">
+      <DependentUpon>CrossingOutputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlaneCrossingUtility\PlaneCrossing.cs" />
+    <Compile Include="PlaneCrossingUtility\PlaneCrossingGroup.cs" />
+    <Compile Include="PlaneCrossingUtility\PlaneCrossingPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PlaneCrossingUtility\PlaneCrossingPlugin.Designer.cs">
+      <DependentUpon>PlaneCrossingPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\Edit2DGenericForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\Edit2DGenericForm.Designer.cs">
+      <DependentUpon>Edit2DGenericForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\Edit3DGenericForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\Edit3DGenericForm.Designer.cs">
+      <DependentUpon>Edit3DGenericForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroundEvents\EditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroundEvents\EditForm.designer.cs">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\EditGeoDriftForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\EditGeoDriftForm.Designer.cs">
+      <DependentUpon>EditGeoDriftForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\EditTargetThreatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\EditTargetThreatForm.Designer.cs">
+      <DependentUpon>EditTargetThreatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\FacilityCreatorPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FacilityCreator\FacilityCreatorPlugin.Designer.cs">
+      <DependentUpon>FacilityCreatorPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VolumeCreator\FacilitySelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VolumeCreator\FacilitySelectForm.designer.cs">
+      <DependentUpon>FacilitySelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\FCFacility.cs" />
+    <Compile Include="GroundEvents\GroundEventsPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroundEvents\GroundEventsPlugin.Designer.cs">
+      <DependentUpon>GroundEventsPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\GroundLocation.cs" />
+    <Compile Include="ImportTLEfromUDL\InsertTLEFromUDL.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImportTLEfromUDL\InsertTLEFromUDL.Designer.cs">
+      <DependentUpon>InsertTLEFromUDL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VolumeCreator\LocationConfig.cs" />
+    <Compile Include="VolumeCreator\LocationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VolumeCreator\LocationForm.designer.cs">
+      <DependentUpon>LocationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MathFunctions.cs" />
+    <Compile Include="VolumeCreator\VolumeConfig.cs" />
+    <Compile Include="SatelliteCreator\NewAssetForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SatelliteCreator\NewAssetForm.designer.cs">
+      <DependentUpon>NewAssetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VolumeCreator\NewConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VolumeCreator\NewConfigForm.designer.cs">
+      <DependentUpon>NewConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroundEvents\NewGroundEventForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroundEvents\NewGroundEventForm.designer.cs">
+      <DependentUpon>NewGroundEventForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\NewViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\NewViewForm.designer.cs">
+      <DependentUpon>NewViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\ObjectData.cs" />
+    <Compile Include="SmartView\ObjectHideShowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\ObjectHideShowForm.Designer.cs">
+      <DependentUpon>ObjectHideShowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OlePictureHelper.cs" />
+    <Compile Include="FacilityCreator\OpticalParams.cs" />
+    <Compile Include="PassiveSafety\PassiveRun.cs" />
+    <Compile Include="PassiveSafety\PassiveRunOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PassiveSafety\PassiveRunOutput.Designer.cs">
+      <DependentUpon>PassiveRunOutput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PassiveSafety\PassiveSafetyPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PassiveSafety\PassiveSafetyPlugin.Designer.cs">
+      <DependentUpon>PassiveSafetyPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\RadarParams.cs" />
+    <Compile Include="ReadWrite.cs" />
+    <Compile Include="SatelliteCreator\SatCatItem.cs" />
+    <Compile Include="EpochUpdater\SatelliteEpochUpdatePlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EpochUpdater\SatelliteEpochUpdatePlugin.Designer.cs">
+      <DependentUpon>SatelliteEpochUpdatePlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FacilityCreator\SensorCadance.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartView\SmartViewFunctions.cs" />
+    <Compile Include="SmartView\SmartViewPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartView\SmartViewPlugin.Designer.cs">
+      <DependentUpon>SmartViewPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BetaAngleCalculator\SolarPhasePlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BetaAngleCalculator\SolarPhasePlugin.Designer.cs">
+      <DependentUpon>SolarPhasePlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroundEvents\GroundEvent.cs" />
+    <Compile Include="GroundEvents\GroundEventFunctions.cs" />
+    <Compile Include="StationAccess\StationAccessPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StationAccess\StationAccessPlugin.Designer.cs">
+      <DependentUpon>StationAccessPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StkObjectsLibrary.cs" />
+    <Compile Include="GroundEvents\SubObject.cs" />
+    <Compile Include="GroundEvents\SubObjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GroundEvents\SubObjectsForm.designer.cs">
+      <DependentUpon>SubObjectsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TemplateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\TemplateForm.Designer.cs">
+      <DependentUpon>TemplateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TemplatesPlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Templates\TemplatesPlugin.Designer.cs">
+      <DependentUpon>TemplatesPlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VolumeCreator\VolumePlugin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VolumeCreator\VolumePlugin.Designer.cs">
+      <DependentUpon>VolumePlugin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportTLEfromUDL\UdlJsonTleResponse.cs" />
+    <Compile Include="SmartView\ViewData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FacilityCreator\CadanceDefinitionForm.resx">
+      <DependentUpon>CadanceDefinitionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FacilityCreator\ChangeConstraintsForm.resx">
+      <DependentUpon>ChangeConstraintsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Coverage\CoverageOptionsForm.resx">
+      <DependentUpon>CoverageOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Coverage\CoveragePlugin.resx">
+      <DependentUpon>CoveragePlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomConfigPage.resx">
+      <DependentUpon>CustomConfigPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomUserInterface.resx">
+      <DependentUpon>CustomUserInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroundEvents\ContactInfoForm.resx">
+      <DependentUpon>ContactInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlaneCrossingUtility\CrossingOutputForm.resx">
+      <DependentUpon>CrossingOutputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlaneCrossingUtility\PlaneCrossingPlugin.resx">
+      <DependentUpon>PlaneCrossingPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\Edit2DGenericForm.resx">
+      <DependentUpon>Edit2DGenericForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\Edit3DGenericForm.resx">
+      <DependentUpon>Edit3DGenericForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroundEvents\EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\EditGeoDriftForm.resx">
+      <DependentUpon>EditGeoDriftForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\EditTargetThreatForm.resx">
+      <DependentUpon>EditTargetThreatForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FacilityCreator\FacilityCreatorPlugin.resx">
+      <DependentUpon>FacilityCreatorPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VolumeCreator\FacilitySelectForm.resx">
+      <DependentUpon>FacilitySelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroundEvents\GroundEventsPlugin.resx">
+      <DependentUpon>GroundEventsPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportTLEfromUDL\InsertTLEFromUDL.resx">
+      <DependentUpon>InsertTLEFromUDL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VolumeCreator\LocationForm.resx">
+      <DependentUpon>LocationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SatelliteCreator\NewAssetForm.resx">
+      <DependentUpon>NewAssetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VolumeCreator\NewConfigForm.resx">
+      <DependentUpon>NewConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroundEvents\NewGroundEventForm.resx">
+      <DependentUpon>NewGroundEventForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\NewViewForm.resx">
+      <DependentUpon>NewViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\ObjectHideShowForm.resx">
+      <DependentUpon>ObjectHideShowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassiveSafety\PassiveRunOutput.resx">
+      <DependentUpon>PassiveRunOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PassiveSafety\PassiveSafetyPlugin.resx">
+      <DependentUpon>PassiveSafetyPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EpochUpdater\SatelliteEpochUpdatePlugin.resx">
+      <DependentUpon>SatelliteEpochUpdatePlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\SmartViewPlugin.resx">
+      <DependentUpon>SmartViewPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BetaAngleCalculator\SolarPhasePlugin.resx">
+      <DependentUpon>SolarPhasePlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StationAccess\StationAccessPlugin.resx">
+      <DependentUpon>StationAccessPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroundEvents\SubObjectsForm.resx">
+      <DependentUpon>SubObjectsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\TemplateForm.resx">
+      <DependentUpon>TemplateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\TemplatesPlugin.resx">
+      <DependentUpon>TemplatesPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VolumeCreator\VolumePlugin.resx">
+      <DependentUpon>VolumePlugin.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\STK.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Aircraft.png" />
+    <Content Include="Images\Antenna.png" />
+    <Content Include="Images\Building.png" />
+    <Content Include="Images\CheckList.png" />
+    <Content Include="Images\Clock.png" />
+    <Content Include="Images\Globe.png" />
+    <Content Include="Images\Home.png" />
+    <Content Include="Images\Missile.png" />
+    <EmbeddedResource Include="Images\operatorsToolBox.ico" />
+    <Content Include="Images\Orbit.png" />
+    <Content Include="Images\Satellite.png" />
+    <Content Include="Images\Target.png" />
+    <None Include="Resources\operatorsToolBox.ico" />
+    <Content Include="operatorsToolbox.ico" />
+    <Content Include="Stk11.UiPlugin.RENAME.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

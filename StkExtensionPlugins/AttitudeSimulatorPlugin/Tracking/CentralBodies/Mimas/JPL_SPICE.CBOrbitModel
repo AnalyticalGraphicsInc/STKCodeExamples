@@ -1,0 +1,15 @@
+<!-- STKv4.0 Format="XML" -->
+<STKOBJECT>
+<OBJECT Class = "CBOrbitModel" Name = "JPL_SPICE">
+    <OBJECT Class = "string" Name = "Category"> &quot;Mimas&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "Clonable"> True </OBJECT>
+    <OBJECT Class = "string" Name = "Description"> &quot;JPL SPICE File&quot; </OBJECT>
+    <OBJECT Class = "bool" Name = "ReadOnly"> False </OBJECT>
+    <OBJECT Class = "container" Name = "ShooterControls" />
+    <OBJECT Class = "string" Name = "SpiceIdNumber"> &quot;601&quot; </OBJECT>
+    <OBJECT Class = "int" Name = "STKVersion"> 1150 </OBJECT>
+    <OBJECT Class = "string" Name = "Type"> &quot;SPICE&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "UserComment"> &quot;JPL SPICE File&quot; </OBJECT>
+    <OBJECT Class = "string" Name = "Version"> &quot;1.0.0 a&quot; </OBJECT>
+</OBJECT>
+</STKOBJECT>

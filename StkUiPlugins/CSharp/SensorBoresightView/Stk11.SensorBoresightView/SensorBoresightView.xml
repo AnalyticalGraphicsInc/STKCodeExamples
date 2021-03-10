@@ -6,7 +6,7 @@
                 DisplayName="Sensor Boresight View"
                 TypeName="SensorBoresightViewPlugin.SensorBoresightViewPlugin"
                 AssemblyName="SensorBoresightViewPlugin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-                CodeBase="Directory name where dll is found">
+                CodeBase="Directory/to/dll/file">
            </NETUiPlugin>
 	</Category>
    </CategoryRegistry>

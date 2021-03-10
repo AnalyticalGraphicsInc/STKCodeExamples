@@ -1,0 +1,105 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN AreaTarget
+
+Name        Cook_Is
+
+	BEGIN CentroidPosition
+
+		CentralBody            Earth
+		AutoCentroid           On
+		EcfLatitude            -2.122449e+001
+		EcfLongitude           -1.597892e+002
+		EcfAltitude            0.000000e+000
+		UseTerrainInfo         Off
+		DisplayCoords          Geodetic
+
+		AreaType               Pattern
+		NumberOfPolygonPts     11
+
+		BEGIN PolygonPoints
+
+			-2.12566729359778e+001	-1.59746981981138e+002	0.00000000000000e+000
+			-2.12527819359742e+001	-1.59793635981181e+002	0.00000000000000e+000
+			-2.12484729359701e+001	-1.59832517981218e+002	0.00000000000000e+000
+			-2.12391639359615e+001	-1.59840008981225e+002	0.00000000000000e+000
+			-2.11993089359244e+001	-1.59834717981220e+002	0.00000000000000e+000
+			-2.11898639359156e+001	-1.59827235981213e+002	0.00000000000000e+000
+			-2.11874999359134e+001	-1.59788326981176e+002	0.00000000000000e+000
+			-2.11923639359179e+001	-1.59756135981146e+002	0.00000000000000e+000
+			-2.12262459359495e+001	-1.59732926981125e+002	0.00000000000000e+000
+			-2.12524999359739e+001	-1.59739163981131e+002	0.00000000000000e+000
+			-2.12566729359778e+001	-1.59746981981138e+002	0.00000000000000e+000
+
+		END PolygonPoints
+
+        BoundaryType           GreatArc
+        Granularity            0.008727
+
+	END CentroidPosition
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+            BEGIN Attributes
+
+                MarkerColor             #ff0000
+                PolygonColor            #ff0000
+                LabelColor              #ff0000
+                LineStyle               0
+                LineWidth               1.0
+                FillTranslucency        0.500000
+                MarkerStyle             0
+                FontStyle               0
+
+            END Attributes
+
+            BEGIN Graphics
+
+                ShowGfx                 On
+                Inherit                 On
+                ShowCentroid            On
+                ShowBoundaryPts         Off
+                ShowLabel               On
+                Filled                  Off
+                SymmetricFill           Off
+                ShowBoundingRect        Off
+
+            END Graphics
+
+        BEGIN DisplayTimes
+            DisplayType	AlwaysOn
+        END DisplayTimes
+    END Graphics
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN Desc
+        LongText    82
+ObjectID : 10
+FIPS_CNTRY : CW
+GMI_CNTRY : COK
+ISO_2DIGIT : CK
+ISO_3DIGIT : COK
+    END Desc
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+END AreaTarget
+
