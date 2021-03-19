@@ -106,21 +106,22 @@
     <None Include="BasicManeuverStrategy3dExampleProfileCPP.rgs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh">
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh">
       <Filter>Generated Files\Debug</Filter>
     </None>
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tli">
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh">
       <Filter>Generated Files\Debug</Filter>
     </None>
-    <None Include="..\..\lib\Release.x64\BasicManeuverExamplesCPP\agflight.tlh">
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tli">
+      <Filter>Generated Files\Debug</Filter>
+    </None>
+    <None Include="..\x64\lib\Release.x64\BasicManeuverExamplesCPP\agcomutilities.tlh">
       <Filter>Generated Files\Release</Filter>
     </None>
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agcomutilities.tlh">
-      <Filter>Generated Files\Debug</Filter>
-    </None>
-    <None Include="..\..\lib\Release.x64\BasicManeuverExamplesCPP\agcomutilities.tlh">
+    <None Include="..\x64\lib\Release.x64\BasicManeuverExamplesCPP\agflight.tlh">
       <Filter>Generated Files\Release</Filter>
     </None>
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BasicManeuverExamplesCPP.idl">
