@@ -1,0 +1,30 @@
+HKCR
+{
+	AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP.1 = s 'AGI Flight BasicManeuverStrategyFactory3dExampleProfileCPP Class'
+	{
+		CLSID = s '{3d3751ae-5f3e-4c89-9f71-5a33586fe3f2}'
+	}
+	AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP = s 'AGI Flight BasicManeuverStrategyFactory3dExampleProfileCPP Class'
+	{
+		CLSID = s '{3d3751ae-5f3e-4c89-9f71-5a33586fe3f2}'
+		CurVer = s 'AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3d3751ae-5f3e-4c89-9f71-5a33586fe3f2} = s 'AGI Flight BasicManeuverStrategyFactory3dExampleProfileCPP Class'
+		{
+			ProgID = s 'AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP.1'
+			VersionIndependentProgID = s 'AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{d0293f97-34cc-4137-91ae-d9f476b2cd0b}'
+			Version = s '1.0'
+		}
+	}
+}
+
+
+

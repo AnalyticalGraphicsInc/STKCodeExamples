@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<AGIRegistry version="1.0">
+	<CategoryRegistry>
+
+    <Category Name="AGI Basic Maneuver Procedure Strategy Factories">
+      <Plugin ProgID = "AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleNavCPP" 	File = "BasicManeuverExamplesCPP.dll" />
+      <Plugin ProgID = "AGI12.BasicManeuverExamples.BasicManeuverStrategyFactory3dExampleProfileCPP" 	File = "BasicManeuverExamplesCPP.dll" />
+    </Category>
+
+	</CategoryRegistry>
+
+  <VersionIndependentGUID>
+    <Object	Description	=	"AGI BasicManeuverStrategy3dExampleNavCPP Class"	VersIndepGUID	=	"{7BB8B5A8-04ED-4CA8-8093-01E44AE4505D}"	CurrentGUID	=	"{a36bc8e8-2f41-4123-92d4-5d9d0b0e7bc0}"	/>
+    <Object	Description	=	"AGI BasicManeuverStrategy3dExampleProfileCPP Class"	VersIndepGUID	=	"{B4C8F84A-EFAC-489A-B367-C9355E7115B4}"	CurrentGUID	=	"{eb8f1dd8-8782-4116-acda-781d44e445a6}"	/>
+  </VersionIndependentGUID>
+
+</AGIRegistry>
