@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+<CategoryRegistry>
+<Category Name = "UiPlugins">
+<NETUiPlugin
+DisplayName="Move MTO Time Plugin"
+TypeName="Agi.UiPlugin.MoveMtoTime.MoveMtoTime"
+AssemblyName="Agi.UiPlugin.MoveMtoTime"
+CodeBase="C:\ProgramData\AGI\STK 12\Plugins\MoveMtoTime">
+</NETUiPlugin>
+</Category>
+</CategoryRegistry>
+</AGIRegistry>
