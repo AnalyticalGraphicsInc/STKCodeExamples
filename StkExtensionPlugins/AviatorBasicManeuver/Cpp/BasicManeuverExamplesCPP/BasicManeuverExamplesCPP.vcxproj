@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\tneely_dev\dev\Research\T_Flight_dev\Source\bin\Release.x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\AGI\STK 12\bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -107,6 +107,7 @@
       <TypeLibraryName>$(IntDir)BasicManeuverExamplesCPP.tlb</TypeLibraryName>
       <DllDataFileName />
       <ValidateAllParameters>true</ValidateAllParameters>
+      <AdditionalIncludeDirectories>C:\Program Files\AGI\STK 12\bin</AdditionalIncludeDirectories>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -161,7 +162,7 @@
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\tneely_dev\dev\Research\T_Flight_dev\Source\bin\Debug.x64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\AGI\STK 12\bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -173,6 +174,7 @@
       <TypeLibraryName>$(IntDir)BasicManeuverExamplesCPP.tlb</TypeLibraryName>
       <DllDataFileName />
       <ValidateAllParameters>true</ValidateAllParameters>
+      <AdditionalIncludeDirectories>C:\Program Files\AGI\STK 12\bin</AdditionalIncludeDirectories>
     </Midl>
     <ResourceCompile>
       <Culture>0x0409</Culture>
@@ -276,11 +278,11 @@
     <ResourceCompile Include="BasicManeuverExamplesCPP.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agcomutilities.tlh" />
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh" />
-    <None Include="..\..\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tli" />
-    <None Include="..\..\lib\Release.x64\BasicManeuverExamplesCPP\agcomutilities.tlh" />
-    <None Include="..\..\lib\Release.x64\BasicManeuverExamplesCPP\agflight.tlh" />
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh" />
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tlh" />
+    <None Include="..\x64\lib\Debug.x64\BasicManeuverExamplesCPP\agflight.tli" />
+    <None Include="..\x64\lib\Release.x64\BasicManeuverExamplesCPP\agcomutilities.tlh" />
+    <None Include="..\x64\lib\Release.x64\BasicManeuverExamplesCPP\agflight.tlh" />
     <None Include="BasicManeuverExamplesCPP.def" />
     <None Include="BasicManeuverExamplesCPP.rgs" />
     <None Include="BasicManeuverStrategy3dExampleNavCPP.rgs" />
