@@ -108,10 +108,6 @@ namespace OperatorsToolbox.SmartView
                 current.TrailType = "None";
             }
 
-            current.ShowAerialSensors = false;
-
-            current.ShowGroundSensors = false;
-
             if (UseCurrentTime.Checked)
             {
                 IAgAnimation animationRoot = (IAgAnimation)CommonData.StkRoot;
@@ -284,16 +280,6 @@ namespace OperatorsToolbox.SmartView
                 {
                     WindowSelect.SelectedIndex = WindowSelect.Items.Count - 1;
                 }
-            }
-
-            if (CommonData.SavedViewList[CommonData.SelectedIndex].ShowGroundSensors)
-            {
-                //SensorCoverage2D.Checked = true;
-            }
-
-            if (CommonData.SavedViewList[CommonData.SelectedIndex].ShowAerialSensors)
-            {
-                //AerialSensorCoverage2D.Checked = true;
             }
 
             if (CommonData.SavedViewList[CommonData.SelectedIndex].ObjectHideShow)

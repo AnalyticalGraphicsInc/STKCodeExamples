@@ -139,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPreferences.cs" />
+    <Compile Include="Coverage\ATManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Coverage\ATManager.Designer.cs">
+      <DependentUpon>ATManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="AWBFunctions.cs" />
     <Compile Include="FacilityCreator\CadanceDefinitionForm.cs">
       <SubType>Form</SubType>
@@ -181,7 +187,14 @@
       <DependentUpon>CustomUserInterface.cs</DependentUpon>
     </Compile>
     <Compile Include="FacilityCreator\FacilityCreatorFunctions.cs" />
+    <Compile Include="FacilityCreator\FacilityJsonInput.cs" />
     <Compile Include="FacilityCreator\FCSensor.cs" />
+    <Compile Include="FirstTimeUseWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FirstTimeUseWizard.Designer.cs">
+      <DependentUpon>FirstTimeUseWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroundEvents\ContactInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +218,33 @@
     <Compile Include="PlaneCrossingUtility\PlaneCrossingPlugin.Designer.cs">
       <DependentUpon>PlaneCrossingPlugin.cs</DependentUpon>
     </Compile>
+    <Compile Include="SatelliteCreator\FilterConfig.cs" />
+    <Compile Include="SatelliteCreator\FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SatelliteCreator\FilterForm.Designer.cs">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SensorBoresightPlugin\SensorBoresightUtility.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SensorBoresightPlugin\SensorBoresightUtility.Designer.cs">
+      <DependentUpon>SensorBoresightUtility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SensorBoresightPlugin\SensorViewClass.cs" />
+    <Compile Include="SensorBoresightPlugin\SensorViewData.cs" />
+    <Compile Include="SmartView\AdvancedDisplayOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\AdvancedDisplayOptionsForm.Designer.cs">
+      <DependentUpon>AdvancedDisplayOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartView\CustomLeadTrailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\CustomLeadTrailForm.Designer.cs">
+      <DependentUpon>CustomLeadTrailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartView\Edit2DGenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,24 +263,26 @@
     <Compile Include="GroundEvents\EditForm.designer.cs">
       <DependentUpon>EditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartView\EditGeoDriftForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartView\EditGeoDriftForm.Designer.cs">
-      <DependentUpon>EditGeoDriftForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartView\EditTargetThreatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartView\EditTargetThreatForm.Designer.cs">
-      <DependentUpon>EditTargetThreatForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="FacilityCreator\FacilityCreatorPlugin.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FacilityCreator\FacilityCreatorPlugin.Designer.cs">
       <DependentUpon>FacilityCreatorPlugin.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartView\SVDataDisplay.cs" />
+    <Compile Include="SmartView\VectorHideShowForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartView\VectorHideShowForm.Designer.cs">
+      <DependentUpon>VectorHideShowForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\ModifyScriptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\ModifyScriptForm.Designer.cs">
+      <DependentUpon>ModifyScriptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\TemplateScriptData.cs" />
     <Compile Include="VolumeCreator\FacilitySelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -395,6 +437,9 @@
     <Compile Include="SmartView\ViewData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Coverage\ATManager.resx">
+      <DependentUpon>ATManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FacilityCreator\CadanceDefinitionForm.resx">
       <DependentUpon>CadanceDefinitionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -413,6 +458,9 @@
     <EmbeddedResource Include="CustomUserInterface.resx">
       <DependentUpon>CustomUserInterface.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FirstTimeUseWizard.resx">
+      <DependentUpon>FirstTimeUseWizard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GroundEvents\ContactInfoForm.resx">
       <DependentUpon>ContactInfoForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -421,6 +469,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PlaneCrossingUtility\PlaneCrossingPlugin.resx">
       <DependentUpon>PlaneCrossingPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SatelliteCreator\FilterForm.resx">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SensorBoresightPlugin\SensorBoresightUtility.resx">
+      <DependentUpon>SensorBoresightUtility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\AdvancedDisplayOptionsForm.resx">
+      <DependentUpon>AdvancedDisplayOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\CustomLeadTrailForm.resx">
+      <DependentUpon>CustomLeadTrailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartView\Edit2DGenericForm.resx">
       <DependentUpon>Edit2DGenericForm.cs</DependentUpon>
@@ -431,14 +491,14 @@
     <EmbeddedResource Include="GroundEvents\EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartView\EditGeoDriftForm.resx">
-      <DependentUpon>EditGeoDriftForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartView\EditTargetThreatForm.resx">
-      <DependentUpon>EditTargetThreatForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FacilityCreator\FacilityCreatorPlugin.resx">
       <DependentUpon>FacilityCreatorPlugin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartView\VectorHideShowForm.resx">
+      <DependentUpon>VectorHideShowForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\ModifyScriptForm.resx">
+      <DependentUpon>ModifyScriptForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VolumeCreator\FacilitySelectForm.resx">
       <DependentUpon>FacilitySelectForm.cs</DependentUpon>

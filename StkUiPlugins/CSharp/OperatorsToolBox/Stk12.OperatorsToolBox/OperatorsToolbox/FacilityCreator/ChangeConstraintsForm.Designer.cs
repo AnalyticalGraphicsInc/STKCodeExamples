@@ -99,6 +99,20 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.DeleteSensor = new System.Windows.Forms.Button();
             this.AddSensor = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.PointingEl = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.PointingAz = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.RPointingEl = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.RPointingAz = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.OpticalControlPanel.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -107,10 +121,13 @@
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // OpticalControlPanel
             // 
+            this.OpticalControlPanel.Controls.Add(this.groupBox7);
             this.OpticalControlPanel.Controls.Add(this.label36);
             this.OpticalControlPanel.Controls.Add(this.label13);
             this.OpticalControlPanel.Controls.Add(this.OName);
@@ -130,7 +147,7 @@
             this.OpticalControlPanel.Margin = new System.Windows.Forms.Padding(2);
             this.OpticalControlPanel.Name = "OpticalControlPanel";
             this.OpticalControlPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.OpticalControlPanel.Size = new System.Drawing.Size(467, 229);
+            this.OpticalControlPanel.Size = new System.Drawing.Size(292, 334);
             this.OpticalControlPanel.TabIndex = 0;
             this.OpticalControlPanel.TabStop = false;
             this.OpticalControlPanel.Text = "Optical Constraints";
@@ -148,7 +165,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(392, 54);
+            this.label13.Location = new System.Drawing.Point(192, 47);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(25, 13);
@@ -163,7 +180,7 @@
             this.OName.Location = new System.Drawing.Point(83, 24);
             this.OName.Margin = new System.Windows.Forms.Padding(2);
             this.OName.Name = "OName";
-            this.OName.Size = new System.Drawing.Size(141, 13);
+            this.OName.Size = new System.Drawing.Size(197, 13);
             this.OName.TabIndex = 17;
             this.OName.TextChanged += new System.EventHandler(this.OName_TextChanged);
             // 
@@ -176,7 +193,7 @@
             this.groupBox3.Controls.Add(this.MinAz);
             this.groupBox3.Controls.Add(this.label30);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(319, 112);
+            this.groupBox3.Location = new System.Drawing.Point(147, 224);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
@@ -200,17 +217,17 @@
             this.MaxAz.BackColor = System.Drawing.Color.DimGray;
             this.MaxAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MaxAz.ForeColor = System.Drawing.Color.White;
-            this.MaxAz.Location = new System.Drawing.Point(35, 60);
+            this.MaxAz.Location = new System.Drawing.Point(39, 60);
             this.MaxAz.Margin = new System.Windows.Forms.Padding(2);
             this.MaxAz.Name = "MaxAz";
-            this.MaxAz.Size = new System.Drawing.Size(58, 13);
+            this.MaxAz.Size = new System.Drawing.Size(54, 13);
             this.MaxAz.TabIndex = 6;
             this.MaxAz.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 58);
+            this.label16.Location = new System.Drawing.Point(4, 59);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(30, 13);
@@ -232,17 +249,17 @@
             this.MinAz.BackColor = System.Drawing.Color.DimGray;
             this.MinAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MinAz.ForeColor = System.Drawing.Color.White;
-            this.MinAz.Location = new System.Drawing.Point(35, 30);
+            this.MinAz.Location = new System.Drawing.Point(39, 30);
             this.MinAz.Margin = new System.Windows.Forms.Padding(2);
             this.MinAz.Name = "MinAz";
-            this.MinAz.Size = new System.Drawing.Size(58, 13);
+            this.MinAz.Size = new System.Drawing.Size(54, 13);
             this.MinAz.TabIndex = 3;
             this.MinAz.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(8, 28);
+            this.label30.Location = new System.Drawing.Point(7, 28);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(27, 13);
@@ -254,17 +271,17 @@
             this.HalfAngle.BackColor = System.Drawing.Color.DimGray;
             this.HalfAngle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.HalfAngle.ForeColor = System.Drawing.Color.White;
-            this.HalfAngle.Location = new System.Drawing.Point(328, 55);
+            this.HalfAngle.Location = new System.Drawing.Point(138, 47);
             this.HalfAngle.Margin = new System.Windows.Forms.Padding(2);
             this.HalfAngle.Name = "HalfAngle";
-            this.HalfAngle.Size = new System.Drawing.Size(58, 13);
+            this.HalfAngle.Size = new System.Drawing.Size(49, 13);
             this.HalfAngle.TabIndex = 15;
             this.HalfAngle.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(236, 53);
+            this.label14.Location = new System.Drawing.Point(7, 46);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(87, 13);
@@ -280,7 +297,7 @@
             this.groupBox2.Controls.Add(this.MinEl);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(164, 112);
+            this.groupBox2.Location = new System.Drawing.Point(10, 224);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -304,17 +321,17 @@
             this.MaxEl.BackColor = System.Drawing.Color.DimGray;
             this.MaxEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MaxEl.ForeColor = System.Drawing.Color.White;
-            this.MaxEl.Location = new System.Drawing.Point(35, 60);
+            this.MaxEl.Location = new System.Drawing.Point(39, 60);
             this.MaxEl.Margin = new System.Windows.Forms.Padding(2);
             this.MaxEl.Name = "MaxEl";
-            this.MaxEl.Size = new System.Drawing.Size(58, 13);
+            this.MaxEl.Size = new System.Drawing.Size(54, 13);
             this.MaxEl.TabIndex = 6;
             this.MaxEl.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 58);
+            this.label6.Location = new System.Drawing.Point(5, 58);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(30, 13);
@@ -336,10 +353,10 @@
             this.MinEl.BackColor = System.Drawing.Color.DimGray;
             this.MinEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MinEl.ForeColor = System.Drawing.Color.White;
-            this.MinEl.Location = new System.Drawing.Point(35, 30);
+            this.MinEl.Location = new System.Drawing.Point(39, 30);
             this.MinEl.Margin = new System.Windows.Forms.Padding(2);
             this.MinEl.Name = "MinEl";
-            this.MinEl.Size = new System.Drawing.Size(58, 13);
+            this.MinEl.Size = new System.Drawing.Size(54, 13);
             this.MinEl.TabIndex = 3;
             this.MinEl.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
@@ -362,7 +379,7 @@
             this.groupBox1.Controls.Add(this.MinRange);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(10, 112);
+            this.groupBox1.Location = new System.Drawing.Point(147, 120);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -386,17 +403,17 @@
             this.MaxRange.BackColor = System.Drawing.Color.DimGray;
             this.MaxRange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MaxRange.ForeColor = System.Drawing.Color.White;
-            this.MaxRange.Location = new System.Drawing.Point(35, 60);
+            this.MaxRange.Location = new System.Drawing.Point(38, 60);
             this.MaxRange.Margin = new System.Windows.Forms.Padding(2);
             this.MaxRange.Name = "MaxRange";
-            this.MaxRange.Size = new System.Drawing.Size(58, 13);
+            this.MaxRange.Size = new System.Drawing.Size(55, 13);
             this.MaxRange.TabIndex = 6;
             this.MaxRange.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 58);
+            this.label4.Location = new System.Drawing.Point(4, 58);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(30, 13);
@@ -418,10 +435,10 @@
             this.MinRange.BackColor = System.Drawing.Color.DimGray;
             this.MinRange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MinRange.ForeColor = System.Drawing.Color.White;
-            this.MinRange.Location = new System.Drawing.Point(35, 30);
+            this.MinRange.Location = new System.Drawing.Point(38, 30);
             this.MinRange.Margin = new System.Windows.Forms.Padding(2);
             this.MinRange.Name = "MinRange";
-            this.MinRange.Size = new System.Drawing.Size(58, 13);
+            this.MinRange.Size = new System.Drawing.Size(55, 13);
             this.MinRange.TabIndex = 3;
             this.MinRange.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
@@ -438,7 +455,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 51);
+            this.label10.Location = new System.Drawing.Point(7, 96);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(129, 13);
@@ -448,7 +465,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(207, 80);
+            this.label11.Location = new System.Drawing.Point(192, 71);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(25, 13);
@@ -460,7 +477,7 @@
             this.MaxSunEl.BackColor = System.Drawing.Color.DimGray;
             this.MaxSunEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.MaxSunEl.ForeColor = System.Drawing.Color.White;
-            this.MaxSunEl.Location = new System.Drawing.Point(153, 53);
+            this.MaxSunEl.Location = new System.Drawing.Point(138, 98);
             this.MaxSunEl.Margin = new System.Windows.Forms.Padding(2);
             this.MaxSunEl.Name = "MaxSunEl";
             this.MaxSunEl.Size = new System.Drawing.Size(49, 13);
@@ -470,7 +487,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(207, 52);
+            this.label9.Location = new System.Drawing.Point(192, 97);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(25, 13);
@@ -482,7 +499,7 @@
             this.LunExAngle.BackColor = System.Drawing.Color.DimGray;
             this.LunExAngle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.LunExAngle.ForeColor = System.Drawing.Color.White;
-            this.LunExAngle.Location = new System.Drawing.Point(153, 81);
+            this.LunExAngle.Location = new System.Drawing.Point(138, 72);
             this.LunExAngle.Margin = new System.Windows.Forms.Padding(2);
             this.LunExAngle.Name = "LunExAngle";
             this.LunExAngle.Size = new System.Drawing.Size(49, 13);
@@ -492,7 +509,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 79);
+            this.label12.Location = new System.Drawing.Point(7, 70);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(115, 13);
@@ -504,10 +521,10 @@
             this.Save.BackColor = System.Drawing.Color.SteelBlue;
             this.Save.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Save.ForeColor = System.Drawing.Color.White;
-            this.Save.Location = new System.Drawing.Point(9, 254);
+            this.Save.Location = new System.Drawing.Point(9, 305);
             this.Save.Margin = new System.Windows.Forms.Padding(2);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(96, 32);
+            this.Save.Size = new System.Drawing.Size(128, 32);
             this.Save.TabIndex = 44;
             this.Save.Text = "Save";
             this.Save.UseVisualStyleBackColor = false;
@@ -515,23 +532,24 @@
             // 
             // RadarControlPanel
             // 
+            this.RadarControlPanel.Controls.Add(this.groupBox8);
             this.RadarControlPanel.Controls.Add(this.label35);
             this.RadarControlPanel.Controls.Add(this.RName);
             this.RadarControlPanel.Controls.Add(this.groupBox6);
             this.RadarControlPanel.Controls.Add(this.label17);
             this.RadarControlPanel.Controls.Add(this.groupBox4);
             this.RadarControlPanel.Controls.Add(this.groupBox5);
-            this.RadarControlPanel.Controls.Add(this.RHalfAngle);
-            this.RadarControlPanel.Controls.Add(this.label18);
             this.RadarControlPanel.Controls.Add(this.label24);
             this.RadarControlPanel.Controls.Add(this.SolarExAngle);
+            this.RadarControlPanel.Controls.Add(this.RHalfAngle);
+            this.RadarControlPanel.Controls.Add(this.label18);
             this.RadarControlPanel.Controls.Add(this.label19);
             this.RadarControlPanel.ForeColor = System.Drawing.Color.White;
-            this.RadarControlPanel.Location = new System.Drawing.Point(203, 9);
+            this.RadarControlPanel.Location = new System.Drawing.Point(205, 9);
             this.RadarControlPanel.Margin = new System.Windows.Forms.Padding(2);
             this.RadarControlPanel.Name = "RadarControlPanel";
             this.RadarControlPanel.Padding = new System.Windows.Forms.Padding(2);
-            this.RadarControlPanel.Size = new System.Drawing.Size(465, 229);
+            this.RadarControlPanel.Size = new System.Drawing.Size(292, 324);
             this.RadarControlPanel.TabIndex = 17;
             this.RadarControlPanel.TabStop = false;
             this.RadarControlPanel.Text = "Radar Constraints";
@@ -567,7 +585,7 @@
             this.groupBox6.Controls.Add(this.RMinAz);
             this.groupBox6.Controls.Add(this.label34);
             this.groupBox6.ForeColor = System.Drawing.Color.White;
-            this.groupBox6.Location = new System.Drawing.Point(319, 107);
+            this.groupBox6.Location = new System.Drawing.Point(149, 211);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
@@ -591,17 +609,17 @@
             this.RMaxAz.BackColor = System.Drawing.Color.DimGray;
             this.RMaxAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMaxAz.ForeColor = System.Drawing.Color.White;
-            this.RMaxAz.Location = new System.Drawing.Point(35, 60);
+            this.RMaxAz.Location = new System.Drawing.Point(42, 60);
             this.RMaxAz.Margin = new System.Windows.Forms.Padding(2);
             this.RMaxAz.Name = "RMaxAz";
-            this.RMaxAz.Size = new System.Drawing.Size(58, 13);
+            this.RMaxAz.Size = new System.Drawing.Size(54, 13);
             this.RMaxAz.TabIndex = 6;
             this.RMaxAz.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(8, 58);
+            this.label32.Location = new System.Drawing.Point(5, 58);
             this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(30, 13);
@@ -623,17 +641,17 @@
             this.RMinAz.BackColor = System.Drawing.Color.DimGray;
             this.RMinAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMinAz.ForeColor = System.Drawing.Color.White;
-            this.RMinAz.Location = new System.Drawing.Point(35, 30);
+            this.RMinAz.Location = new System.Drawing.Point(42, 29);
             this.RMinAz.Margin = new System.Windows.Forms.Padding(2);
             this.RMinAz.Name = "RMinAz";
-            this.RMinAz.Size = new System.Drawing.Size(58, 13);
+            this.RMinAz.Size = new System.Drawing.Size(54, 13);
             this.RMinAz.TabIndex = 3;
             this.RMinAz.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(8, 28);
+            this.label34.Location = new System.Drawing.Point(7, 28);
             this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(27, 13);
@@ -643,7 +661,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(207, 73);
+            this.label17.Location = new System.Drawing.Point(207, 44);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(25, 13);
@@ -659,7 +677,7 @@
             this.groupBox4.Controls.Add(this.RMinEl);
             this.groupBox4.Controls.Add(this.label23);
             this.groupBox4.ForeColor = System.Drawing.Color.White;
-            this.groupBox4.Location = new System.Drawing.Point(166, 107);
+            this.groupBox4.Location = new System.Drawing.Point(12, 211);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
@@ -683,17 +701,17 @@
             this.RMaxEl.BackColor = System.Drawing.Color.DimGray;
             this.RMaxEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMaxEl.ForeColor = System.Drawing.Color.White;
-            this.RMaxEl.Location = new System.Drawing.Point(35, 60);
+            this.RMaxEl.Location = new System.Drawing.Point(36, 60);
             this.RMaxEl.Margin = new System.Windows.Forms.Padding(2);
             this.RMaxEl.Name = "RMaxEl";
-            this.RMaxEl.Size = new System.Drawing.Size(58, 13);
+            this.RMaxEl.Size = new System.Drawing.Size(54, 13);
             this.RMaxEl.TabIndex = 6;
             this.RMaxEl.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 58);
+            this.label21.Location = new System.Drawing.Point(2, 58);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(30, 13);
@@ -715,17 +733,17 @@
             this.RMinEl.BackColor = System.Drawing.Color.DimGray;
             this.RMinEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMinEl.ForeColor = System.Drawing.Color.White;
-            this.RMinEl.Location = new System.Drawing.Point(35, 30);
+            this.RMinEl.Location = new System.Drawing.Point(36, 30);
             this.RMinEl.Margin = new System.Windows.Forms.Padding(2);
             this.RMinEl.Name = "RMinEl";
-            this.RMinEl.Size = new System.Drawing.Size(58, 13);
+            this.RMinEl.Size = new System.Drawing.Size(54, 13);
             this.RMinEl.TabIndex = 3;
             this.RMinEl.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 28);
+            this.label23.Location = new System.Drawing.Point(5, 28);
             this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(27, 13);
@@ -741,7 +759,7 @@
             this.groupBox5.Controls.Add(this.RMinRange);
             this.groupBox5.Controls.Add(this.label28);
             this.groupBox5.ForeColor = System.Drawing.Color.White;
-            this.groupBox5.Location = new System.Drawing.Point(12, 107);
+            this.groupBox5.Location = new System.Drawing.Point(149, 107);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
@@ -765,10 +783,10 @@
             this.RMaxRange.BackColor = System.Drawing.Color.DimGray;
             this.RMaxRange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMaxRange.ForeColor = System.Drawing.Color.White;
-            this.RMaxRange.Location = new System.Drawing.Point(35, 60);
+            this.RMaxRange.Location = new System.Drawing.Point(42, 59);
             this.RMaxRange.Margin = new System.Windows.Forms.Padding(2);
             this.RMaxRange.Name = "RMaxRange";
-            this.RMaxRange.Size = new System.Drawing.Size(58, 13);
+            this.RMaxRange.Size = new System.Drawing.Size(54, 13);
             this.RMaxRange.TabIndex = 6;
             this.RMaxRange.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
@@ -797,10 +815,10 @@
             this.RMinRange.BackColor = System.Drawing.Color.DimGray;
             this.RMinRange.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RMinRange.ForeColor = System.Drawing.Color.White;
-            this.RMinRange.Location = new System.Drawing.Point(35, 30);
+            this.RMinRange.Location = new System.Drawing.Point(42, 30);
             this.RMinRange.Margin = new System.Windows.Forms.Padding(2);
             this.RMinRange.Name = "RMinRange";
-            this.RMinRange.Size = new System.Drawing.Size(58, 13);
+            this.RMinRange.Size = new System.Drawing.Size(54, 13);
             this.RMinRange.TabIndex = 3;
             this.RMinRange.TextChanged += new System.EventHandler(this.UpdateSensor);
             // 
@@ -819,7 +837,7 @@
             this.RHalfAngle.BackColor = System.Drawing.Color.DimGray;
             this.RHalfAngle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.RHalfAngle.ForeColor = System.Drawing.Color.White;
-            this.RHalfAngle.Location = new System.Drawing.Point(143, 74);
+            this.RHalfAngle.Location = new System.Drawing.Point(143, 45);
             this.RHalfAngle.Margin = new System.Windows.Forms.Padding(2);
             this.RHalfAngle.Name = "RHalfAngle";
             this.RHalfAngle.Size = new System.Drawing.Size(58, 13);
@@ -829,7 +847,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(15, 72);
+            this.label18.Location = new System.Drawing.Point(15, 43);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(87, 13);
@@ -839,7 +857,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(15, 44);
+            this.label24.Location = new System.Drawing.Point(15, 71);
             this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(112, 13);
@@ -851,7 +869,7 @@
             this.SolarExAngle.BackColor = System.Drawing.Color.DimGray;
             this.SolarExAngle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SolarExAngle.ForeColor = System.Drawing.Color.White;
-            this.SolarExAngle.Location = new System.Drawing.Point(143, 46);
+            this.SolarExAngle.Location = new System.Drawing.Point(143, 73);
             this.SolarExAngle.Margin = new System.Windows.Forms.Padding(2);
             this.SolarExAngle.Name = "SolarExAngle";
             this.SolarExAngle.Size = new System.Drawing.Size(58, 13);
@@ -861,7 +879,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(207, 45);
+            this.label19.Location = new System.Drawing.Point(207, 72);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(25, 13);
@@ -877,7 +895,7 @@
             this.SensorList.ItemHeight = 16;
             this.SensorList.Location = new System.Drawing.Point(9, 12);
             this.SensorList.Name = "SensorList";
-            this.SensorList.Size = new System.Drawing.Size(187, 180);
+            this.SensorList.Size = new System.Drawing.Size(187, 244);
             this.SensorList.TabIndex = 45;
             this.SensorList.SelectedIndexChanged += new System.EventHandler(this.SensorList_SelectedIndexChanged);
             // 
@@ -887,7 +905,7 @@
             this.Duplicate.ForeColor = System.Drawing.SystemColors.Desktop;
             this.Duplicate.ImageIndex = 2;
             this.Duplicate.ImageList = this.imageList1;
-            this.Duplicate.Location = new System.Drawing.Point(54, 198);
+            this.Duplicate.Location = new System.Drawing.Point(53, 260);
             this.Duplicate.Margin = new System.Windows.Forms.Padding(2);
             this.Duplicate.Name = "Duplicate";
             this.Duplicate.Size = new System.Drawing.Size(40, 40);
@@ -909,7 +927,7 @@
             this.DeleteSensor.ForeColor = System.Drawing.SystemColors.Desktop;
             this.DeleteSensor.ImageIndex = 1;
             this.DeleteSensor.ImageList = this.imageList1;
-            this.DeleteSensor.Location = new System.Drawing.Point(98, 199);
+            this.DeleteSensor.Location = new System.Drawing.Point(97, 261);
             this.DeleteSensor.Margin = new System.Windows.Forms.Padding(2);
             this.DeleteSensor.Name = "DeleteSensor";
             this.DeleteSensor.Size = new System.Drawing.Size(40, 40);
@@ -923,7 +941,7 @@
             this.AddSensor.ForeColor = System.Drawing.SystemColors.Desktop;
             this.AddSensor.ImageIndex = 0;
             this.AddSensor.ImageList = this.imageList1;
-            this.AddSensor.Location = new System.Drawing.Point(10, 199);
+            this.AddSensor.Location = new System.Drawing.Point(9, 261);
             this.AddSensor.Margin = new System.Windows.Forms.Padding(2);
             this.AddSensor.Name = "AddSensor";
             this.AddSensor.Size = new System.Drawing.Size(40, 40);
@@ -931,12 +949,176 @@
             this.AddSensor.UseVisualStyleBackColor = true;
             this.AddSensor.Click += new System.EventHandler(this.AddSensor_Click);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label37);
+            this.groupBox7.Controls.Add(this.PointingEl);
+            this.groupBox7.Controls.Add(this.label38);
+            this.groupBox7.Controls.Add(this.label39);
+            this.groupBox7.Controls.Add(this.PointingAz);
+            this.groupBox7.Controls.Add(this.label40);
+            this.groupBox7.ForeColor = System.Drawing.Color.White;
+            this.groupBox7.Location = new System.Drawing.Point(10, 120);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox7.Size = new System.Drawing.Size(133, 100);
+            this.groupBox7.TabIndex = 10;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Pointing";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(98, 59);
+            this.label37.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(25, 13);
+            this.label37.TabIndex = 7;
+            this.label37.Text = "deg";
+            // 
+            // PointingEl
+            // 
+            this.PointingEl.BackColor = System.Drawing.Color.DimGray;
+            this.PointingEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PointingEl.ForeColor = System.Drawing.Color.White;
+            this.PointingEl.Location = new System.Drawing.Point(39, 60);
+            this.PointingEl.Margin = new System.Windows.Forms.Padding(2);
+            this.PointingEl.Name = "PointingEl";
+            this.PointingEl.Size = new System.Drawing.Size(54, 13);
+            this.PointingEl.TabIndex = 6;
+            this.PointingEl.TextChanged += new System.EventHandler(this.UpdateSensor);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(10, 59);
+            this.label38.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(19, 13);
+            this.label38.TabIndex = 5;
+            this.label38.Text = "El:";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(98, 29);
+            this.label39.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(25, 13);
+            this.label39.TabIndex = 4;
+            this.label39.Text = "deg";
+            // 
+            // PointingAz
+            // 
+            this.PointingAz.BackColor = System.Drawing.Color.DimGray;
+            this.PointingAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PointingAz.ForeColor = System.Drawing.Color.White;
+            this.PointingAz.Location = new System.Drawing.Point(39, 30);
+            this.PointingAz.Margin = new System.Windows.Forms.Padding(2);
+            this.PointingAz.Name = "PointingAz";
+            this.PointingAz.Size = new System.Drawing.Size(54, 13);
+            this.PointingAz.TabIndex = 3;
+            this.PointingAz.TextChanged += new System.EventHandler(this.UpdateSensor);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(8, 29);
+            this.label40.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(22, 13);
+            this.label40.TabIndex = 2;
+            this.label40.Text = "Az:";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label41);
+            this.groupBox8.Controls.Add(this.RPointingEl);
+            this.groupBox8.Controls.Add(this.label42);
+            this.groupBox8.Controls.Add(this.label43);
+            this.groupBox8.Controls.Add(this.RPointingAz);
+            this.groupBox8.Controls.Add(this.label44);
+            this.groupBox8.ForeColor = System.Drawing.Color.White;
+            this.groupBox8.Location = new System.Drawing.Point(12, 107);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox8.Size = new System.Drawing.Size(133, 100);
+            this.groupBox8.TabIndex = 11;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Pointing";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(98, 59);
+            this.label41.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(25, 13);
+            this.label41.TabIndex = 7;
+            this.label41.Text = "deg";
+            // 
+            // RPointingEl
+            // 
+            this.RPointingEl.BackColor = System.Drawing.Color.DimGray;
+            this.RPointingEl.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RPointingEl.ForeColor = System.Drawing.Color.White;
+            this.RPointingEl.Location = new System.Drawing.Point(36, 60);
+            this.RPointingEl.Margin = new System.Windows.Forms.Padding(2);
+            this.RPointingEl.Name = "RPointingEl";
+            this.RPointingEl.Size = new System.Drawing.Size(54, 13);
+            this.RPointingEl.TabIndex = 6;
+            this.RPointingEl.TextChanged += new System.EventHandler(this.UpdateSensor);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(8, 58);
+            this.label42.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(19, 13);
+            this.label42.TabIndex = 5;
+            this.label42.Text = "El:";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(98, 29);
+            this.label43.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(25, 13);
+            this.label43.TabIndex = 4;
+            this.label43.Text = "deg";
+            // 
+            // RPointingAz
+            // 
+            this.RPointingAz.BackColor = System.Drawing.Color.DimGray;
+            this.RPointingAz.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RPointingAz.ForeColor = System.Drawing.Color.White;
+            this.RPointingAz.Location = new System.Drawing.Point(36, 30);
+            this.RPointingAz.Margin = new System.Windows.Forms.Padding(2);
+            this.RPointingAz.Name = "RPointingAz";
+            this.RPointingAz.Size = new System.Drawing.Size(54, 13);
+            this.RPointingAz.TabIndex = 3;
+            this.RPointingAz.TextChanged += new System.EventHandler(this.UpdateSensor);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(8, 28);
+            this.label44.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(22, 13);
+            this.label44.TabIndex = 2;
+            this.label44.Text = "Az:";
+            // 
             // ChangeConstraintsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
-            this.ClientSize = new System.Drawing.Size(690, 311);
+            this.ClientSize = new System.Drawing.Size(503, 348);
             this.Controls.Add(this.Duplicate);
             this.Controls.Add(this.DeleteSensor);
             this.Controls.Add(this.AddSensor);
@@ -965,6 +1147,10 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1040,5 +1226,19 @@
         private System.Windows.Forms.TextBox OName;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.TextBox RName;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.TextBox PointingEl;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox PointingAz;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.TextBox RPointingEl;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.TextBox RPointingAz;
+        private System.Windows.Forms.Label label44;
     }
 }
