@@ -225,7 +225,7 @@ namespace OperatorsToolbox
                 parameters.UserControlFullName = typeof(CustomUserInterface).FullName;
                 parameters.Caption = MPluginTitle;
                 parameters.DockStyle = AgEDockStyle.eDockStyleDockedRight;
-                parameters.Width = 70;
+                parameters.Width = 90;
                 object obj = windows.CreateNetToolWindowParam(this, parameters);               
             }
         }

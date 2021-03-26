@@ -12,10 +12,19 @@ namespace OperatorsToolbox.SatelliteCreator
     public partial class NewAssetForm : OpsPluginControl
     {
         private List<string> _selectedSatList;
+        public FilterConfig filter1;
+        public FilterConfig filter2;
+        public FilterConfig filter3;
 
         public NewAssetForm()
         {
             InitializeComponent();
+            filter1 = new FilterConfig();
+            filter1.SelectedOptions = new List<string>();
+            filter2 = new FilterConfig();
+            filter2.SelectedOptions = new List<string>();
+            filter3 = new FilterConfig();
+            filter3.SelectedOptions = new List<string>();
             SMAValue.Enabled = false;
             EccValue.Enabled = false;
             IncValue.Enabled = false;
@@ -30,10 +39,13 @@ namespace OperatorsToolbox.SatelliteCreator
             PopulateExistingConstellations();
             _selectedSatList = new List<string>();
             CommonData.SatCatItemList = new List<SatCatItem>();
-            CommonData.SatCatConstellations = new List<string>();
+            CommonData.MetadataTypeList = new List<string>();
+            CommonData.MetadataOptions1 = new List<string>();
+            CommonData.MetadataOptions2 = new List<string>();
+            CommonData.MetadataOptions3 = new List<string>();
+            CommonData.MetadataOptions4 = new List<string>();
+            CommonData.MetadataOptions5 = new List<string>();
             CommonData.SatCatFofo = new List<string>();
-            CommonData.SatCatNations = new List<string>();
-            CommonData.SatCatTypes = new List<string>();
 
             CoordSystem.Items.Add("Fixed");
             CoordSystem.Items.Add("Inertial");
@@ -298,7 +310,7 @@ namespace OperatorsToolbox.SatelliteCreator
                 {
                     //Determine the proper satellite name based on catalog
                     errorId = 5;
-                    int index = CommonData.SatCatItemList.IndexOf(CommonData.SatCatItemList.Where(p => p.Ssc == item).FirstOrDefault());
+                    int index = CommonData.SatCatItemList.IndexOf(CommonData.SatCatItemList.Where(p => p.Scc == item).FirstOrDefault());
                     SatCatItem currentSat = CommonData.SatCatItemList[index];
                     if (currentSat.OtherName != "Unspecified")
                     {
@@ -601,111 +613,136 @@ namespace OperatorsToolbox.SatelliteCreator
 
         private void PopulateMainFilter()
         {
-            MainFilter.Items.Clear();
-            MainFilter.Items.Add("All");
-            MainFilter.Items.Add("Constellation");
-            MainFilter.Items.Add("FOFO");
-            MainFilter.Items.Add("Nation");
-            MainFilter.Items.Add("Type");
-
+            //MainFilter.Items.Clear();
+            //MainFilter.Items.Add("All");
+            //foreach (var item in CommonData.MetadataTypeList)
+            //{
+            //    MainFilter.Items.Add(item);
+            //}
         }
 
         private void PopulateSpecificFilter()
         {
-            SpecificFilter.Items.Clear();
-            if (MainFilter.SelectedIndex==0)
-            {
-                SpecificFilter.Items.Add("All");
+            //SpecificFilter.Items.Clear();
+            //if (MainFilter.SelectedIndex==0)
+            //{
+            //    SpecificFilter.Items.Add("All");
 
-            }
-            else if (MainFilter.SelectedIndex == 1)
-            {
-                foreach (var item in CommonData.SatCatConstellations)
-                {
-                    SpecificFilter.Items.Add(item);
-                }
-            }
-            else if (MainFilter.SelectedIndex == 2)
-            {
-                foreach (var item in CommonData.SatCatFofo)
-                {
-                    SpecificFilter.Items.Add(item);
-                }
-            }
-            else if (MainFilter.SelectedIndex == 3)
-            {
-                foreach (var item in CommonData.SatCatNations)
-                {
-                    SpecificFilter.Items.Add(item);
-                }
-            }
-            else if (MainFilter.SelectedIndex == 4)
-            {
-                foreach (var item in CommonData.SatCatTypes)
-                {
-                    SpecificFilter.Items.Add(item);
-                }
-            }
+            //}
+            //else if (MainFilter.SelectedIndex == 1)
+            //{
+            //    foreach (var item in CommonData.MetadataOptions1)
+            //    {
+            //        SpecificFilter.Items.Add(item);
+            //    }
+            //}
+            //else if (MainFilter.SelectedIndex == 2)
+            //{
+            //    foreach (var item in CommonData.MetadataOptions2)
+            //    {
+            //        SpecificFilter.Items.Add(item);
+            //    }
+            //}
+            //else if (MainFilter.SelectedIndex == 3)
+            //{
+            //    foreach (var item in CommonData.MetadataOptions3)
+            //    {
+            //        SpecificFilter.Items.Add(item);
+            //    }
+            //}
+            //else if (MainFilter.SelectedIndex == 4)
+            //{
+            //    foreach (var item in CommonData.MetadataOptions4)
+            //    {
+            //        SpecificFilter.Items.Add(item);
+            //    }
+            //}
+            //else if (MainFilter.SelectedIndex == 5)
+            //{
+            //    foreach (var item in CommonData.MetadataOptions5)
+            //    {
+            //        SpecificFilter.Items.Add(item);
+            //    }
+            //}
 
 
         }
 
-        private void PopulateSatelliteList()
+        public void PopulateSatelliteList()
         {
+            _selectedSatList.Clear();
             SatelliteList.Items.Clear();
-            foreach (var item in CommonData.SatCatItemList)
+            //All filter booleans default to true, regardless if they are active
+            bool filtBool1 = true;
+            bool filtBool2 = true;
+            bool filtBool3 = true;
+            bool sccBool = true;
+            //Return nothing if all filters are inactive and nothing is in the SCC box. Otherwise populate the table based on filter options/SCC
+            if (!filter1.IsActive && !filter2.IsActive && !filter3.IsActive && String.IsNullOrEmpty(SccTextBox.Text))
             {
-                var listItem = new ListViewItem();
-                if (MainFilter.SelectedIndex == 0)
+
+            }
+            else
+            {
+                foreach (var item in CommonData.SatCatItemList)
                 {
-                    listItem.Text = item.Ssc;
-                    listItem.SubItems.Add(item.CommonName);
-                    listItem.SubItems.Add(item.Constellation);
-                    SatelliteList.Items.Add(listItem);
-                }
-                else if (MainFilter.SelectedIndex == 1)
-                {
-                    if (item.Constellation == SpecificFilter.Text)
+                    var listItem = new ListViewItem();
+                    filtBool1 = ReturnFilterBool(filter1, item);
+                    filtBool2 = ReturnFilterBool(filter2, item);
+                    filtBool3 = ReturnFilterBool(filter3, item);
+                    if (!String.IsNullOrEmpty(SccTextBox.Text))
                     {
-                        listItem.Text = item.Ssc;
+                        if (item.Scc.Contains(SccTextBox.Text))
+                        {
+                            sccBool = true;
+                        }
+                        else
+                        {
+                            sccBool = false;
+                        }
+                    }
+                    if (filtBool1 && filtBool2 & filtBool3 && sccBool)
+                    {
+                        listItem.Text = item.Scc;
                         listItem.SubItems.Add(item.CommonName);
-                        listItem.SubItems.Add(item.Constellation);
+                        listItem.SubItems.Add(item.Metadata1);
                         SatelliteList.Items.Add(listItem);
                     }
-                }
-                else if (MainFilter.SelectedIndex == 2)
+                }                   
+            }
+        }
+
+        private bool ReturnFilterBool(FilterConfig config, SatCatItem item)
+        {
+            bool filtBool = true;
+            if (config.IsActive)
+            {
+                switch (config.FilterMetadataID)
                 {
-                    if (item.Fofo == SpecificFilter.Text)
-                    {
-                        listItem.Text = item.Ssc;
-                        listItem.SubItems.Add(item.CommonName);
-                        listItem.SubItems.Add(item.Constellation);
-                        SatelliteList.Items.Add(listItem);
-                    }
-                }
-                else if (MainFilter.SelectedIndex == 3)
-                {
-                    if (item.Nation == SpecificFilter.Text)
-                    {
-                        listItem.Text = item.Ssc;
-                        listItem.SubItems.Add(item.CommonName);
-                        listItem.SubItems.Add(item.Constellation);
-                        SatelliteList.Items.Add(listItem);
-                    }
-                }
-                else if (MainFilter.SelectedIndex == 4)
-                {
-                    if (item.Type == SpecificFilter.Text)
-                    {
-                        listItem.Text = item.Ssc;
-                        listItem.SubItems.Add(item.CommonName);
-                        listItem.SubItems.Add(item.Constellation);
-                        SatelliteList.Items.Add(listItem);
-                    }
+                    case 1:
+                        filtBool = config.SelectedOptions.Contains(item.Metadata1);
+                        break;
+                    case 2:
+                        filtBool = config.SelectedOptions.Contains(item.Metadata2);
+                        break;
+                    case 3:
+                        filtBool = config.SelectedOptions.Contains(item.Metadata3);
+                        break;
+                    case 4:
+                        filtBool = config.SelectedOptions.Contains(item.Metadata4);
+                        break;
+                    case 5:
+                        filtBool = config.SelectedOptions.Contains(item.Metadata5);
+                        break;
+                    case 6:
+                        filtBool = config.SelectedOptions.Contains(item.Fofo);
+                        break;
+                    default:
+                        filtBool = true;
+                        break;
                 }
             }
-
-
+            return filtBool;
         }
 
         private void Select_Click(object sender, EventArgs e)
@@ -757,20 +794,6 @@ namespace OperatorsToolbox.SatelliteCreator
                 
             }
         }
-
-        private void MainFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateSpecificFilter();
-            SpecificFilter.SelectedIndex = 0;
-            _selectedSatList.Clear();
-        }
-
-        private void SpecificFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateSatelliteList();
-            _selectedSatList.Clear();
-        }
-
         private void CoordSystem_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -789,8 +812,6 @@ namespace OperatorsToolbox.SatelliteCreator
                 AoPValue.Enabled = true;
                 TAValue.Enabled = true;
                 NameValue.Enabled = true;
-                MainFilter.Enabled = false;
-                SpecificFilter.Enabled = false;
                 ElementsBox.Visible = true;
                 DatabaseBox.Visible = false;
             }
@@ -805,8 +826,6 @@ namespace OperatorsToolbox.SatelliteCreator
                 AoPValue.Enabled = false;
                 TAValue.Enabled = false;
                 NameValue.Enabled = false;
-                MainFilter.Enabled = false;
-                SpecificFilter.Enabled = false;
                 DatabaseBox.Visible = false;
                 ElementsBox.Visible = false;
                 TimeSlip.Enabled = false;
@@ -826,18 +845,13 @@ namespace OperatorsToolbox.SatelliteCreator
                 AoPValue.Enabled = false;
                 TAValue.Enabled = false;
                 NameValue.Enabled = false;
-                MainFilter.Enabled = true;
-                SpecificFilter.Enabled = true;
                 ElementsBox.Visible = false;
                 DatabaseBox.Visible = true;
                 if (CommonData.SatCatItemList.Count == 0 || CommonData.SatCatItemList == null)
                 {
                     ReadWrite.ReadSatCat();
+                    SatelliteList.Columns[2].Text = CommonData.MetadataTypeList[0];
                 }
-                PopulateMainFilter();
-                MainFilter.SelectedIndex = 0;
-                PopulateSpecificFilter();
-                SpecificFilter.SelectedIndex = 0;
                 PopulateSatelliteList();
             }
             else if ((string)ImportType.SelectedItem == "Ephemeris")
@@ -851,8 +865,6 @@ namespace OperatorsToolbox.SatelliteCreator
                 AoPValue.Enabled = false;
                 TAValue.Enabled = false;
                 NameValue.Enabled = false;
-                MainFilter.Enabled = false;
-                SpecificFilter.Enabled = false;
                 DatabaseBox.Visible = false;
                 ElementsBox.Visible = false;
                 TimeSlip.Enabled = true;
@@ -907,6 +919,65 @@ namespace OperatorsToolbox.SatelliteCreator
             {
                 SlipTime.Enabled = false;
             }
+        }
+
+        private void filterButton1_Click(object sender, EventArgs e)
+        {
+            FilterForm form = new FilterForm(filter1,CommonData.MetadataTypeList, this);
+            form.StartPosition = FormStartPosition.Manual;
+            Point location = filterButton1.PointToScreen(filterButton1.Location);
+            form.Location = location;
+            form.ShowDialog();
+            //Change button image if filter is active
+            if (filter1.FilterType != "None")
+            {
+                filterButton1.ImageIndex = 0;
+            }
+            else
+            {
+                filterButton1.ImageIndex = 1;
+            }
+        }
+
+        private void filterButton2_Click(object sender, EventArgs e)
+        {
+            FilterForm form = new FilterForm(filter2, CommonData.MetadataTypeList, this);
+            form.StartPosition = FormStartPosition.Manual;
+            Point location = filterButton2.PointToScreen(filterButton2.Location);
+            form.Location = new Point(location.X - 50, location.Y);
+            form.ShowDialog();
+            //Change button image if filter is active
+            if (filter2.FilterType != "None")
+            {
+                filterButton2.ImageIndex = 0;
+            }
+            else
+            {
+                filterButton2.ImageIndex = 1;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FilterForm form = new FilterForm(filter3, CommonData.MetadataTypeList, this);
+            form.StartPosition = FormStartPosition.Manual;
+            Point location = filterButton3.PointToScreen(filterButton3.Location);
+            form.Location = new Point(location.X - 105, location.Y);
+            form.ShowDialog();
+            //Change button image if filter is active
+            if (filter3.FilterType != "None")
+            {
+                filterButton3.ImageIndex = 0;
+            }
+            else
+            {
+                filterButton3.ImageIndex = 1;
+            }
+        }
+
+        private void SccTextBox_TextChanged(object sender, EventArgs e)
+        {
+            PopulateSatelliteList();
         }
     }
 }

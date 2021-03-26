@@ -10,16 +10,18 @@ namespace OperatorsToolbox.SmartView
     public partial class NewViewForm : Form
     {
         private StkObjectsLibrary _mStkObjectsLibrary;
+        public ViewData current = new ViewData();
         private List<string> _threatNames;
         public NewViewForm()
         {
             InitializeComponent();
             StkObjectsLibrary mStkObjectsLibrary = new StkObjectsLibrary();
             CommonData.CurrentViewObjectData = SmartViewFunctions.GetObjectData();
-            _threatNames = new List<string>();
 
             PopulateComboBoxes();
             PopulateObjects(FocusedItem, true);
+            ViewName3D.Text = "New View";
+            ViewName2D.Text = "New View";
             if (FocusedItem.Items.Count!=0)
             {
                 FocusedItem.SelectedIndex = 0;
@@ -34,14 +36,20 @@ namespace OperatorsToolbox.SmartView
             {
                 ObjectName2D.SelectedIndex = 0;
             }
+            PopulateObjects(PredataObject, false);
+            PredataObject.Items.Insert(0, "None");
+            PredataObject.SelectedIndex = 0;
             DataDisplayOptions.Enabled = false;
-            TTDataDisplayOptions.Enabled = false;
-            GEODataDisplayOptions.Enabled = false;
-            GeoBoxOptions.Enabled = false;
             HideShowOptions.Enabled = false;
-            EllipsoidDefinition.Enabled = false;
-            PopulateObjects(GEODisplayObject, false);
-
+            VectorHideShow.Enabled = false;
+            CustomLeadTrail.Enabled = false;
+            //initialize some settings in the current view data
+            current.EnableProximityBox = false;
+            current.EnableGeoBox = false;
+            current.EnableProximityEllipsoid = false;
+            current.SecondaryDataDisplay.DataDisplayActive = false;
+            current.ApplyVectorScaling = false;
+            current.OverrideTimeStep = false;
             mStkObjectsLibrary = new StkObjectsLibrary();
         }
 
@@ -56,12 +64,14 @@ namespace OperatorsToolbox.SmartView
                 ViewDefinitionBox2D.Visible = false;
                 ViewDefinitionBox3D.Enabled = true;
                 ViewDefinitionBox3D.Visible = true;
-                TTDefinitionBox.Visible = false;
-                TTDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Visible = false;
                 UseCurrentViewPoint.Enabled = true;
                 UseCurrentViewPoint.Visible = true;
+                UseCameraPath.Enabled = true;
+                UseCameraPath.Visible = true;
+                CameraPathName.Enabled = true;
+                CameraPathName.Visible = true;
+                UseVectorHideShow.Visible = true;
+                VectorHideShow.Visible = true;
             }
             else if (TypeSelect.SelectedIndex == 1)
             {
@@ -70,40 +80,14 @@ namespace OperatorsToolbox.SmartView
                 ViewDefinitionBox3D.Visible = false;
                 ViewDefinitionBox2D.Enabled = true;
                 ViewDefinitionBox2D.Visible = true;
-                TTDefinitionBox.Visible = false;
-                TTDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Visible = false;
                 UseCurrentViewPoint.Enabled = false;
                 UseCurrentViewPoint.Visible = false;
-            }
-            else if (TypeSelect.SelectedIndex == 2)
-            {
-                windowNames = SmartViewFunctions.GetWindowNames(1);
-                ViewDefinitionBox2D.Enabled = false;
-                ViewDefinitionBox2D.Visible = false;
-                ViewDefinitionBox3D.Enabled = false;
-                ViewDefinitionBox3D.Visible = false;
-                TTDefinitionBox.Visible = true;
-                TTDefinitionBox.Enabled = true;
-                GEODriftDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Visible = false;
-                UseCurrentViewPoint.Enabled = false;
-                UseCurrentViewPoint.Visible = false;
-            }
-            else if (TypeSelect.SelectedIndex == 3)
-            {
-                windowNames = SmartViewFunctions.GetWindowNames(1);
-                ViewDefinitionBox2D.Enabled = false;
-                ViewDefinitionBox2D.Visible = false;
-                ViewDefinitionBox3D.Enabled = false;
-                ViewDefinitionBox3D.Visible = false;
-                TTDefinitionBox.Visible =false;
-                TTDefinitionBox.Enabled = false;
-                GEODriftDefinitionBox.Enabled = true;
-                GEODriftDefinitionBox.Visible = true;
-                UseCurrentViewPoint.Enabled = false;
-                UseCurrentViewPoint.Visible = false;
+                UseCameraPath.Enabled = false;
+                UseCameraPath.Visible = false;
+                CameraPathName.Enabled = false;
+                CameraPathName.Visible = false;
+                UseVectorHideShow.Visible = false;
+                VectorHideShow.Visible = false;
             }
             foreach (var item in windowNames)
             {
@@ -138,7 +122,6 @@ namespace OperatorsToolbox.SmartView
         private void Create_Click(object sender, EventArgs e)
         {
             string className;
-            ViewData current = new ViewData();
             int check;
             if (TypeSelect.SelectedIndex==0) //3D
             {
@@ -149,56 +132,67 @@ namespace OperatorsToolbox.SmartView
                     current.WindowId = SmartViewFunctions.GetWindowId(WindowSelect.Text, 1);
                     current.Name = ViewName3D.Text;
                     current.ViewType = TypeSelect.Text;
+                    current.ViewObjectData = CommonData.CurrentViewObjectData;
                     className = SmartViewFunctions.GetClassName(FocusedItem.Text);
                     current.ViewTarget = className+"/"+FocusedItem.Text;
-                    current.ViewAxes = ViewType.Text;
+                    current.ViewAxes = "Inertial";
 
                     if (EnableUniversalOrbitTrack.Checked)
                     {
-                        current.EnableUniversalOrbitTrack = true;
-                        if (LeadType3D.Text == "Time")
+                        if (UniversalLeadTrail.Checked)
                         {
-                            current.LeadType = LeadType3D.Text + " " + OrbitLeadTime.Text;
-                            current.LeadTime = OrbitLeadTime.Text;
-                        }
-                        else
-                        {
-                            current.LeadType = LeadType3D.Text;
-                        }
+                            current.EnableUniversalOrbitTrack = true;
+                            current.UniqueLeadTrail = false;
+                            if (LeadType3D.Text == "Time")
+                            {
+                                current.LeadType = LeadType3D.Text;
+                                current.LeadTime = OrbitLeadTime.Text;
+                            }
+                            else
+                            {
+                                current.LeadType = LeadType3D.Text;
+                            }
 
-                        if (TrailType3D.Text == "Time")
-                        {
-                            current.TrailType = TrailType3D.Text + " " + OrbitTrailTime.Text;
-                            current.TrailTime = OrbitTrailTime.Text;
+                            if (TrailType3D.Text == "Time")
+                            {
+                                current.TrailType = TrailType3D.Text;
+                                current.TrailTime = OrbitTrailTime.Text;
+                            }
+                            else
+                            {
+                                current.TrailType = TrailType3D.Text;
+                            }
                         }
-                        else
+                        else if (UniqueLeadTrail.Checked)
                         {
-                            current.TrailType = TrailType3D.Text;
+                            current.UniqueLeadTrail = true;
+                            current.EnableUniversalOrbitTrack = true;
                         }
                     }
                     else
                     {
+                        current.EnableUniversalOrbitTrack = false;
                         current.LeadType = "None";
                         current.TrailType = "None";
                     }
 
+                    //Add required primary data display components
                     if (UseDataDisplay.Checked)
                     {
-                        current.DataDisplayActive = true;
-                        current.DataDisplayLocation = DisplayLocation.Text;
-                        className = SmartViewFunctions.GetClassName(DisplayObject.Text);
-                        current.DataDisplayObject = className+"/"+DisplayObject.Text;
-                        current.DataDisplayReportName = DisplayReport.Text;
+                        current.PrimaryDataDisplay.DataDisplayActive = true;
                     }
                     else
                     {
-                        current.DataDisplayActive = false;
-                        current.DataDisplayLocation = DisplayLocation.Text;
-                        className = SmartViewFunctions.GetClassName(DisplayObject.Text);
-                        current.DataDisplayObject = className + "/" + DisplayObject.Text;
-                        current.DataDisplayReportName = DisplayReport.Text;
+                        current.PrimaryDataDisplay.DataDisplayActive = false;
                     }
+                    current.PrimaryDataDisplay.DataDisplayLocation = DisplayLocation.Text;
+                    className = SmartViewFunctions.GetClassName(DisplayObject.Text);
+                    current.PrimaryDataDisplay.DataDisplayObject = className + "/" + DisplayObject.Text;
+                    current.PrimaryDataDisplay.DataDisplayReportName = DisplayReport.Text;
+                    className = SmartViewFunctions.GetClassName(PredataObject.Text);
+                    current.PrimaryDataDisplay.PredataObject = className + "/" + PredataObject.Text;
 
+                    //Define stored view if required by current view point option
                     if (UseCurrentViewPoint.Checked)
                     {
                         current.UseStoredView = true;
@@ -220,6 +214,7 @@ namespace OperatorsToolbox.SmartView
                 {
                     current.WindowName = WindowSelect.Text;
                     current.WindowId = SmartViewFunctions.GetWindowId(WindowSelect.Text, 0);
+                    current.ViewObjectData = CommonData.CurrentViewObjectData;
                     current.Name = ViewName2D.Text;
                     current.ViewType = TypeSelect.Text;
                     current.ViewType2D = TypeSelect2D.Text;
@@ -256,104 +251,15 @@ namespace OperatorsToolbox.SmartView
                         current.LeadType = "None";
                         current.TrailType = "None";
                     }
-
-                    current.ShowAerialSensors = false;
-
-                    current.ShowGroundSensors = false;
-
                 }
             }
-            else if (TypeSelect.SelectedIndex==2) //Target/Threat
-            {
-                current.WindowName = WindowSelect.Text;
-                current.ViewType = "Target/Threat";
-                current.ThreatSatNames = _threatNames;
-                className = SmartViewFunctions.GetClassName(TargetSatellite.Text);
-                current.TargetSatellite = className + "/" + TargetSatellite.Text;
-                current.Name = TTViewName.Text;
-
-                if (TTUseDataDisplay.Checked)
-                {
-                    current.TtDataDisplayActive = true;
-                    current.DataDisplayActive = true;
-                    current.TtDataDisplayLocation = TTDisplayLocation.Text;
-                    if (TTDisplayObject.SelectedIndex == 0)
-                    {
-                        className = SmartViewFunctions.GetClassName(TargetSatellite.Text);
-                        current.TtDataDisplayObject = className + "/" + TargetSatellite.Text;
-                        current.TtDataDisplayReportName = TTDisplayReport.Text;
-                    }
-                    else if (TTDisplayObject.SelectedIndex == 1)
-                    {
-                        current.TtDataDisplayObject = "AllThreat";
-                        current.TtDataDisplayReportName = TTDisplayReport.Text;
-                    }
-                    else
-                    {
-                        className = SmartViewFunctions.GetClassName(TTDisplayObject.Text);
-                        current.TtDataDisplayObject = className + "/" + TTDisplayObject.Text;
-                        current.TtDataDisplayReportName = TTDisplayReport.Text;
-                    }
-                }
-                else
-                {
-                    current.TtDataDisplayActive = false;
-                    current.DataDisplayActive = false;
-                    current.TtDataDisplayLocation = TTDisplayLocation.Text;
-                    className = SmartViewFunctions.GetClassName(TTDisplayObject.Text);
-                    current.TtDataDisplayObject = className + "/" + TTDisplayObject.Text;
-                    current.TtDataDisplayReportName = TTDisplayReport.Text;
-                }
-
-                if (UseProxBox.Checked)
-                {
-                    current.EnableProximityBox = true;
-                }
-                else
-                {
-                    current.EnableProximityBox = false;
-                }
-
-                if (EnableEllipsoid.Checked)
-                {
-                    current.EnableProximityEllipsoid = true;
-                    current.EllipsoidX = EllipsoidX.Text;
-                    current.EllipsoidY = EllipsoidX.Text;
-                    current.EllipsoidZ = EllipsoidX.Text;
-                }
-                else
-                {
-                    current.EnableProximityEllipsoid = false;
-                    current.EllipsoidX = "100";
-                    current.EllipsoidY = "100";
-                    current.EllipsoidZ = "100";
-                }
-
-            }
-            else if (TypeSelect.SelectedIndex==3) //GEO Drift
-            {
-                current.WindowName = WindowSelect.Text;
-                current.ViewType = "GEODrift";
-                current.Name = GEOViewName.Text;
-                className = SmartViewFunctions.GetClassName(GEOViewTarget.Text);
-                current.ViewTarget = className + "/" + GEOViewTarget.Text;
-                current.EnableGeoBox = UseGEOBox.Checked;
-                current.GeoLongitude = GEOLongitude.Text;
-                current.GeoNorthSouth = GeoNorthSouth.Text;
-                current.GeoEastWest = GEOEastWest.Text;
-                current.GeoRadius = GEORadius.Text;
-                current.GeoDataDisplayActive = GEOUseDataDisplay.Checked;
-                className = SmartViewFunctions.GetClassName(GEODisplayObject.Text);
-                current.GeoDataDisplayObject = className + "/" + GEODisplayObject.Text;
-                current.GeoDataDisplayReportName = GEODisplayReport.Text;
-                current.GeoDataDisplayLocation = GEODisplayLocation.Text;
-            }
-
             if (UseCurrentTime.Checked)
             {
+                current.UseAnimationTime = true;
                 IAgAnimation animationRoot = (IAgAnimation)CommonData.StkRoot;
                 double currentTime = animationRoot.CurrentTime;
-                current.AnimationTime = currentTime.ToString();
+                string newTime = CommonData.StkRoot.ConversionUtility.ConvertDate("EpSec", "UTCG", currentTime.ToString());
+                current.AnimationTime = newTime.ToString();
             }
             else
             {
@@ -371,6 +277,24 @@ namespace OperatorsToolbox.SmartView
             else
             {
                 current.ObjectHideShow = false;
+            }
+            if (UseVectorHideShow.Checked)
+            {
+                current.VectorHideShow = true;
+            }
+            else
+            {
+                current.VectorHideShow = false;
+            }
+
+            if (UseCameraPath.Checked)
+            {
+                current.UseCameraPath = true;
+                current.CameraPathName = CameraPathName.Text;
+            }
+            else
+            {
+                current.UseCameraPath = false;
             }
             CommonData.SavedViewList.Add(current);
             try
@@ -459,13 +383,7 @@ namespace OperatorsToolbox.SmartView
         {
             TypeSelect.Items.Add("3D");
             TypeSelect.Items.Add("2D");
-            TypeSelect.Items.Add("Target/Actor");
-            TypeSelect.Items.Add("GEO Drift");
             TypeSelect.SelectedIndex = 0;
-
-            ViewType.Items.Add("Inertial");
-            //ViewType.Items.Add("Fixed");
-            ViewType.SelectedIndex = 0;
 
             DisplayLocation.Items.Add("TopLeft");
             DisplayLocation.Items.Add("TopCenter");
@@ -526,61 +444,18 @@ namespace OperatorsToolbox.SmartView
             ZoomCenterLat.Text = "0";
             ZoomDelta.Text = "10";
 
-            TTDisplayObject.Items.Add("Target Satellite");
-            TTDisplayObject.Items.Add("All Actors (Up to 4)");
-            foreach (ObjectData item in CommonData.CurrentViewObjectData)
-            {
-                if (item.ClassName=="Satellite")
-                {
-                    TargetSatellite.Items.Add(item.SimpleName);
-                    GEOViewTarget.Items.Add(item.SimpleName);
-                    if (item.SimpleName != TargetSatellite.Text)
-                    {
-                        TTDisplayObject.Items.Add(item.SimpleName);
-                    }
-                }
-            }
-            TTDisplayObject.SelectedIndex = 0;
-            if (TargetSatellite.Items.Count!=0)
-            {
-                TargetSatellite.SelectedIndex = 0;
-                GEOViewTarget.SelectedIndex = 0;
-                PopulateThreats();
-            }
-
-            TTDisplayLocation.Items.Add("TopLeft");
-            TTDisplayLocation.Items.Add("TopCenter");
-            TTDisplayLocation.Items.Add("TopRight");
-            TTDisplayLocation.Items.Add("CenterLeft");
-            TTDisplayLocation.Items.Add("Center");
-            TTDisplayLocation.Items.Add("CenterRight");
-            TTDisplayLocation.Items.Add("BottomLeft");
-            TTDisplayLocation.Items.Add("BottomCenter");
-            TTDisplayLocation.Items.Add("BottomRight");
-            TTDisplayLocation.SelectedIndex = 0;
-
-            EllipsoidX.Text = "100";
-            EllipsoidY.Text = "100";
-            EllipsoidZ.Text = "100";
-
-            GEODisplayLocation.Items.Add("TopLeft");
-            GEODisplayLocation.Items.Add("TopCenter");
-            GEODisplayLocation.Items.Add("TopRight");
-            GEODisplayLocation.Items.Add("CenterLeft");
-            GEODisplayLocation.Items.Add("Center");
-            GEODisplayLocation.Items.Add("CenterRight");
-            GEODisplayLocation.Items.Add("BottomLeft");
-            GEODisplayLocation.Items.Add("BottomCenter");
-            GEODisplayLocation.Items.Add("BottomRight");
-            GEODisplayLocation.SelectedIndex = 0;
-
-            GEOLongitude.Text = "-100";
-            GEOEastWest.Text = "1";
-            GeoNorthSouth.Text = "1";
-            GEORadius.Text = "42166.3";
-
             OrbitTrackBox.Enabled = false;
             GroundTrackBox.Enabled = false;
+
+            List<string> paths = SmartViewFunctions.GetCameraPaths();
+            foreach (var item in paths)
+            {
+                CameraPathName.Items.Add(item);
+            }
+            if (CameraPathName.Items.Count>0)
+            {
+                CameraPathName.SelectedIndex = 0;
+            }
         }
 
         private void DisplayObject_SelectedIndexChanged(object sender, EventArgs e)
@@ -831,180 +706,15 @@ namespace OperatorsToolbox.SmartView
             form.ShowDialog();
         }
 
-        private void Select_Click(object sender, EventArgs e)
-        {
-            string className = null;
-            if (ThreatList.FocusedItem != null)
-            {
-                foreach (int index in ThreatList.SelectedIndices)
-                {
-                    ThreatList.Items[index].Font = new Font(ThreatList.Items[index].Font, FontStyle.Bold);
-                    if (!_threatNames.Contains(ThreatList.Items[index].SubItems[0].Text))
-                    {
-                        className = SmartViewFunctions.GetClassName(ThreatList.Items[index].SubItems[0].Text);
-                        _threatNames.Add(className+"/"+ThreatList.Items[index].SubItems[0].Text);
-                    }
-                }
-            }
-        }
-
-        private void Unselect_Click(object sender, EventArgs e)
-        {
-            string className = null;
-            if (ThreatList.FocusedItem != null)
-            {
-                foreach (int index in ThreatList.SelectedIndices)
-                {
-                    ThreatList.Items[index].Font = new Font(ThreatList.Items[index].Font, FontStyle.Regular);
-                    if (_threatNames.Contains(ThreatList.Items[index].SubItems[0].Text))
-                    {
-                        className = SmartViewFunctions.GetClassName(ThreatList.Items[index].SubItems[0].Text);
-                        _threatNames.Remove(className+"/"+ThreatList.Items[index].SubItems[0].Text);
-                    }
-                }
-            }
-        }
-
-        private void TTDisplayObject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (TTDisplayObject.SelectedIndex != -1)
-            {
-                TTDisplayReport.Items.Clear();
-                if (TTDisplayObject.SelectedIndex==0)
-                {
-                    TTDisplayLocation.Enabled = true;
-                    TTDisplayReport.Items.Add("LLA Position");
-                    TTDisplayReport.Items.Add("Classical Orbital Elements");
-                    TTDisplayReport.Items.Add("Inertial Position Velocity");
-                    TTDisplayReport.Items.Add("Fixed Position Velocity");
-                }
-                else if(TTDisplayObject.SelectedIndex == 1)
-                {
-                    TTDisplayLocation.Enabled = false;
-                    TTDisplayReport.Items.Add("RIC");
-                    TTDisplayReport.Items.Add("LLA Position");
-                    TTDisplayReport.Items.Add("Classical Orbital Elements");
-                    TTDisplayReport.Items.Add("Inertial Position Velocity");
-                    TTDisplayReport.Items.Add("Fixed Position Velocity");
-                }
-                else
-	            {
-                    TTDisplayLocation.Enabled = true;
-                    string className = SmartViewFunctions.GetClassName(TTDisplayObject.Text);
-                    IAgVODataDisplayCollection ddCollection = null;
-                    if (className == "Satellite")
-                    {
-                        IAgSatellite myObject = CommonData.StkRoot.GetObjectFromPath(className + "/" + TTDisplayObject.Text) as IAgSatellite;
-                        ddCollection = myObject.VO.DataDisplay;
-                    }
-                    Array reportNames = ddCollection.AvailableData;
-                    foreach (var name in reportNames)
-                    {
-                        TTDisplayReport.Items.Add(name);
-                    }
-                }
-                TTDisplayReport.SelectedIndex = 0;
-
-            }
-        }
-
-        private void TTUseDataDisplay_CheckedChanged(object sender, EventArgs e)
-        {
-            if (TTUseDataDisplay.Checked)
-            {
-                TTDataDisplayOptions.Enabled = true;
-            }
-            else
-            {
-                TTDataDisplayOptions.Enabled = false;
-            }
-        }
-
-        private void UseProxBox_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TargetSatellite_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (TargetSatellite.SelectedIndex!=-1)
-            {
-                PopulateThreats();
-            }
-        }
-
-        private void PopulateThreats()
-        {
-            ThreatList.Items.Clear();
-            _threatNames.Clear();
-            foreach (ObjectData item in CommonData.CurrentViewObjectData)
-            {
-                if (item.ClassName == "Satellite" && item.SimpleName!=TargetSatellite.Text)
-                {
-                    ListViewItem listItem = new ListViewItem();
-                    listItem.Text = item.SimpleName;
-                    int index = ThreatList.Items.IndexOf(listItem);
-                    if (index==-1)
-                    {
-                        ThreatList.Items.Add(listItem);
-                    }
-                }
-            }
-        }
-
-        private void UseGEOBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (UseGEOBox.Checked)
-            {
-                GeoBoxOptions.Enabled = true;
-            }
-            else
-            {
-                GeoBoxOptions.Enabled = false;
-            }
-        }
-
-        private void GEOUseDataDisplay_CheckedChanged(object sender, EventArgs e)
-        {
-            if (GEOUseDataDisplay.Checked)
-            {
-                GEODataDisplayOptions.Enabled = true;
-            }
-            else
-            {
-                GEODataDisplayOptions.Enabled = false;
-            }
-        }
-
-        private void GEODisplayObject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PopulateDisplayReports(GEODisplayReport, GEODisplayObject);
-        }
-
-        private void GEODisplayReport_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void UseCurrentViewPoint_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EnableEllipsoid_CheckedChanged(object sender, EventArgs e)
-        {
-            if (EnableEllipsoid.Checked)
+            if (UseCurrentViewPoint.Checked)
             {
-                EllipsoidDefinition.Enabled = true;
+                UseCameraPath.Checked = false;
             }
             else
             {
-                EllipsoidDefinition.Enabled = false;
+
             }
         }
 
@@ -1029,6 +739,76 @@ namespace OperatorsToolbox.SmartView
             else
             {
                 GroundTrackBox.Enabled = false;
+            }
+        }
+
+        private void UseCameraPath_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UseCameraPath.Checked)
+            {
+                UseCurrentViewPoint.Checked = false;
+            }
+            else
+            {
+
+            }
+        }
+
+        private void AdvancedDisplay_Click(object sender, EventArgs e)
+        {
+            AdvancedDisplayOptionsForm form = new AdvancedDisplayOptionsForm(current, false);
+            form.ShowDialog();
+            if (form.DialogResult == DialogResult.Yes)
+            {
+                current = form.currentView;
+            }
+        }
+
+        private void CustomLeadTrail_Click(object sender, EventArgs e)
+        {
+            CustomLeadTrailForm form = new CustomLeadTrailForm();
+            form.ShowDialog();
+            current.ViewObjectData = CommonData.CurrentViewObjectData;
+        }
+
+        private void UseVectorHideShow_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UseVectorHideShow.Checked)
+            {
+                VectorHideShow.Enabled = true;
+
+            }
+            else
+            {
+                VectorHideShow.Enabled = false;
+            }
+        }
+
+        private void VectorHideShow_Click(object sender, EventArgs e)
+        {
+            VectorHideShowForm form = new VectorHideShowForm();
+            form.ShowDialog();
+            current.ViewObjectData = CommonData.CurrentViewObjectData;
+        }
+
+        private void UniversalLeadTrail_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UniversalLeadTrail.Checked)
+            {
+                UniqueLeadTrail.Checked = false;
+            }
+        }
+
+        private void UniqueLeadTrail_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UniqueLeadTrail.Checked)
+            {
+                UniversalLeadTrail.Checked = false;
+                CustomLeadTrail.Enabled = true;
+            }
+            else
+            {
+                CustomLeadTrail.Enabled = false;
             }
         }
     }

@@ -23,6 +23,8 @@ using OperatorsToolbox.StationAccess;
 using OperatorsToolbox.Templates;
 using OperatorsToolbox.VolumeCreator;
 using OperatorsToolbox.PlaneCrossingUtility;
+using OperatorsToolbox.SensorBoresightPlugin;
+using System.Diagnostics;
 
 namespace OperatorsToolbox
 {
@@ -35,6 +37,7 @@ namespace OperatorsToolbox
         int _panelHeight;
         int _panelWidth;
         int _toolbarWidth;
+        public List<string> validLicenses;
         bool _panelHidden = false;
         bool _onStart=true;
         public int NumPanels
@@ -53,102 +56,47 @@ namespace OperatorsToolbox
             CommonData.PluginOptions = new List<string>();
 
             //Read Settings and reseting install if required
-            Properties.Settings.Default.Upgrade();
+            Properties.Settings.Default.Reload();
             if (Directory.Exists(Properties.Settings.Default.InstallDir))
             {
                 CommonData.InstallDir = Properties.Settings.Default.InstallDir;
                 string prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
                 try
                 {
-                    ReadWrite.ReadPrefs(prefpath);
+                    if (File.Exists(prefpath))
+                    {
+                        ReadWrite.ReadPrefs(prefpath);
+                    }
+                    else
+                    {
+                        DialogResult result = MessageBox.Show("Error: Could not find preferences file. Would like to reset the install directory?", "Choose Install Directory", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            FirstTimeUseWizard ftu = new FirstTimeUseWizard();
+                            ftu.ShowDialog();
+                        }
+                    }
                 }
                 catch (Exception)
                 {
                     DialogResult result = MessageBox.Show("Error: Could not read preferences. Check file location. Would like to reset the install directory?", "Choose Install Directory", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        string installDir = BrowseFileExplorer("C:\\", "Choose Install Directory");
-                        if (!String.IsNullOrEmpty(installDir))
-                        {
-                            Properties.Settings.Default.InstallDir = installDir;
-                            Properties.Settings.Default.Save();
-                            CommonData.InstallDir = installDir;
-                            prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
-                            try
-                            {
-                                ReadWrite.ReadPrefs(prefpath);
-                                CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
-                                CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
-                                CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
-                                ReadWrite.WritePrefs(prefpath);
-                                MessageBox.Show("Install location updated successfully. New Install Location: \n" +
-                                    Properties.Settings.Default.InstallDir +
-                                    "\n\nAll database directories updated based on install location.\n" +
-                                    "Please check event image paths in settings. These paths do not update based on install change");
-                            }
-                            catch (Exception)
-                            {
-                                MessageBox.Show("Error: Could not read preferences. Check file location.");
-                            }
-                        }
+                        FirstTimeUseWizard ftu = new FirstTimeUseWizard();
+                        ftu.ShowDialog();
+                    }
+                    else
+                    {
+
                     }
                 }
             }
             else
             {
-                string installDir = BrowseFileExplorer("C:\\", "Choose Install Directory");
-                if (installDir != null)
-                {
-                    Properties.Settings.Default.InstallDir = installDir;
-                    Properties.Settings.Default.Save();
-                    CommonData.InstallDir = installDir;
-                    string prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
-                    try
-                    {
-                        ReadWrite.ReadPrefs(prefpath);
-                        CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
-                        CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
-                        CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
-                        ReadWrite.WritePrefs(prefpath);
-                        MessageBox.Show("Install location updated successfully. New Install Location: \n" +
-                            Properties.Settings.Default.InstallDir +
-                            "\n\nAll database directories updated based on install location.\n" +
-                            "Please check event image paths in settings. These paths do not update based on install change");
-                    }
-                    catch (Exception)
-                    {
-                        DialogResult result = MessageBox.Show("Error: Could not read preferences. Check file location. Would like to reset the install directory?", "Choose Install Directory", MessageBoxButtons.YesNo);
-                        if (result == DialogResult.Yes)
-                        {
-                            installDir = BrowseFileExplorer("C:\\", "Choose Install Directory");
-                            if (!String.IsNullOrEmpty(installDir))
-                            {
-                                Properties.Settings.Default.InstallDir = installDir;
-                                Properties.Settings.Default.Save();
-                                CommonData.InstallDir = installDir;
-                                prefpath = Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref");
-                                try
-                                {
-                                    ReadWrite.ReadPrefs(prefpath);
-                                    CommonData.Preferences.SatCatLocation = Path.Combine(@CommonData.InstallDir, "Databases\\SatelliteCatalog.xlsx");
-                                    CommonData.Preferences.AoiLocation = Path.Combine(@CommonData.InstallDir, "Databases\\AOIs.csv");
-                                    CommonData.Preferences.TemplatesDirectory = Path.Combine(@CommonData.InstallDir, "Databases\\Templates");
-                                    ReadWrite.WritePrefs(prefpath);
-                                    MessageBox.Show("Install location updated successfully. New Install Location: \n" +
-                                        Properties.Settings.Default.InstallDir +
-                                        "\n\nAll database directories updated based on install location.\n" +
-                                        "Please check event image paths in settings. These paths do not update based on install change");
-                                }
-                                catch (Exception)
-                                {
-                                    MessageBox.Show("Error: Could not read preferences. Check file location.");
-                                }
-                            }
-                        }
-                    }
-                }
+                FirstTimeUseWizard ftu = new FirstTimeUseWizard();
+                ftu.ShowDialog();
             }
-
+            validLicenses = ReadWrite.GetLicensingData();
             //Initializing plugin options as enumeration
             for (int i = 0; i < CommonData._numPlugins; i++)
             {
@@ -160,6 +108,7 @@ namespace OperatorsToolbox
             //Set buttons based on user settings
             SetButtonImagesAndVisability();
 
+            //System.Diagnostics.Process.Start(@"C:\GitHub\EngineeringLab\OperatorsToolBox\Stk12.OperatorsToolBox\Plugin Files\Test.py").WaitForExit();
         }
 
         #region Plugin Enumeration Functions
@@ -178,68 +127,155 @@ namespace OperatorsToolbox
             PassiveSafety = 9,
             VolumeCreator = 10,
             SolarAnglesUtility = 11,
-            PlaneCrossingTimes = 12
+            PlaneCrossingUtility = 12,
+            SensorBoresightPlugin = 13
         }
 
         public UserControl OpenTool(PluginType pluginType, Control control)
         {
+            bool validLicenses = CheckLicenses(pluginType);
+            if (validLicenses)
+            {
+                switch (pluginType)
+                {
+                    case PluginType.Templates:
+                        TemplatesPlugin templatesPlugin = new TemplatesPlugin();
+                        templatesPlugin.PanelClose += PanelRemoved;
+                        return templatesPlugin;
+                    case PluginType.SatelliteCreator:
+                        NewAssetForm newAssetForm = new NewAssetForm();
+                        newAssetForm.PanelClose += PanelRemoved;
+                        return newAssetForm;
+                    case PluginType.UdlTleImport:
+                        InsertTleFromUdl insertTleFromUdl = new InsertTleFromUdl();
+                        insertTleFromUdl.PanelClose += PanelRemoved;
+                        return insertTleFromUdl;
+                    case PluginType.EpochUpdate:
+                        SatelliteEpochUpdatePlugin satelliteEpochUpdatePlugin = new SatelliteEpochUpdatePlugin();
+                        satelliteEpochUpdatePlugin.PanelClose += PanelRemoved;
+                        return satelliteEpochUpdatePlugin;
+                    case PluginType.FacilityCreator:
+                        FacilityCreatorPlugin facilityCreatorPlugin = new FacilityCreatorPlugin();
+                        facilityCreatorPlugin.PanelClose += PanelRemoved;
+                        return facilityCreatorPlugin;
+                    case PluginType.GroundEvents:
+                        GroundEventsPlugin groundEventsPlugin = new GroundEventsPlugin();
+                        groundEventsPlugin.PanelClose += PanelRemoved;
+                        return groundEventsPlugin;
+                    case PluginType.SmartView:
+                        PopulateContextViews();
+                        SmartViewDropdown.Show(control, new Point(0, control.Height));
+                        return null;
+                    case PluginType.StationAccess:
+                        StationAccessPlugin stationAccessPlugin = new StationAccessPlugin();
+                        stationAccessPlugin.PanelClose += PanelRemoved;
+                        return stationAccessPlugin;
+                    case PluginType.Coverage:
+                        CoveragePlugin coveragePlugin = new CoveragePlugin();
+                        coveragePlugin.PanelClose += PanelRemoved;
+                        return coveragePlugin;
+                    case PluginType.PassiveSafety:
+                        PassiveSafetyPlugin passiveSafetyPlugin = new PassiveSafetyPlugin();
+                        passiveSafetyPlugin.PanelClose += PanelRemoved;
+                        return passiveSafetyPlugin;
+                    case PluginType.VolumeCreator:
+                        VolumePlugin volumePlugin = new VolumePlugin();
+                        volumePlugin.PanelClose += PanelRemoved;
+                        return volumePlugin;
+                    case PluginType.SolarAnglesUtility:
+                        SolarPhasePlugin solarPhasePlugin = new SolarPhasePlugin();
+                        solarPhasePlugin.PanelClose += PanelRemoved;
+                        return solarPhasePlugin;
+                    case PluginType.PlaneCrossingUtility:
+                        PlaneCrossingPlugin planeCrossingPlugin = new PlaneCrossingPlugin();
+                        planeCrossingPlugin.PanelClose += PanelRemoved;
+                        return planeCrossingPlugin;
+                    case PluginType.SensorBoresightPlugin:
+                        SensorBoresightUtility boresightPlugin = new SensorBoresightUtility();
+                        boresightPlugin.PanelClose += PanelRemoved;
+                        return boresightPlugin;
+                    default:
+                        return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public List<string> GetRequiredLicenses(PluginType pluginType)
+        {
+            List<string> requiredLicenses = new List<string>();
+
             switch (pluginType)
             {
                 case PluginType.Templates:
-                    TemplatesPlugin templatesPlugin = new TemplatesPlugin();
-                    templatesPlugin.PanelClose += PanelRemoved;
-                    return templatesPlugin;
+                    break;
                 case PluginType.SatelliteCreator:
-                    NewAssetForm newAssetForm = new NewAssetForm();
-                    newAssetForm.PanelClose += PanelRemoved;
-                    return newAssetForm;
+                    requiredLicenses.Add("STKProfessional");
+                    break;
                 case PluginType.UdlTleImport:
-                    InsertTleFromUdl insertTleFromUdl = new InsertTleFromUdl();
-                    insertTleFromUdl.PanelClose += PanelRemoved;
-                    return insertTleFromUdl;
+                    requiredLicenses.Add("STKProfessional");
+                    break;
                 case PluginType.EpochUpdate:
-                    SatelliteEpochUpdatePlugin satelliteEpochUpdatePlugin = new SatelliteEpochUpdatePlugin();
-                    satelliteEpochUpdatePlugin.PanelClose += PanelRemoved;
-                    return satelliteEpochUpdatePlugin;
+                    requiredLicenses.Add("ASTG");
+                    break;
                 case PluginType.FacilityCreator:
-                    FacilityCreatorPlugin facilityCreatorPlugin = new FacilityCreatorPlugin();
-                    facilityCreatorPlugin.PanelClose += PanelRemoved;
-                    return facilityCreatorPlugin;
+                    requiredLicenses.Add("STKProfessional");
+                    break;
                 case PluginType.GroundEvents:
-                    GroundEventsPlugin groundEventsPlugin = new GroundEventsPlugin();
-                    groundEventsPlugin.PanelClose += PanelRemoved;
-                    return groundEventsPlugin;
+                    requiredLicenses.Add("STKProfessional");
+                    requiredLicenses.Add("AnalysisWB");
+                    break;
                 case PluginType.SmartView:
-                    PopulateContextViews();
-                    SmartViewDropdown.Show(control, new Point(0, control.Height));
-                    return null;
+                    break;
                 case PluginType.StationAccess:
-                    StationAccessPlugin stationAccessPlugin = new StationAccessPlugin();
-                    stationAccessPlugin.PanelClose += PanelRemoved;
-                    return stationAccessPlugin;
+                    requiredLicenses.Add("STKProfessional");
+                    break;
                 case PluginType.Coverage:
-                    CoveragePlugin coveragePlugin = new CoveragePlugin();
-                    coveragePlugin.PanelClose += PanelRemoved;
-                    return coveragePlugin;
+                    requiredLicenses.Add("STKProfessional");
+                    requiredLicenses.Add("COV");
+                    break;
                 case PluginType.PassiveSafety:
-                    PassiveSafetyPlugin passiveSafetyPlugin = new PassiveSafetyPlugin();
-                    passiveSafetyPlugin.PanelClose += PanelRemoved;
-                    return passiveSafetyPlugin;
+                    requiredLicenses.Add("ASTG");
+                    break;
                 case PluginType.VolumeCreator:
-                    VolumePlugin volumePlugin = new VolumePlugin();
-                    volumePlugin.PanelClose += PanelRemoved;
-                    return volumePlugin;
+                    requiredLicenses.Add("STKProfessional");
+                    break;
                 case PluginType.SolarAnglesUtility:
-                    SolarPhasePlugin solarPhasePlugin = new SolarPhasePlugin();
-                    solarPhasePlugin.PanelClose += PanelRemoved;
-                    return solarPhasePlugin;
-                case PluginType.PlaneCrossingTimes:
-                    PlaneCrossingPlugin planeCrossingPlugin = new PlaneCrossingPlugin();
-                    planeCrossingPlugin.PanelClose += PanelRemoved;
-                    return planeCrossingPlugin;
+                    requiredLicenses.Add("AnalysisWB");
+                    break;
+                case PluginType.PlaneCrossingUtility:
+                    requiredLicenses.Add("AnalysisWB");
+                    break;
+                case PluginType.SensorBoresightPlugin:
+                    break;
                 default:
-                    return null;
+                    break;
             }
+
+            return requiredLicenses;
+        }
+
+        public bool CheckLicenses(PluginType pluginType)
+        {
+            bool check = true;
+            string msg = "Tool Unavailable. The Following Licenses are Missing: \n";
+            List<string> requiredLicenses = GetRequiredLicenses(pluginType);
+            foreach (var item in requiredLicenses)
+            {
+                if (!validLicenses.Contains(item))
+                {
+                    check = false;
+                    msg = msg + item + "\n";
+                }
+            }
+            if (check == false)
+            {
+                MessageBox.Show(msg);
+            }
+            return check;
         }
 
         public static int StringToPluginType(string pluginName)
@@ -270,8 +306,10 @@ namespace OperatorsToolbox
                     return 10;
                 case "SolarAnglesUtility":
                     return 11;
-                case "PlaneCrossingTimes":
+                case "PlaneCrossingUtility":
                     return 12;
+                case "SensorBoresightPlugin":
+                    return 13;
                 default:
                     return -1;
             }
@@ -307,7 +345,7 @@ namespace OperatorsToolbox
                     break;
                 case PluginType.SolarAnglesUtility:
                     break;
-                case PluginType.PlaneCrossingTimes:
+                case PluginType.PlaneCrossingUtility:
                     break;
                 default:
                     break;
@@ -344,9 +382,11 @@ namespace OperatorsToolbox
                 case PluginType.VolumeCreator:
                     return "Volume Creator";
                 case PluginType.SolarAnglesUtility:
-                    return "Beta Angle Calculator";
-                case PluginType.PlaneCrossingTimes:
-                    return "Plane Crossing Times";
+                    return "Solar Angle Utility";
+                case PluginType.PlaneCrossingUtility:
+                    return "Plane Crossing Utility";
+                case PluginType.SensorBoresightPlugin:
+                    return "Sensor Boresight View";
                 default:
                     return null;
             }
@@ -376,6 +416,10 @@ namespace OperatorsToolbox
         {
             CommonData.StkRoot.OnStkObjectAdded -= m_root_OnStkObjectAdded;
             CommonData.StkRoot.OnStkObjectDeleted -= m_root_OnStkObjectDeleted;
+            CommonData.StkRoot.OnScenarioSave -= m_root_OnStkSave;
+            CommonData.StkRoot.OnScenarioBeforeClose -= m_root_OnStkScenarioClose;
+            CommonData.StkRoot.OnAnimationPlayback -= m_root_OnStkAnimationPlayback;
+            CommonData.StkRoot.OnAnimationPause -= m_root_OnStkAnimationPause;
         }
 
         public void OnSaveModified()
@@ -392,6 +436,10 @@ namespace OperatorsToolbox
             //EXAMPLE: Hooking to STK Exents
             CommonData.StkRoot.OnStkObjectAdded += new IAgStkObjectRootEvents_OnStkObjectAddedEventHandler(m_root_OnStkObjectAdded);
             CommonData.StkRoot.OnStkObjectDeleted += new IAgStkObjectRootEvents_OnStkObjectDeletedEventHandler(m_root_OnStkObjectDeleted);
+            CommonData.StkRoot.OnScenarioSave += new IAgStkObjectRootEvents_OnScenarioSaveEventHandler(m_root_OnStkSave);
+            CommonData.StkRoot.OnScenarioBeforeClose += new IAgStkObjectRootEvents_OnScenarioBeforeCloseEventHandler(m_root_OnStkScenarioClose);
+            CommonData.StkRoot.OnAnimationPlayback += new IAgStkObjectRootEvents_OnAnimationPlaybackEventHandler(m_root_OnStkAnimationPlayback);
+            CommonData.StkRoot.OnAnimationPause += new IAgStkObjectRootEvents_OnAnimationPauseEventHandler(m_root_OnStkAnimationPause);
 
             CommonData.DirectoryStr = _mStkObjectsLibrary.GetScenarioDirectory();
 
@@ -399,7 +447,7 @@ namespace OperatorsToolbox
             CommonData.InitialObjectData = SmartViewFunctions.GetObjectData();
 
             PopulateContextViews();
-            _mPEmbeddedControlSite.Window.Width = _toolbarWidth + 5;
+            AutoSize();
         }
 
 
@@ -460,8 +508,23 @@ namespace OperatorsToolbox
         private void AutoSize()
         {
             PluginPanel.Controls.Clear();
+            if (_mPEmbeddedControlSite.Window.DockStyle == AGI.Ui.Core.AgEDockStyle.eDockStyleDockedBottom 
+                || _mPEmbeddedControlSite.Window.DockStyle == AGI.Ui.Core.AgEDockStyle.eDockStyleDockedTop 
+                || _mPEmbeddedControlSite.Window.DockStyle == AGI.Ui.Core.AgEDockStyle.eDockStyleIntegrated)
+            {
 
-            _mPEmbeddedControlSite.Window.Width = 20 + _toolbarWidth + _panelWidth * NumPanels;
+            }
+            else
+            {
+                if (_controlsList.Count > 0)
+                {
+                    _mPEmbeddedControlSite.Window.Width = 20 + _toolbarWidth + _panelWidth * NumPanels;
+                }
+                else
+                {
+                    _mPEmbeddedControlSite.Window.Width = 15 + _toolbarWidth;
+                }
+            }
 
             for (var index = 0; index < _controlsList.Count; index++)
             {
@@ -727,10 +790,10 @@ namespace OperatorsToolbox
                         SmartViewFunctions.Change3DView(item);
                         break;
                     case "Target/Threat":
-                        SmartViewFunctions.ChangeTargetThreatView(item);
+                        //SmartViewFunctions.ChangeTargetThreatView(item);
                         break;
                     case "GEODrift":
-                        SmartViewFunctions.ChangeGeoDriftView(item);
+                        //SmartViewFunctions.ChangeGeoDriftView(item);
                         break;
                 }
                 CommonData.StkRoot.ExecuteCommand("BatchGraphics * Off");
@@ -851,16 +914,55 @@ namespace OperatorsToolbox
         #region Sample code
         void m_root_OnStkObjectDeleted(object sender)
         {
-            string objectPath = sender.ToString();
-            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
-            //cbStkObjects.Items.Remove(simpleName);
+            string objPath = sender.ToString();
+            if (CommonData.Preferences.ActiveObjDeletedScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.ObjDeletedScriptPath, objPath, true);
+            }
+            //CommonData.InitialObjectData = SmartViewFunctions.GetObjectData();
         }
 
         void m_root_OnStkObjectAdded(object sender)
         {
-            string objectPath = sender.ToString();
-            string simpleName = _mStkObjectsLibrary.SimplifiedObjectPath(objectPath);
-            //cbStkObjects.Items.Add(simpleName);
+            string objPath = sender.ToString();
+            if (CommonData.Preferences.ActiveObjAddedScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.ObjAddedScriptPath, objPath, true);
+            }
+            //CommonData.InitialObjectData = SmartViewFunctions.GetObjectData();
+        }
+
+        void m_root_OnStkSave(object sender)
+        {
+            if (CommonData.Preferences.ActiveSaveScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.SaveScriptPath, CommonData.Preferences.SaveScriptArgs, false);
+            }
+            //CommonData.InitialObjectData = SmartViewFunctions.GetObjectData();
+        }
+
+        void m_root_OnStkScenarioClose()
+        {
+            if (CommonData.Preferences.ActiveCloseScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.CloseScriptPath, CommonData.Preferences.CloseScriptArgs, false);
+            }
+        }
+
+        void m_root_OnStkAnimationPlayback(double time, AgEAnimationActions actions, AgEAnimationDirections directions)
+        {
+            if (CommonData.Preferences.ActivePlaybackScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.PlaybackScriptPath, CommonData.Preferences.PlaybackScriptArgs, true);
+            }
+        }
+
+        void m_root_OnStkAnimationPause(double time)
+        {
+            if (CommonData.Preferences.ActivePauseScript)
+            {
+                ReadWrite.ExecuteScript(CommonData.Preferences.PauseScriptPath, CommonData.Preferences.PauseScriptArgs, false);
+            }
         }
         #endregion
     }

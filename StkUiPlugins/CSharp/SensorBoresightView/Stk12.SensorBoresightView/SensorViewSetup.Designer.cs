@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(205, 305);
+            this.ClientSize = new System.Drawing.Size(205, 303);
             this.Controls.Add(this.buttonCreateSensorView);
             this.Controls.Add(this.textboxPixels);
             this.Controls.Add(this.label2);

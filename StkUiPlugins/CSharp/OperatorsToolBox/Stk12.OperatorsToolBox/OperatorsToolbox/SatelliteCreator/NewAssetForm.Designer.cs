@@ -68,6 +68,12 @@
             this.ConstName = new System.Windows.Forms.TextBox();
             this.ExistingConst = new System.Windows.Forms.ComboBox();
             this.DatabaseBox = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.SccTextBox = new System.Windows.Forms.TextBox();
+            this.filterButton3 = new System.Windows.Forms.Button();
+            this.imageList3 = new System.Windows.Forms.ImageList(this.components);
+            this.filterButton2 = new System.Windows.Forms.Button();
+            this.filterButton1 = new System.Windows.Forms.Button();
             this.SensorToggle = new System.Windows.Forms.CheckBox();
             this.UnselectAll = new System.Windows.Forms.Button();
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
@@ -78,9 +84,6 @@
             this.SSC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CommonName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Constellation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.SpecificFilter = new System.Windows.Forms.ComboBox();
-            this.MainFilter = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.ImportType = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.WaitTimer = new System.Windows.Forms.Timer(this.components);
@@ -99,7 +102,7 @@
             this.TCEFile.Location = new System.Drawing.Point(8, 24);
             this.TCEFile.Margin = new System.Windows.Forms.Padding(2);
             this.TCEFile.Name = "TCEFile";
-            this.TCEFile.Size = new System.Drawing.Size(262, 20);
+            this.TCEFile.Size = new System.Drawing.Size(283, 20);
             this.TCEFile.TabIndex = 2;
             // 
             // Browse
@@ -107,7 +110,7 @@
             this.Browse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Browse.BackColor = System.Drawing.Color.SteelBlue;
             this.Browse.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Browse.Location = new System.Drawing.Point(274, 25);
+            this.Browse.Location = new System.Drawing.Point(295, 25);
             this.Browse.Margin = new System.Windows.Forms.Padding(2);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(25, 20);
@@ -131,7 +134,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(317, 89);
+            this.groupBox1.Size = new System.Drawing.Size(338, 89);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "From File";
@@ -140,7 +143,7 @@
             // 
             this.TimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Location = new System.Drawing.Point(270, 56);
+            this.TimeLabel.Location = new System.Drawing.Point(291, 56);
             this.TimeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(37, 13);
@@ -156,7 +159,7 @@
             this.SlipTime.Location = new System.Drawing.Point(79, 54);
             this.SlipTime.Margin = new System.Windows.Forms.Padding(2);
             this.SlipTime.Name = "SlipTime";
-            this.SlipTime.Size = new System.Drawing.Size(191, 20);
+            this.SlipTime.Size = new System.Drawing.Size(212, 20);
             this.SlipTime.TabIndex = 14;
             // 
             // TimeSlip
@@ -199,7 +202,7 @@
             this.ElementsBox.Margin = new System.Windows.Forms.Padding(2);
             this.ElementsBox.Name = "ElementsBox";
             this.ElementsBox.Padding = new System.Windows.Forms.Padding(2);
-            this.ElementsBox.Size = new System.Drawing.Size(318, 271);
+            this.ElementsBox.Size = new System.Drawing.Size(339, 271);
             this.ElementsBox.TabIndex = 5;
             this.ElementsBox.TabStop = false;
             this.ElementsBox.Text = "Orbital Elements";
@@ -402,10 +405,10 @@
             this.Generate.BackColor = System.Drawing.Color.SteelBlue;
             this.Generate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Generate.ForeColor = System.Drawing.Color.White;
-            this.Generate.Location = new System.Drawing.Point(84, 495);
+            this.Generate.Location = new System.Drawing.Point(81, 615);
             this.Generate.Margin = new System.Windows.Forms.Padding(2);
             this.Generate.Name = "Generate";
-            this.Generate.Size = new System.Drawing.Size(142, 30);
+            this.Generate.Size = new System.Drawing.Size(163, 30);
             this.Generate.TabIndex = 6;
             this.Generate.Text = "Generate";
             this.Generate.UseVisualStyleBackColor = false;
@@ -418,7 +421,7 @@
             this.Cancel.ForeColor = System.Drawing.Color.White;
             this.Cancel.ImageIndex = 0;
             this.Cancel.ImageList = this.imageList1;
-            this.Cancel.Location = new System.Drawing.Point(303, 2);
+            this.Cancel.Location = new System.Drawing.Point(324, 2);
             this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
@@ -445,11 +448,11 @@
             this.groupBox3.Controls.Add(this.ConstName);
             this.groupBox3.Controls.Add(this.ExistingConst);
             this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(1, 377);
+            this.groupBox3.Location = new System.Drawing.Point(2, 498);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(328, 113);
+            this.groupBox3.Size = new System.Drawing.Size(343, 113);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Constellation Options";
@@ -468,12 +471,13 @@
             // 
             this.ConstType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ConstType.BackColor = System.Drawing.Color.DimGray;
+            this.ConstType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ConstType.ForeColor = System.Drawing.Color.White;
             this.ConstType.FormattingEnabled = true;
-            this.ConstType.Location = new System.Drawing.Point(174, 17);
+            this.ConstType.Location = new System.Drawing.Point(189, 17);
             this.ConstType.Margin = new System.Windows.Forms.Padding(2);
             this.ConstType.Name = "ConstType";
-            this.ConstType.Size = new System.Drawing.Size(142, 21);
+            this.ConstType.Size = new System.Drawing.Size(146, 21);
             this.ConstType.TabIndex = 32;
             this.ConstType.SelectedIndexChanged += new System.EventHandler(this.ConstType_SelectedIndexChanged);
             // 
@@ -491,12 +495,13 @@
             // 
             this.CoordSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CoordSystem.BackColor = System.Drawing.Color.DimGray;
+            this.CoordSystem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.CoordSystem.ForeColor = System.Drawing.Color.White;
             this.CoordSystem.FormattingEnabled = true;
-            this.CoordSystem.Location = new System.Drawing.Point(214, 72);
+            this.CoordSystem.Location = new System.Drawing.Point(189, 72);
             this.CoordSystem.Margin = new System.Windows.Forms.Padding(2);
             this.CoordSystem.Name = "CoordSystem";
-            this.CoordSystem.Size = new System.Drawing.Size(102, 21);
+            this.CoordSystem.Size = new System.Drawing.Size(146, 21);
             this.CoordSystem.TabIndex = 6;
             this.CoordSystem.SelectedIndexChanged += new System.EventHandler(this.CoordSystem_SelectedIndexChanged);
             // 
@@ -515,10 +520,10 @@
             this.ConstName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ConstName.BackColor = System.Drawing.Color.DimGray;
             this.ConstName.ForeColor = System.Drawing.Color.White;
-            this.ConstName.Location = new System.Drawing.Point(185, 44);
+            this.ConstName.Location = new System.Drawing.Point(189, 44);
             this.ConstName.Margin = new System.Windows.Forms.Padding(2);
             this.ConstName.Name = "ConstName";
-            this.ConstName.Size = new System.Drawing.Size(132, 20);
+            this.ConstName.Size = new System.Drawing.Size(146, 20);
             this.ConstName.TabIndex = 4;
             // 
             // ExistingConst
@@ -527,10 +532,10 @@
             this.ExistingConst.BackColor = System.Drawing.Color.DimGray;
             this.ExistingConst.ForeColor = System.Drawing.Color.White;
             this.ExistingConst.FormattingEnabled = true;
-            this.ExistingConst.Location = new System.Drawing.Point(185, 44);
+            this.ExistingConst.Location = new System.Drawing.Point(189, 44);
             this.ExistingConst.Margin = new System.Windows.Forms.Padding(2);
             this.ExistingConst.Name = "ExistingConst";
-            this.ExistingConst.Size = new System.Drawing.Size(133, 21);
+            this.ExistingConst.Size = new System.Drawing.Size(146, 21);
             this.ExistingConst.TabIndex = 3;
             // 
             // DatabaseBox
@@ -538,30 +543,97 @@
             this.DatabaseBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatabaseBox.Controls.Add(this.label8);
+            this.DatabaseBox.Controls.Add(this.SccTextBox);
+            this.DatabaseBox.Controls.Add(this.filterButton3);
+            this.DatabaseBox.Controls.Add(this.filterButton2);
+            this.DatabaseBox.Controls.Add(this.filterButton1);
             this.DatabaseBox.Controls.Add(this.SensorToggle);
             this.DatabaseBox.Controls.Add(this.UnselectAll);
             this.DatabaseBox.Controls.Add(this.Unselect);
             this.DatabaseBox.Controls.Add(this.SelectAll);
             this.DatabaseBox.Controls.Add(this.Select);
             this.DatabaseBox.Controls.Add(this.SatelliteList);
-            this.DatabaseBox.Controls.Add(this.SpecificFilter);
-            this.DatabaseBox.Controls.Add(this.MainFilter);
-            this.DatabaseBox.Controls.Add(this.label9);
             this.DatabaseBox.ForeColor = System.Drawing.Color.White;
             this.DatabaseBox.Location = new System.Drawing.Point(1, 63);
             this.DatabaseBox.Margin = new System.Windows.Forms.Padding(2);
             this.DatabaseBox.Name = "DatabaseBox";
             this.DatabaseBox.Padding = new System.Windows.Forms.Padding(2);
-            this.DatabaseBox.Size = new System.Drawing.Size(322, 313);
+            this.DatabaseBox.Size = new System.Drawing.Size(343, 431);
             this.DatabaseBox.TabIndex = 5;
             this.DatabaseBox.TabStop = false;
             this.DatabaseBox.Text = "Database Selection";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(168, 30);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.TabIndex = 34;
+            this.label8.Text = "SCC:";
+            // 
+            // SccTextBox
+            // 
+            this.SccTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SccTextBox.BackColor = System.Drawing.Color.DimGray;
+            this.SccTextBox.ForeColor = System.Drawing.Color.White;
+            this.SccTextBox.Location = new System.Drawing.Point(202, 27);
+            this.SccTextBox.Name = "SccTextBox";
+            this.SccTextBox.Size = new System.Drawing.Size(132, 20);
+            this.SccTextBox.TabIndex = 36;
+            this.SccTextBox.TextChanged += new System.EventHandler(this.SccTextBox_TextChanged);
+            // 
+            // filterButton3
+            // 
+            this.filterButton3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.filterButton3.ImageIndex = 1;
+            this.filterButton3.ImageList = this.imageList3;
+            this.filterButton3.Location = new System.Drawing.Point(115, 18);
+            this.filterButton3.Name = "filterButton3";
+            this.filterButton3.Size = new System.Drawing.Size(34, 34);
+            this.filterButton3.TabIndex = 35;
+            this.filterButton3.UseVisualStyleBackColor = true;
+            this.filterButton3.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // imageList3
+            // 
+            this.imageList3.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList3.ImageStream")));
+            this.imageList3.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList3.Images.SetKeyName(0, "funnel (1).png");
+            this.imageList3.Images.SetKeyName(1, "filter (1).png");
+            // 
+            // filterButton2
+            // 
+            this.filterButton2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.filterButton2.ImageIndex = 1;
+            this.filterButton2.ImageList = this.imageList3;
+            this.filterButton2.Location = new System.Drawing.Point(61, 18);
+            this.filterButton2.Name = "filterButton2";
+            this.filterButton2.Size = new System.Drawing.Size(34, 34);
+            this.filterButton2.TabIndex = 34;
+            this.filterButton2.UseVisualStyleBackColor = true;
+            this.filterButton2.Click += new System.EventHandler(this.filterButton2_Click);
+            // 
+            // filterButton1
+            // 
+            this.filterButton1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.filterButton1.ImageIndex = 1;
+            this.filterButton1.ImageList = this.imageList3;
+            this.filterButton1.Location = new System.Drawing.Point(9, 18);
+            this.filterButton1.Name = "filterButton1";
+            this.filterButton1.Size = new System.Drawing.Size(34, 34);
+            this.filterButton1.TabIndex = 33;
+            this.filterButton1.UseVisualStyleBackColor = true;
+            this.filterButton1.Click += new System.EventHandler(this.filterButton1_Click);
             // 
             // SensorToggle
             // 
             this.SensorToggle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SensorToggle.AutoSize = true;
-            this.SensorToggle.Location = new System.Drawing.Point(4, 252);
+            this.SensorToggle.Location = new System.Drawing.Point(14, 362);
             this.SensorToggle.Margin = new System.Windows.Forms.Padding(2);
             this.SensorToggle.Name = "SensorToggle";
             this.SensorToggle.Size = new System.Drawing.Size(172, 17);
@@ -577,7 +649,7 @@
             this.UnselectAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.UnselectAll.ImageIndex = 0;
             this.UnselectAll.ImageList = this.imageList2;
-            this.UnselectAll.Location = new System.Drawing.Point(273, 268);
+            this.UnselectAll.Location = new System.Drawing.Point(294, 386);
             this.UnselectAll.Margin = new System.Windows.Forms.Padding(2);
             this.UnselectAll.Name = "UnselectAll";
             this.UnselectAll.Size = new System.Drawing.Size(40, 40);
@@ -593,6 +665,8 @@
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList2.Images.SetKeyName(0, "delete.png");
             this.imageList2.Images.SetKeyName(1, "checked.png");
+            this.imageList2.Images.SetKeyName(2, "filter (1).png");
+            this.imageList2.Images.SetKeyName(3, "filter (2).png");
             // 
             // Unselect
             // 
@@ -601,7 +675,7 @@
             this.Unselect.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Unselect.ImageIndex = 0;
             this.Unselect.ImageList = this.imageList2;
-            this.Unselect.Location = new System.Drawing.Point(209, 270);
+            this.Unselect.Location = new System.Drawing.Point(230, 386);
             this.Unselect.Margin = new System.Windows.Forms.Padding(2);
             this.Unselect.Name = "Unselect";
             this.Unselect.Size = new System.Drawing.Size(40, 40);
@@ -618,7 +692,7 @@
             this.SelectAll.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.SelectAll.ImageIndex = 1;
             this.SelectAll.ImageList = this.imageList2;
-            this.SelectAll.Location = new System.Drawing.Point(77, 270);
+            this.SelectAll.Location = new System.Drawing.Point(74, 386);
             this.SelectAll.Margin = new System.Windows.Forms.Padding(2);
             this.SelectAll.Name = "SelectAll";
             this.SelectAll.Size = new System.Drawing.Size(40, 40);
@@ -635,7 +709,7 @@
             this.Select.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.Select.ImageIndex = 1;
             this.Select.ImageList = this.imageList2;
-            this.Select.Location = new System.Drawing.Point(14, 271);
+            this.Select.Location = new System.Drawing.Point(11, 386);
             this.Select.Margin = new System.Windows.Forms.Padding(2);
             this.Select.Name = "Select";
             this.Select.Size = new System.Drawing.Size(40, 40);
@@ -657,67 +731,33 @@
             this.SatelliteList.ForeColor = System.Drawing.Color.White;
             this.SatelliteList.FullRowSelect = true;
             this.SatelliteList.HideSelection = false;
-            this.SatelliteList.Location = new System.Drawing.Point(4, 54);
+            this.SatelliteList.Location = new System.Drawing.Point(4, 61);
             this.SatelliteList.Margin = new System.Windows.Forms.Padding(2);
             this.SatelliteList.Name = "SatelliteList";
-            this.SatelliteList.Size = new System.Drawing.Size(314, 198);
+            this.SatelliteList.Size = new System.Drawing.Size(335, 294);
             this.SatelliteList.TabIndex = 3;
             this.SatelliteList.UseCompatibleStateImageBehavior = false;
             this.SatelliteList.View = System.Windows.Forms.View.Details;
             // 
             // SSC
             // 
-            this.SSC.Text = "SSC";
+            this.SSC.Text = "SCC";
             this.SSC.Width = 65;
             // 
             // CommonName
             // 
             this.CommonName.Text = "Common Name";
-            this.CommonName.Width = 124;
+            this.CommonName.Width = 137;
             // 
             // Constellation
             // 
             this.Constellation.Text = "Constellaton";
             this.Constellation.Width = 127;
             // 
-            // SpecificFilter
-            // 
-            this.SpecificFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SpecificFilter.BackColor = System.Drawing.Color.DimGray;
-            this.SpecificFilter.ForeColor = System.Drawing.Color.White;
-            this.SpecificFilter.FormattingEnabled = true;
-            this.SpecificFilter.Location = new System.Drawing.Point(169, 30);
-            this.SpecificFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.SpecificFilter.Name = "SpecificFilter";
-            this.SpecificFilter.Size = new System.Drawing.Size(145, 21);
-            this.SpecificFilter.TabIndex = 2;
-            this.SpecificFilter.SelectedIndexChanged += new System.EventHandler(this.SpecificFilter_SelectedIndexChanged);
-            // 
-            // MainFilter
-            // 
-            this.MainFilter.BackColor = System.Drawing.Color.DimGray;
-            this.MainFilter.ForeColor = System.Drawing.Color.White;
-            this.MainFilter.FormattingEnabled = true;
-            this.MainFilter.Location = new System.Drawing.Point(4, 30);
-            this.MainFilter.Margin = new System.Windows.Forms.Padding(2);
-            this.MainFilter.Name = "MainFilter";
-            this.MainFilter.Size = new System.Drawing.Size(136, 21);
-            this.MainFilter.TabIndex = 1;
-            this.MainFilter.SelectedIndexChanged += new System.EventHandler(this.MainFilter_SelectedIndexChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 13);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(71, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Catalog Filter:";
-            // 
             // ImportType
             // 
             this.ImportType.BackColor = System.Drawing.Color.DimGray;
+            this.ImportType.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ImportType.ForeColor = System.Drawing.Color.White;
             this.ImportType.FormattingEnabled = true;
             this.ImportType.Location = new System.Drawing.Point(2, 38);
@@ -761,7 +801,7 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewAssetForm";
-            this.Size = new System.Drawing.Size(329, 596);
+            this.Size = new System.Drawing.Size(350, 700);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ElementsBox.ResumeLayout(false);
@@ -801,9 +841,6 @@
         private System.Windows.Forms.TextBox ConstName;
         private System.Windows.Forms.ComboBox ExistingConst;
         private System.Windows.Forms.GroupBox DatabaseBox;
-        private System.Windows.Forms.ComboBox SpecificFilter;
-        private System.Windows.Forms.ComboBox MainFilter;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button UnselectAll;
         private System.Windows.Forms.Button Unselect;
         private System.Windows.Forms.Button SelectAll;
@@ -830,5 +867,11 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox SensorToggle;
+        private System.Windows.Forms.Button filterButton2;
+        private System.Windows.Forms.Button filterButton1;
+        private System.Windows.Forms.Button filterButton3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox SccTextBox;
+        private System.Windows.Forms.ImageList imageList3;
     }
 }

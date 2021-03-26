@@ -52,8 +52,7 @@ namespace OperatorsToolbox.FacilityCreator
             SensorType.Items.Add("Optical");
             SensorType.Items.Add("Radar");
             SensorType.SelectedIndex = 0;
-            DefaultConstraints.Checked = true;
-            DefineConstraints.Enabled = false;
+            DefineConstraints.Enabled = true;
 
             _onStart = false;
         }
@@ -74,14 +73,6 @@ namespace OperatorsToolbox.FacilityCreator
                 {
                     SensorType.SelectedIndex = 1;
                 }
-                if (CurFacilityList[CadanceList.FocusedItem.Index].UseDefaultCnst)
-                {
-                    DefaultConstraints.Checked = true;
-                }
-                else
-                {
-                    DefaultConstraints.Checked = false;
-                }
             }
         }
 
@@ -90,12 +81,12 @@ namespace OperatorsToolbox.FacilityCreator
             FcFacility facility = new FcFacility();
             FCSensor sensor = new FCSensor();
             facility.Name = "New_Facility";
-            bool exists = CommonData.StkRoot.ObjectExists("Facility/Sensor1");
+            bool exists = CommonData.StkRoot.ObjectExists("Facility/"+ facility.Name + "/Sensor/Sensor1");
             if (exists)
             {
                 for (int i = 0; i < 99; i++)
                 {
-                    exists = CommonData.StkRoot.ObjectExists("Facility/Sensor"+i.ToString());
+                    exists = CommonData.StkRoot.ObjectExists("Facility/"+ facility.Name + "/Sensor/Sensor" + i.ToString());
                     if (!exists)
                     {
                         sensor.SensorName = "Sensor" + i.ToString();
@@ -121,6 +112,8 @@ namespace OperatorsToolbox.FacilityCreator
             rParams.HalfAngle = "85";
             rParams.MinAz = "0";
             rParams.MaxAz = "360";
+            rParams.Az = "0";
+            rParams.El = "90";
             sensor.RParams = rParams;
             OpticalParams oParams = new OpticalParams();
             oParams.MinEl = "0";
@@ -132,6 +125,8 @@ namespace OperatorsToolbox.FacilityCreator
             oParams.HalfAngle = "70";
             oParams.MinAz = "0";
             oParams.MaxAz = "360";
+            oParams.Az = "0";
+            oParams.El = "90";
             sensor.OParams = oParams;
             facility.UseDefaultCnst = true;
             facility.Sensors.Add(sensor);
@@ -353,6 +348,8 @@ namespace OperatorsToolbox.FacilityCreator
                     oParams.HalfAngle = "70";
                     oParams.MinAz = "0";
                     oParams.MaxAz = "360";
+                    oParams.Az = "0";
+                    oParams.El = "90";
                     CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].OParams = oParams;
                 }
                 ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].Sensors, true);
@@ -375,6 +372,8 @@ namespace OperatorsToolbox.FacilityCreator
                     rParams.HalfAngle = "85";
                     rParams.MinAz = "0";
                     rParams.MaxAz = "360";
+                    rParams.Az = "0";
+                    rParams.El = "90";
                     CurFacilityList[CadanceList.FocusedItem.Index].Sensors[0].RParams = rParams;
                 }
                 ChangeConstraintsForm form = new ChangeConstraintsForm(CurFacilityList[CadanceList.FocusedItem.Index].Sensors, false);
@@ -391,16 +390,7 @@ namespace OperatorsToolbox.FacilityCreator
         {
             if (!_onStart && CadanceList.FocusedItem != null)
             {
-                if (DefaultConstraints.Checked)
-                {
-                    DefineConstraints.Enabled = false;
-                    CurFacilityList[CadanceList.FocusedItem.Index].UseDefaultCnst = true;
-                }
-                else
-                {
-                    DefineConstraints.Enabled = true;
-                    CurFacilityList[CadanceList.FocusedItem.Index].UseDefaultCnst = false;
-                }
+                DefineConstraints.Enabled = true;
             }
         }
 

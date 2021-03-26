@@ -308,5 +308,11 @@ namespace OperatorsToolbox.Coverage
         {
             CoverageFunctions.RemoveFomLegends();
         }
+
+        private void AddAreaTarget_Click(object sender, EventArgs e)
+        {
+            ATManager manager = new ATManager();
+            manager.ShowDialog();
+        }
     }
 }

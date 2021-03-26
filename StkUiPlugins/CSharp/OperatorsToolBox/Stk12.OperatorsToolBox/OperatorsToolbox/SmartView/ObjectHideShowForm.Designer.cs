@@ -46,7 +46,7 @@
             this.ObjectList.CheckBoxes = true;
             this.ObjectList.ForeColor = System.Drawing.Color.White;
             this.ObjectList.Location = new System.Drawing.Point(6, 54);
-            this.ObjectList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ObjectList.Margin = new System.Windows.Forms.Padding(2);
             this.ObjectList.Name = "ObjectList";
             this.ObjectList.Size = new System.Drawing.Size(294, 305);
             this.ObjectList.TabIndex = 0;
@@ -61,7 +61,7 @@
             this.Apply.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Apply.ForeColor = System.Drawing.Color.White;
             this.Apply.Location = new System.Drawing.Point(6, 363);
-            this.Apply.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Apply.Margin = new System.Windows.Forms.Padding(2);
             this.Apply.Name = "Apply";
             this.Apply.Size = new System.Drawing.Size(73, 34);
             this.Apply.TabIndex = 1;
@@ -76,7 +76,7 @@
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Cancel.ForeColor = System.Drawing.Color.White;
             this.Cancel.Location = new System.Drawing.Point(82, 363);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(73, 34);
             this.Cancel.TabIndex = 2;
@@ -89,7 +89,7 @@
             this.SelectAll.AutoSize = true;
             this.SelectAll.ForeColor = System.Drawing.Color.White;
             this.SelectAll.Location = new System.Drawing.Point(8, 34);
-            this.SelectAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SelectAll.Margin = new System.Windows.Forms.Padding(2);
             this.SelectAll.Name = "SelectAll";
             this.SelectAll.Size = new System.Drawing.Size(117, 17);
             this.SelectAll.TabIndex = 3;
@@ -103,7 +103,7 @@
             this.ToggleSensors.AutoSize = true;
             this.ToggleSensors.ForeColor = System.Drawing.Color.White;
             this.ToggleSensors.Location = new System.Drawing.Point(121, 34);
-            this.ToggleSensors.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ToggleSensors.Margin = new System.Windows.Forms.Padding(2);
             this.ToggleSensors.Name = "ToggleSensors";
             this.ToggleSensors.Size = new System.Drawing.Size(114, 17);
             this.ToggleSensors.TabIndex = 4;
@@ -151,7 +151,7 @@
             this.Controls.Add(this.Apply);
             this.Controls.Add(this.ObjectList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ObjectHideShowForm";
             this.Text = "Object Hide/Show Options";
             this.ResumeLayout(false);
