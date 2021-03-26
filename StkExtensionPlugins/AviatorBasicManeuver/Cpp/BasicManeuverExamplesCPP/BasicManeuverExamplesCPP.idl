@@ -1,0 +1,112 @@
+// BasicManeuverExamplesCPP.idl : IDL source for BasicManeuverExamplesCPP
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (BasicManeuverExamplesCPP.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+
+[
+	uuid(d0293f97-34cc-4137-91ae-d9f476b2cd0b),
+	version(1.0),
+]
+library BasicManeuverExamplesCPPLib
+{
+	importlib("stdole2.tlb");
+
+    importlib("AgNotification.dll");
+    importlib("AgComUtilities.dll");
+    importlib("AgFlight.dll");
+
+
+
+    [
+        object,
+        uuid(ce4dc251-35d4-437d-bf91-0f3c532fc8c6),
+        oleautomation,
+        nonextensible,
+        pointer_default(unique)
+    ]
+    interface IBasicManeuverStrategyFactory3dExampleNavCPP : IUnknown
+    {
+    };
+    [
+        object,
+        uuid(9f94a67a-0e38-4e8b-9941-f30212cf859c),
+        oleautomation,
+        nonextensible,
+        pointer_default(unique)
+    ]
+    interface IBasicManeuverStrategyFactory3dExampleProfileCPP : IUnknown
+    {
+    };
+    [
+        object,
+        uuid(a4b0baf8-eba2-44a1-ad9e-d7bc15fc38dd),
+        oleautomation,
+        nonextensible,
+        pointer_default(unique)
+    ]
+    interface IBasicManeuverStrategy3dExampleNavCPP : IUnknown
+    {
+    };
+    [
+        object,
+        uuid(0455ddf3-7ca7-461d-a567-194d15f6b88d),
+        oleautomation,
+        nonextensible,
+        pointer_default(unique)
+    ]
+    interface IBasicManeuverStrategy3dExampleProfileCPP : IUnknown
+    {
+    };
+
+
+
+	[
+		uuid(d2dd28eb-40ec-4b85-8a52-4a99b2b93399)
+	]
+	coclass BasicManeuverStrategyFactory3dExampleNavCPP
+	{
+        [default] interface IUnknown;
+        interface IBasicManeuverStrategyFactory3dExampleNavCPP;
+        interface IAgFlightBasicManeuverStrategyFactory;
+    };
+	[
+		uuid(3d3751ae-5f3e-4c89-9f71-5a33586fe3f2)
+	]
+	coclass BasicManeuverStrategyFactory3dExampleProfileCPP
+	{
+        [default] interface IUnknown;
+        interface IBasicManeuverStrategyFactory3dExampleProfileCPP;
+        interface IAgFlightBasicManeuverStrategyFactory;
+    };
+	[
+		uuid(a36bc8e8-2f41-4123-92d4-5d9d0b0e7bc0)
+	]
+	coclass BasicManeuverStrategy3dExampleNavCPP
+	{
+        [default] interface IUnknown;
+        interface IBasicManeuverStrategy3dExampleNavCPP;
+        interface IAgFlightBasicManeuverStrategy;
+        interface IAgFlightBasicManeuver3DNavStrategy;
+        interface IPersistPropertyBag;
+    };
+	[
+		uuid(eb8f1dd8-8782-4116-acda-781d44e445a6)
+	]
+	coclass BasicManeuverStrategy3dExampleProfileCPP
+	{
+		[default] interface IUnknown;
+        interface IBasicManeuverStrategy3dExampleProfileCPP;
+		interface IAgFlightBasicManeuverStrategy;
+		interface IPersistPropertyBag;
+    };
+};
+
+import "shobjidl.idl";
+import "shobjidl.idl";
+import "shobjidl.idl";
+import "shobjidl.idl";

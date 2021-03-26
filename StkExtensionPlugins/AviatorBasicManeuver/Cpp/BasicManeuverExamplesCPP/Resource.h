@@ -1,0 +1,23 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by BasicManeuverExamplesCPP.rc
+//
+
+#define IDS_PROJNAME                    100
+#define IDR_BASICMANEUVEREXAMPLESCPP      101
+
+#define IDR_BASICMANEUVERSTRATEGY3DEXAMPLENAVCPP      201
+#define IDR_BASICMANEUVERSTRATEGY3DEXAMPLEPROFILECPP      202
+#define IDR_BASICMANEUVERSTRATEGYFACTORY3DEXAMPLENAVCPP      203
+#define IDR_BASICMANEUVERSTRATEGYFACTORY3DEXAMPLEPROFILECPP      204
+
+// Next default values for new objects
+//
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        201
+#define _APS_NEXT_COMMAND_VALUE         32768
+#define _APS_NEXT_CONTROL_VALUE         201
+#define _APS_NEXT_SYMED_VALUE           106
+#endif
+#endif

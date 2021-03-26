@@ -1,0 +1,48 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+		
+		<Category Name = "Engine Models">
+				
+			<!-- This tag to the left indicates the start of a comment block
+
+				Register your plugins with those below. Use the following format:
+
+				<Plugin DisplayName = "YOUR_NAME_TO_APPEAR_IN_USER_INTERFACE_GOES_HERE" ProgID = "YOUR_PROGID_GOES_HERE"/>
+
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+					   ProgId is invalid because of the 'd' not being capitalized. 
+					   Any improper keyword casing violation will cause the plugin to 
+					   not be registered.
+			-->
+
+            <!-- This section is a comment block.
+			
+			The following Plugin tags register each Plugin component as an Engine Model Plugin. 
+			
+			To enable one of the sample plugins in STK, simply build the component (if necessary), 
+			register it in the Windows Registry, and move the registration line below 
+			outside of this comment block.
+
+			<Plugin DisplayName = "JScript Engine Example" ProgID = "JScript.Example1.EngineModel.WSC"/>
+			<Plugin DisplayName = "CPP Engine Example" ProgID = "AGI.Astrogator.Plugin.Examples.EngineModeling.CPP.Example1"/>
+			<Plugin DisplayName = "CSharp Engine Example" ProgID = "AGI.Astrogator.Plugin.Examples.EngineModeling.CSharp.Example1"/>
+			<Plugin DisplayName = "Matlab Engine Example" ProgID = "Matlab.Example1.EngineModel.WSC"/>
+			
+             -->
+			<Plugin DisplayName = "VBScript Constant Thrust Rate Engine" ProgID = "VBScript.ConstantThrustRate.EngineModel.WSC"/>
+
+		</Category>
+		
+	</CategoryRegistry>
+
+</AGIRegistry>
