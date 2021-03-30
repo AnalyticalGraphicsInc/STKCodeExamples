@@ -14,6 +14,7 @@ root = app.Personality2;
 %NOTE: This is only for comm links from one object to another. Does not
 %account for sensors that have to point to multiple objects and need a
 %pointing schedule setup
+%NOTE: Reqiures recSearch.m
 
 %Place the pairs of xmtrs and rcvrs as shown below.
 commPairs = {'Transmitter1','Receiver1';
@@ -21,8 +22,8 @@ commPairs = {'Transmitter1','Receiver1';
             };
 
 %Function to grab objects of the comm object types
-[xmtrs,~] = GrabObjects(root,'Transmitter');
-[rcvrs,~] = GrabObjects(root,'Receiver');
+[xmtrs] = recSearch('eTransmitter', root.CurrentScenario);
+[rcvrs] = recSearch('eReceiver',root.CurrentScenario);
 
 
 for i = 1:length(commPairs)
