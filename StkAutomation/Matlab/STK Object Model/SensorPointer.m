@@ -22,8 +22,8 @@ commPairs = {'Transmitter1','Receiver1';
             };
 
 %Function to grab objects of the comm object types
-[xmtrs] = recSearch('eTransmitter', root.CurrentScenario);
-[rcvrs] = recSearch('eReceiver',root.CurrentScenario);
+[xmtrs] = filterObjectsByType_Recursive('eTransmitter', root.CurrentScenario);
+[rcvrs] = filterObjectsByType_Recursive('eReceiver',root.CurrentScenario);
 
 
 for i = 1:length(commPairs)
