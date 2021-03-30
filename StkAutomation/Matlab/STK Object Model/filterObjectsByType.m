@@ -16,7 +16,7 @@ function [objPaths] = filterObjectsByType(objType,name)
 
 %% Code
 % Attatch to an Existing Instance of STK
-uiApplication = actxGetRunningServer('STK11.application');
+uiApplication = actxGetRunningServer('STK12.application');
 root = uiApplication.Personality2;
 
 % Write Objects in the Scenario to an XML File
