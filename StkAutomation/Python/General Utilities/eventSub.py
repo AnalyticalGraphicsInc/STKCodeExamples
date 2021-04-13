@@ -129,8 +129,8 @@ class EventSink(object):
 
 ### Testing Event Subscriptions
 
-# Attach to STK 11 Application
-app = GetActiveObject('STK11.Application')
+# Attach to STK 12 Application
+app = GetActiveObject('STK12.Application')
 root = app.Personality2
 
 # Create EventSink

@@ -21,6 +21,7 @@ try:
     if checkempty == 0:
         # If a Scenario is not open, create a new scenario
         stkUiApplication.Visible = 1
+        stkUiApplication.UserControl = 1
         stkRoot.NewScenario('Aviator_Carrier_Landing_Example')
     else:
         # If a Scenario is open, prompt the user to accept closing it or not
@@ -28,6 +29,7 @@ try:
         if inputText == "":
             stkRoot.CurrentScenario.Unload()
             stkUiApplication.Visible = True
+            stkUiApplication.UserControl = 1
             stkRoot.NewScenario("Aviator_Carrier_Landing_Example")
         else:
             sys.exit()
@@ -35,6 +37,7 @@ except Exception:
     # STK is not running, launch new instance of STK 12 and grab it
     stkUiApplication = win32com.client.Dispatch('STK12.Application')
     stkUiApplication.Visible = 1
+    stkUiApplication.UserControl = 1
     stkRoot = stkUiApplication.Personality2
     stkRoot.NewScenario('Aviator_Carrier_Landing_Example')
 

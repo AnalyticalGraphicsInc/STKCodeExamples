@@ -1,67 +1,71 @@
-import comtypes.gen.STKObjects
-from comtypes.client import CreateObject, GetActiveObject
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
+import sys
+try:
+    from agi.stk12.stkdesktop import STKDesktop
+    from agi.stk12.stkobjects import *
+    from agi.stk12.stkobjects.aviator import *
+    from agi.stk12.utilities.colors import *
+except:
+    print("Failed to import stk modules. Make sure you have installed the STK Python API wheel (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory")
+try:
+    from mpl_toolkits import mplot3d
+    import matplotlib.pyplot as plt
+    import numpy as np
+except:
+    print("**** Error: Failed to import one of the required modules (mpl_toolkits, matplotlib, numpy). Make sure you have them installed. If you are using anaconda python, make sure you are running the sample from an anaconda command prompt.")
+    sys.exit(1)
 
 def StartSTK():
     try:
-        uiApp = GetActiveObject('STK12.Application')
+        uiApp = STKDesktop.AttachToApplication()
 
-        stkRoot = uiApp.Personality2
+        stkRoot = uiApp.Root
         checkEmpty = stkRoot.Children.Count
 
         if checkEmpty == 0:
-            uiApp.visible = 1
-            uiApp.userControl = 1
+            uiApp.visible = True
+            uiApp.userControl = True
             stkRoot.NewScenario('AviatorParametricDemo')
-            scenario = stkRoot.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
+            scenario = AgScenario(stkRoot.CurrentScenario)
         else:
             ## Implement checking to see if I should close the scenario
             pass
     except:
-        uiApp = CreateObject('STK12.Application')
-        stkRoot = uiApp.Personality2
-        uiApp.visible = 1
-        uiApp.userControl = 1
+        uiApp = STKDesktop.StartApplication(visible=True, userControl=True)
+        stkRoot = uiApp.Root
         stkRoot.NewScenario('AviatorParametricDemo')
-        scenario = stkRoot.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
+        scenario = AgScenario(stkRoot.CurrentScenario)
 
     stkRoot.UnitPreferences.SetCurrentUnit('DateFormat', 'EpHr')
     return stkRoot
 
 def AviatorParametricDemo(stkRoot):
-    aircraft = stkRoot.CurrentScenario.Children.New(STKObjects.eAircraft, 'AvtrAircraft')
-    aircraftObject = aircraft.QueryInterface(STKObjects.IAgAircraft)
-    aircraftObject.SetRouteType(STKObjects.ePropagatorAviator)
-    avtrProp = aircraftObject.Route.QueryInterface(STKObjects.IAgVePropagatorAviator).AvtrPropagator
-    avtrProp = avtrProp.QueryInterface(AgStkAvtrLib.IAgAvtrPropagator)
+    aircraft = AgAircraft(stkRoot.CurrentScenario.Children.New(AgESTKObjectType.eAircraft, 'AvtrAircraft'))
+    aircraft.SetRouteType(AgEVePropagatorType.ePropagatorAviator)
+    avtrProp = AgAvtrPropagator(AgVePropagatorAviator(aircraft.Route).AvtrPropagator)
 
     avtrMission = avtrProp.AvtrMission
     phases = avtrMission.Phases
-    phase = phases.Item(0)
+    phase = phases[0]
     procedures = phase.Procedures
 
     ## Get the runways from the catalog
     runwayCategory = avtrProp.AvtrCatalog.RunwayCategory
     runwayCategory.ARINC424Runways.MasterDataFilepath = r'C:\Program Files\AGI\STK 12\Data\Resources\stktraining\samples\FAANFD18'
-    runwayList = runwayCategory.ARINC424Runways.QueryInterface(AgStkAvtrLib.IAgAvtrCatalogSource).ChildNames
     JFK = runwayCategory.ARINC424Runways.GetARINC424Item('JOHN F KENNEDY INTL 04L 22R')
     LAX = runwayCategory.ARINC424Runways.GetARINC424Item('LOS ANGELES INTL 06L 24R')
 
     ac = avtrProp.AvtrCatalog.AircraftCategory
 
-    if ac.AircraftModels.QueryInterface(AgStkAvtrLib.IAgAvtrCatalogSource).Contains('Advanced Airliner') > 0:
-        ac.AircraftModels.QueryInterface(AgStkAvtrLib.IAgAvtrCatalogSource).RemoveChild('Advanced Airliner')
+    if ac.AircraftModels.Contains('Advanced Airliner') > 0:
+        ac.AircraftModels.RemoveChild('Advanced Airliner')
 
     basicAirliner = ac.AircraftModels.GetAircraft('Basic Airliner')
-    advAirliner = basicAirliner.QueryInterface(AgStkAvtrLib.IAgAvtrCatalogItem).Duplicate();
-    advAirliner = advAirliner.QueryInterface(AgStkAvtrLib.IAgAvtrAircraft)
+    advAirliner = basicAirliner.Duplicate();
     advAirliner.Name = 'Advanced Airliner'
     advTool = advAirliner.AdvFixedWingTool
     advTool.MaxMach = 0.88
-    advTool.AeroStrategy = AgStkAvtrLib.eSubsonicAero
-    advTool.PowerplantStrategy = AgStkAvtrLib.eTurbofanHighBypass
+    advTool.AeroStrategy = AgEAvtrAdvFixedWingAeroStrategy.eSubsonicAero
+    advTool.PowerplantStrategy = AgEAvtrAdvFixedWingPowerplantStrategy.eTurbofanHighBypass
     engine = advTool.PowerplantModeAsEmpiricalJetEngine
     engine.MaxSeaLevelStaticThrust = 200000
     engine.DesignPointAltitude = 39000;
@@ -69,23 +73,24 @@ def AviatorParametricDemo(stkRoot):
 
     avtrMission.Vehicle = advAirliner
 
-    takeoff = procedures.Add(AgStkAvtrLib.eSiteRunway, AgStkAvtrLib.eProcTakeoff)
+    takeoff = procedures.Add(AgEAvtrSiteType.eSiteRunway, AgEAvtrProcedureType.eProcTakeoff)
     jfkRunway = takeoff.Site
-    jfkRunway.QueryInterface(AgStkAvtrLib.IAgAvtrSiteRunway).CopyFromCatalog(JFK)
+    AgAvtrSiteRunway(jfkRunway).CopyFromCatalog(JFK)
+    
 
-    enroute = procedures.Add(AgStkAvtrLib.eSiteRunway, AgStkAvtrLib.eProcEnroute)
+    enroute = procedures.Add(AgEAvtrSiteType.eSiteRunway, AgEAvtrProcedureType.eProcEnroute)
     laxRunway = enroute.Site
-    laxRunway.QueryInterface(AgStkAvtrLib.IAgAvtrSiteRunway).CopyFromCatalog(LAX)
+    AgAvtrSiteRunway(laxRunway).CopyFromCatalog(LAX)
     laxRunway.LowEndHeading = 35
     laxRunway.Name = 'LAX Alternate Runway'
-    laxRunway.QueryInterface(AgStkAvtrLib.IAgAvtrSiteRunway).AddToCatalog(1)
-    enroute.QueryInterface(AgStkAvtrLib.IAgAvtrProcedureEnroute).AltitudeMSLOptions.UseDefaultCruiseAltitude = 0
+    AgAvtrSiteRunway(laxRunway).AddToCatalog(1)
+    AgAvtrProcedureEnroute(enroute).AltitudeMSLOptions.UseDefaultCruiseAltitude = 0
 
-    landing = procedures.Add(AgStkAvtrLib.eSiteRunway, AgStkAvtrLib.eProcLanding)
+    landing = procedures.Add(AgEAvtrSiteType.eSiteRunway, AgEAvtrProcedureType.eProcLanding)
     landing.Name = 'Landing'
     landingRunway = landing.Site
     laxAlternate = runwayCategory.UserRunways.GetUserRunway('LAX Alternate Runway')
-    landingRunway.QueryInterface(AgStkAvtrLib.IAgAvtrSiteRunway).CopyFromCatalog(laxAlternate)
+    AgAvtrSiteRunway(landingRunway).CopyFromCatalog(laxAlternate)
 
     altitudes = np.linspace(20000, 45000, 6)
     totalFuel = np.array([])
@@ -93,9 +98,9 @@ def AviatorParametricDemo(stkRoot):
 
     for altitude in altitudes:
         print(f'Setting Altitude to {altitude} ft')
-        enroute.QueryInterface(AgStkAvtrLib.IAgAvtrProcedureEnroute).AltitudeMSLOptions.MSLAltitude = altitude
+        AgAvtrProcedureEnroute(enroute).AltitudeMSLOptions.MSLAltitude = altitude
         avtrProp.Propagate()
-        flightDP = aircraft.DataProviders.Item('Flight Profile By Time').QueryInterface(STKObjects.IAgDataPrvTimeVar).Exec(4.5, 6.5, 3600)
+        flightDP = AgDataPrvTimeVar(aircraft.DataProviders['Flight Profile By Time']).Exec(4.5, 6.5, 3600)
         fuelUsed = flightDP.DataSets.GetDataSetByName('Fuel Consumed').GetValues()
         totalFuel = np.append(totalFuel, fuelUsed[-1])
         time = flightDP.DataSets.GetDataSetByName('Time').GetValues()
@@ -130,3 +135,4 @@ def AviatorParametricDemo(stkRoot):
 if __name__ == "__main__":
     stkRoot = StartSTK()
     AviatorParametricDemo(stkRoot)
+    
