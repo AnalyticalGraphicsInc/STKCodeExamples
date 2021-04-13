@@ -1,7 +1,7 @@
 # Constellation and Network Routing
 
 All of the notebooks attach to an open instance of STK.
-The associated example scenarios can be found on our [**Constellation and Network Routing Example.**](https://www.agi.com/search?filter=content%3acodesample)
+The associated example scenarios can be found on our [**Constellation and Network Routing Example.**](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
 
 **Terminology**
 * Node = Object in STK: Satellites, Aircraft, Facilities, Sensors, Transmitters, etc.

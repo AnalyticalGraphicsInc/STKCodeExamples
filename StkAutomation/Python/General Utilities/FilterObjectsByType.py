@@ -8,10 +8,8 @@
 from comtypes.client import GetActiveObject
 
 def filter_objects_by_type(objectType, name=''):
-    """Returns a list of paths for the specified object type optionally filtered by a name string"""
-
-    # Only run if not already connected to STK
-	app = GetActiveObject('STK11.Application')
+    # Returns a list of paths for the specified object type optionally filtered by a name string"""
+    app = GetActiveObject('STK12.Application')
     root = app.Personality2
     xml = root.AllInstanceNamesToXML()
 
