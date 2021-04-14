@@ -243,7 +243,7 @@ def createTLEConstellation(fileName,epoch,a,e,i,aop,numPlanes,satsPerPlane):
     
     
 # Connect to STK
-def ConnectToSTK(version=11,scenarioPath = cwd+'\\ConstellationWizardExampleScenario',scenarioName='ConstellationAnalysis'):
+def ConnectToSTK(version=12,scenarioPath = cwd+'\\ConstellationWizardExampleScenario',scenarioName='ConstellationAnalysis'):
     # Launch or connect to STK
     try:
         app = GetActiveObject('STK{}.Application'.format(version))
