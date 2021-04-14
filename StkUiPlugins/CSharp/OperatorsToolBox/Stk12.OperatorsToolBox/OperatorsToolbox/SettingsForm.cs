@@ -42,12 +42,43 @@ namespace OperatorsToolbox
                 IslandToggle.Checked = false;
             }
             PopulateTypes();
+
             SatCatPath.Text = CommonData.Preferences.SatCatLocation;
             SatDataPath.Text = CommonData.Preferences.SatDatabaseLocation;
             AreaTargetPath.Text = CommonData.Preferences.AoiLocation;
             UdlAddress.Text = CommonData.Preferences.UdlUrl;
             TemplatesPath.Text = CommonData.Preferences.TemplatesDirectory;
+
             PanelHeightPixels.Text = CommonData.PanelHeight.ToString();
+
+            ActiveSave.Checked = CommonData.Preferences.ActiveSaveScript;
+            ActiveClose.Checked = CommonData.Preferences.ActiveCloseScript;
+            ActiveAdded.Checked = CommonData.Preferences.ActiveObjAddedScript;
+            ActiveDelete.Checked = CommonData.Preferences.ActiveObjDeletedScript;
+            ActivePlayback.Checked = CommonData.Preferences.ActivePlaybackScript;
+            ActivePause.Checked = CommonData.Preferences.ActivePauseScript;
+            OnStkSaveText.Text = CommonData.Preferences.SaveScriptPath;
+            OnStkCloseText.Text = CommonData.Preferences.CloseScriptPath;
+            OnObjAddedText.Text = CommonData.Preferences.ObjAddedScriptPath;
+            OnObjDeletedText.Text = CommonData.Preferences.ObjDeletedScriptPath;
+            OnAnimationText.Text = CommonData.Preferences.PlaybackScriptPath;
+            OnPauseText.Text = CommonData.Preferences.PauseScriptPath;
+            if (CommonData.Preferences.SaveScriptArgs != null)
+            {
+                SaveArgText.Text = CommonData.Preferences.SaveScriptArgs;
+            }
+            if (CommonData.Preferences.CloseScriptArgs != null)
+            {
+                CloseArgsText.Text = CommonData.Preferences.CloseScriptArgs;
+            }
+            if (CommonData.Preferences.PlaybackScriptArgs != null)
+            {
+                PlaybackArgsText.Text = CommonData.Preferences.PlaybackScriptArgs;
+            }
+            if (CommonData.Preferences.PauseScriptArgs != null)
+            {
+                PauseArgsText.Text = CommonData.Preferences.PauseScriptArgs;
+            }
             _onStart = false;
         }
 
@@ -209,6 +240,105 @@ namespace OperatorsToolbox
                 CommonData.Preferences.AoiLocation = AreaTargetPath.Text;
                 CommonData.Preferences.TemplatesDirectory = TemplatesPath.Text;
                 CommonData.PanelHeight = Int32.Parse(PanelHeightPixels.Text);
+
+                if (ActiveSave.Checked)
+                {
+                    CommonData.Preferences.ActiveSaveScript = true;
+                    CommonData.Preferences.SaveScriptPath = OnStkSaveText.Text;
+                    if (!String.IsNullOrEmpty(SaveArgText.Text))
+                    {
+                        CommonData.Preferences.SaveScriptArgs = SaveArgText.Text;
+                    }
+                    else
+                    {
+                        CommonData.Preferences.SaveScriptArgs = null;
+                    }
+                }
+                else
+                {
+                    CommonData.Preferences.ActiveSaveScript = false;
+                    CommonData.Preferences.SaveScriptPath = OnStkSaveText.Text;
+                    CommonData.Preferences.SaveScriptArgs = SaveArgText.Text;
+                }
+
+                if (ActiveClose.Checked)
+                {
+                    CommonData.Preferences.ActiveCloseScript = true;
+                    CommonData.Preferences.CloseScriptPath = OnStkCloseText.Text;
+                    if (!String.IsNullOrEmpty(CloseArgsText.Text))
+                    {
+                        CommonData.Preferences.CloseScriptArgs = CloseArgsText.Text;
+                    }
+                    else
+                    {
+                        CommonData.Preferences.CloseScriptArgs = null;
+                    }
+                }
+                else
+                {
+                    CommonData.Preferences.ActiveCloseScript = false;
+                    CommonData.Preferences.CloseScriptPath = OnStkCloseText.Text;
+                    CommonData.Preferences.CloseScriptArgs = CloseArgsText.Text;
+                }
+                if (ActiveAdded.Checked)
+                {
+                    CommonData.Preferences.ActiveObjAddedScript = true;
+                    CommonData.Preferences.ObjAddedScriptPath = OnObjAddedText.Text;
+                }
+                else
+                {
+                    CommonData.Preferences.ActiveObjAddedScript = false;
+                    CommonData.Preferences.ObjAddedScriptPath = OnObjAddedText.Text;
+                }
+                if (ActiveDelete.Checked)
+                {
+                    CommonData.Preferences.ActiveObjDeletedScript = true;
+                    CommonData.Preferences.ObjDeletedScriptPath = OnObjDeletedText.Text;
+                }
+                else
+                {
+                    CommonData.Preferences.ActiveObjDeletedScript = false;
+                    CommonData.Preferences.ObjDeletedScriptPath = OnObjDeletedText.Text;
+                }
+                if (ActivePlayback.Checked)
+                {
+                    CommonData.Preferences.ActivePlaybackScript = true;
+                    CommonData.Preferences.PlaybackScriptPath = OnAnimationText.Text;
+                    if (!String.IsNullOrEmpty(PlaybackArgsText.Text))
+                    {
+                        CommonData.Preferences.PlaybackScriptArgs = PlaybackArgsText.Text;
+                    }
+                    else
+                    {
+                        CommonData.Preferences.PlaybackScriptArgs = null;
+                    }
+                }
+                else
+                {
+                    CommonData.Preferences.ActivePlaybackScript = false;
+                    CommonData.Preferences.PlaybackScriptPath = OnAnimationText.Text;
+                    CommonData.Preferences.PlaybackScriptArgs = PlaybackArgsText.Text;
+                }
+                if (ActivePause.Checked)
+                {
+                    CommonData.Preferences.ActivePauseScript = true;
+                    CommonData.Preferences.PauseScriptPath = OnPauseText.Text;
+                    if (!String.IsNullOrEmpty(PauseArgsText.Text))
+                    {
+                        CommonData.Preferences.PauseScriptArgs = PauseArgsText.Text;
+                    }
+                    else
+                    {
+                        CommonData.Preferences.PauseScriptArgs = null;
+                    }
+                }
+                else
+                {
+                    CommonData.Preferences.ActivePauseScript = false;
+                    CommonData.Preferences.PauseScriptPath = OnPauseText.Text;
+                    CommonData.Preferences.PauseScriptArgs = PauseArgsText.Text;
+                }
+
                 ReadWrite.WritePrefs(Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref"));
                 ReadWrite.ReadPrefs(Path.Combine(@CommonData.InstallDir, "PluginPreferences.pref"));
                 this.DialogResult = DialogResult.Yes;
@@ -413,6 +543,41 @@ namespace OperatorsToolbox
         }
 
         private void AvailablePluginList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BrowseSave_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnStkSaveText);
+        }
+
+        private void BrowseClose_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnStkCloseText);
+        }
+
+        private void BrowseAddObj_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnObjAddedText);
+        }
+
+        private void BrowseObjDeleted_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnObjDeletedText);
+        }
+
+        private void BrowseAnimation_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnAnimationText);
+        }
+
+        private void BrowsePause_Click(object sender, EventArgs e)
+        {
+            BrowseFileExplorer("C:\\", "Choose Script", OnPauseText);
+        }
+
+        private void label22_Click(object sender, EventArgs e)
         {
 
         }

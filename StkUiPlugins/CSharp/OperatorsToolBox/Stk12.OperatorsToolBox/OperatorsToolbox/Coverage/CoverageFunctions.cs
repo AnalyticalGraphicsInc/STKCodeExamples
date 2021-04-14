@@ -254,6 +254,7 @@ namespace OperatorsToolbox.Coverage
                 {
                     IAgFigureOfMerit fom = CommonData.StkRoot.GetObjectFromPath("CoverageDefinition/" + oaName + "/FigureOfMerit/" + oaName + "_FOM") as IAgFigureOfMerit;
                     fom.Graphics.Static.IsVisible = true;
+                    fom.Graphics.Static.Contours.Legend.RangeColorOptions.ColorSquareWidth = 60;
                     if (index != 5)
                     {
                         CommonData.StkRoot.ExecuteCommand("VO */CoverageDefinition/" + oaName + "/FigureOfMerit/" + oaName + "_FOM FOMAttributes StaticLegendShow On");
@@ -265,6 +266,7 @@ namespace OperatorsToolbox.Coverage
                     CommonData.StkRoot.ExecuteCommand("VO */CoverageDefinition/" + oaName + "/FigureOfMerit/" + oaName + "_FOM FOMAttributes DynamicLegendShow On");
                     IAgFigureOfMerit fom = CommonData.StkRoot.GetObjectFromPath("CoverageDefinition/" + oaName + "/FigureOfMerit/" + oaName + "_FOM") as IAgFigureOfMerit;
                     fom.Graphics.Static.IsVisible = false;
+                    fom.Graphics.Animation.Contours.Legend.RangeColorOptions.ColorSquareWidth = 60;
                 }
             }
             catch (Exception)

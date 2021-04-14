@@ -306,6 +306,7 @@ namespace OperatorsToolbox.Coverage
                 {
                     try
                     {
+
                         if (CommonData.CovEdit)
                         {
                             //Renaming
@@ -349,8 +350,7 @@ namespace OperatorsToolbox.Coverage
                                 try
                                 {
                                     string atPath = CommonData.InstallDir + "\\Databases\\AreaTargets\\" + atObj + ".at";
-                                    cmd = "Load / */AreaTarget " + "\"" + atPath + "\"";
-                                    CommonData.StkRoot.ExecuteCommand(cmd);
+                                    ReadWrite.ImportObject(atPath, false);
                                     //atNames.Add(atObj);
                                 }
                                 catch (Exception)
@@ -361,22 +361,9 @@ namespace OperatorsToolbox.Coverage
                         }
                         else
                         {
-                            result = CommonData.StkRoot.ExecuteCommand("DoesObjExist / */AreaTarget/" + areaTargetName);
-                            if (result[0] == "1")
-                            {
-                            }
-                            else
-                            {
-                                //string filename = areaTargetName + ".at";
-                                //string path = Path.Combine(@CommonData.InstallDir, "Databases\\AreaTargets\\", filename);
-                                //CommonData.StkRoot.Children.ImportObject(path);
-                                CommonData.CoverageList.Add(_currentData);
-                                string atPath = CommonData.InstallDir + "\\Databases\\AreaTargets\\" +
-                                    areaTargetName + ".at";
-                                cmd = "Load / */AreaTarget " + "\"" + atPath + "\"";
-                                CommonData.StkRoot.ExecuteCommand(cmd);
-                                atNames.Add(areaTargetName);
-                            }
+                            string atPath = CommonData.InstallDir + "\\Databases\\AreaTargets\\" + areaTargetName + ".at";
+                            ReadWrite.ImportObject(atPath, false);
+                            atNames.Add(areaTargetName);
                         }
 
                         //Create coverage definition and FOM
@@ -585,15 +572,10 @@ namespace OperatorsToolbox.Coverage
             string path = CommonData.Preferences.AoiLocation;
             if (File.Exists(path))
             {
-                using (StreamReader reader = new StreamReader(path))
+                List<string> atNames = ReadWrite.ReadATGroup(path);
+                foreach (var item in atNames)
                 {
-                    string line = null;
-                    line = reader.ReadLine();
-                    while (!string.IsNullOrEmpty(line))
-                    {
-                        CountrySelect.Items.Add(line);
-                        line = reader.ReadLine();
-                    }
+                    CountrySelect.Items.Add(item);
                 }
                 CountrySelect.SelectedIndex = 0;
             }
@@ -1304,6 +1286,11 @@ namespace OperatorsToolbox.Coverage
             {
                 box.DataSource = objectList;
             }
+        }
+
+        private void ObjectGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

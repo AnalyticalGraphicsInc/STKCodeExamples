@@ -4,7 +4,7 @@
    
 Operator’s Toolbox is a UI plugin designed specifically to improve the efficiency of common operational tasks. 
 The tools made available in this plugin are mainly based on customer requests to automate certain processes within STK in an effort to reduce analysis time for real world scenarios. 
-Operator’s Toolbox contains a total of 12 tools to automate various processes including but not limited to: TLE import and update functionality, improved stored views functionality, 
+Operator’s Toolbox contains a total of 14 tools to automate various processes including but not limited to: TLE import and update functionality, improved stored views functionality, 
 automated chain/tracking interval creation, and new custom ground classification types. A more detailed description of each tool can be found below and the full overview can be found 
 in the documentation. The documentation can be found in the attached zip file. Unzip the zip onto your local drive and then read through the Getting Started and Setup section of the documentation at a minimum. 
 It is recommended to read the documentation prior to usage. Please make sure to read the section regarding known issues, specifically relating to blocked dll issues and GUI graphics issues.
@@ -74,12 +74,17 @@ This tool will create all of the Analysis Workbench components required to repor
 This tool is designed to calculate the beta angle and/or Solar Phase/CATS angle between any number of observers and targets. 
 This tool will create all of the Analysis Workbench components required to report out the angle values.
 
-##### PLANE CROSSING UTILITY
+#### PLANE CROSSING UTILITY
 This tool is designed to calculate the times when a satellite or stationary ground object crosses the orbital plane of a satellite of interest. The tool will create all required AWB components for the calculation.
 The tool has the option to constrain the times to specific angle bounds, allowing the user to report out crossing times in and out of a region relative to orbital plane. 
 The tool can export the data as a report, a text file, and provides an interface to see the results internally. 
 
----
+#### SENSOR BORESIGHT VIEW PLUGIN
+This tool will create a new 3D graphics window that mimics what a selected sensor would see. This will size the new window and change the camera's field of view based on sensor's settings. This works with 
+simple conic, rectangular, and EOIR sensors. You can add several overlays to the new sensor view including crosshairs, rulers, and an LLA data display. The sensor view can also be tied back to an existing Smart View
+
+# Instructions  
+
 ## **Build**
  
 This plugin can only be run on STK 12 or higher and requires the following licenses: ASTROGATOR, STK PRO, ANALYSIS WORKBENCH, COVERAGE

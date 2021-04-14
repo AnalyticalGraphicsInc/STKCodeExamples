@@ -57,16 +57,6 @@ namespace OperatorsToolbox.SmartView
                     Edit3DGenericForm form = new Edit3DGenericForm();
                     form.ShowDialog();
                 }
-                else if (CommonData.SavedViewList[CommonData.SelectedIndex].ViewType == "Target/Threat")
-                {
-                    EditTargetThreatForm form = new EditTargetThreatForm();
-                    form.ShowDialog();
-                }
-                else if (CommonData.SavedViewList[CommonData.SelectedIndex].ViewType == "GEODrift")
-                {
-                    EditGeoDriftForm form = new EditGeoDriftForm();
-                    form.ShowDialog();
-                }
                 if (CommonData.UpdatedView == true)
                 {
                     StoredViewList.Items.Clear();
@@ -179,14 +169,6 @@ namespace OperatorsToolbox.SmartView
                     {
                         SmartViewFunctions.Change3DView(CommonData.SavedViewList[_selectedView]);
                     }
-                    else if (CommonData.SavedViewList[_selectedView].ViewType == "Target/Threat")
-                    {
-                        SmartViewFunctions.ChangeTargetThreatView(CommonData.SavedViewList[_selectedView]);
-                    }
-                    else if (CommonData.SavedViewList[_selectedView].ViewType == "GEODrift")
-                    {
-                        SmartViewFunctions.ChangeGeoDriftView(CommonData.SavedViewList[_selectedView]);
-                    }
                 }
             }
         }
@@ -208,14 +190,6 @@ namespace OperatorsToolbox.SmartView
                 else if (CommonData.SavedViewList[StoredViewList.FocusedItem.Index].ViewType == "3D")
                 {
                     SmartViewFunctions.Change3DView(CommonData.SavedViewList[StoredViewList.FocusedItem.Index]);
-                }
-                else if (CommonData.SavedViewList[StoredViewList.FocusedItem.Index].ViewType == "Target/Threat")
-                {
-                    SmartViewFunctions.ChangeTargetThreatView(CommonData.SavedViewList[StoredViewList.FocusedItem.Index]);
-                }
-                else if (CommonData.SavedViewList[StoredViewList.FocusedItem.Index].ViewType == "GEODrift")
-                {
-                    SmartViewFunctions.ChangeGeoDriftView(CommonData.SavedViewList[StoredViewList.FocusedItem.Index]);
                 }
 
                 CommonData.StkRoot.ExecuteCommand("BatchGraphics * Off");
@@ -244,18 +218,6 @@ namespace OperatorsToolbox.SmartView
         {
             ToolTip toolTip1 = new ToolTip();
             toolTip1.SetToolTip(this.RemoveView, "Remove Selected View");
-        }
-
-        private void Refresh_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.Refresh, "Refresh Current View");
-        }
-
-        private void Reset_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip toolTip1 = new ToolTip();
-            toolTip1.SetToolTip(this.Reset, "Reset Objects to Scenario Load");
         }
         #endregion
     }

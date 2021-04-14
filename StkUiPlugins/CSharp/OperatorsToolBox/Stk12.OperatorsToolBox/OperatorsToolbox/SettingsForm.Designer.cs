@@ -80,6 +80,42 @@
             this.AvailablePluginList = new System.Windows.Forms.ListView();
             this.DatabaseSettings = new System.Windows.Forms.TabPage();
             this.EventSettings = new System.Windows.Forms.TabPage();
+            this.CLISettings = new System.Windows.Forms.TabPage();
+            this.ActivePause = new System.Windows.Forms.CheckBox();
+            this.ActivePlayback = new System.Windows.Forms.CheckBox();
+            this.ActiveDelete = new System.Windows.Forms.CheckBox();
+            this.ActiveAdded = new System.Windows.Forms.CheckBox();
+            this.ActiveClose = new System.Windows.Forms.CheckBox();
+            this.ActiveSave = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.OnPauseText = new System.Windows.Forms.TextBox();
+            this.BrowsePause = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.OnAnimationText = new System.Windows.Forms.TextBox();
+            this.BrowseAnimation = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.OnObjDeletedText = new System.Windows.Forms.TextBox();
+            this.BrowseObjDeleted = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.OnObjAddedText = new System.Windows.Forms.TextBox();
+            this.BrowseAddObj = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.OnStkCloseText = new System.Windows.Forms.TextBox();
+            this.BrowseClose = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.OnStkSaveText = new System.Windows.Forms.TextBox();
+            this.BrowseSave = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.SaveArgText = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.CloseArgsText = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.PauseArgsText = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.PlaybackArgsText = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -89,6 +125,9 @@
             this.ToolbarOptions.SuspendLayout();
             this.DatabaseSettings.SuspendLayout();
             this.EventSettings.SuspendLayout();
+            this.CLISettings.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -602,6 +641,7 @@
             this.tabControl1.Controls.Add(this.BasicSettings);
             this.tabControl1.Controls.Add(this.DatabaseSettings);
             this.tabControl1.Controls.Add(this.EventSettings);
+            this.tabControl1.Controls.Add(this.CLISettings);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -772,6 +812,475 @@
             this.EventSettings.TabIndex = 2;
             this.EventSettings.Text = "Events";
             // 
+            // CLISettings
+            // 
+            this.CLISettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
+            this.CLISettings.Controls.Add(this.groupBox6);
+            this.CLISettings.Controls.Add(this.groupBox5);
+            this.CLISettings.Controls.Add(this.label19);
+            this.CLISettings.ForeColor = System.Drawing.Color.White;
+            this.CLISettings.Location = new System.Drawing.Point(4, 22);
+            this.CLISettings.Name = "CLISettings";
+            this.CLISettings.Size = new System.Drawing.Size(523, 507);
+            this.CLISettings.TabIndex = 3;
+            this.CLISettings.Text = "Workflow Scripts";
+            // 
+            // ActivePause
+            // 
+            this.ActivePause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActivePause.AutoSize = true;
+            this.ActivePause.Location = new System.Drawing.Point(488, 151);
+            this.ActivePause.Name = "ActivePause";
+            this.ActivePause.Size = new System.Drawing.Size(15, 14);
+            this.ActivePause.TabIndex = 35;
+            this.ActivePause.UseVisualStyleBackColor = true;
+            // 
+            // ActivePlayback
+            // 
+            this.ActivePlayback.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActivePlayback.AutoSize = true;
+            this.ActivePlayback.Location = new System.Drawing.Point(488, 113);
+            this.ActivePlayback.Name = "ActivePlayback";
+            this.ActivePlayback.Size = new System.Drawing.Size(15, 14);
+            this.ActivePlayback.TabIndex = 34;
+            this.ActivePlayback.UseVisualStyleBackColor = true;
+            // 
+            // ActiveDelete
+            // 
+            this.ActiveDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActiveDelete.AutoSize = true;
+            this.ActiveDelete.Location = new System.Drawing.Point(488, 65);
+            this.ActiveDelete.Name = "ActiveDelete";
+            this.ActiveDelete.Size = new System.Drawing.Size(15, 14);
+            this.ActiveDelete.TabIndex = 33;
+            this.ActiveDelete.UseVisualStyleBackColor = true;
+            // 
+            // ActiveAdded
+            // 
+            this.ActiveAdded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActiveAdded.AutoSize = true;
+            this.ActiveAdded.Location = new System.Drawing.Point(488, 19);
+            this.ActiveAdded.Name = "ActiveAdded";
+            this.ActiveAdded.Size = new System.Drawing.Size(15, 14);
+            this.ActiveAdded.TabIndex = 32;
+            this.ActiveAdded.UseVisualStyleBackColor = true;
+            // 
+            // ActiveClose
+            // 
+            this.ActiveClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActiveClose.AutoSize = true;
+            this.ActiveClose.Location = new System.Drawing.Point(488, 85);
+            this.ActiveClose.Name = "ActiveClose";
+            this.ActiveClose.Size = new System.Drawing.Size(15, 14);
+            this.ActiveClose.TabIndex = 31;
+            this.ActiveClose.UseVisualStyleBackColor = true;
+            // 
+            // ActiveSave
+            // 
+            this.ActiveSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ActiveSave.AutoSize = true;
+            this.ActiveSave.Location = new System.Drawing.Point(488, 18);
+            this.ActiveSave.Name = "ActiveSave";
+            this.ActiveSave.Size = new System.Drawing.Size(15, 14);
+            this.ActiveSave.TabIndex = 30;
+            this.ActiveSave.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(473, 7);
+            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(45, 16);
+            this.label19.TabIndex = 29;
+            this.label19.Text = "Active";
+            // 
+            // OnPauseText
+            // 
+            this.OnPauseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnPauseText.BackColor = System.Drawing.Color.DimGray;
+            this.OnPauseText.ForeColor = System.Drawing.Color.White;
+            this.OnPauseText.Location = new System.Drawing.Point(125, 148);
+            this.OnPauseText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnPauseText.Name = "OnPauseText";
+            this.OnPauseText.Size = new System.Drawing.Size(312, 20);
+            this.OnPauseText.TabIndex = 28;
+            // 
+            // BrowsePause
+            // 
+            this.BrowsePause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowsePause.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowsePause.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowsePause.ForeColor = System.Drawing.Color.White;
+            this.BrowsePause.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowsePause.Location = new System.Drawing.Point(443, 147);
+            this.BrowsePause.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowsePause.Name = "BrowsePause";
+            this.BrowsePause.Size = new System.Drawing.Size(28, 21);
+            this.BrowsePause.TabIndex = 27;
+            this.BrowsePause.Text = "...";
+            this.BrowsePause.UseVisualStyleBackColor = false;
+            this.BrowsePause.Click += new System.EventHandler(this.BrowsePause_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(1, 151);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(106, 13);
+            this.label18.TabIndex = 26;
+            this.label18.Text = "On Animation Pause:";
+            // 
+            // OnAnimationText
+            // 
+            this.OnAnimationText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnAnimationText.BackColor = System.Drawing.Color.DimGray;
+            this.OnAnimationText.ForeColor = System.Drawing.Color.White;
+            this.OnAnimationText.Location = new System.Drawing.Point(127, 110);
+            this.OnAnimationText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnAnimationText.Name = "OnAnimationText";
+            this.OnAnimationText.Size = new System.Drawing.Size(310, 20);
+            this.OnAnimationText.TabIndex = 25;
+            // 
+            // BrowseAnimation
+            // 
+            this.BrowseAnimation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowseAnimation.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowseAnimation.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowseAnimation.ForeColor = System.Drawing.Color.White;
+            this.BrowseAnimation.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseAnimation.Location = new System.Drawing.Point(443, 109);
+            this.BrowseAnimation.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowseAnimation.Name = "BrowseAnimation";
+            this.BrowseAnimation.Size = new System.Drawing.Size(28, 21);
+            this.BrowseAnimation.TabIndex = 24;
+            this.BrowseAnimation.Text = "...";
+            this.BrowseAnimation.UseVisualStyleBackColor = false;
+            this.BrowseAnimation.Click += new System.EventHandler(this.BrowseAnimation_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(3, 113);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(120, 13);
+            this.label17.TabIndex = 23;
+            this.label17.Text = "On Animation Playback:";
+            // 
+            // OnObjDeletedText
+            // 
+            this.OnObjDeletedText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnObjDeletedText.BackColor = System.Drawing.Color.DimGray;
+            this.OnObjDeletedText.ForeColor = System.Drawing.Color.White;
+            this.OnObjDeletedText.Location = new System.Drawing.Point(127, 62);
+            this.OnObjDeletedText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnObjDeletedText.Name = "OnObjDeletedText";
+            this.OnObjDeletedText.Size = new System.Drawing.Size(310, 20);
+            this.OnObjDeletedText.TabIndex = 22;
+            // 
+            // BrowseObjDeleted
+            // 
+            this.BrowseObjDeleted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowseObjDeleted.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowseObjDeleted.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowseObjDeleted.ForeColor = System.Drawing.Color.White;
+            this.BrowseObjDeleted.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseObjDeleted.Location = new System.Drawing.Point(443, 61);
+            this.BrowseObjDeleted.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowseObjDeleted.Name = "BrowseObjDeleted";
+            this.BrowseObjDeleted.Size = new System.Drawing.Size(28, 21);
+            this.BrowseObjDeleted.TabIndex = 21;
+            this.BrowseObjDeleted.Text = "...";
+            this.BrowseObjDeleted.UseVisualStyleBackColor = false;
+            this.BrowseObjDeleted.Click += new System.EventHandler(this.BrowseObjDeleted_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(3, 65);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(98, 13);
+            this.label16.TabIndex = 20;
+            this.label16.Text = "On Object Deleted:";
+            // 
+            // OnObjAddedText
+            // 
+            this.OnObjAddedText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnObjAddedText.BackColor = System.Drawing.Color.DimGray;
+            this.OnObjAddedText.ForeColor = System.Drawing.Color.White;
+            this.OnObjAddedText.Location = new System.Drawing.Point(127, 16);
+            this.OnObjAddedText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnObjAddedText.Name = "OnObjAddedText";
+            this.OnObjAddedText.Size = new System.Drawing.Size(310, 20);
+            this.OnObjAddedText.TabIndex = 19;
+            // 
+            // BrowseAddObj
+            // 
+            this.BrowseAddObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowseAddObj.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowseAddObj.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowseAddObj.ForeColor = System.Drawing.Color.White;
+            this.BrowseAddObj.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseAddObj.Location = new System.Drawing.Point(443, 15);
+            this.BrowseAddObj.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowseAddObj.Name = "BrowseAddObj";
+            this.BrowseAddObj.Size = new System.Drawing.Size(28, 21);
+            this.BrowseAddObj.TabIndex = 18;
+            this.BrowseAddObj.Text = "...";
+            this.BrowseAddObj.UseVisualStyleBackColor = false;
+            this.BrowseAddObj.Click += new System.EventHandler(this.BrowseAddObj_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(3, 19);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(92, 13);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "On Object Added:";
+            // 
+            // OnStkCloseText
+            // 
+            this.OnStkCloseText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnStkCloseText.BackColor = System.Drawing.Color.DimGray;
+            this.OnStkCloseText.ForeColor = System.Drawing.Color.White;
+            this.OnStkCloseText.Location = new System.Drawing.Point(125, 82);
+            this.OnStkCloseText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnStkCloseText.Name = "OnStkCloseText";
+            this.OnStkCloseText.Size = new System.Drawing.Size(312, 20);
+            this.OnStkCloseText.TabIndex = 16;
+            // 
+            // BrowseClose
+            // 
+            this.BrowseClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowseClose.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowseClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowseClose.ForeColor = System.Drawing.Color.White;
+            this.BrowseClose.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseClose.Location = new System.Drawing.Point(443, 81);
+            this.BrowseClose.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowseClose.Name = "BrowseClose";
+            this.BrowseClose.Size = new System.Drawing.Size(28, 21);
+            this.BrowseClose.TabIndex = 15;
+            this.BrowseClose.Text = "...";
+            this.BrowseClose.UseVisualStyleBackColor = false;
+            this.BrowseClose.Click += new System.EventHandler(this.BrowseClose_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(1, 85);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(98, 13);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "On Scenario Close:";
+            // 
+            // OnStkSaveText
+            // 
+            this.OnStkSaveText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OnStkSaveText.BackColor = System.Drawing.Color.DimGray;
+            this.OnStkSaveText.ForeColor = System.Drawing.Color.White;
+            this.OnStkSaveText.Location = new System.Drawing.Point(125, 16);
+            this.OnStkSaveText.Margin = new System.Windows.Forms.Padding(2);
+            this.OnStkSaveText.Name = "OnStkSaveText";
+            this.OnStkSaveText.Size = new System.Drawing.Size(312, 20);
+            this.OnStkSaveText.TabIndex = 13;
+            // 
+            // BrowseSave
+            // 
+            this.BrowseSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BrowseSave.BackColor = System.Drawing.Color.SteelBlue;
+            this.BrowseSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BrowseSave.ForeColor = System.Drawing.Color.White;
+            this.BrowseSave.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BrowseSave.Location = new System.Drawing.Point(443, 15);
+            this.BrowseSave.Margin = new System.Windows.Forms.Padding(2);
+            this.BrowseSave.Name = "BrowseSave";
+            this.BrowseSave.Size = new System.Drawing.Size(28, 21);
+            this.BrowseSave.TabIndex = 12;
+            this.BrowseSave.Text = "...";
+            this.BrowseSave.UseVisualStyleBackColor = false;
+            this.BrowseSave.Click += new System.EventHandler(this.BrowseSave_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(1, 19);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(76, 13);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "On STK Save:";
+            // 
+            // SaveArgText
+            // 
+            this.SaveArgText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveArgText.BackColor = System.Drawing.Color.DimGray;
+            this.SaveArgText.ForeColor = System.Drawing.Color.White;
+            this.SaveArgText.Location = new System.Drawing.Point(125, 40);
+            this.SaveArgText.Margin = new System.Windows.Forms.Padding(2);
+            this.SaveArgText.Name = "SaveArgText";
+            this.SaveArgText.Size = new System.Drawing.Size(312, 20);
+            this.SaveArgText.TabIndex = 36;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.ForeColor = System.Drawing.Color.White;
+            this.label20.Location = new System.Drawing.Point(1, 43);
+            this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(85, 13);
+            this.label20.TabIndex = 37;
+            this.label20.Text = "Argument String:";
+            // 
+            // CloseArgsText
+            // 
+            this.CloseArgsText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CloseArgsText.BackColor = System.Drawing.Color.DimGray;
+            this.CloseArgsText.ForeColor = System.Drawing.Color.White;
+            this.CloseArgsText.Location = new System.Drawing.Point(125, 106);
+            this.CloseArgsText.Margin = new System.Windows.Forms.Padding(2);
+            this.CloseArgsText.Name = "CloseArgsText";
+            this.CloseArgsText.Size = new System.Drawing.Size(312, 20);
+            this.CloseArgsText.TabIndex = 38;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.White;
+            this.label21.Location = new System.Drawing.Point(1, 109);
+            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(85, 13);
+            this.label21.TabIndex = 39;
+            this.label21.Text = "Argument String:";
+            // 
+            // PauseArgsText
+            // 
+            this.PauseArgsText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PauseArgsText.BackColor = System.Drawing.Color.DimGray;
+            this.PauseArgsText.ForeColor = System.Drawing.Color.White;
+            this.PauseArgsText.Location = new System.Drawing.Point(125, 172);
+            this.PauseArgsText.Margin = new System.Windows.Forms.Padding(2);
+            this.PauseArgsText.Name = "PauseArgsText";
+            this.PauseArgsText.Size = new System.Drawing.Size(312, 20);
+            this.PauseArgsText.TabIndex = 40;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.PauseArgsText);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.CloseArgsText);
+            this.groupBox5.Controls.Add(this.label20);
+            this.groupBox5.Controls.Add(this.SaveArgText);
+            this.groupBox5.Controls.Add(this.ActivePause);
+            this.groupBox5.Controls.Add(this.ActiveClose);
+            this.groupBox5.Controls.Add(this.ActiveSave);
+            this.groupBox5.Controls.Add(this.OnPauseText);
+            this.groupBox5.Controls.Add(this.BrowsePause);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.OnStkCloseText);
+            this.groupBox5.Controls.Add(this.BrowseClose);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.OnStkSaveText);
+            this.groupBox5.Controls.Add(this.BrowseSave);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.ForeColor = System.Drawing.Color.White;
+            this.groupBox5.Location = new System.Drawing.Point(3, 26);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(515, 205);
+            this.groupBox5.TabIndex = 41;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Parallel Processes";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.label23);
+            this.groupBox6.Controls.Add(this.PlaybackArgsText);
+            this.groupBox6.Controls.Add(this.ActivePlayback);
+            this.groupBox6.Controls.Add(this.ActiveDelete);
+            this.groupBox6.Controls.Add(this.ActiveAdded);
+            this.groupBox6.Controls.Add(this.OnAnimationText);
+            this.groupBox6.Controls.Add(this.BrowseAnimation);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Controls.Add(this.OnObjDeletedText);
+            this.groupBox6.Controls.Add(this.BrowseObjDeleted);
+            this.groupBox6.Controls.Add(this.label16);
+            this.groupBox6.Controls.Add(this.OnObjAddedText);
+            this.groupBox6.Controls.Add(this.BrowseAddObj);
+            this.groupBox6.Controls.Add(this.label15);
+            this.groupBox6.ForeColor = System.Drawing.Color.White;
+            this.groupBox6.Location = new System.Drawing.Point(3, 237);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(515, 164);
+            this.groupBox6.TabIndex = 42;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Serial Processes";
+            // 
+            // PlaybackArgsText
+            // 
+            this.PlaybackArgsText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlaybackArgsText.BackColor = System.Drawing.Color.DimGray;
+            this.PlaybackArgsText.ForeColor = System.Drawing.Color.White;
+            this.PlaybackArgsText.Location = new System.Drawing.Point(127, 134);
+            this.PlaybackArgsText.Margin = new System.Windows.Forms.Padding(2);
+            this.PlaybackArgsText.Name = "PlaybackArgsText";
+            this.PlaybackArgsText.Size = new System.Drawing.Size(310, 20);
+            this.PlaybackArgsText.TabIndex = 41;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.ForeColor = System.Drawing.Color.White;
+            this.label22.Location = new System.Drawing.Point(1, 172);
+            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(85, 13);
+            this.label22.TabIndex = 41;
+            this.label22.Text = "Argument String:";
+            this.label22.Click += new System.EventHandler(this.label22_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(5, 134);
+            this.label23.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(85, 13);
+            this.label23.TabIndex = 42;
+            this.label23.Text = "Argument String:";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -799,6 +1308,12 @@
             this.ToolbarOptions.PerformLayout();
             this.DatabaseSettings.ResumeLayout(false);
             this.EventSettings.ResumeLayout(false);
+            this.CLISettings.ResumeLayout(false);
+            this.CLISettings.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -855,5 +1370,41 @@
         private System.Windows.Forms.Button AddTool;
         private System.Windows.Forms.Button ToolbarDown;
         private System.Windows.Forms.Button ToolbarUp;
+        private System.Windows.Forms.TabPage CLISettings;
+        private System.Windows.Forms.TextBox OnStkCloseText;
+        private System.Windows.Forms.Button BrowseClose;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox OnStkSaveText;
+        private System.Windows.Forms.Button BrowseSave;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox OnPauseText;
+        private System.Windows.Forms.Button BrowsePause;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox OnAnimationText;
+        private System.Windows.Forms.Button BrowseAnimation;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox OnObjDeletedText;
+        private System.Windows.Forms.Button BrowseObjDeleted;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox OnObjAddedText;
+        private System.Windows.Forms.Button BrowseAddObj;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox ActivePause;
+        private System.Windows.Forms.CheckBox ActivePlayback;
+        private System.Windows.Forms.CheckBox ActiveDelete;
+        private System.Windows.Forms.CheckBox ActiveAdded;
+        private System.Windows.Forms.CheckBox ActiveClose;
+        private System.Windows.Forms.CheckBox ActiveSave;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox SaveArgText;
+        private System.Windows.Forms.TextBox PauseArgsText;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox CloseArgsText;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox PlaybackArgsText;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
     }
 }
