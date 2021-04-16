@@ -186,8 +186,25 @@ namespace OperatorsToolbox.PlaneCrossingUtility
                                 crossing.IsBounded = true;
                                 crossing.LowerBound = Double.Parse(ConditionalLB.Text);
                                 crossing.UpperBound = Double.Parse(ConditionalUB.Text);
-                                crossing.LowerBoundCrossingTime = boundedTimes.Times.GetValue(2 * i).ToString();
-                                crossing.UpperBoundCrossingTime = boundedTimes.Times.GetValue(2 * i + 1).ToString();
+
+                                if (boundedTimes.Times.Length != 2 * numTimes)
+                                {
+                                    try
+                                    {
+                                        crossing.LowerBoundCrossingTime = boundedTimes.Times.GetValue(2 * i).ToString();
+                                        crossing.UpperBoundCrossingTime = boundedTimes.Times.GetValue(2 * i + 1).ToString();
+                                    }
+                                    catch (Exception) //Index out of range
+                                    {
+                                        crossing.LowerBoundCrossingTime = "";
+                                        crossing.UpperBoundCrossingTime = "";
+                                    }
+                                }
+                                else
+                                {
+                                    crossing.LowerBoundCrossingTime = boundedTimes.Times.GetValue(2 * i).ToString();
+                                    crossing.UpperBoundCrossingTime = boundedTimes.Times.GetValue(2 * i + 1).ToString();
+                                }
                             }
                             crossingGroup.PlaneCrossings.Add(crossing);
                         }

@@ -30,7 +30,7 @@ namespace OperatorsToolbox.Templates
 
         private void RemoveTemplate_Click(object sender, EventArgs e)
         {
-            if (TemplateList.FocusedItem.Index != -1 && TemplateList.FocusedItem != null)
+            if (TemplateList.FocusedItem != null)
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to delete this Template?\nThis cannot be undone", "Warning", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
@@ -42,22 +42,24 @@ namespace OperatorsToolbox.Templates
                     Directory.Delete(dir);
 
                     PopulateTemplates();
-                    ObjectList.Nodes.Clear();
+                    //ObjectList.Nodes.Clear();
+                    ObjectList.Items.Clear();
                 }
             }
         }
 
         private void Generate_Click(object sender, EventArgs e)
         {
-            if (TemplateList.FocusedItem.Index != -1 && TemplateList.FocusedItem != null && ObjectList.Nodes.Count!=0)
+            if (TemplateList.FocusedItem.Index != -1 && TemplateList.FocusedItem != null && ObjectList.Items.Count!=0)
             {
                 List<string> objectNames = new List<string>();
-                foreach (TreeNode item in ObjectList.Nodes)
+                foreach (ListViewItem item in ObjectList.CheckedItems)
                 {
-                    if (item.Checked)
-                    {
-                        objectNames.Add(item.Text);
-                    }
+                    objectNames.Add(item.Text.ToString());
+                    //if (item.Checked)
+                    //{
+                    //    objectNames.Add(item.Text);
+                    //}
                 }
                 ReadWrite.ImportTemplate(_fileStr + TemplateList.FocusedItem.Text + "\\", objectNames, EraseReplace.Checked);
             }
@@ -68,13 +70,13 @@ namespace OperatorsToolbox.Templates
             if (TemplateList.SelectedItems != null && TemplateList.SelectedItems.Count > 0)
             {
                 List<string> objectNames = ReadWrite.GetTemplateObjectNames(_fileStr + TemplateList.FocusedItem.Text + "\\");
-                ObjectList.Nodes.Clear();
+                ObjectList.Items.Clear();
                 int count = 0;
                 foreach (var item in objectNames)
                 {
-                    ObjectList.Nodes.Add(item);
-                    TreeNode node = ObjectList.Nodes[count];
-                    node.Checked = true;
+                    ObjectList.Items.Add(item);
+                    ObjectList.Items[count].Checked = true;
+                    //node.Checked = true;
                     count++;
                 }
             }
@@ -96,7 +98,28 @@ namespace OperatorsToolbox.Templates
             }
             else
             {
-                MessageBox.Show("File Error. Check Templates DIrectory in Settings");
+                MessageBox.Show("File Error. Check Templates Directory in Settings");
+            }
+        }
+
+        private void ScriptingOptions_Click(object sender, EventArgs e)
+        {
+            if (TemplateList.FocusedItem != null)
+            {
+                TemplateScriptData data = new TemplateScriptData();
+                if (File.Exists(_fileStr + TemplateList.FocusedItem.Text + "\\ScriptData.json"))
+                {
+                    data = ReadWrite.GetTemplateScriptData(_fileStr + TemplateList.FocusedItem.Text + "\\ScriptData.json");
+                }
+                else
+                {
+                    data.PostImportScriptActive = false;
+                    data.PreImportScriptActive = false;
+                    data.PreImportScriptPath = "";
+                    data.PostImportScriptPath = "";
+                }
+                ModifyScriptForm form = new ModifyScriptForm(data, TemplateList.FocusedItem.Text);
+                form.Show();
             }
         }
     }

@@ -31,19 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SmartViewPlugin));
             this.SelectView = new System.Windows.Forms.Button();
-            this.Refresh = new System.Windows.Forms.Button();
             this.SideButtons = new System.Windows.Forms.ImageList(this.components);
-            this.Reset = new System.Windows.Forms.Button();
             this.StoredViewList = new System.Windows.Forms.ListView();
             this.ViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.EditView = new System.Windows.Forms.Button();
-            this.RemoveView = new System.Windows.Forms.Button();
-            this.NewView = new System.Windows.Forms.Button();
-            this.Cancel = new System.Windows.Forms.Button();
             this.x = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ButtonInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Cancel = new System.Windows.Forms.Button();
+            this.EditView = new System.Windows.Forms.Button();
+            this.RemoveView = new System.Windows.Forms.Button();
+            this.NewView = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectView
@@ -52,29 +50,14 @@
             this.SelectView.BackColor = System.Drawing.Color.SteelBlue;
             this.SelectView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SelectView.ForeColor = System.Drawing.Color.White;
-            this.SelectView.Location = new System.Drawing.Point(9, 252);
+            this.SelectView.Location = new System.Drawing.Point(9, 383);
             this.SelectView.Margin = new System.Windows.Forms.Padding(2);
             this.SelectView.Name = "SelectView";
-            this.SelectView.Size = new System.Drawing.Size(96, 31);
+            this.SelectView.Size = new System.Drawing.Size(104, 31);
             this.SelectView.TabIndex = 15;
             this.SelectView.Text = "Select View";
             this.SelectView.UseVisualStyleBackColor = false;
             this.SelectView.Click += new System.EventHandler(this.SelectView_Click);
-            // 
-            // Refresh
-            // 
-            this.Refresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Refresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Refresh.ImageIndex = 3;
-            this.Refresh.ImageList = this.SideButtons;
-            this.Refresh.Location = new System.Drawing.Point(266, 164);
-            this.Refresh.Margin = new System.Windows.Forms.Padding(2);
-            this.Refresh.Name = "Refresh";
-            this.Refresh.Size = new System.Drawing.Size(40, 40);
-            this.Refresh.TabIndex = 14;
-            this.Refresh.UseVisualStyleBackColor = true;
-            this.Refresh.Click += new System.EventHandler(this.Refresh_Click);
-            this.Refresh.MouseHover += new System.EventHandler(this.Refresh_MouseHover);
             // 
             // SideButtons
             // 
@@ -85,21 +68,6 @@
             this.SideButtons.Images.SetKeyName(2, "paint-brush.png");
             this.SideButtons.Images.SetKeyName(3, "refresh.png");
             this.SideButtons.Images.SetKeyName(4, "reset.png");
-            // 
-            // Reset
-            // 
-            this.Reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Reset.ImageIndex = 4;
-            this.Reset.ImageList = this.SideButtons;
-            this.Reset.Location = new System.Drawing.Point(266, 208);
-            this.Reset.Margin = new System.Windows.Forms.Padding(2);
-            this.Reset.Name = "Reset";
-            this.Reset.Size = new System.Drawing.Size(40, 40);
-            this.Reset.TabIndex = 13;
-            this.Reset.UseVisualStyleBackColor = true;
-            this.Reset.Click += new System.EventHandler(this.Reset_Click);
-            this.Reset.MouseHover += new System.EventHandler(this.Reset_MouseHover);
             // 
             // StoredViewList
             // 
@@ -120,7 +88,7 @@
             this.StoredViewList.Margin = new System.Windows.Forms.Padding(2);
             this.StoredViewList.MultiSelect = false;
             this.StoredViewList.Name = "StoredViewList";
-            this.StoredViewList.Size = new System.Drawing.Size(254, 216);
+            this.StoredViewList.Size = new System.Drawing.Size(287, 347);
             this.StoredViewList.TabIndex = 12;
             this.StoredViewList.UseCompatibleStateImageBehavior = false;
             this.StoredViewList.View = System.Windows.Forms.View.Details;
@@ -134,66 +102,7 @@
             // Type
             // 
             this.Type.Text = "Type";
-            this.Type.Width = 85;
-            // 
-            // EditView
-            // 
-            this.EditView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EditView.ImageIndex = 2;
-            this.EditView.ImageList = this.SideButtons;
-            this.EditView.Location = new System.Drawing.Point(266, 76);
-            this.EditView.Margin = new System.Windows.Forms.Padding(2);
-            this.EditView.Name = "EditView";
-            this.EditView.Size = new System.Drawing.Size(40, 40);
-            this.EditView.TabIndex = 11;
-            this.EditView.UseVisualStyleBackColor = true;
-            this.EditView.Click += new System.EventHandler(this.EditView_Click);
-            this.EditView.MouseHover += new System.EventHandler(this.EditView_MouseHover);
-            // 
-            // RemoveView
-            // 
-            this.RemoveView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RemoveView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.RemoveView.ImageIndex = 1;
-            this.RemoveView.ImageList = this.SideButtons;
-            this.RemoveView.Location = new System.Drawing.Point(266, 120);
-            this.RemoveView.Margin = new System.Windows.Forms.Padding(2);
-            this.RemoveView.Name = "RemoveView";
-            this.RemoveView.Size = new System.Drawing.Size(40, 40);
-            this.RemoveView.TabIndex = 10;
-            this.RemoveView.UseVisualStyleBackColor = true;
-            this.RemoveView.Click += new System.EventHandler(this.RemoveView_Click);
-            this.RemoveView.MouseHover += new System.EventHandler(this.RemoveView_MouseHover);
-            // 
-            // NewView
-            // 
-            this.NewView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NewView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.NewView.ImageIndex = 0;
-            this.NewView.ImageList = this.SideButtons;
-            this.NewView.Location = new System.Drawing.Point(266, 32);
-            this.NewView.Margin = new System.Windows.Forms.Padding(2);
-            this.NewView.Name = "NewView";
-            this.NewView.Size = new System.Drawing.Size(40, 40);
-            this.NewView.TabIndex = 9;
-            this.NewView.UseVisualStyleBackColor = true;
-            this.NewView.Click += new System.EventHandler(this.NewView_Click);
-            this.NewView.MouseHover += new System.EventHandler(this.NewView_MouseHover);
-            // 
-            // Cancel
-            // 
-            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Cancel.ImageIndex = 0;
-            this.Cancel.ImageList = this.x;
-            this.Cancel.Location = new System.Drawing.Point(291, 2);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(24, 26);
-            this.Cancel.TabIndex = 28;
-            this.Cancel.UseVisualStyleBackColor = true;
-            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            this.Type.Width = 117;
             // 
             // x
             // 
@@ -220,6 +129,65 @@
             this.ButtonInfo.Name = "ButtonInfo";
             this.ButtonInfo.Size = new System.Drawing.Size(61, 4);
             // 
+            // Cancel
+            // 
+            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Cancel.ImageIndex = 0;
+            this.Cancel.ImageList = this.x;
+            this.Cancel.Location = new System.Drawing.Point(324, 2);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(2);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(24, 26);
+            this.Cancel.TabIndex = 28;
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            // 
+            // EditView
+            // 
+            this.EditView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.EditView.ImageIndex = 2;
+            this.EditView.ImageList = this.SideButtons;
+            this.EditView.Location = new System.Drawing.Point(299, 76);
+            this.EditView.Margin = new System.Windows.Forms.Padding(2);
+            this.EditView.Name = "EditView";
+            this.EditView.Size = new System.Drawing.Size(40, 40);
+            this.EditView.TabIndex = 11;
+            this.EditView.UseVisualStyleBackColor = true;
+            this.EditView.Click += new System.EventHandler(this.EditView_Click);
+            this.EditView.MouseHover += new System.EventHandler(this.EditView_MouseHover);
+            // 
+            // RemoveView
+            // 
+            this.RemoveView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RemoveView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.RemoveView.ImageIndex = 1;
+            this.RemoveView.ImageList = this.SideButtons;
+            this.RemoveView.Location = new System.Drawing.Point(299, 120);
+            this.RemoveView.Margin = new System.Windows.Forms.Padding(2);
+            this.RemoveView.Name = "RemoveView";
+            this.RemoveView.Size = new System.Drawing.Size(40, 40);
+            this.RemoveView.TabIndex = 10;
+            this.RemoveView.UseVisualStyleBackColor = true;
+            this.RemoveView.Click += new System.EventHandler(this.RemoveView_Click);
+            this.RemoveView.MouseHover += new System.EventHandler(this.RemoveView_MouseHover);
+            // 
+            // NewView
+            // 
+            this.NewView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewView.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.NewView.ImageIndex = 0;
+            this.NewView.ImageList = this.SideButtons;
+            this.NewView.Location = new System.Drawing.Point(299, 32);
+            this.NewView.Margin = new System.Windows.Forms.Padding(2);
+            this.NewView.Name = "NewView";
+            this.NewView.Size = new System.Drawing.Size(40, 40);
+            this.NewView.TabIndex = 9;
+            this.NewView.UseVisualStyleBackColor = true;
+            this.NewView.Click += new System.EventHandler(this.NewView_Click);
+            this.NewView.MouseHover += new System.EventHandler(this.NewView_MouseHover);
+            // 
             // SmartViewPlugin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,15 +196,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.SelectView);
-            this.Controls.Add(this.Refresh);
-            this.Controls.Add(this.Reset);
             this.Controls.Add(this.StoredViewList);
             this.Controls.Add(this.EditView);
             this.Controls.Add(this.RemoveView);
             this.Controls.Add(this.NewView);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SmartViewPlugin";
-            this.Size = new System.Drawing.Size(317, 569);
+            this.Size = new System.Drawing.Size(350, 700);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,8 +211,6 @@
         #endregion
 
         private System.Windows.Forms.Button SelectView;
-        private System.Windows.Forms.Button Refresh;
-        private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.ListView StoredViewList;
         private System.Windows.Forms.ColumnHeader ViewName;
         private System.Windows.Forms.ColumnHeader Type;
