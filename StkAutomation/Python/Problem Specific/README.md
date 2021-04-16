@@ -36,3 +36,16 @@ Allows the user to take an interval file ([.int](https://help.agi.com/stk/index.
 * Licenses: Free, Analysis Workbench
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [ExternalWindModel](ExternalWindModel)
+This code example shows how to integrate external wind models for use with STK. This script uses the Horizontal Wind Model 93 (https://ccmc.gsfc.nasa.gov/modelweb/atmos/hwm.html) in STK scenarios. HWM93 is a popular empirical wind model based on satellite and ground-based instrument data.
+
+Step 1. Install the HWM93 model from https://pypi.org/project/hwm93/ or https://github.com/space-physics/hwm93  
+Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to be changed to run the example.
+
+### Dependencies
+* Licenses: Free, Integration
+* Other Scripts: N/A
+* Scenario: N/A
