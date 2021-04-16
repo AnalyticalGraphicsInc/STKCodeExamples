@@ -44,6 +44,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Duplicate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SaveData = new System.Windows.Forms.CheckBox();
             this.FileBrowse = new System.Windows.Forms.Button();
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -249,6 +250,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.SaveData);
             this.groupBox2.Controls.Add(this.FileBrowse);
             this.groupBox2.Controls.Add(this.FilenameText);
             this.groupBox2.Controls.Add(this.label9);
@@ -281,7 +283,20 @@
             this.groupBox2.Size = new System.Drawing.Size(334, 290);
             this.groupBox2.TabIndex = 44;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Single Facility";
+            this.groupBox2.Text = "Additional Options";
+            // 
+            // SaveData
+            // 
+            this.SaveData.AutoSize = true;
+            this.SaveData.Checked = true;
+            this.SaveData.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SaveData.Enabled = false;
+            this.SaveData.Location = new System.Drawing.Point(212, 18);
+            this.SaveData.Name = "SaveData";
+            this.SaveData.Size = new System.Drawing.Size(51, 17);
+            this.SaveData.TabIndex = 65;
+            this.SaveData.Text = "Save";
+            this.SaveData.UseVisualStyleBackColor = true;
             // 
             // FileBrowse
             // 
@@ -621,5 +636,6 @@
         private System.Windows.Forms.RadioButton ImportFromFile;
         private System.Windows.Forms.RadioButton ManualInput;
         private System.Windows.Forms.Button FileBrowse;
+        private System.Windows.Forms.CheckBox SaveData;
     }
 }

@@ -28,16 +28,6 @@ namespace OperatorsToolbox.FacilityCreator
                     OpticalControlPanel.Enabled = true;
                     RadarControlPanel.Visible = false;
                     RadarControlPanel.Enabled = false;
-                    OpticalParams oParams = sensor.OParams;
-                    MinRange.Text = oParams.MinRange;
-                    MaxRange.Text = oParams.MaxRange;
-                    MinEl.Text = oParams.MinEl;
-                    MaxEl.Text = oParams.MaxEl;
-                    LunExAngle.Text = oParams.LunarExAngle;
-                    MaxSunEl.Text = oParams.SunElAngle;
-                    HalfAngle.Text = oParams.HalfAngle;
-                    MinAz.Text = oParams.MinAz;
-                    MaxAz.Text = oParams.MaxAz;
                 }
                 else
                 {
@@ -230,6 +220,8 @@ namespace OperatorsToolbox.FacilityCreator
                     HalfAngle.Text = oParams.HalfAngle;
                     MinAz.Text = oParams.MinAz;
                     MaxAz.Text = oParams.MaxAz;
+                    PointingAz.Text = oParams.Az;
+                    PointingEl.Text = oParams.El;
                     OName.Text = sensors[SensorList.SelectedIndex].SensorName;
                 }
                 else
@@ -243,6 +235,8 @@ namespace OperatorsToolbox.FacilityCreator
                     RHalfAngle.Text = rParams.HalfAngle;
                     RMinAz.Text = rParams.MinAz;
                     RMaxAz.Text = rParams.MaxAz;
+                    RPointingAz.Text = rParams.Az;
+                    RPointingEl.Text = rParams.El;
                     RName.Text = sensors[SensorList.SelectedIndex].SensorName;
                 }
                 _onMenuSwitch = false;
@@ -273,12 +267,12 @@ namespace OperatorsToolbox.FacilityCreator
         private void AddSensor_Click(object sender, EventArgs e)
         {
             FCSensor newSensor = new FCSensor();
-            bool exists = CommonData.StkRoot.ObjectExists("Facility/Sensor1");
+            bool exists = SensorList.Items.Contains("Sensor1");
             if (exists)
             {
                 for (int i = 0; i < 99; i++)
                 {
-                    exists = CommonData.StkRoot.ObjectExists("Facility/Sensor" + i.ToString());
+                    exists = SensorList.Items.Contains("Sensor" + i.ToString());
                     if (!exists)
                     {
                         newSensor.SensorName = "Sensor" + i.ToString();
@@ -299,6 +293,8 @@ namespace OperatorsToolbox.FacilityCreator
             rParams.HalfAngle = "85";
             rParams.MinAz = "0";
             rParams.MaxAz = "360";
+            rParams.Az = "0";
+            rParams.El = "90";
             newSensor.RParams = rParams;
             OpticalParams oParams = new OpticalParams();
             oParams.MinEl = "0";
@@ -310,6 +306,8 @@ namespace OperatorsToolbox.FacilityCreator
             oParams.HalfAngle = "70";
             oParams.MinAz = "0";
             oParams.MaxAz = "360";
+            oParams.Az = "0";
+            oParams.El = "90";
             newSensor.OParams = oParams;
 
             sensors.Add(newSensor);
@@ -322,12 +320,12 @@ namespace OperatorsToolbox.FacilityCreator
             if (SensorList.SelectedIndex != -1 && SensorList.SelectedItem != null)
             {
                 FCSensor newSensor = new FCSensor(sensors[SensorList.SelectedIndex]);
-                bool exists = CommonData.StkRoot.ObjectExists("Facility/" + newSensor.SensorName + "1");
+                bool exists = SensorList.Items.Contains(newSensor.SensorName + "1");
                 if (exists)
                 {
                     for (int i = 0; i < 99; i++)
                     {
-                        exists = CommonData.StkRoot.ObjectExists("Facility/Sensor" + newSensor.SensorName + i.ToString());
+                        exists = SensorList.Items.Contains("Sensor" + i.ToString());
                         if (!exists)
                         {
                             newSensor.SensorName = newSensor.SensorName + i.ToString();
@@ -378,6 +376,8 @@ namespace OperatorsToolbox.FacilityCreator
                     sensors[SensorList.SelectedIndex].OParams.HalfAngle = HalfAngle.Text;
                     sensors[SensorList.SelectedIndex].OParams.MinAz = MinAz.Text;
                     sensors[SensorList.SelectedIndex].OParams.MaxAz = MaxAz.Text;
+                    sensors[SensorList.SelectedIndex].OParams.Az = PointingAz.Text;
+                    sensors[SensorList.SelectedIndex].OParams.El = PointingEl.Text;
                 }
                 else
                 {
@@ -390,6 +390,8 @@ namespace OperatorsToolbox.FacilityCreator
                     sensors[SensorList.SelectedIndex].RParams.HalfAngle = RHalfAngle.Text;
                     sensors[SensorList.SelectedIndex].RParams.MinAz = RMinAz.Text;
                     sensors[SensorList.SelectedIndex].RParams.MaxAz = RMaxAz.Text;
+                    sensors[SensorList.SelectedIndex].RParams.Az = RPointingAz.Text;
+                    sensors[SensorList.SelectedIndex].RParams.El = RPointingEl.Text;
                 }
             }
         }

@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using AGI.STKObjects;
 using AGI.STKUtil;
 using AGI.Ui.Application;
+using OperatorsToolbox.SatelliteCreator;
 
 namespace OperatorsToolbox.ImportTLEfromUDL
 {
@@ -133,13 +135,38 @@ namespace OperatorsToolbox.ImportTLEfromUDL
         //main function to do stuff
         private void btn_makeRequest_Click(object sender, EventArgs e)
         {
-
+            if (NameBasedOnCatalog.Checked)
+            {
+                if (CommonData.SatCatItemList !=null)
+                {
+                    if (!(CommonData.SatCatItemList.Count > 0))
+                    {
+                        ReadWrite.ReadSatCat();
+                    }
+                }
+                else
+                {
+                    CommonData.SatCatItemList = new List<SatCatItem>();
+                    CommonData.MetadataTypeList = new List<string>();
+                    CommonData.MetadataOptions1 = new List<string>();
+                    CommonData.MetadataOptions2 = new List<string>();
+                    CommonData.MetadataOptions3 = new List<string>();
+                    CommonData.MetadataOptions4 = new List<string>();
+                    CommonData.MetadataOptions5 = new List<string>();
+                    CommonData.SatCatFofo = new List<string>();
+                    ReadWrite.ReadSatCat();
+                }
+            }
             try
             {
                 //encode password and username
                 string creds = "Basic " + Base64Encode(tb_userName.Text + ":" + tb_password.Text);
 
                 List<string> allSsCs = tb_ssc.Text.Split(new char[] { '\r', '\n', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                for (int i = 0; i < allSsCs.Count; i++)
+                {
+                    allSsCs[i] = allSsCs[i].Trim();
+                }
 
                 if (allSsCs.Count > 0)
                 {
@@ -268,7 +295,43 @@ namespace OperatorsToolbox.ImportTLEfromUDL
             IAgStkObject sat = null;
             try
             {
-                string sname = objId + "_" + source.Replace(' ', '_').Trim();
+                int index = -1;
+                string sname = null;
+                string objPath = null;
+                if (NameBasedOnCatalog.Checked)
+                {
+                    index = CommonData.SatCatItemList.IndexOf(CommonData.SatCatItemList.Where(p => p.Scc == objId).FirstOrDefault());
+                    if (index != -1)
+                    {
+                        SatCatItem currentSat = CommonData.SatCatItemList[index];
+                        if (currentSat.OtherName != "Unspecified")
+                        {
+                            string otherName = currentSat.OtherName.Replace(" ", "_");
+                            otherName = Regex.Replace(otherName, @"[^0-9a-zA-Z_]+", "");
+                            objPath = "Satellite/" + otherName;
+                            sname = otherName;
+                        }
+                        else if (currentSat.CommonName != "Unspecified")
+                        {
+                            string commonName = currentSat.CommonName.Replace(" ", "_");
+                            commonName = Regex.Replace(commonName, @"[^0-9a-zA-Z_]+", "");
+                            objPath = "Satellite/" + commonName;
+                            sname = commonName;
+                        }
+                        else
+                        {
+                            sname = objId + "_" + source.Replace(' ', '_').Trim();
+                        }
+                    }
+                    else
+                    {
+                        sname = objId + "_" + source.Replace(' ', '_').Trim();
+                    }
+                }
+                else
+                {
+                    sname = objId + "_" + source.Replace(' ', '_').Trim();
+                }
 
                 //create new if non-existant or get handle
                 sat = CreatorFunctions.GetCreateSatellite(sname);
@@ -279,10 +342,13 @@ namespace OperatorsToolbox.ImportTLEfromUDL
                 zsat.SetPropagatorType(AgEVePropagatorType.ePropagatorSGP4);
                 IAgVePropagatorSGP4 tleprop = zsat.Propagator as IAgVePropagatorSGP4;
                 tleprop.Segments.RemoveAllSegs();//clear before adding new
-                tleprop.CommonTasks.AddSegsFromFile(objId, fpath);
+                tleprop.CommonTasks.AddSegsFromFile(objId, fpath); //objID is scc, fpath is the filepath to the tle file
                 tleprop.Propagate();
                 zsat.Graphics.Resolution.Orbit = 10;
-
+                if (NameBasedOnCatalog.Checked && index != -1)
+                {
+                    CreatorFunctions.ChangeSatColor(objPath, index);
+                }
 
                 if (CoordSystem.SelectedIndex == 0)
                 {
@@ -314,7 +380,7 @@ namespace OperatorsToolbox.ImportTLEfromUDL
                     IAgStkObject conste = CreatorFunctions.GetCreateConstellation(ConstName.Text.Replace(" ","_"));
                     assets = conste as IAgConstellation;
                 }
-                string objPath = "Satellite/" + sname;
+                objPath = "Satellite/" + sname;
                 if (assets.Objects.IndexOf(objPath) == -1 && assets != null)
                 {
                     assets.Objects.Add(objPath);
