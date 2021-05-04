@@ -39,16 +39,16 @@ root.UnitPreferences.Item('DateFormat').SetCurrentUnit('EpSec');
 
 %Prompt 1: Askes for the OBJECT TYPE 
 ButtonName = questdlg('What type of object is the Uplink Site?','Type Question', 'Facility', 'Place', 'Target','');
-   switch ButtonName,
-     case 'Facility',
+   switch ButtonName
+     case 'Facility'
         type_plc = 'Facility/';
-     case 'Place',
+     case 'Place'
         type_plc = 'Place/';
-     case 'Target',
+     case 'Target'
         type_plc = 'Target/';
    end % switch
 
-   %Prompt 2: Askes for the NAMES of OBJECTs
+   %Prompt 2: Asks for the NAMES of OBJECTs
 prompt={'Enter the name of the Satellite:','Enter the name of the Uplink Site:'};
    name='';
    numlines=1;

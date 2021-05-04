@@ -26,7 +26,7 @@ thrustingThreshold = 0.000001; % [N]
 %% Code
 
 % Connect to the satellite
-app = actxGetRunningServer('STK11.Application');
+app = actxGetRunningServer('STK12.Application');
 root = app.Personality2;
 sc = root.CurrentScenario;
 sat = root.GetObjectFromPath(['Satellite/',satName]);

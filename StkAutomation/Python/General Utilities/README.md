@@ -1,4 +1,4 @@
-# Python Problem Specific Samples
+# Python General Utility Samples
 
 ## [stkMetaDataExtractor.py](EditIntervalFile.py)
 

@@ -1,4 +1,4 @@
-function [passiveCheck,minRangeP, badManeuverTimes] = PassiveSafety(root, SatName, TargetName, userTrip, userMinRange)
+function [passiveCheck,minRangeP, badManeuverTimes] = astgCheckPassiveSafety(root, SatName, TargetName, userTrip, userMinRange)
 %Get initial handles
 scenario = root.CurrentScenario;
 sat = root.GetObjectFromPath(strcat('Satellite/',SatName));
