@@ -1,3 +1,7 @@
+# MATLAB Scenario Analysis Samples
+
+## [AccessByMetric.m](AccessByMetric.m)
+
 This script is used to select the best object for a certain facility to point at based on min or max elevation angle or range. The user must create an STK 12 scenario, add a facility/place or any other object to calculate the access "from", then edit the script inputs and run the script. The inputs are below:
 
 fromObjectType - type of object to compute access from
@@ -12,3 +16,11 @@ timeStep - this is how often the data is sampled from STK. By default it
 extrema - this is what determines if you're looking for minimum or maximum
 
 The output of this script will be an interval file, or an .int file that contains the targeted pointing intervals for the optimal pointing schedule based on the optimization metric chosen. This .int file can then be used for targeted pointing on a sensor mounted on the "from" access object. 
+
+### Dependencies
+
+* Licenses: Free, Integration
+* Other Scripts: [FilterObjectsByType.m](../General_Utilities/FilterObjectsByType.m)
+* Scenario: N/A
+
+---

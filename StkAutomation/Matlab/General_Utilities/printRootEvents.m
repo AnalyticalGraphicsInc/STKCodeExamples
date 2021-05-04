@@ -1,4 +1,12 @@
-function RootEvents(varargin)
+% Attaches to root object to display application events
+%
+% Usage:
+%
+% uiapp = actxserver('STK12.application');
+% root = uiapp.Personality2;
+% root.registerevent('printRootEvents')
+
+function printRootEvents(varargin)
 
 place = size(varargin);
 spot = place(2);
