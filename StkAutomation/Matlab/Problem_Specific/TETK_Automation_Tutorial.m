@@ -8,7 +8,7 @@ userArea = getenv('USERPROFILE'); %Get User Area
 scenarioName = 'TE_MATLAB_Automation'; %Name to be used for scenario
 scenarioFolder = fullfile(userArea,'Documents','STK 12',scenarioName) %Assemble path for scenario folder to be created
 mkdir(scenarioFolder); %Create folder
-setDefalultDirCommand = ['SetDefaultDir / ' '"' scenarioFolder '"'] %Set working directory. If not set TETK will save all files/folders in current working directory. 
+setDefaultDirCommand = ['SetDefaultDir / ' '"' scenarioFolder '"'] %Set working directory. If not set TETK will save all files/folders in current working directory. 
 
 %%
 try
@@ -19,7 +19,7 @@ try
     if checkempty == 0
         %If a Scenario is not open, create a new scenario
         uiapp.visible = 1;
-        root.ExecuteCommand(setDefalultDirCommand)
+        root.ExecuteCommand(setDefaultDirCommand)
         root.NewScenario(scenarioName);
         scenario = root.CurrentScenario;
         %root.Save()
@@ -32,7 +32,7 @@ try
         else
             root.CurrentScenario.Unload
             uiapp.visible = 1;
-            root.ExecuteCommand(setDefalultDirCommand)
+            root.ExecuteCommand(setDefaultDirCommand)
             root.NewScenario(scenarioName);
             scenario = root.CurrentScenario;
             %root.Save()
@@ -46,8 +46,9 @@ catch
     % Launch a new instance of STK12 and grab it
     uiapp = actxserver('STK12.application');
     root = uiapp.Personality2;
-    uiapp.visible = 1;
-    root.ExecuteCommand(setDefalultDirCommand)
+    uiapp.Visible = 1;
+    uiapp.UserControl = 1;
+    root.ExecuteCommand(setDefaultDirCommand)
     root.NewScenario(scenarioName);
     scenario = root.CurrentScenario;
     %root.Save()

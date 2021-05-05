@@ -1,4 +1,0 @@
-# DynamicSensorMask
-Allows sensor field of view obscurations to be considered over time by moving objects, such as solar panels or other obscuring vehichles.
-
-The script computes sensor body AzElMasks over a series of times. After the masks have been created, they can be reused for subsequent access calculations. Access is calculated to a list of objects from each sensor. Access is computed using the most recent AzEl mask until the time of the next available mask and then the mask is updated and the process is repeated. In this way dynamic field of view obstructions can be considered. The switching of the AzElMasks is handled by the script, with the result being access interval files and AWB intervals which can be loaded back into STK.
