@@ -6,9 +6,9 @@
 % In this example, we are looking at the intervals during our Ownship's
 % flight that meet a Cal Air Speed condition (from 200 to 300 knots)
 % and a roll angle condition (from -50 to 0 degrees).
-
-%NOTE:
-%%% Setup for .csv files using ISO-YD time %%%
+% 
+% NOTE:
+% %% Setup for .csv files using ISO-YD time %%%
 % This code is taking a .csv TSPI file with a time format in ISO-YD and
 % converting it to the correct format in order to import flight segments
 % via .txt file.
