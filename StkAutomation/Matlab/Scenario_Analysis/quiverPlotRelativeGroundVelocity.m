@@ -1,4 +1,4 @@
-%Grab a running instance of STK11
+%Grab a running instance of STK12
 uiapp = actxGetRunningServer('STK12.application');
 root = uiapp.Personality2;
 uiapp.visible = 1;

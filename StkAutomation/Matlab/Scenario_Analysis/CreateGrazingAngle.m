@@ -3,19 +3,19 @@ function CreateGrazingAngle(objectPath,angleCCWFromNorth)
     % Organization: Analytical Graphics Inc.
     % Date Created: 06/27/18
     % Last Modified: 02/23/21 by Noah Ingwersen
-    % Description: Finds the Earth horizon grazing angle along a given
-    % direction from an object. In this case, a bearing angle rotated CCW from 
-    % North is used to specify the direction.
-    
-    %% Inputs:
-    % objectPath: Object path in STK [string]
-    % angleCCWFromNorth: Angle CCW from North (Westward) to specify the
-    % reference direction [double]
-    
-    % Outputs:
-    % Analysis Workbench components: a reference direction vector, the grazing
-    % point, the vector pointing to the grazing point, the grazing angle
-    % relative to Nadir(detic), and a calc scalar for the grazing angle
+%     Description: Finds the Earth horizon grazing angle along a given
+%     direction from an object. In this case, a bearing angle rotated CCW from 
+%     North is used to specify the direction.
+%     
+%     % Inputs:
+%     objectPath: Object path in STK [string]
+%     angleCCWFromNorth: Angle CCW from North (Westward) to specify the
+%     reference direction [double]
+%     
+%     Outputs:
+%     Analysis Workbench components: a reference direction vector, the grazing
+%     point, the vector pointing to the grazing point, the grazing angle
+%     relative to Nadir(detic), and a calc scalar for the grazing angle
     
     % Example input:
     % GrazingAngle('Satellite/Satellite1', -45)

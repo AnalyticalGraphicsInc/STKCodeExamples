@@ -1,6 +1,6 @@
 %% Script Overview
 %
-% Name: Value_by_Grid_Point_at_Time.m
+% Name: valueByGridPointAtTime.m
 %
 % Author:Andrew Arnold, Systems Engineer Analytical Graphics Inc
 %
@@ -11,29 +11,29 @@
 % Description: This script captures Instantaneous FOM Values by Grid point
 %   for an STK Coverage Definition utilizing a Navigation Accuracy Type Figure of
 %   Merit. 
-%
+% 
 %   The user must first create an STK Scenario consisting of a Coverage
 %   Definition and Figure of Merit of Type Naviation Accuracy. Before
 %   running this script the user must first Compute Coverage Definition.
-%
+% 
 %   IMPORTANT: The User must specify the name of the Coverage Definition
 %   and Figure of Merit Objects flawlessly (no spelling errors or mistakes
 %   with capitalising letters). The user must also specify the time step
 %   for the generated FOM report. 
 %   
 % Inputs: 
-%
+% 
 %   Cov_Def_Name - User specified name of Coverage Definition Object in STK
 %   FOM_Name - User specified name of Coverage Definition Object in STK
 %   Time_Step - Number of seconds between each time step
-%
+% 
 % Outputs:
 %   T1 - Table one showing Instantaneous FOM Value for each Lat/Lon point
 %   at each time step
-%
+% 
 %   T2 - Table one showing Percentile FOM value for each time step
-%
-%   Value_By_Grid_Point_By_Time - Exported Excel spreadsheet with Sheet 1
+% 
+%   valueByGridPointAtTime - Exported Excel spreadsheet with Sheet 1
 %   contatining T1 and Sheet 2 containing T2
 % 
 % Author Notes:
@@ -142,6 +142,6 @@ T1 = array2table(Results_NoPercentile,'VariableNames',Final_String);
 T2 = array2table(FOM_Percentil_final,'VariableNames',time_mat);
 
 %% Export to Excel
-filename = 'Value_By_Grid_Point_By_Time.xlsx';
+filename = 'valueByGridPointAtTime.xlsx';
 writetable(T1,filename, 'Sheet',1)
 writetable(T2,filename, 'Sheet',2)

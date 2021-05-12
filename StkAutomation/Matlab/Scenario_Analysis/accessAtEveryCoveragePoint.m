@@ -1,5 +1,5 @@
-%This script will iterate throug every point in a coverage definition and
-%find the lat, lon, and C/N between the the transmitter and a dummy facility/receiver on a coverage defintion
+%This script will iterate through every point in a coverage definition and
+%find the lat, lon, and C/N between the transmitter and a dummy facility/receiver on a coverage definition
 %point. It will write this information to a file
 
 %Written by Valerie Lesser
@@ -9,7 +9,7 @@ close all; clear all; clc
 format long  g
 
 % Get reference to running STK instance
-uiApplication = actxGetRunningServer('STK11.application');
+uiApplication = actxGetRunningServer('STK12.application');
 
 % Get our IAgStkObjectRoot interface
 root = uiApplication.Personality2;
