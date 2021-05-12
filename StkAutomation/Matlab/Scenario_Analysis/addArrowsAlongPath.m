@@ -1,4 +1,4 @@
-function addDirectionalArrows_func(objectPath, numArrows, arrowLegLength_mi, arrowLegAngle, arrowLineWidth, clearExistingPrimitives, colorInput)
+function addArrowsAlongPath(objectPath, numArrows, arrowLegLength_mi, arrowLegAngle, arrowLineWidth, clearExistingPrimitives, colorInput)
 
 % This function enables you to draw equally-spaced arrows along
 % the route of an object to represent its direction of travel. 3D graphics
@@ -20,8 +20,8 @@ function addDirectionalArrows_func(objectPath, numArrows, arrowLegLength_mi, arr
 %       color of the object
 %
 % EXAMPLE:
-% addDirectionalArrows_func('Aircraft/testAircraft',10,20,45,3,true)
-% addDirectionalArrows_func('Aircraft/testAircraft',10,20,45,3,true,'FFFF00')
+% addDirectionalArrows('Aircraft/testAircraft',10,20,45,3,true)
+% addDirectionalArrows('Aircraft/testAircraft',10,20,45,3,true,'FFFF00')
 
 %%%%%%%%%%  BEGIN FUNCTION  %%%%%%%%%%
 

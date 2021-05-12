@@ -3,28 +3,28 @@
 %Date Created: 3/22/18
 %Date Modified: 5/24/18 by Austin Claybrook
 
-%Description: This is a script to select access from an object to
-%multiple other objects based off of a specifed condition metric, such as
-%minimum range or maximum elevation angle.
-
-%AFTER THE SCRIPT IS RUN
-%Once the script generates the file, create a sensor on the object
-%and assign its pointing type to Targeted and move over all the to objects.
-%Change the target times to load in the created interval file.
-%Remember to change the cone angle to something 
-%small so only the singular object that meets your metric is selected
-
-%Inputs:
-%fromObjectType - type of object to compute access from
-%fromObjectName - name of object
-%toObjectTypes - type of object to compute access to, it can be multiple types
-%optionalToObjectName - optionally, only use objects that contain this string in their name
-%fileName - the filename you want the data to be exported to (without the extension)
-%conditionMetric - the conditional metric you want to extract (Range and
-%Elevation are the only two metrics for now
-%timeStep - this is how often the data is sampled from STK. By default it
-%is at 1 second which does take some time to run, so change with caution
-%extrema - this is what determines if you're looking for minimum or maximum
+% Description: This is a script to select access from an object to
+% multiple other objects based off of a specifed condition metric, such as
+% minimum range or maximum elevation angle.
+% 
+% AFTER THE SCRIPT IS RUN
+% Once the script generates the file, create a sensor on the object
+% and assign its pointing type to Targeted and move over all the to objects.
+% Change the target times to load in the created interval file.
+% Remember to change the cone angle to something 
+% small so only the singular object that meets your metric is selected
+% 
+% Inputs:
+% fromObjectType - type of object to compute access from
+% fromObjectName - name of object
+% toObjectTypes - type of object to compute access to, it can be multiple types
+% optionalToObjectName - optionally, only use objects that contain this string in their name
+% fileName - the filename you want the data to be exported to (without the extension)
+% conditionMetric - the conditional metric you want to extract (Range and
+% Elevation are the only two metrics for now
+% timeStep - this is how often the data is sampled from STK. By default it
+% is at 1 second which does take some time to run, so change with caution
+% extrema - this is what determines if you're looking for minimum or maximum
 
 clc;
 clear;

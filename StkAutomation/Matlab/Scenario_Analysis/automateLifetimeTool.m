@@ -2,7 +2,7 @@
 % Description: Automates the satellite lifetime tool, generates a text file
 % of the results, and shows an example of looping through paraemters to run
 % a trade study
-
+% 
 % Instructions: Have STK open with a scenario containing the satellite that 
 % you would like to perform that lifetime analysis on.  Ensure the satellite
 % has been propagated 

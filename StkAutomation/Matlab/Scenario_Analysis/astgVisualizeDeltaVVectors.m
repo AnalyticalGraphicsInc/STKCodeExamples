@@ -2,23 +2,23 @@
 % Adds delta V vectors along the trajectory of an Astrogator satellite. The
 % delta Vs come from the maneuver summary report. The maneuver location 
 % and vector are also created in Analysis Workbench.
-
+% 
 % Instructions:
 % Open a STK scenario with a propagated Astrogator satellite which has
 % maneuvers. In the Input section of the Matlab code, update the satellite
 % name, desired coordinate system to display the dV Vectors and graphics 
 % options. Then click Run in Matlab. The code will need to be rerun
 % to update the maneuvers if the trajectory changes.
-
+% 
 % Notes:
 % When selecting the 'displayAxes', ensure both a coordinate axes and a
 % coordinate system exist in Analysis Workbench with the same name.
-
+% 
 % For finite maneuvers the delta V vector is placed at the beginning
 % of the maneuver and appears after the maneuver occurs. Change
 % Line 193 to put the dV vector at the start of the burn:
 % ephDP = sat.DataProviders.Item('Astrogator Maneuver Ephemeris Block Initial');
-
+% 
 % Ensure the spacecraft does not run out of fuel during a maneuver.
 
 %% Inputs
