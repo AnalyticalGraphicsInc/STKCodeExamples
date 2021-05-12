@@ -72,7 +72,7 @@ clc; % Clear the Command Window
 computedScanDur = zeros(length(areaTargetList),1); % Store scan durations
 
 % Connect to STK
-app = actxGetRunningServer('STK11.application');
+app = actxGetRunningServer('STK12.application');
 root = app.personality2;
 
 % Set object model units but don't change the GUI
