@@ -11,7 +11,7 @@
 % have SOLIS open for this satellite (to create sequence folder directories)
 % have a ground station of any type, facility, target or place
 % can also have Constraints to the objects to provide realistic Contacts
-
+% 
 % Explanation: This sample is used to generate a simple sequence for
 % communicating with a satellite. The Satellite and Uplink Site
 % (place/target/facility) will have access to eachother. At AOS (Acquisition

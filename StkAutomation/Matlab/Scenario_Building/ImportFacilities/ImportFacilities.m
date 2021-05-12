@@ -1,8 +1,8 @@
 function [ ] = ImportFacilities( filepath )
-%ImportFacilities Attaches to an open instance of STK11 and imports
-%position data from Excel spreadsheet. Units are assumed to be degrees and
-%meters with a header row in the Excel file for ID, LAT, LON, ALT
-%
+% ImportFacilities Attaches to an open instance of STK12 and imports
+% position data from Excel spreadsheet. Units are assumed to be degrees and
+% meters with a header row in the Excel file for ID, LAT, LON, ALT
+% 
 % Example: ImportFacilities('GroundSites.xlsx')
 
     % Grab a running instance of STK

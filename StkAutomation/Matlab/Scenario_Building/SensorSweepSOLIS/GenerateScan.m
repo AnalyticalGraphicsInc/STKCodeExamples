@@ -1,6 +1,6 @@
 function ll = GenerateScan(root,atName,scanSpeed,scanRes,scanDir,useBoundingRectangle)
 % Example inputs:
-% root = app.personality2; % app = actxGetRunningServer('STK11.application');
+% root = app.personality2; % app = actxGetRunningServer('STK12.application');
 % atName = 'United_States';
 % scanSpeed = 20;% km/s
 % scanRes = 300; % km
