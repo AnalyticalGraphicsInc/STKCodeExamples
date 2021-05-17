@@ -18,6 +18,9 @@
 - Vector CB Intersect Ground Vehicle
   - *Description of code*
 
+- Camera Path Zoom
+  - *This utility will create a camera path that smoothly zooms into an area of interest from far away*
+
 
 <!--### Add the name of your File and a brief description to this list ### -->
 <!-- ### Keep the * around your description so it is italicized * ### -->
