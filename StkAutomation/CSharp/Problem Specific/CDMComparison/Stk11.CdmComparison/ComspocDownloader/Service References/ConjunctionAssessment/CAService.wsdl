@@ -1,0 +1,2179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.agi.com/ConjunctionAssessment/1.0.0" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:i0="http://tempuri.org/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CAService" targetNamespace="http://www.agi.com/ConjunctionAssessment/1.0.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="CAEndpointSOAP_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://www.agi.com/ConjunctionAssessment/1.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:import namespace="http://www.agi.com/ssa/1.0/conjunction" />
+      <xs:import namespace="http://www.agi.com/ssa/1.0/ephemeris" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/AGI.SSA.CA.ServiceModel.ConjunctionAssessment" />
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:import namespace="http://www.agi.com/ssa/1.0" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.ServiceModel" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/AGI.Foundation" />
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/AGI.Foundation.Coordinates" />
+      <xs:import namespace="http://schemas.microsoft.com/Message" />
+      <xs:element name="CancelJob">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CancelJobResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetStatus">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetStatusResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetStatusResult" nillable="true" type="q1:ProcessorStatus" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ProcessorStatus">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AnalysisStartDateISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnalysisStopDateISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CancellationPending" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ConjunctionCount" type="xs:int" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ElapsedTime" type="ser:duration" />
+          <xs:element minOccurs="0" name="IsBusy" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobId" type="xs:long" />
+          <xs:element minOccurs="0" name="PairsProcessed" type="xs:int" />
+          <xs:element minOccurs="0" name="PairsToProcess" type="xs:int" />
+          <xs:element minOccurs="0" name="PercentComplete" type="xs:int" />
+          <xs:element minOccurs="0" name="SpaceObjectCount" type="xs:int" />
+          <xs:element minOccurs="0" name="StartDateUtc" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q2="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ProcessorStatus" nillable="true" type="q2:ProcessorStatus" />
+      <xs:element name="AddAllOnAllJob">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+            <xs:element xmlns:q3="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q3:ConjunctionJobType" />
+            <xs:element xmlns:q4="http://www.agi.com/ssa/1.0/ephemeris" minOccurs="0" name="ephemeridesSources" nillable="true" type="q4:ArrayOfEphemeridesSource" />
+            <xs:element minOccurs="0" name="analysisIntervalStartTimeIso8601" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="analysisIntervalEndTimeIso8601" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="rangeFilterMinimumStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="rangeFilterMaximumStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="rangeFilterDefaultStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="isApogeePerigeeConjunctionFilterEnabled" type="xs:boolean" />
+            <xs:element minOccurs="0" name="isOrbitPlaneIntersectionFilterEnabled" type="xs:boolean" />
+            <xs:element minOccurs="0" name="apogeePerigeeConjunctionFilterPadMeters" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterDistanceLimitMeters" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterEccentricityLimit" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterTimePadSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterMaxIterationsBeforeCorrection" type="xs:int" />
+            <xs:element minOccurs="0" name="useCommonEphemerisInterval" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddAllOnAllJobResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AddAllOnAllJobResult" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddManyToManyJob">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+            <xs:element xmlns:q5="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q5:ConjunctionJobType" />
+            <xs:element xmlns:q6="http://www.agi.com/ssa/1.0/ephemeris" minOccurs="0" name="primaryEphemeridesSources" nillable="true" type="q6:ArrayOfEphemeridesSource" />
+            <xs:element xmlns:q7="http://www.agi.com/ssa/1.0/ephemeris" minOccurs="0" name="secondaryEphemeridesSources" nillable="true" type="q7:ArrayOfEphemeridesSource" />
+            <xs:element minOccurs="0" name="analysisIntervalStartTimeIso8601" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="analysisIntervalEndTimeIso8601" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="rangeFilterMinimumStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="rangeFilterMaximumStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="rangeFilterDefaultStepSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="isApogeePerigeeConjunctionFilterEnabled" type="xs:boolean" />
+            <xs:element minOccurs="0" name="isOrbitPlaneIntersectionFilterEnabled" type="xs:boolean" />
+            <xs:element minOccurs="0" name="apogeePerigeeConjunctionFilterPadMeters" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterDistanceLimitMeters" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterEccentricityLimit" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterTimePadSeconds" type="xs:double" />
+            <xs:element minOccurs="0" name="orbitPlaneIntersectionFilterMaxIterationsBeforeCorrection" type="xs:int" />
+            <xs:element minOccurs="0" name="useCommonEphemerisInterval" type="xs:boolean" />
+            <xs:element minOccurs="0" name="rangeThresholdOverride" nillable="true" type="xs:double" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddManyToManyJobResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AddManyToManyJobResult" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobWithConjunctionCount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobWithConjunctionCountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AGI.SSA.CA.ServiceModel.ConjunctionAssessment" minOccurs="0" name="GetJobWithConjunctionCountResult" nillable="true" type="q8:JobCount" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="Job">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AnalysisStartISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnalysisStopISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ApogeePerigeeConjunctionFilterPadMeters" type="xs:double" />
+          <xs:element minOccurs="0" name="ApogeePerigeeConjunctionFilterPairEfficiency" type="xs:double" />
+          <xs:element minOccurs="0" name="CommonObjectsCount" type="xs:long" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Id" type="xs:long" />
+          <xs:element minOccurs="0" name="IsApogeePerigeeConjunctionFilterEnabled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsOrbitPlaneIntersectionFilterEnabled" type="xs:boolean" />
+          <xs:element xmlns:q9="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="JobType" type="q9:ConjunctionJobType" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterDistanceLimitMeters" type="xs:double" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterEccentricityLimit" type="xs:double" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterIntervalEfficiency" type="xs:double" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterMaximumIterations" type="xs:int" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterPairEfficiency" type="xs:double" />
+          <xs:element minOccurs="0" name="OrbitPlaneIntersectionFilterTimePadSeconds" type="xs:double" />
+          <xs:element minOccurs="0" name="PairsProcessedCount" type="xs:long" />
+          <xs:element minOccurs="0" name="PrimaryObjectsCount" type="xs:long" />
+          <xs:element minOccurs="0" name="ProcessEnd" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ProcessStart" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RangeFilterDefaultStepSeconds" type="xs:double" />
+          <xs:element minOccurs="0" name="RangeFilterMaximumStepSeconds" type="xs:double" />
+          <xs:element minOccurs="0" name="RangeFilterMinimumStepSeconds" type="xs:double" />
+          <xs:element minOccurs="0" name="ResultCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResultDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SecondaryObjectsCount" type="xs:long" />
+          <xs:element minOccurs="0" name="UseCommonEphemerisInterval" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q10="http://www.agi.com/ConjunctionAssessment/1.0.0" name="Job" nillable="true" type="q10:Job" />
+      <xs:element name="GetCAJobSpaceObjects">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="stopTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterNames" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterIDs" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCAJobSpaceObjectsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q11="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetCAJobSpaceObjectsResult" nillable="true" type="q11:ArrayOfCAJobSpaceObject" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfCAJobSpaceObject">
+        <xs:sequence>
+          <xs:element xmlns:q12="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" maxOccurs="unbounded" name="CAJobSpaceObject" nillable="true" type="q12:CAJobSpaceObject" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q13="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ArrayOfCAJobSpaceObject" nillable="true" type="q13:ArrayOfCAJobSpaceObject" />
+      <xs:complexType name="CAJobSpaceObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CommonName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ConjunctionCount" type="xs:int" />
+          <xs:element minOccurs="0" name="DurationThresholdRev" type="xs:double" />
+          <xs:element xmlns:q14="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="EphemerisDetail" nillable="true" type="q14:ConjunctionSpaceObjectEphemerisDetail" />
+          <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GroupNames" nillable="true" type="q15:ArrayOfstring" />
+          <xs:element xmlns:q16="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="ProcessingRole" type="q16:ProcessingRole" />
+          <xs:element minOccurs="0" name="RangeThresholdMeter" type="xs:double" />
+          <xs:element minOccurs="0" name="SpaceObjectId" type="xs:long" />
+          <xs:element xmlns:q17="http://www.agi.com/ssa/1.0" minOccurs="0" name="SpaceObjectUri" nillable="true" type="q17:SpaceObjectURI" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q18="http://www.agi.com/ConjunctionAssessment/1.0.0" name="CAJobSpaceObject" nillable="true" type="q18:CAJobSpaceObject" />
+      <xs:complexType name="ConjunctionSpaceObjectEphemerisDetail">
+        <xs:sequence>
+          <xs:element xmlns:q19="http://www.agi.com/ssa/1.0" minOccurs="0" name="ActivityType" type="q19:ActivityType" />
+          <xs:element minOccurs="0" name="BallisticCoefficient" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="Edr" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="EphemerisId" nillable="true" type="xs:long" />
+          <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="Epoch" nillable="true" type="q20:SSADateTime" />
+          <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="FitSpanStartTime" type="q21:SSADateTime" />
+          <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="FitSpanStopTime" type="q22:SSADateTime" />
+          <xs:element minOccurs="0" name="HasCovariance" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobConjunctionId" type="xs:long" />
+          <xs:element minOccurs="0" name="JobNumber" type="xs:long" />
+          <xs:element xmlns:q23="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="ProcessingRole" type="q23:ProcessingRole" />
+          <xs:element minOccurs="0" name="PropJobItemSource" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QuadraticCovarianceSetOrbitClassID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="QuadraticCovarianceSetSpaceObjectID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="SourceFileName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SpaceObjectId" type="xs:long" />
+          <xs:element minOccurs="0" name="SrpCoefficient" nillable="true" type="xs:double" />
+          <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="StartTime" type="q24:SSADateTime" />
+          <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="StopTime" type="q25:SSADateTime" />
+          <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="VectorEpoch" nillable="true" type="q26:SSADateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q27="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ConjunctionSpaceObjectEphemerisDetail" nillable="true" type="q27:ConjunctionSpaceObjectEphemerisDetail" />
+      <xs:element name="GetJobConjunctionReportSpaceObjectEphemerisBlob">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionReportSpaceObjectEphemerisBlobResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="GetJobConjunctionReportSpaceObjectEphemerisBlobResult" nillable="true" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetQueryFilters">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="includeCounts" type="xs:boolean" />
+            <xs:element minOccurs="0" name="start" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="stop" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetQueryFiltersResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.ServiceModel" minOccurs="0" name="GetQueryFiltersResult" nillable="true" type="q28:ArrayOfQueryFilter" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageDetailByJob">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q29="http://www.agi.com/ssa/1.0" minOccurs="0" name="spaceObjectURI" nillable="true" type="q29:SpaceObjectURI" />
+            <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="jobIDs" nillable="true" type="q30:ArrayOflong" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q31="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q31:CoordinateAxes" />
+            <xs:element xmlns:q32="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q32:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:double" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageDetailByJobResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q33="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetSpacePageDetailByJobResult" nillable="true" type="q33:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfConjunction">
+        <xs:sequence>
+          <xs:element xmlns:q34="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" maxOccurs="unbounded" name="Conjunction" nillable="true" type="q34:Conjunction" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q35="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ArrayOfConjunction" nillable="true" type="q35:ArrayOfConjunction" />
+      <xs:complexType name="Conjunction">
+        <xs:sequence>
+          <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="AnalysisStartTime" type="q36:SSADateTime" />
+          <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="AnalysisStopTime" type="q37:SSADateTime" />
+          <xs:element minOccurs="0" name="ConjunctionDurationSecond" type="xs:double" />
+          <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="ConjunctionStartTime" type="q38:SSADateTime" />
+          <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="ConjunctionStopTime" type="q39:SSADateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DurationThresholdRev" type="xs:double" />
+          <xs:element minOccurs="0" name="EventCount" type="xs:int" />
+          <xs:element xmlns:q40="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="Events" nillable="true" type="q40:ArrayOfConjunctionEvent" />
+          <xs:element minOccurs="0" name="HasEphemeris" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsVisualizationAvailable" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobConjunctionId" type="xs:long" />
+          <xs:element minOccurs="0" name="JobId" type="xs:long" />
+          <xs:element xmlns:q41="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="PrimarySpaceObject" nillable="true" type="q41:ConjunctionSpaceObject" />
+          <xs:element minOccurs="0" name="ProcessStartTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ProcessStopTime" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="RangeThresholdMeter" type="xs:double" />
+          <xs:element xmlns:q42="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="SecondarySpaceObject" nillable="true" type="q42:ConjunctionSpaceObject" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q43="http://www.agi.com/ConjunctionAssessment/1.0.0" name="Conjunction" nillable="true" type="q43:Conjunction" />
+      <xs:complexType name="ArrayOfConjunctionEvent">
+        <xs:sequence>
+          <xs:element xmlns:q44="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" maxOccurs="unbounded" name="ConjunctionEvent" nillable="true" type="q44:ConjunctionEvent" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q45="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ArrayOfConjunctionEvent" nillable="true" type="q45:ArrayOfConjunctionEvent" />
+      <xs:complexType name="ConjunctionEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ApproachAngle" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="EllipsoidSeparationInMeters" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="EventCreationTime" type="xs:dateTime" />
+          <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" minOccurs="0" name="EventTime" type="q46:SSADateTime" />
+          <xs:element xmlns:q47="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="EventType" type="q47:ConjunctionEventType" />
+          <xs:element minOccurs="0" name="IsReportable" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobConjunctionEventId" type="xs:long" />
+          <xs:element minOccurs="0" name="JobConjunctionId" type="xs:long" />
+          <xs:element minOccurs="0" name="MaximumChance" type="xs:double" />
+          <xs:element minOccurs="0" name="MaximumProbability" type="xs:double" />
+          <xs:element xmlns:q48="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="PrimarySpaceObject" nillable="true" type="q48:ConjunctionEventSpaceObject" />
+          <xs:element xmlns:q49="http://www.agi.com/ssa/1.0" minOccurs="0" name="PrimarySpaceObjectCollisionProbabilities" nillable="true" type="q49:ArrayOfCollisionProbability" />
+          <xs:element minOccurs="0" name="RangeInMeters" type="xs:double" />
+          <xs:element minOccurs="0" name="RangeSigma" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="RelativeVelocityInMetersPerSecond" type="xs:double" />
+          <xs:element xmlns:q50="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="SecondarySpaceObject" nillable="true" type="q50:ConjunctionEventSpaceObject" />
+          <xs:element minOccurs="0" name="SigmaDilutionThreshold" type="xs:double" />
+          <xs:element minOccurs="0" name="TrueChance" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="TrueProbability" nillable="true" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q51="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ConjunctionEvent" nillable="true" type="q51:ConjunctionEvent" />
+      <xs:complexType name="ConjunctionEventSpaceObject">
+        <xs:sequence>
+          <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdditionalHardBodyRadii" nillable="true" type="q52:ArrayOfdouble" />
+          <xs:element xmlns:q53="http://www.agi.com/ssa/1.0/ephemeris" minOccurs="0" name="Covariance" nillable="true" type="q53:Covariance" />
+          <xs:element minOccurs="0" name="JobConjunctionEventId" type="xs:long" />
+          <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/AGI.Foundation" minOccurs="0" name="Motion" type="q54:MotionOfCartesianGflVuegT" />
+          <xs:element xmlns:q55="http://www.agi.com/ssa/1.0" minOccurs="0" name="OneSigma" nillable="true" type="q55:Cartesian3" />
+          <xs:element minOccurs="0" name="OrbitClassName" nillable="true" type="xs:string" />
+          <xs:element xmlns:q56="http://www.agi.com/ssa/1.0" minOccurs="0" name="Position" nillable="true" type="q56:Cartesian3" />
+          <xs:element xmlns:q57="http://www.agi.com/ssa/1.0" minOccurs="0" name="RelativePosition" nillable="true" type="q57:Cartesian3" />
+          <xs:element xmlns:q58="http://www.agi.com/ssa/1.0" minOccurs="0" name="RelativeVelocity" nillable="true" type="q58:Cartesian3" />
+          <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/AGI.Foundation.Coordinates" minOccurs="0" name="Transformed" type="q59:Matrix3By3" />
+          <xs:element xmlns:q60="http://www.agi.com/ssa/1.0" minOccurs="0" name="Velocity" nillable="true" type="q60:Cartesian3" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q61="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ConjunctionEventSpaceObject" nillable="true" type="q61:ConjunctionEventSpaceObject" />
+      <xs:complexType name="ConjunctionSpaceObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ApoapsisAltitudeAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="ArgumentOfPeriapsisAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="CommonName" nillable="true" type="xs:string" />
+          <xs:element xmlns:q62="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="EphemerisDetail" nillable="true" type="q62:ConjunctionSpaceObjectEphemerisDetail" />
+          <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GroupNames" nillable="true" type="q63:ArrayOfstring" />
+          <xs:element minOccurs="0" name="HardBodyRadius" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="HardBodyRadiusSource" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InclinationAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="InternationalDesignator" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InverseSemimajorAxisAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="IsPrimary" type="xs:boolean" />
+          <xs:element minOccurs="0" name="JobConjunctionId" type="xs:long" />
+          <xs:element minOccurs="0" name="Maneuverable" type="xs:boolean" />
+          <xs:element xmlns:q64="http://www.agi.com/ssa/1.0" minOccurs="0" name="OneSigmaAtEpoch" nillable="true" type="q64:Cartesian3" />
+          <xs:element xmlns:q65="http://www.agi.com/ssa/1.0" minOccurs="0" name="PayloadType" nillable="true" type="q65:PayloadType" />
+          <xs:element minOccurs="0" name="PeriapsisAltitudeAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="PeriapsisRadiusAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="RightAscensionAtEpoch" nillable="true" type="xs:double" />
+          <xs:element minOccurs="0" name="SpaceObjectId" type="xs:long" />
+          <xs:element xmlns:q66="http://www.agi.com/ssa/1.0" minOccurs="0" name="SpaceObjectUri" nillable="true" type="q66:SpaceObjectURI" />
+          <xs:element minOccurs="0" name="TrueAnomalyAtEpoch" nillable="true" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q67="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ConjunctionSpaceObject" nillable="true" type="q67:ConjunctionSpaceObject" />
+      <xs:element name="GetUserReportHistory">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q68="http://www.agi.com/ssa/1.0" minOccurs="0" name="primarySpaceObjectUri" nillable="true" type="q68:SpaceObjectURI" />
+            <xs:element xmlns:q69="http://www.agi.com/ssa/1.0" minOccurs="0" name="secondarySpaceObjectUri" nillable="true" type="q69:SpaceObjectURI" />
+            <xs:element minOccurs="0" name="eventTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q70="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q70:ConjunctionJobType" />
+            <xs:element xmlns:q71="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q71:CoordinateAxes" />
+            <xs:element xmlns:q72="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q72:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" type="xs:double" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportHistoryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q73="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetUserReportHistoryResult" nillable="true" type="q73:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEphemerisDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q74="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="jobConjunctionIds" nillable="true" type="q74:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetEphemerisDetailsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q75="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetEphemerisDetailsResult" nillable="true" type="q75:ArrayOfConjunctionSpaceObjectEphemerisDetail" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfConjunctionSpaceObjectEphemerisDetail">
+        <xs:sequence>
+          <xs:element xmlns:q76="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" maxOccurs="unbounded" name="ConjunctionSpaceObjectEphemerisDetail" nillable="true" type="q76:ConjunctionSpaceObjectEphemerisDetail" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q77="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ArrayOfConjunctionSpaceObjectEphemerisDetail" nillable="true" type="q77:ArrayOfConjunctionSpaceObjectEphemerisDetail" />
+      <xs:element name="GetVisualization">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionID" type="xs:long" />
+            <xs:element xmlns:q78="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q78:CoordinateAxes" />
+            <xs:element xmlns:q79="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q79:RelativeCoordinateAxes" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetVisualizationResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q80="http://schemas.microsoft.com/Message" name="GetVisualizationResult" type="q80:StreamBody" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobSequence">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobID" type="xs:long" />
+            <xs:element minOccurs="0" name="filterByType" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobSequenceResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.ServiceModel" minOccurs="0" name="GetJobSequenceResult" nillable="true" type="q81:JobSequence" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddConjunctionDescription">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/AGI.SSA.CA.ServiceModel.ConjunctionAssessment" minOccurs="0" name="request" nillable="true" type="q82:AddConjunctionDescriptionRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddConjunctionDescriptionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AddConjunctionDescriptionResult" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteConjunction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionID" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteConjunctionResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteConjunctionJob">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobID" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteConjunctionJobResponse">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEventRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionEventId" type="xs:long" />
+            <xs:element xmlns:q83="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q83:CoordinateAxes" />
+            <xs:element xmlns:q84="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q84:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="secondaryHardBodyRadii" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEventRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q85="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobConjunctionEventRestResult" nillable="true" type="q85:ConjunctionEvent" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobsAnalysisTimesRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ids" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobsAnalysisTimesRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q86="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobsAnalysisTimesRestResult" nillable="true" type="q86:ArrayOfCAJobAnalysisTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfCAJobAnalysisTime">
+        <xs:sequence>
+          <xs:element xmlns:q87="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" maxOccurs="unbounded" name="CAJobAnalysisTime" nillable="true" type="q87:CAJobAnalysisTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q88="http://www.agi.com/ConjunctionAssessment/1.0.0" name="ArrayOfCAJobAnalysisTime" nillable="true" type="q88:ArrayOfCAJobAnalysisTime" />
+      <xs:complexType name="CAJobAnalysisTime">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AnalysisStartISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AnalysisStopISO8601" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="JobId" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element xmlns:q89="http://www.agi.com/ConjunctionAssessment/1.0.0" name="CAJobAnalysisTime" nillable="true" type="q89:CAJobAnalysisTime" />
+      <xs:element name="GetJobConjunctionReportRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+            <xs:element minOccurs="0" name="includeEvents" type="xs:boolean" />
+            <xs:element xmlns:q90="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q90:CoordinateAxes" />
+            <xs:element xmlns:q91="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q91:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="stopTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterNames" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterIDs" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionReportRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q92="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobConjunctionReportRestResult" nillable="true" type="q92:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportSummaryRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="endTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q93="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q93:ConjunctionJobType" />
+            <xs:element minOccurs="0" name="filterIDs" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="filterNames" nillable="true" type="xs:string" />
+            <xs:element xmlns:q94="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q94:CoordinateAxes" />
+            <xs:element xmlns:q95="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q95:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="doSetEphemerisDetails" type="xs:boolean" />
+            <xs:element minOccurs="0" name="doGetOnlyReportableEvents" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportSummaryRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q96="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetUserReportSummaryRestResult" nillable="true" type="q96:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportDetailRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionId" type="xs:long" />
+            <xs:element xmlns:q97="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q97:CoordinateAxes" />
+            <xs:element xmlns:q98="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q98:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="secondaryHardBodyRadii" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportDetailRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q99="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetUserReportDetailRestResult" nillable="true" type="q99:Conjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageConjunctionsBySpaceObjectRest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q100="http://www.agi.com/ssa/1.0" minOccurs="0" name="spaceObjectURI" nillable="true" type="q100:SpaceObjectURI" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q101="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q101:ConjunctionJobType" />
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="endTimeUtc" nillable="true" type="xs:string" />
+            <xs:element xmlns:q102="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q102:CoordinateAxes" />
+            <xs:element xmlns:q103="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q103:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageConjunctionsBySpaceObjectRestResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q104="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetSpacePageConjunctionsBySpaceObjectRestResult" nillable="true" type="q104:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEvent">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionEventId" type="xs:long" />
+            <xs:element xmlns:q105="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q105:CoordinateAxes" />
+            <xs:element xmlns:q106="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q106:RelativeCoordinateAxes" />
+            <xs:element xmlns:q107="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="secondaryHardBodyRadii" nillable="true" type="q107:ArrayOfdouble" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEventResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q108="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobConjunctionEventResult" nillable="true" type="q108:ConjunctionEvent" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEventByJobConjunction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionId" type="xs:long" />
+            <xs:element xmlns:q109="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q109:CoordinateAxes" />
+            <xs:element xmlns:q110="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q110:RelativeCoordinateAxes" />
+            <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="secondaryHardBodyRadii" nillable="true" type="q111:ArrayOfdouble" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionEventByJobConjunctionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q112="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobConjunctionEventByJobConjunctionResult" nillable="true" type="q112:ArrayOfConjunctionEvent" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionReport">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="id" type="xs:long" />
+            <xs:element minOccurs="0" name="includeEvents" type="xs:boolean" />
+            <xs:element xmlns:q113="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q113:CoordinateAxes" />
+            <xs:element xmlns:q114="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q114:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="stopTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterNames" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="queryFilterIDs" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:double" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobConjunctionReportResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q115="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobConjunctionReportResult" nillable="true" type="q115:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportSummary">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="endTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q116="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q116:ConjunctionJobType" />
+            <xs:element minOccurs="0" name="filterIDs" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="filterNames" nillable="true" type="xs:string" />
+            <xs:element xmlns:q117="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q117:CoordinateAxes" />
+            <xs:element xmlns:q118="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q118:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:double" />
+            <xs:element minOccurs="0" name="doSetEphemerisDetails" type="xs:boolean" />
+            <xs:element minOccurs="0" name="doGetOnlyReportableEvents" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportSummaryResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q119="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetUserReportSummaryResult" nillable="true" type="q119:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportDetail">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="jobConjunctionId" type="xs:long" />
+            <xs:element xmlns:q120="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q120:CoordinateAxes" />
+            <xs:element xmlns:q121="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q121:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:double" />
+            <xs:element xmlns:q122="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="secondaryHardBodyRadii" nillable="true" type="q122:ArrayOfdouble" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetUserReportDetailResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q123="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetUserReportDetailResult" nillable="true" type="q123:Conjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageConjunctionsBySpaceObject">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q124="http://www.agi.com/ssa/1.0" minOccurs="0" name="spaceObjectURI" nillable="true" type="q124:SpaceObjectURI" />
+            <xs:element minOccurs="0" name="thresholdSecond" type="xs:int" />
+            <xs:element xmlns:q125="http://www.agi.com/ssa/1.0/conjunction" minOccurs="0" name="jobType" type="q125:ConjunctionJobType" />
+            <xs:element minOccurs="0" name="startTimeUtc" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="endTimeUtc" nillable="true" type="xs:string" />
+            <xs:element xmlns:q126="http://www.agi.com/ssa/1.0" minOccurs="0" name="inertialAxes" type="q126:CoordinateAxes" />
+            <xs:element xmlns:q127="http://www.agi.com/ssa/1.0" minOccurs="0" name="relativeAxes" type="q127:RelativeCoordinateAxes" />
+            <xs:element minOccurs="0" name="altitudeReferenceRadius" nillable="true" type="xs:double" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetSpacePageConjunctionsBySpaceObjectResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q128="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetSpacePageConjunctionsBySpaceObjectResult" nillable="true" type="q128:ArrayOfConjunction" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobsAnalysisTimes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q129="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ids" nillable="true" type="q129:ArrayOflong" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetJobsAnalysisTimesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q130="http://www.agi.com/ConjunctionAssessment/1.0.0" minOccurs="0" name="GetJobsAnalysisTimesResult" nillable="true" type="q130:ArrayOfCAJobAnalysisTime" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://www.agi.com/aws/1.0" elementFormDefault="qualified" targetNamespace="http://www.agi.com/aws/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ExceptionMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Exceptions" nillable="true" type="tns:Exceptions" />
+          <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ExceptionMessage" nillable="true" type="tns:ExceptionMessage" />
+      <xs:complexType name="Exceptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Exception" nillable="true" type="tns:ExceptionInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Exceptions" nillable="true" type="tns:Exceptions" />
+      <xs:complexType name="ExceptionInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ExceptionCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExceptionText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Locator" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StackTrace" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ExceptionInfo" nillable="true" type="tns:ExceptionInfo" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://www.agi.com/ssa/1.0/conjunction" elementFormDefault="qualified" targetNamespace="http://www.agi.com/ssa/1.0/conjunction" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:simpleType name="ConjunctionJobType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="flightSafetyAnalysis">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="proximityOperationsDetection">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ConjunctionJobType" nillable="true" type="tns:ConjunctionJobType" />
+      <xs:simpleType name="ProcessingRole">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="none" />
+          <xs:enumeration value="primary" />
+          <xs:enumeration value="secondary" />
+          <xs:enumeration value="both" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ProcessingRole" nillable="true" type="tns:ProcessingRole" />
+      <xs:simpleType name="ConjunctionEventType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="minimumRange">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="minimumEllipsoidSeparation">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="entryTime">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="exitTime">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ConjunctionEventType" nillable="true" type="tns:ConjunctionEventType" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://www.agi.com/ssa/1.0/ephemeris" elementFormDefault="qualified" targetNamespace="http://www.agi.com/ssa/1.0/ephemeris" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.agi.com/ssa/1.0" />
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:complexType name="ArrayOfEphemeridesSource">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="EphemeridesSource" nillable="true" type="tns:EphemeridesSource" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfEphemeridesSource" nillable="true" type="tns:ArrayOfEphemeridesSource" />
+      <xs:complexType name="EphemeridesSource">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://www.agi.com/ssa/1.0" base="q1:ProcessingFilterData">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="EphemeridesSource" nillable="true" type="tns:EphemeridesSource" />
+      <xs:complexType name="ActivityEphemeridesSource">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:EphemeridesSource">
+            <xs:sequence>
+              <xs:element name="Type" type="tns:ActivityEphemeridesSourceType" />
+              <xs:element name="Identifier" type="xs:long" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="ActivityEphemeridesSource" nillable="true" type="tns:ActivityEphemeridesSource" />
+      <xs:simpleType name="ActivityEphemeridesSourceType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EX" />
+          <xs:enumeration value="OD" />
+          <xs:enumeration value="MP" />
+          <xs:enumeration value="VCM" />
+          <xs:enumeration value="TLE" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ActivityEphemeridesSourceType" nillable="true" type="tns:ActivityEphemeridesSourceType" />
+      <xs:complexType name="CatalogEphemeridesSource">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:EphemeridesSource">
+            <xs:sequence>
+              <xs:element name="Effectivity" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CatalogEphemeridesSource" nillable="true" type="tns:CatalogEphemeridesSource" />
+      <xs:complexType name="SpaceObjectURIsEphemeridesSource">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:EphemeridesSource">
+            <xs:sequence>
+              <xs:element xmlns:q2="http://www.agi.com/ssa/1.0" name="SpaceObjectURIs" nillable="true" type="q2:ArrayOfSpaceObjectURI" />
+              <xs:element name="Effectivity" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="SpaceObjectURIsEphemeridesSource" nillable="true" type="tns:SpaceObjectURIsEphemeridesSource" />
+      <xs:complexType name="SpaceObjectGroupNamesEphemeridesSource">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:EphemeridesSource">
+            <xs:sequence>
+              <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="Names" nillable="true" type="q3:ArrayOfstring" />
+              <xs:element name="Effectivity" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="SpaceObjectGroupNamesEphemeridesSource" nillable="true" type="tns:SpaceObjectGroupNamesEphemeridesSource" />
+      <xs:complexType name="Covariance">
+        <xs:sequence>
+          <xs:element name="posXPosX" type="xs:double" />
+          <xs:element name="posYPosX" type="xs:double" />
+          <xs:element name="posYPosY" type="xs:double" />
+          <xs:element name="posZPosX" type="xs:double" />
+          <xs:element name="posZPosY" type="xs:double" />
+          <xs:element name="posZPosZ" type="xs:double" />
+          <xs:element minOccurs="0" name="velocityTerms" nillable="true" type="tns:VelocityTerms" />
+          <xs:element minOccurs="0" name="ballisticTerms" nillable="true" type="tns:BallisticTerms" />
+          <xs:element minOccurs="0" name="cramTerms" nillable="true" type="tns:CramTerms" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Covariance" nillable="true" type="tns:Covariance" />
+      <xs:complexType name="VelocityTerms">
+        <xs:sequence>
+          <xs:element name="velXPosX" type="xs:double" />
+          <xs:element name="velXPosY" type="xs:double" />
+          <xs:element name="velXPosZ" type="xs:double" />
+          <xs:element name="velXVelX" type="xs:double" />
+          <xs:element name="velYPosX" type="xs:double" />
+          <xs:element name="velYPosY" type="xs:double" />
+          <xs:element name="velYPosZ" type="xs:double" />
+          <xs:element name="velYVelX" type="xs:double" />
+          <xs:element name="velYVelY" type="xs:double" />
+          <xs:element name="velZPosX" type="xs:double" />
+          <xs:element name="velZPosY" type="xs:double" />
+          <xs:element name="velZPosZ" type="xs:double" />
+          <xs:element name="velZVelX" type="xs:double" />
+          <xs:element name="velZVelY" type="xs:double" />
+          <xs:element name="velZVelZ" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="VelocityTerms" nillable="true" type="tns:VelocityTerms" />
+      <xs:complexType name="BallisticTerms">
+        <xs:sequence>
+          <xs:element name="posX" type="xs:double" />
+          <xs:element name="posY" type="xs:double" />
+          <xs:element name="posZ" type="xs:double" />
+          <xs:element name="velX" type="xs:double" />
+          <xs:element name="velY" type="xs:double" />
+          <xs:element name="velZ" type="xs:double" />
+          <xs:element name="ballisticBallistic" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BallisticTerms" nillable="true" type="tns:BallisticTerms" />
+      <xs:complexType name="CramTerms">
+        <xs:sequence>
+          <xs:element name="posX" type="xs:double" />
+          <xs:element name="posY" type="xs:double" />
+          <xs:element name="posZ" type="xs:double" />
+          <xs:element name="velX" type="xs:double" />
+          <xs:element name="velY" type="xs:double" />
+          <xs:element name="velZ" type="xs:double" />
+          <xs:element name="cramCram" type="xs:double" />
+          <xs:element minOccurs="0" name="cramBallistic" nillable="true" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CramTerms" nillable="true" type="tns:CramTerms" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://www.agi.com/ssa/1.0" elementFormDefault="qualified" targetNamespace="http://www.agi.com/ssa/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:complexType name="ProcessingFilterData">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="ProcessingFilterData" nillable="true" type="tns:ProcessingFilterData" />
+      <xs:complexType name="ArrayOfSpaceObjectURI">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="SpaceObjectURI" nillable="true" type="tns:SpaceObjectURI" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfSpaceObjectURI" nillable="true" type="tns:ArrayOfSpaceObjectURI" />
+      <xs:complexType name="SpaceObjectURI">
+        <xs:sequence>
+          <xs:element name="network" nillable="true" type="xs:string" />
+          <xs:element name="objectID" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SpaceObjectURI" nillable="true" type="tns:SpaceObjectURI" />
+      <xs:simpleType name="ActivityType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="OA" />
+          <xs:enumeration value="UCT" />
+          <xs:enumeration value="OD" />
+          <xs:enumeration value="ManualDataUpdate" />
+          <xs:enumeration value="MP" />
+          <xs:enumeration value="CA">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="LoadObs">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="EX">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="VCM">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="TLE">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MEX">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MOAD">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="MODD">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RE">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="DEO">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CSO">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="RDV">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="PO">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="CAPXO">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="GBA">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ActivityType" nillable="true" type="tns:ActivityType" />
+      <xs:simpleType name="CoordinateAxes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="unknown">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">-1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="j2000" />
+          <xs:enumeration value="trueOfDate" />
+          <xs:enumeration value="icrf" />
+          <xs:enumeration value="fixed" />
+          <xs:enumeration value="temeOfDate" />
+          <xs:enumeration value="pseudoFixed">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CoordinateAxes" nillable="true" type="tns:CoordinateAxes" />
+      <xs:simpleType name="RelativeCoordinateAxes">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="nativeXYZ" />
+          <xs:enumeration value="radialInTrackCrossTrack" />
+          <xs:enumeration value="normalTangentialConormal" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="RelativeCoordinateAxes" nillable="true" type="tns:RelativeCoordinateAxes" />
+      <xs:complexType name="Cartesian3">
+        <xs:sequence>
+          <xs:element name="x" type="xs:double" />
+          <xs:element name="y" type="xs:double" />
+          <xs:element name="z" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Cartesian3" nillable="true" type="tns:Cartesian3" />
+      <xs:complexType name="ArrayOfCollisionProbability">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CollisionProbability" nillable="true" type="tns:CollisionProbability" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCollisionProbability" nillable="true" type="tns:ArrayOfCollisionProbability" />
+      <xs:complexType name="CollisionProbability">
+        <xs:sequence>
+          <xs:element name="hardBodyRadius" type="xs:double" />
+          <xs:element name="trueProbability" nillable="true" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CollisionProbability" nillable="true" type="tns:CollisionProbability" />
+      <xs:simpleType name="PayloadType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Active">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Inactive">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="PayloadType" nillable="true" type="tns:PayloadType" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+      <xs:complexType name="ArrayOflong">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
+      <xs:complexType name="ArrayOfdouble">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="double" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGI.SSA.CA.ServiceModel.ConjunctionAssessment" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGI.SSA.CA.ServiceModel.ConjunctionAssessment" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.agi.com/ConjunctionAssessment/1.0.0" />
+      <xs:complexType name="JobCount">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://www.agi.com/ConjunctionAssessment/1.0.0" base="q1:Job">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="ConjunctionCount" type="xs:long" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="JobCount" nillable="true" type="tns:JobCount" />
+      <xs:complexType name="AddConjunctionDescriptionRequest">
+        <xs:sequence>
+          <xs:element name="JobConjunctionID" type="xs:long" />
+          <xs:element name="Description" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AddConjunctionDescriptionRequest" nillable="true" type="tns:AddConjunctionDescriptionRequest" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.DomainModel.Time" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:complexType name="SSADateTime">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element ref="xs:schema" />
+          <xs:any />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SSADateTime" nillable="true" type="tns:SSADateTime" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.ServiceModel" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGI.SSA.Shared.ServiceModel" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfQueryFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="QueryFilter" nillable="true" type="tns:QueryFilter" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfQueryFilter" nillable="true" type="tns:ArrayOfQueryFilter" />
+      <xs:complexType name="QueryFilter">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="QueryFilterID" type="xs:long" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Type" type="xs:long" />
+          <xs:element minOccurs="0" name="FilterXML" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="counts" nillable="true" type="tns:QueryFilterMethodCount" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="QueryFilter" nillable="true" type="tns:QueryFilter" />
+      <xs:complexType name="QueryFilterMethodCount">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="method" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="count" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="QueryFilterMethodCount" nillable="true" type="tns:QueryFilterMethodCount" />
+      <xs:complexType name="JobSequence">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="JobID" type="xs:long" />
+          <xs:element minOccurs="0" name="NextJobID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PreviousJobID" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="JobSequence" nillable="true" type="tns:JobSequence" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGI.Foundation" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGI.Foundation" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:complexType name="MotionOfCartesianGflVuegT">
+        <xs:annotation>
+          <xs:appinfo>
+            <GenericType Name="MotionOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/AGI.Foundation" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+              <GenericParameter Name="Cartesian" Namespace="http://schemas.datacontract.org/2004/07/AGI.Foundation.Coordinates" />
+            </GenericType>
+            <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="MotionOfCartesianGflVuegT" nillable="true" type="tns:MotionOfCartesianGflVuegT" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AGI.Foundation.Coordinates" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AGI.Foundation.Coordinates" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xs:complexType name="Matrix3By3">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence />
+      </xs:complexType>
+      <xs:element name="Matrix3By3" nillable="true" type="tns:Matrix3By3" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/Message" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/Message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="StreamBody">
+        <xs:restriction base="xs:base64Binary" />
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ICAServiceREST_CancelJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelJob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_CancelJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_CancelJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://www.agi.com/aws/1.0" name="detail" element="q1:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatus" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetStatus_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://www.agi.com/aws/1.0" name="detail" element="q2:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddAllOnAllJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAllOnAllJob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddAllOnAllJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAllOnAllJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddAllOnAllJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://www.agi.com/aws/1.0" name="detail" element="q3:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddManyToManyJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddManyToManyJob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddManyToManyJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddManyToManyJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddManyToManyJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://www.agi.com/aws/1.0" name="detail" element="q4:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobWithConjunctionCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobWithConjunctionCount" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobWithConjunctionCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobWithConjunctionCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobWithConjunctionCount_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://www.agi.com/aws/1.0" name="detail" element="q5:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetCAJobSpaceObjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCAJobSpaceObjects" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetCAJobSpaceObjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCAJobSpaceObjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetCAJobSpaceObjects_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://www.agi.com/aws/1.0" name="detail" element="q6:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReportSpaceObjectEphemerisBlob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReportSpaceObjectEphemerisBlobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://www.agi.com/aws/1.0" name="detail" element="q7:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetQueryFilters_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetQueryFilters" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetQueryFilters_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetQueryFiltersResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetQueryFilters_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://www.agi.com/aws/1.0" name="detail" element="q8:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageDetailByJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageDetailByJob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageDetailByJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageDetailByJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageDetailByJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://www.agi.com/aws/1.0" name="detail" element="q9:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportHistory" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportHistory_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://www.agi.com/aws/1.0" name="detail" element="q10:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetEphemerisDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEphemerisDetails" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetEphemerisDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEphemerisDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetEphemerisDetails_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://www.agi.com/aws/1.0" name="detail" element="q11:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetVisualization_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVisualization" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetVisualization_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVisualizationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetVisualization_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://www.agi.com/aws/1.0" name="detail" element="q12:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobSequence_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobSequence" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobSequence_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobSequenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobSequence_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://www.agi.com/aws/1.0" name="detail" element="q13:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddConjunctionDescription_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddConjunctionDescription" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddConjunctionDescription_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddConjunctionDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_AddConjunctionDescription_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://www.agi.com/aws/1.0" name="detail" element="q14:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunction_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteConjunction" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteConjunctionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunction_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://www.agi.com/aws/1.0" name="detail" element="q15:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunctionJob_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteConjunctionJob" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunctionJob_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteConjunctionJobResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_DeleteConjunctionJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://www.agi.com/aws/1.0" name="detail" element="q16:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionEventRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEventRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionEventRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEventRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionEventRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://www.agi.com/aws/1.0" name="detail" element="q17:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobsAnalysisTimesRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobsAnalysisTimesRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobsAnalysisTimesRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobsAnalysisTimesRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobsAnalysisTimesRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://www.agi.com/aws/1.0" name="detail" element="q18:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReportRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReportRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetJobConjunctionReportRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://www.agi.com/aws/1.0" name="detail" element="q19:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportSummaryRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportSummaryRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportSummaryRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportSummaryRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportSummaryRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://www.agi.com/aws/1.0" name="detail" element="q20:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportDetailRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportDetailRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportDetailRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportDetailRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetUserReportDetailRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://www.agi.com/aws/1.0" name="detail" element="q21:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageConjunctionsBySpaceObjectRest" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageConjunctionsBySpaceObjectRestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://www.agi.com/aws/1.0" name="detail" element="q22:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_CancelJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://www.agi.com/aws/1.0" name="detail" element="q23:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetStatus_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://www.agi.com/aws/1.0" name="detail" element="q24:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_AddAllOnAllJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://www.agi.com/aws/1.0" name="detail" element="q25:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_AddManyToManyJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://www.agi.com/aws/1.0" name="detail" element="q26:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobWithConjunctionCount_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://www.agi.com/aws/1.0" name="detail" element="q27:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetCAJobSpaceObjects_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://www.agi.com/aws/1.0" name="detail" element="q28:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionReportSpaceObjectEphemerisBlob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://www.agi.com/aws/1.0" name="detail" element="q29:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetQueryFilters_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://www.agi.com/aws/1.0" name="detail" element="q30:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetSpacePageDetailByJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q31="http://www.agi.com/aws/1.0" name="detail" element="q31:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportHistory_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q32="http://www.agi.com/aws/1.0" name="detail" element="q32:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetEphemerisDetails_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q33="http://www.agi.com/aws/1.0" name="detail" element="q33:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetVisualization_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q34="http://www.agi.com/aws/1.0" name="detail" element="q34:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobSequence_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q35="http://www.agi.com/aws/1.0" name="detail" element="q35:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_AddConjunctionDescription_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q36="http://www.agi.com/aws/1.0" name="detail" element="q36:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_DeleteConjunction_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q37="http://www.agi.com/aws/1.0" name="detail" element="q37:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_DeleteConjunctionJob_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q38="http://www.agi.com/aws/1.0" name="detail" element="q38:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEvent_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEvent" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEvent_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEvent_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q39="http://www.agi.com/aws/1.0" name="detail" element="q39:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEventByJobConjunction" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionEventByJobConjunctionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q40="http://www.agi.com/aws/1.0" name="detail" element="q40:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionReport_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReport" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionReport_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobConjunctionReportResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobConjunctionReport_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q41="http://www.agi.com/aws/1.0" name="detail" element="q41:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportSummary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportSummary" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportSummary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportSummaryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportSummary_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q42="http://www.agi.com/aws/1.0" name="detail" element="q42:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportDetail" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserReportDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetUserReportDetail_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q43="http://www.agi.com/aws/1.0" name="detail" element="q43:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageConjunctionsBySpaceObject" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpacePageConjunctionsBySpaceObjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q44="http://www.agi.com/aws/1.0" name="detail" element="q44:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobsAnalysisTimes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobsAnalysisTimes" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobsAnalysisTimes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetJobsAnalysisTimesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICAServiceSOAP_GetJobsAnalysisTimes_ExceptionMessageFault_FaultMessage">
+    <wsdl:part xmlns:q45="http://www.agi.com/aws/1.0" name="detail" element="q45:ExceptionMessage" />
+  </wsdl:message>
+  <wsdl:portType name="ICAServiceREST">
+    <wsdl:operation name="CancelJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJob" message="tns:ICAServiceREST_CancelJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJobResponse" message="tns:ICAServiceREST_CancelJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_CancelJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatus" message="tns:ICAServiceREST_GetStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatusResponse" message="tns:ICAServiceREST_GetStatus_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatusExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetStatus_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAllOnAllJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJob" message="tns:ICAServiceREST_AddAllOnAllJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJobResponse" message="tns:ICAServiceREST_AddAllOnAllJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_AddAllOnAllJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddManyToManyJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJob" message="tns:ICAServiceREST_AddManyToManyJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJobResponse" message="tns:ICAServiceREST_AddManyToManyJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_AddManyToManyJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobWithConjunctionCount">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCount" message="tns:ICAServiceREST_GetJobWithConjunctionCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCountResponse" message="tns:ICAServiceREST_GetJobWithConjunctionCount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCountExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobWithConjunctionCount_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCAJobSpaceObjects">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjects" message="tns:ICAServiceREST_GetCAJobSpaceObjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjectsResponse" message="tns:ICAServiceREST_GetCAJobSpaceObjects_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjectsExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetCAJobSpaceObjects_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReportSpaceObjectEphemerisBlob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlob" message="tns:ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlobResponse" message="tns:ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryFilters">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFilters" message="tns:ICAServiceREST_GetQueryFilters_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFiltersResponse" message="tns:ICAServiceREST_GetQueryFilters_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFiltersExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetQueryFilters_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageDetailByJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJob" message="tns:ICAServiceREST_GetSpacePageDetailByJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJobResponse" message="tns:ICAServiceREST_GetSpacePageDetailByJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetSpacePageDetailByJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportHistory">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistory" message="tns:ICAServiceREST_GetUserReportHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistoryResponse" message="tns:ICAServiceREST_GetUserReportHistory_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistoryExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetUserReportHistory_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEphemerisDetails">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetails" message="tns:ICAServiceREST_GetEphemerisDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetailsResponse" message="tns:ICAServiceREST_GetEphemerisDetails_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetailsExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetEphemerisDetails_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVisualization">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualization" message="tns:ICAServiceREST_GetVisualization_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualizationResponse" message="tns:ICAServiceREST_GetVisualization_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualizationExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetVisualization_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobSequence">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequence" message="tns:ICAServiceREST_GetJobSequence_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequenceResponse" message="tns:ICAServiceREST_GetJobSequence_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequenceExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobSequence_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddConjunctionDescription">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescription" message="tns:ICAServiceREST_AddConjunctionDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescriptionResponse" message="tns:ICAServiceREST_AddConjunctionDescription_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescriptionExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_AddConjunctionDescription_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunction">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunction" message="tns:ICAServiceREST_DeleteConjunction_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionResponse" message="tns:ICAServiceREST_DeleteConjunction_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_DeleteConjunction_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunctionJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJob" message="tns:ICAServiceREST_DeleteConjunctionJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJobResponse" message="tns:ICAServiceREST_DeleteConjunctionJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_DeleteConjunctionJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionEventRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionEventRest" message="tns:ICAServiceREST_GetJobConjunctionEventRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionEventRestResponse" message="tns:ICAServiceREST_GetJobConjunctionEventRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionEventRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobConjunctionEventRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobsAnalysisTimesRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobsAnalysisTimesRest" message="tns:ICAServiceREST_GetJobsAnalysisTimesRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobsAnalysisTimesRestResponse" message="tns:ICAServiceREST_GetJobsAnalysisTimesRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobsAnalysisTimesRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobsAnalysisTimesRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReportRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionReportRest" message="tns:ICAServiceREST_GetJobConjunctionReportRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionReportRestResponse" message="tns:ICAServiceREST_GetJobConjunctionReportRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetJobConjunctionReportRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetJobConjunctionReportRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportSummaryRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportSummaryRest" message="tns:ICAServiceREST_GetUserReportSummaryRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportSummaryRestResponse" message="tns:ICAServiceREST_GetUserReportSummaryRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportSummaryRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetUserReportSummaryRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportDetailRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportDetailRest" message="tns:ICAServiceREST_GetUserReportDetailRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportDetailRestResponse" message="tns:ICAServiceREST_GetUserReportDetailRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetUserReportDetailRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetUserReportDetailRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageConjunctionsBySpaceObjectRest">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetSpacePageConjunctionsBySpaceObjectRest" message="tns:ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetSpacePageConjunctionsBySpaceObjectRestResponse" message="tns:ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceREST/GetSpacePageConjunctionsBySpaceObjectRestExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceREST_GetSpacePageConjunctionsBySpaceObjectRest_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ICAServiceSOAP">
+    <wsdl:operation name="CancelJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJob" message="tns:ICAServiceREST_CancelJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJobResponse" message="tns:ICAServiceREST_CancelJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_CancelJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatus" message="tns:ICAServiceREST_GetStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatusResponse" message="tns:ICAServiceREST_GetStatus_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatusExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetStatus_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAllOnAllJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJob" message="tns:ICAServiceREST_AddAllOnAllJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJobResponse" message="tns:ICAServiceREST_AddAllOnAllJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_AddAllOnAllJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddManyToManyJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJob" message="tns:ICAServiceREST_AddManyToManyJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJobResponse" message="tns:ICAServiceREST_AddManyToManyJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_AddManyToManyJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobWithConjunctionCount">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCount" message="tns:ICAServiceREST_GetJobWithConjunctionCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCountResponse" message="tns:ICAServiceREST_GetJobWithConjunctionCount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCountExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobWithConjunctionCount_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCAJobSpaceObjects">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjects" message="tns:ICAServiceREST_GetCAJobSpaceObjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjectsResponse" message="tns:ICAServiceREST_GetCAJobSpaceObjects_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjectsExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetCAJobSpaceObjects_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReportSpaceObjectEphemerisBlob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlob" message="tns:ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlobResponse" message="tns:ICAServiceREST_GetJobConjunctionReportSpaceObjectEphemerisBlob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobConjunctionReportSpaceObjectEphemerisBlob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryFilters">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFilters" message="tns:ICAServiceREST_GetQueryFilters_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFiltersResponse" message="tns:ICAServiceREST_GetQueryFilters_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFiltersExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetQueryFilters_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageDetailByJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJob" message="tns:ICAServiceREST_GetSpacePageDetailByJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJobResponse" message="tns:ICAServiceREST_GetSpacePageDetailByJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetSpacePageDetailByJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportHistory">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistory" message="tns:ICAServiceREST_GetUserReportHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistoryResponse" message="tns:ICAServiceREST_GetUserReportHistory_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistoryExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetUserReportHistory_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEphemerisDetails">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetails" message="tns:ICAServiceREST_GetEphemerisDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetailsResponse" message="tns:ICAServiceREST_GetEphemerisDetails_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetailsExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetEphemerisDetails_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVisualization">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualization" message="tns:ICAServiceREST_GetVisualization_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualizationResponse" message="tns:ICAServiceREST_GetVisualization_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualizationExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetVisualization_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobSequence">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequence" message="tns:ICAServiceREST_GetJobSequence_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequenceResponse" message="tns:ICAServiceREST_GetJobSequence_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequenceExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobSequence_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddConjunctionDescription">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescription" message="tns:ICAServiceREST_AddConjunctionDescription_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescriptionResponse" message="tns:ICAServiceREST_AddConjunctionDescription_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescriptionExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_AddConjunctionDescription_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunction">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunction" message="tns:ICAServiceREST_DeleteConjunction_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionResponse" message="tns:ICAServiceREST_DeleteConjunction_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_DeleteConjunction_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunctionJob">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJob" message="tns:ICAServiceREST_DeleteConjunctionJob_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJobResponse" message="tns:ICAServiceREST_DeleteConjunctionJob_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJobExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_DeleteConjunctionJob_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionEvent">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEvent" message="tns:ICAServiceSOAP_GetJobConjunctionEvent_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventResponse" message="tns:ICAServiceSOAP_GetJobConjunctionEvent_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobConjunctionEvent_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionEventByJobConjunction">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventByJobConjunction" message="tns:ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventByJobConjunctionResponse" message="tns:ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventByJobConjunctionExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobConjunctionEventByJobConjunction_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReport">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionReport" message="tns:ICAServiceSOAP_GetJobConjunctionReport_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionReportResponse" message="tns:ICAServiceSOAP_GetJobConjunctionReport_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionReportExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobConjunctionReport_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportSummary">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportSummary" message="tns:ICAServiceSOAP_GetUserReportSummary_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportSummaryResponse" message="tns:ICAServiceSOAP_GetUserReportSummary_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportSummaryExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetUserReportSummary_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportDetail">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportDetail" message="tns:ICAServiceSOAP_GetUserReportDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportDetailResponse" message="tns:ICAServiceSOAP_GetUserReportDetail_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportDetailExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetUserReportDetail_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageConjunctionsBySpaceObject">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetSpacePageConjunctionsBySpaceObject" message="tns:ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetSpacePageConjunctionsBySpaceObjectResponse" message="tns:ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetSpacePageConjunctionsBySpaceObjectExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetSpacePageConjunctionsBySpaceObject_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobsAnalysisTimes">
+      <wsdl:input wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobsAnalysisTimes" message="tns:ICAServiceSOAP_GetJobsAnalysisTimes_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobsAnalysisTimesResponse" message="tns:ICAServiceSOAP_GetJobsAnalysisTimes_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobsAnalysisTimesExceptionMessageFault" name="ExceptionMessageFault" message="tns:ICAServiceSOAP_GetJobsAnalysisTimes_ExceptionMessageFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CAEndpointSOAP" type="tns:ICAServiceSOAP">
+    <wsp:PolicyReference URI="#CAEndpointSOAP_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CancelJob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/CancelJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatus">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAProcessorService/GetStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddAllOnAllJob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddAllOnAllJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddManyToManyJob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddManyToManyJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobWithConjunctionCount">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobWithConjunctionCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCAJobSpaceObjects">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetCAJobSpaceObjects" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReportSpaceObjectEphemerisBlob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobConjunctionReportSpaceObjectEphemerisBlob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryFilters">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetQueryFilters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageDetailByJob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetSpacePageDetailByJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportHistory">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetUserReportHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetEphemerisDetails">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetEphemerisDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetVisualization">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetVisualization" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobSequence">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/GetJobSequence" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddConjunctionDescription">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/AddConjunctionDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunction">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteConjunctionJob">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAService/DeleteConjunctionJob" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionEvent">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionEventByJobConjunction">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionEventByJobConjunction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobConjunctionReport">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobConjunctionReport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportSummary">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportSummary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserReportDetail">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetUserReportDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpacePageConjunctionsBySpaceObject">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetSpacePageConjunctionsBySpaceObject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobsAnalysisTimes">
+      <soap12:operation soapAction="http://www.agi.com/ConjunctionAssessment/1.0.0/ICAServiceSOAP/GetJobsAnalysisTimes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionMessageFault">
+        <soap12:fault use="literal" name="ExceptionMessageFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CAService">
+    <wsdl:port name="CAEndpointSOAP" binding="tns:CAEndpointSOAP">
+      <soap12:address location="http://comspocws/CA/ConjunctionAssessment/CAService.svc/SOAP" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://comspocws/CA/ConjunctionAssessment/CAService.svc/SOAP</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

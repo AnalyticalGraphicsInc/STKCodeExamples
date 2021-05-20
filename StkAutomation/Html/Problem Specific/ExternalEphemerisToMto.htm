@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<title>External Ephemeris file to STK/MTO Tracks </title>
+
+		<script language="VBSCRIPT">
+
+		    Dim stk
+		    Dim uiApp
+		    Dim result
+		    Set uiApp = window.external
+		    Set stk = uiApp.personality
+		    Dim fso
+			Set fso = uiApp.CreateObject("Scripting.FileSystemObject")
+
+			sendCommand("ConControl / VerboseOff")
+
+			Function sendCommand(command)
+				Dim result
+				on error resume next
+				Set result = stk.ExecuteCommand(command)
+				sendCommand = result(0)
+			End Function
+
+			Function go()
+				dir.value = uiApp.DirectoryPickerDialog("My Dialog Title", ".")
+
+				// get dir name to use as MTO name
+				Dim folder
+				Set folder = fso.GetFolder(dir.value)
+				mtoName = folder.Name
+				mtoName = Replace(mtoName, " ", "-")
+
+				// create the MTO
+				res = sendCommand("DoesObjExist / */MTO/" + mtoName)
+				If res = "1" Then
+					stk.ExecuteCommand("Unload / */MTO/" + mtoName)
+				End If
+				stk.ExecuteCommand("New / */MTO " + mtoName)
+				myMTOpath = "*/MTO/" & mtoName
+
+				// loop though files in directory
+				stk.ExecuteCommand("BatchGraphics * On")
+				Set myFiles = folder.Files
+				tracknumber = 1
+				For Each objFile in myFiles
+
+					If Right(objFile.Name,2) = ".e" Then
+						// add .e files to MTO
+						myEpath = """" & dir.value & "\" & objFile.Name & """"
+						stk.ExecuteCommand("Track " & myMTOpath & " loadephemfile " & tracknumber & " " & myEpath)
+						stk.ExecuteCommand("Track " & myMTOpath & " Name " & tracknumber & " " & objFile.Name)
+						stk.ExecuteCommand("Track " & myMTOpath & " Interpolate " & tracknumber & " ON")
+						tracknumber = tracknumber + 1
+					End IF
+				Next
+				stk.ExecuteCommand("BatchGraphics * Off")
+
+				msgbox ("Complete")
+			End Function
+
+		</script>
+
+	</head>
+
+	<body bgcolor="White">
+
+	<h4>External Ephemeris file to STK/MTO Tracks</h4>
+
+	This utility will create an MTO and populate it with all the external ephemeris files in the specified directory.
+
+	</br></br>
+
+	Directory:
+	<input type="text" name="dir" value="" size="60" readonly disabled />
+	<input type="button" name="goButton" value="..." onClick=go() />
+
+	</body>
+
+</html>
