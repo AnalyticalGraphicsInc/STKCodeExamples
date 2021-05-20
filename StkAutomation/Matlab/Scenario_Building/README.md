@@ -4,7 +4,11 @@
 
 This script attaches to an open instance of STK12 and imports facilities with position data from an Excel spreadsheet. Units are assumed to be degrees and meters with a header row in the Excel file for ID, LAT, LON, ALT. There is an example facility spreadsheet in the ImportFacilities folder.
 
-ex. `ImportFacilities('GroundSites.xlsx')`
+Example:
+
+```matlab
+ImportFacilities('GroundSites.xlsx')
+```
 
 ### Dependencies
 
@@ -42,7 +46,6 @@ This script creates a sweeping/raster scan over a list of area targets. The scan
 
 When an Astrogator satellite maneuvers by default the manuever will adjust the attitude to align with the thrust direction, but it will not slew. This script allows the satellite to slew into and out of the maneuver. The user specifies the name of the satellite, the pointing during thrusting intervals, the pointing outside of thrusting intervals, and the slew length. These inputs are set on lines 8-24.
 
-
 ### Dependencies
 
 * Licenses: Free, Integration, Astrogator, Analysis Workbench
@@ -53,7 +56,7 @@ When an Astrogator satellite maneuvers by default the manuever will adjust the a
 
 ## [FigureEight.m](FigureEight.m)
 
-This script creates waypoints for any GreatArc propagated STK vehicle in the shape of a figure eight. The user specifies the name of the object, the major and minor axes of the figure eight, the center latitude and longitude, and a few other basic parameters on lines 10-19. 
+This script creates waypoints for any GreatArc propagated STK vehicle in the shape of a figure eight. The user specifies the name of the object, the major and minor axes of the figure eight, the center latitude and longitude, and a few other basic parameters on lines 10-19.
 
 ### Dependencies
 
@@ -65,7 +68,7 @@ This script creates waypoints for any GreatArc propagated STK vehicle in the sha
 
 ## [FigureEightCircle.m](FigureEightCircle.m)
 
-This script creates an ephemeris file for any GreatArc propagated STK vehicle in the shape of a figure eight constructed of two circles. The user specifies the name of the object, the radius of the two circles, the center latitude and longitude, and a few other basic parameters on lines 10-19. 
+This script creates an ephemeris file for any GreatArc propagated STK vehicle in the shape of a figure eight constructed of two circles. The user specifies the name of the object, the radius of the two circles, the center latitude and longitude, and a few other basic parameters on lines 10-19.
 
 ### Dependencies
 
