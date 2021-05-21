@@ -61,3 +61,15 @@ This utility will allow you to select an object and a vector and will create a n
 * Scenario: N/A
 
 ---
+
+## [CameraPathZoom.htm](CameraPathZoom.htm)
+
+This utility will allow you to create a smooth camera path to zoom from one location to another.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
