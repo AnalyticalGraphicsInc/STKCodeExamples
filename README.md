@@ -70,20 +70,20 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 <div align="left">
 <p style="white-space: nowrap;">
 <a href="https://www.facebook.com/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/ittkxedjpm/jpeg/facebook.png?color=000000" width="80" height="80" alt="Facebook">
+<img src="https://agi.widen.net/content/ittkxedjpm/png/facebook.png" width="80" height="80" alt="Facebook">
 </a>
 <a href="https://www.youtube.com/user/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/i5vb9swh4e/jpeg/Youtube.png?color=000000" width="80" height="80" alt="Youtube">
+<img src="https://agi.widen.net/content/i5vb9swh4e/png/Youtube.png" width="80" height="80" alt="Youtube">
 </a>
 <a href="https://www.linkedin.com/company/agi?trk=company_logo">
-<img src="https://agi.widen.net/content/foz3n4wgkh/jpeg/linkedin.png?color=000000" width="80" height="80" alt="LinkedIn">
+<img src="https://agi.widen.net/content/foz3n4wgkh/png/linkedin.png" width="80" height="80" alt="LinkedIn">
 </a>
 <a href="https://twitter.com/agitweets">
-<img src="https://agi.widen.net/content/xbt8vag5rw/jpeg/twitter.png?color=000000" width="80" height="80" alt="Twitter">
+<img src="https://agi.widen.net/content/xbt8vag5rw/png/twitter.png" width="80" height="80" alt="Twitter">
 </a>
 
 <a href="https://www.agi.com">
-<img src="https://agi.widen.net/content/nzy6ztl5jb/jpeg/AGI-Logo_2C-K.png?color=000000" width="148" height="80" alt="AGI" style="float:right">
+<img src="https://agi.widen.net/content/nzy6ztl5jb/png/AGI-Logo_2C-K.png" width="148" height="80" alt="AGI" style="float:right">
 </a>
 </p>
 </div>
