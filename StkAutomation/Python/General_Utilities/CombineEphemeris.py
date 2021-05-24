@@ -22,7 +22,7 @@ import comtypes
 from comtypes.client import CreateObject
 from comtypes.gen import STKObjects
 from comtypes.gen import AgSTKVgtLib
-app = CreateObject('STK11.Application')
+app = CreateObject('STK12.Application')
 app.Visible = True
 app.UserControl= True
 root = app.Personality2

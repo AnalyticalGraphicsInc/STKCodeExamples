@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 def ImportFacilities(STKVersion, filepath):
     # ImportFacilities attaches to an open instance of STK and imports position data
     # from an Excel spreadsheet. Inputs include STK whole number version as an

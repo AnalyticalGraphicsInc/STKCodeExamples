@@ -53,3 +53,18 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 * Scenario: N/A
 
 ---
+
+## [EOIRInTheLoop](EOIRInTheLoop)
+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
+
+Notebooks and libraries to automate STK, take EOIR images, process images, generate measurements, update pointing direction and optionally run ODTK in the loop. Additionally includes a tool to help convert images into reflectance, emissivitiy and temperature maps to use with EOIR. 
+
+### Dependencies
+
+* Licenses: Free, Integration, Pro, EOIR
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy, pandas, cv2, shutil, imageio, matplotlib, sklearn, skimage, scipy, astropy, PIL
+
+---
