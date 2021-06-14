@@ -130,3 +130,17 @@ Required format for ingest to TETK: ddd:HH:mm:ss.sss
 * Scenario: N/A
 
 ---
+
+## [AttitudeUsingAScheduledVector.m](AttitudeUsingAScheduledVector.m)
+
+Sets up a scheduled vector in STK and builds all of the conditions.  The satellite will slew the Body X to the pointingAng defined below when the lat rate is positive and the satellite is above the aboveDeg parameter set below.
+
+**Note**: Works only in STK 12.0+
+
+### Dependencies
+
+* Licenses: Free, Integration, Analysis Workbench
+* Other Scripts: N/A
+* Scenario: N/A
+
+---

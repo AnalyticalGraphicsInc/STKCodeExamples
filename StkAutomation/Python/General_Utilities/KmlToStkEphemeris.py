@@ -9,7 +9,6 @@ ephemeris files to be used by STK.
 Dependencies:
  - Beautiful Soup 4
  - lxml
- 
 """
 
 # Imports

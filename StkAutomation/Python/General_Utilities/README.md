@@ -73,17 +73,30 @@ A simple function to assist with the importing of Facility objects from informat
 * Scenario: N/A
 * Third-Party Libraries: Pandas
 
---- 
+---
 
 ## [CombineEphemeris.py](CombineEphemeris.py)
 
-This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It takes as arguments a directory containing the .e files to join and the name and directory of the new, conjoined ephemeris. The script will create an STK scenario. 
+This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It takes as arguments a directory containing the .e files to join and the name and directory of the new, conjoined ephemeris. The script will create an STK scenario.
 
 ### Dependencies
 
 * Licenses: Free, Integration
 * Other Scripts: N/A
 * Scenario: N/A
-* Third-Party Libraries: Pandas 
+* Third-Party Libraries: Pandas
+
+---
+
+## [KmlToStkEphemeris.py](KmlToStkEphemeris.py)
+
+This utility will parse a KML file (.kml) from ForeFlight, FlightAware and possibly other flight log software and output an STK ephemeris file (.e). This file can be loaded into an STK scenario by inserting an aircraft object, changing the propagator to "StkExternal" and specifying the filepath to the ephemeris file.
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: Beautiful Soup 4
 
 ---
