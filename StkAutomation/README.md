@@ -4,7 +4,7 @@ A collection of scripts and tools that enable you to automate repetitive tasks f
 
 Each language folder contains the following categories:
 
-- **General_Utilities**: Functions that are used by other, larger projects, or helper scripts for repetitive tasks
+- **General_Utilities**: Functions that are used by other, larger projects or are helper scripts for repetitive tasks
 - **Problem_Specific**: Larger solutions for a specific problem that STK may or may not solve inherently
 - **Scenario_Analysis**: By using a premade scenario or by building a new scenario, perform trades, analyze scenario results and obtain specific metrics for use in a programming environment
 - **Scenario_Building**: Create scenarios that demonstrate how to integrate with STK by building an example scenario
