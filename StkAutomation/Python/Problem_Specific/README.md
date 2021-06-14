@@ -68,15 +68,3 @@ Notebooks and libraries to automate STK, take EOIR images, process images, gener
 * Third-Party Libraries: numpy, pandas, cv2, shutil, imageio, matplotlib, sklearn, skimage, scipy, astropy, PIL
 
 ---
-
-## [ConstellationWizard](ConstellationWizard)
-
-Python code and a user inteface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites. The readme within the project folder contains specific requirements for using the tool, as well as explanations for each of the notebooks and how the tool generally works.
-
-### Dependencies
-
-* Licenses: Free, Integration, Pro, Communications
-* Other Scripts: N/A
-* Scenario: N/A
-
----
