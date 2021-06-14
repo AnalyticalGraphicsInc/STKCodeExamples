@@ -84,6 +84,6 @@ This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It
 * Licenses: Free, Integration
 * Other Scripts: N/A
 * Scenario: N/A
-* Third-Party Libraries: Pandas
+* Third-Party Libraries: Pandas 
 
 ---
