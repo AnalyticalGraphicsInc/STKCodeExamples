@@ -1,0 +1,7 @@
+CDM Summary 19-May-21 5:40:03 PM
+Under 2 km: 0
+
+Under 15 km: 1
+
+Reportable conjunction #1: Object 15484 (GORIZONT 11) shows a close approach distance of 8.6304 km at 2019-08-31 20:25:05.689 UTC.
+Under 50 km: 0
