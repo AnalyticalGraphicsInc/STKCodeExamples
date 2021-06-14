@@ -44,6 +44,8 @@ This function uses graphics primitives and Analysis Workbench components to draw
 
 **NOTE**: This script only works with Earth-bound objects (i.e. aircraft, ground vehicles, ships, and missiles)*
 
+![image](https://user-images.githubusercontent.com/3358750/121931541-c351fb00-cd11-11eb-9914-128267b844c8.png)
+
 Inputs:
  objectPath (char array): Specify object path of vehicle
  numArrows (int): Set number of equally-spaced arrows along the path
