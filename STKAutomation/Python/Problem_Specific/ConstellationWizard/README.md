@@ -19,7 +19,7 @@ Python code and a user inteface to allow subsets of large satellite constellatio
 
 Open a STK scenario and then run one of the desired Jupyter Notebooks.
 ![stk view](Images/stkView.png)
-
+ 
 ### Constellation Wizard UI
 
 ![ui view](Images/uiView.png)
