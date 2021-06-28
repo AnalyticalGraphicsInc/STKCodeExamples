@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdm xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sanaregistry.org/r/ndmxml/ndmxml-1.0-master.xsd" id="CCSDS_CDM_VERS" version="1.0">
+	<header>
+		<CREATION_DATE>2019-08-30T14:53:24.484</CREATION_DATE>
+		<ORIGINATOR>COMSPOC</ORIGINATOR>
+		<MESSAGE_FOR>GORIZONT 11, GOES 15</MESSAGE_FOR>
+		<MESSAGE_ID>CJ-5507411_20190830145324484</MESSAGE_ID>
+	</header>
+	<body>
+		<relativeMetadataData>
+			<COMMENT>SIGMA_DILUTION=368.7332</COMMENT>
+			<COMMENT>ALFANO-MAX-PROBABILITY=2.9423E-006</COMMENT>
+			<TCA>2019-08-31T20:25:05.739</TCA>
+			<MISS_DISTANCE units="m">8631.6</MISS_DISTANCE>
+			<RELATIVE_SPEED units="m/s">704.2</RELATIVE_SPEED>
+			<relativeStateVector>				
+				<RELATIVE_POSITION_R units="m">8630.8</RELATIVE_POSITION_R>
+				<RELATIVE_POSITION_T units="m">115.9</RELATIVE_POSITION_T>
+				<RELATIVE_POSITION_N units="m">19.3</RELATIVE_POSITION_N>
+				<RELATIVE_VELOCITY_R units="m/s">-0.5</RELATIVE_VELOCITY_R>
+				<RELATIVE_VELOCITY_T units="m/s">-80.2</RELATIVE_VELOCITY_T>
+				<RELATIVE_VELOCITY_N units="m/s">699.7</RELATIVE_VELOCITY_N>
+			</relativeStateVector>
+			<START_SCREEN_PERIOD>2019-08-30T11:00:00.000</START_SCREEN_PERIOD>
+			<STOP_SCREEN_PERIOD>2019-09-06T11:00:00.000</STOP_SCREEN_PERIOD>
+			<SCREEN_VOLUME_SHAPE>ELLIPSOID</SCREEN_VOLUME_SHAPE>
+			<SCREEN_VOLUME_X units="m">50000.0000</SCREEN_VOLUME_X>
+			<SCREEN_VOLUME_Y units="m">50000.0000</SCREEN_VOLUME_Y>
+			<SCREEN_VOLUME_Z units="m">50000.0000</SCREEN_VOLUME_Z>
+			<COLLISION_PROBABILITY>2.177283259E-308</COLLISION_PROBABILITY>
+			<COLLISION_PROBABILITY_METHOD>ALFANO-2005</COLLISION_PROBABILITY_METHOD>
+		</relativeMetadataData>
+		<segment>
+			<metadata>
+				<OBJECT>OBJECT1</OBJECT>
+				<OBJECT_DESIGNATOR>15484</OBJECT_DESIGNATOR>
+				<CATALOG_NAME>SATCAT</CATALOG_NAME>
+				<OBJECT_NAME>GORIZONT 11</OBJECT_NAME>
+				<INTERNATIONAL_DESIGNATOR>1985-007A</INTERNATIONAL_DESIGNATOR>
+				<EPHEMERIS_NAME>NONE</EPHEMERIS_NAME>
+				<COVARIANCE_METHOD>CALCULATED</COVARIANCE_METHOD>
+				<MANEUVERABLE>NO</MANEUVERABLE>
+				<REF_FRAME>GCRF</REF_FRAME>
+			</metadata>
+			<data>
+				<odParameters />
+				<additionalParameters>
+					<AREA_PC units="m**2">78.5398</AREA_PC>
+				</additionalParameters>
+				<stateVector>
+					<X units="km">-3.889904596234770E+004</X>
+					<Y units="km">1.621234769041639E+004</Y>
+					<Z units="km">-1.683790289390952E+002</Z>
+					<X_DOT units="km/s">-1.148979079925201E+000</X_DOT>
+					<Y_DOT units="km/s">-2.763598840816155E+000</Y_DOT>
+					<Z_DOT units="km/s">-7.067645038338541E-001</Z_DOT>
+				</stateVector>
+				<covarianceMatrix>
+					<CR_R units="m**2">1.246206E+002</CR_R>
+					<CT_R units="m**2">-5.360065E+002</CT_R>
+					<CT_T units="m**2">4.561944E+004</CT_T>
+					<CN_R units="m**2">7.179816E-001</CN_R>
+					<CN_T units="m**2">-5.683954E+001</CN_T>
+					<CN_N units="m**2">5.567562E+001</CN_N>
+					<CRDOT_R units="m**2/s">0.0</CRDOT_R>
+					<CRDOT_T units="m**2/s">0.0</CRDOT_T>
+					<CRDOT_N units="m**2/s">0.0</CRDOT_N>
+					<CRDOT_RDOT units="m**2/s**2">0.0</CRDOT_RDOT>
+					<CTDOT_R units="m**2/s">0.0</CTDOT_R>
+					<CTDOT_T units="m**2/s">0.0</CTDOT_T>
+					<CTDOT_N units="m**2/s">0.0</CTDOT_N>
+					<CTDOT_RDOT units="m**2/s**2">0.0</CTDOT_RDOT>
+					<CTDOT_TDOT units="m**2/s**2">0.0</CTDOT_TDOT>
+					<CNDOT_R units="m**2/s">0.0</CNDOT_R>
+					<CNDOT_T units="m**2/s">0.0</CNDOT_T>
+					<CNDOT_N units="m**2/s">0.0</CNDOT_N>
+					<CNDOT_RDOT units="m**2/s**2">0.0</CNDOT_RDOT>
+					<CNDOT_TDOT units="m**2/s**2">0.0</CNDOT_TDOT>
+					<CNDOT_NDOT units="m**2/s**2">0.0</CNDOT_NDOT>
+				</covarianceMatrix>
+			</data>
+		</segment>
+		<segment>
+			<metadata>
+				<OBJECT>OBJECT2</OBJECT>
+				<OBJECT_DESIGNATOR>36411</OBJECT_DESIGNATOR>
+				<CATALOG_NAME>SATCAT</CATALOG_NAME>
+				<OBJECT_NAME>GOES 15</OBJECT_NAME>
+				<INTERNATIONAL_DESIGNATOR>2010-008A</INTERNATIONAL_DESIGNATOR>
+				<EPHEMERIS_NAME>NONE</EPHEMERIS_NAME>
+				<COVARIANCE_METHOD>CALCULATED</COVARIANCE_METHOD>
+				<MANEUVERABLE>YES</MANEUVERABLE>
+				<REF_FRAME>GCRF</REF_FRAME>
+			</metadata>
+			<data>
+				<odParameters />
+				<additionalParameters>
+					<AREA_PC units="m**2">3.1416</AREA_PC>
+				</additionalParameters>
+				<stateVector>
+					<X units="km">-3.890705758972836E+004</X>
+					<Y units="km">1.621555973796961E+004</Y>
+					<Z units="km">-1.684214082831207E+002</Z>
+					<X_DOT units="km/s">-1.182940533115470E+000</X_DOT>
+					<Y_DOT units="km/s">-2.839079645468116E+000</Y_DOT>
+					<Z_DOT units="km/s">-7.406269603851808E-003</Z_DOT>
+				</stateVector>
+				<covarianceMatrix>
+					<CR_R units="m**2">4.533848E+002</CR_R>
+					<CT_R units="m**2">-3.524701E+003</CT_R>
+					<CT_T units="m**2">7.715494E+004</CT_T>
+					<CN_R units="m**2">2.348081E+001</CN_R>
+					<CN_T units="m**2">-1.722364E+002</CN_T>
+					<CN_N units="m**2">1.807577E+002</CN_N>
+					<CRDOT_R units="m**2/s">0.0</CRDOT_R>
+					<CRDOT_T units="m**2/s">0.0</CRDOT_T>
+					<CRDOT_N units="m**2/s">0.0</CRDOT_N>
+					<CRDOT_RDOT units="m**2/s**2">0.0</CRDOT_RDOT>
+					<CTDOT_R units="m**2/s">0.0</CTDOT_R>
+					<CTDOT_T units="m**2/s">0.0</CTDOT_T>
+					<CTDOT_N units="m**2/s">0.0</CTDOT_N>
+					<CTDOT_RDOT units="m**2/s**2">0.0</CTDOT_RDOT>
+					<CTDOT_TDOT units="m**2/s**2">0.0</CTDOT_TDOT>
+					<CNDOT_R units="m**2/s">0.0</CNDOT_R>
+					<CNDOT_T units="m**2/s">0.0</CNDOT_T>
+					<CNDOT_N units="m**2/s">0.0</CNDOT_N>
+					<CNDOT_RDOT units="m**2/s**2">0.0</CNDOT_RDOT>
+					<CNDOT_TDOT units="m**2/s**2">0.0</CNDOT_TDOT>
+					<CNDOT_NDOT units="m**2/s**2">0.0</CNDOT_NDOT>
+				</covarianceMatrix>
+			</data>
+		</segment>
+	</body>
+</cdm>
