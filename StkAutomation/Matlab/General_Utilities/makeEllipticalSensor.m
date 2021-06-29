@@ -1,13 +1,19 @@
-% A Matlab script to create an elliptical sensor for a given semi major axis,
-% semi minor axis and a rotation angle from horizontal.
-
-% An alternative approach is to use the sensor Pattern Tool with an elliptical area target.
-
 function makeEllipticalSensor()
+    % Author: Austin Claybrook
+    % Organization: AGI, an Ansys company
+    % Date Created: 10/12/2018
+    % Last Modified:
+    % Description: This script creates an elliptical sensor for a given
+    % semi-major axis half angle, semi-minor axis half angle, and a
+    % rotation angle fromhorizontal. It prompt the user for these values,
+    % and the script will place the completed .pattern file on the desktop.
+    % The .pattern file can then by loaded into STK by setting the sensor
+    % type to "Custom" and loading the file from the desktop.
+    
     %Get user inputs for shape/orientation of elliptical sensor.
     desktop = getSpecialFolder('Desktop');
-    semiMajorAngle = input('Enter angle of Semi-Major Axis (in Degrees): ');
-    semiMinorAngle = input('Enter angle of Semi-Minor Axis (in Degrees): ');
+    semiMajorAngle = input('Enter half angle of Semi-Major Axis (in Degrees): ');
+    semiMinorAngle = input('Enter half angle of Semi-Minor Axis (in Degrees): ');
     rotationAngle = input('Enter rotation angle of semi-major axis from horizontal (in degrees): ');
     
     %Convert Semi-Major/Minor half angles to distances
@@ -38,7 +44,8 @@ function makeEllipticalSensor()
 end
 
 
-%This function came from a code example in the Matlab help
+% This function came from a code example in the Matlab help
+% https://www.mathworks.com/help/matlab/matlab_external/read-special-system-folder-path.html
 function result = getSpecialFolder(arg)
 % Returns the special system folders such as "Desktop", "MyMusic" etc.
 % arg can be any one of the enum element mentioned in this link

@@ -115,3 +115,15 @@ This sample is used to generate a simple sequence for communicating with a satel
 * Scenario: N/A
 
 ---
+
+## [makeEllipticalSensor.m](makeEllipticalSensor.m)
+
+This script creates an elliptical sensor .pattern file for a given semi major axis, semi minor axis and a rotation angle from horizontal. The user is prompted in the console to enter the inputs, and the output file is written to the user's desktop. An alternative approach is to use the sensor Pattern Tool with an elliptical area target.
+
+### Dependencies
+
+* Licenses: Free, Pro
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
