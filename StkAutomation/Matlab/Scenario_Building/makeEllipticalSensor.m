@@ -1,3 +1,8 @@
+% A Matlab script to create an elliptical sensor for a given semi major axis,
+% semi minor axis and a rotation angle from horizontal.
+
+% An alternative approach is to use the sensor Pattern Tool with an elliptical area target.
+
 function makeEllipticalSensor()
     %Get user inputs for shape/orientation of elliptical sensor.
     desktop = getSpecialFolder('Desktop');

@@ -144,3 +144,19 @@ Sets up a scheduled vector in STK and builds all of the conditions.  The satelli
 * Scenario: N/A
 
 ---
+
+## [ClosestGrazingAngle.m](ClosestGrazingAngle.m)
+
+Finds the closest* Earth horizon/limb/edge/grazing angle from a specifed vector/boresight.
+
+The direction of the closest edge is assumed to be in the same plane as the Nadir vector and vector of interest. This assumption is true for a perfectly spherical Earth, but may be slightly different when accounting for Earth's oblateness. If Nadir is selected as the vector of interest, the closest edge of the Earth is assumed to be Northward.
+
+**Note**: Works only in STK 12.0+
+
+### Dependencies
+
+* Licenses: Free, Integration, Analysis Workbench
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
