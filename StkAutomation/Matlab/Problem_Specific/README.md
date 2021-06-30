@@ -8,7 +8,7 @@ The script computes sensor body AzElMasks over a series of times. After the mask
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: [filterObjectsByType.m](../General_Utilities/filterObjectsByType.m)
 * Scenario: [DynamicSensorAzElMask.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/ea415e04-233e-4d2d-870b-a105724d5361)
 
@@ -22,7 +22,7 @@ This example shows how satellite power system designed in Simulink can be integr
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This example runs a trade study in which the inclination and semi-major axis par
 
 ### Dependencies
 
-* Licenses: Free, Integration, CAT
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [CAT](https://www.agi.com/products/stk-specialized-modules/stk-conjunction-analysis-tool-cat)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with a Satellite named Satellite1 and an AdvCAT object named AdvCAT1
 
@@ -46,7 +46,7 @@ This example models the path of a high altitude balloon object using the STK air
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -58,7 +58,7 @@ A short example demonstrating the connect command interface to the Lambert Solve
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -86,7 +86,7 @@ multiSegmentAttitude("Satellite1","Facility1",600,300)
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least one facility and one satellite
 
@@ -98,7 +98,7 @@ An example of setting up a Monte Carlo analysis in STK. This example perturbs a 
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least a satellite object
 
@@ -110,7 +110,7 @@ An example of setting up a TETK scenario based on the data files included in the
 
 ### Dependencies
 
-* Licenses: Free, Integration, TETK
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -125,7 +125,7 @@ Required format for ingest to TETK: ddd:HH:mm:ss.sss
 
 ### Dependencies
 
-* Licenses: Free, Integration, TETK
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -139,7 +139,7 @@ Sets up a scheduled vector in STK and builds all of the conditions.  The satelli
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -155,7 +155,7 @@ The direction of the closest edge is assumed to be in the same plane as the Nadi
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
