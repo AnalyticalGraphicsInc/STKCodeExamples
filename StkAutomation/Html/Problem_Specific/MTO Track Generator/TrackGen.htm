@@ -1,0 +1,310 @@
+<html>
+	<head>
+		<title>Title</title>
+
+		<script language="VBSCRIPT">
+
+		    Dim uiApp
+		    Dim stk
+		    Dim root
+		    Dim fso
+			Dim t, tf
+		    Set uiApp = window.external
+		    Set stk   = uiApp.personality
+		    Set root  = uiApp.Personality2
+			Set fso	  = uiApp.CreateObject("Scripting.FileSystemObject")
+
+			Function sendCommand(command)
+				Dim result
+				Set result = stk.ExecuteCommand(command)
+				sendCommand = result(0)
+			End Function
+
+			Sub showFile()
+				filename = uiApp.FileOpenDialog("*.*", "All Files (*.*)|*.*|", " ")
+				if filename <> "" then
+					toStk.Filename.value = filename
+				end if
+			End sub
+
+			Sub setT (fn,dock)
+				Set t = CreateObject("AgHtmlServer.AgHtmlServerInit60")
+			End sub
+
+			function getline(i)
+			    getline = t.getLine(i)
+			end function
+
+			Function getATbounds(oSTKAreaTarget)
+				dim  i
+				set dataPrv = oSTKAreaTarget.DataProviders("Boundary Points")
+				set fixedFunc = dataPrv
+				set result = fixedFunc.Exec
+				set intList = result.Intervals
+				For Each intvl In intList
+					For Each ds In intvl.DataSets
+						Select Case ds.ElementName
+							Case "Geodetic-Lat"
+								ATBorder_Lat = ds.GetValues()
+							Case "Geodetic-Lon"
+								ATBorder_Lon = ds.GetValues()
+						End Select
+						ATpointcount = ds.count
+					Next
+				Next
+
+				minLat =  9999
+				maxLat = -9999
+				minLon =  9999
+				maxLon = -9999
+				For i = LBound(ATBorder_Lat) To UBound(ATBorder_Lat)
+					If ATBorder_Lat(i) < minLat Then
+						minLat = ATBorder_Lat(i)
+					End If
+					If ATBorder_Lat(i) > maxLat Then
+						maxLat = ATBorder_Lat(i)
+					End If
+				Next
+				For i = LBound(ATBorder_Lon) To UBound(ATBorder_Lon)
+					If ATBorder_Lon(i) < minLon Then
+						minLon = ATBorder_Lon(i)
+					End If
+					If ATBorder_Lon(i) > maxLon Then
+						maxLon = ATBorder_Lon(i)
+					End If
+				Next
+				getATbounds = (minLat & "," & maxLat & "," & minLon & "," & maxLon)
+
+				End Function
+				}
+
+
+
+		</script>
+
+		<script language="JavaScript">
+			month = new Array(12);
+			month[1] = "Jan";
+			month[2] = "Feb";
+			month[3] = "Mar";
+			month[4] = "Apr";
+			month[5] = "May";
+			month[6] = "Jun";
+			month[7] = "Jul";
+			month[8] = "Aug";
+			month[9] = "Sep";
+			month[10] = "Oct";
+			month[11] = "Nov";
+			month[12] = "Dec";
+
+			// feet
+			gowest = new Array(9);
+			gowest[0] = 19000;
+			gowest[1] = 21000;
+			gowest[2] = 23000;
+			gowest[3] = 25000;
+			gowest[4] = 27000;
+			gowest[5] = 29000;
+			gowest[6] = 33000;
+			gowest[7] = 37000;
+			gowest[8] = 41000;
+			gowest[9] = 45000;
+
+			goeast = new Array(9);
+			goeast[0] = 18000;
+			goeast[1] = 20000;
+			goeast[2] = 22000;
+			goeast[3] = 24000;
+			goeast[4] = 26000;
+			goeast[5] = 28000;
+			goeast[6] = 31000;
+			goeast[7] = 35000;
+			goeast[8] = 39000;
+			goeast[9] = 43000;
+
+			// ############################################################ //
+
+			function onLoadInit (){
+				if (! root.CurrentScenario) {
+					alert ("No scenario found.  Reload this page after scenario has been created.");
+					return;
+					}
+				else {
+					stk.ExecuteCommand("ConControl / VerboseOff");
+					stk.ExecuteCommand("SetInternalUnits * Connect");
+					stk.ExecuteCommand("SetUnits / EPOCHSECOND FEET");
+					root.UnitPreferences("DateFormat").SetCurrentUnit("epSec")
+
+					// get AreaTargets and populate selection box //
+					toStk.stkSel.options.length = 0;
+					for (i = 0; i <= root.CurrentScenario.Children.Count - 1; i++){
+						if (root.CurrentScenario.Children.Item(i).ClassType == 2) { // AreaTarget
+							toStk.stkSel.options.length = toStk.stkSel.options.length + 1;
+							toStk.stkSel.options[toStk.stkSel.options.length-1].text = root.CurrentScenario.Children.Item(i).InstanceName;
+							}
+						}
+					}
+				}
+
+			// ############################################################ //
+
+			function go() {
+				starttime = root.CurrentScenario.StartTime;
+				stoptime = root.CurrentScenario.StopTime;
+
+				// get min/max lat and long from selected AreaTarget
+				oSTKAreaTarget = root.CurrentScenario.Children(toStk.stkSel.options[toStk.stkSel.selectedIndex].text);
+				bounds = getATbounds(oSTKAreaTarget);
+				// minLat maxLat minLon maxLon
+				bounds = bounds.split (",");
+				minLat = bounds[0];
+				maxLat = bounds[1];
+				minLon = bounds[2];
+				maxLon = bounds[3];
+
+				// create new MTO
+				try {
+					root.ExecuteCommand("Unload / */MTO/AirTraffic");
+					}
+				catch (tryerror) {
+					// do nothing
+					}
+				root.ExecuteCommand("New / */MTO AirTraffic");
+
+				root.ExecuteCommand("DefaultTrack */MTO/Airtraffic Interpolate On");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic UseDisplayTime On");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic LeadTime None");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic TrailTime None");
+
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic UsePreFadetime On");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic PreFadetime 0");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic UsePostFadetime On");
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic PostFadetime 0");
+
+				root.ExecuteCommand("DefaultTrack2d */MTO/Airtraffic Color red");
+
+				// read file
+				inArray 		= new Array();
+				path = String(window.location);
+				path = path.replace("file:\/\/\/", "");
+				path = path.replace(/%20/g, " ");
+				path = path.replace("TrackGen.htm", "");
+				path = path + "US ATS.csv";
+				f 				= fso.OpenTextFile(path, 1);
+				tryerror		= 1;
+				count = 0;
+				readcount = 0;
+
+				root.ExecuteCommand("BatchGraphics * On");
+
+				while (tryerror == 1){
+					try {
+						data = f.ReadLine();
+						readcount++;
+						data = data.split (",");
+						lat1 = Number(data[18]);
+						lon1 = Number(data[20]);
+						lat2 = Number(data[30]);
+						lon2 = Number(data[32]);
+						alt  = Number(data[36]);
+						dist = Number(data[34]);
+						//fl	= data[37];
+						//fl = Number(fl.replace("FL","")) * 100;
+						course = Number(data[33]);
+
+
+						if (lat1 == data[18] && lon1 == data[20] && lat2 == data[30] && lon2 == data[32] && dist == data[34] && alt == data[36]){
+							//alert (lat1 + " " + lon1 + " " + lat2 + " " + lon2 + " " + alt + " " + dist );
+							//alert (lat1 + " " + lon1 + " " + lat2 + " " + lon2 + " " + bounds[0] + " " + bounds[1] + " " + bounds[2] + " " + bounds[3]  );
+
+							if (
+								(lat1 > minLat && lat1 < maxLat && lon1 > minLon && lon1 < maxLon)
+								||
+								(lat2 > minLat && lat2 < maxLat && lon2 > minLon && lon2 < maxLon)
+								)
+								{
+
+								addtime = (dist/toStk.speed.value * 3600);
+								time = starttime;
+								while (time < stoptime){
+									//alert (time + " " + stoptime);
+									then = time + addtime;
+
+									// get random altitude
+									var ran_number=Math.floor(Math.random()*9);
+									if (course < 180){
+										alt = goeast[ran_number];
+										}
+									else {
+										alt = gowest[ran_number];
+										}
+
+									root.ExecuteCommand("Track */MTO/AirTraffic Add " + count + " 2 TLLA \"" + time + "\" " + lat1 + " " + lon1 + " " + alt + " \"" + then + "\" " + lat2 + " " + lon2 + " " + alt);
+									count++;
+									//time = then;
+									time = time + (addtime/toStk.density.value);
+									}
+								}
+							}
+						}
+					catch (tryerror) {
+						// end of file
+						}
+					}
+				f.Close();
+				//alert ("COUNTS= " + readcount + " " + count);
+
+				root.ExecuteCommand("BatchGraphics * Off")
+
+				}
+
+
+
+		</script>
+	</head>
+
+<!-- ################################################################################################################################## -->
+
+	<body onLoad="onLoadInit()">
+
+	<!-- ########################################################-->
+
+	<h3>MTO Generator</h3>
+
+
+		<hr />
+
+		<form name="toStk">
+
+		<center>
+
+		<table border="0" class="task_box" cellpadding="6" cellspacing="0">
+
+			<tr>
+				<td>           AreaTarget:</td>
+				<td> <select name="stkSel"> </select></td>
+			</tr>
+
+			<tr>
+				<td>           AircraftSpeed(knots):</td>
+				<td> <input type="text"  name="speed" value ="150"> </td>
+			</tr>
+
+			<tr>
+				<td>           Density (objects per leg):</td>
+				<td> <input type="text"  name="density" value ="1"> </td>
+			</tr>
+
+			<tr>
+				<td colspan=2> <center> <input type="button" name="Create" value="Send" onClick=go() /> </center> </td>
+			</tr>
+		</table>
+
+
+		</form>
+
+	<!-- ######################################################## -->
+
+	</body>
+
+</html>
