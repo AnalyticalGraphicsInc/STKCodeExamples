@@ -12,7 +12,7 @@ ImportFacilities('GroundSites.xlsx')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -24,7 +24,7 @@ This folder contains four scripts that demonstrate use cases for the realtime pr
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -36,7 +36,7 @@ This script creates a sweeping/raster scan over a list of area targets. The scan
 
 ### Dependencies
 
-* Licenses: Free, Integration, SOLIS
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -48,7 +48,7 @@ When an Astrogator satellite maneuvers by default the manuever will adjust the a
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ This script creates waypoints for any GreatArc propagated STK vehicle in the sha
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -72,7 +72,7 @@ This script creates an ephemeris file for any GreatArc propagated STK vehicle in
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -84,7 +84,7 @@ This function creates an elliptical sensor pattern and saves it off as a .patter
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -96,7 +96,7 @@ This is a simple script to propagate a missile with the basic ballistic propagat
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -110,7 +110,7 @@ This sample is used to generate a simple sequence for communicating with a satel
 
 ### Dependencies
 
-* Licenses: Free, Integration, SOLIS
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -122,7 +122,7 @@ This script creates an elliptical sensor .pattern file for a given semi major ax
 
 ### Dependencies
 
-* Licenses: Free, Pro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
 
