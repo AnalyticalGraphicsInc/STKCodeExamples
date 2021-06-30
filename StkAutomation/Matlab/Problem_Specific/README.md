@@ -8,7 +8,7 @@ The script computes sensor body AzElMasks over a series of times. After the mask
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Pro](https://p.widencdn.net/3ezpjj/STK-Pro-Product-Specsheet)
 * Other Scripts: [FilterObjectsByType.m](../General_Utilities/FilterObjectsByType.m)
 * Scenario: [DynamicSensorAzElMask.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/ea415e04-233e-4d2d-870b-a105724d5361)
 
@@ -22,7 +22,7 @@ This example shows how satellite power system designed in Simulink can be integr
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This example runs a trade study in which the inclination and semi-major axis par
 
 ### Dependencies
 
-* Licenses: Free, Integration, CAT
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [CAT](https://p.widencdn.net/es6zld/Conjunction-Analysis--Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with a Satellite named Satellite1 and an AdvCAT object named AdvCAT1
 
@@ -46,7 +46,7 @@ This example models the path of a high altitude balloon object using the STK air
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -58,7 +58,7 @@ A short example demonstrating the connect command interface to the Lambert Solve
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Astrogator](https://p.widencdn.net/1ozbgh/Astrogator-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -86,7 +86,7 @@ multiSegmentAttitude("Satellite1","Facility1",600,300)
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Analysis Workbench](https://p.widencdn.net/cdz693/Analysis-Workbench-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least one facility and one satellite
 
@@ -98,7 +98,7 @@ An example of setting up a Monte Carlo analysis in STK. This example perturbs a 
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least a satellite object
 
@@ -110,7 +110,7 @@ An example of setting up a TETK scenario based on the data files included in the
 
 ### Dependencies
 
-* Licenses: Free, Integration, TETK
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [TETK](https://p.widencdn.net/cvrh1r/TE-Tool-Kit-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -125,7 +125,7 @@ Required format for ingest to TETK: ddd:HH:mm:ss.sss
 
 ### Dependencies
 
-* Licenses: Free, Integration, TETK
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [TETK](https://p.widencdn.net/cvrh1r/TE-Tool-Kit-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 

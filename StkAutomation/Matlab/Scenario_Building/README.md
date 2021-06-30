@@ -12,7 +12,7 @@ ImportFacilities('GroundSites.xlsx')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -24,7 +24,7 @@ This folder contains four scripts that demonstrate use cases for the realtime pr
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -36,7 +36,7 @@ This script creates a sweeping/raster scan over a list of area targets. The scan
 
 ### Dependencies
 
-* Licenses: Free, Integration, SOLIS
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [SOLIS](https://p.widencdn.net/oxspcl/SOLIS-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -48,7 +48,7 @@ When an Astrogator satellite maneuvers by default the manuever will adjust the a
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator, Analysis Workbench
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Astrogator](https://p.widencdn.net/1ozbgh/Astrogator-Product-Specsheet), [Analysis Workbench](https://p.widencdn.net/cdz693/Analysis-Workbench-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ This script creates waypoints for any GreatArc propagated STK vehicle in the sha
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -72,7 +72,7 @@ This script creates an ephemeris file for any GreatArc propagated STK vehicle in
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -84,7 +84,7 @@ This function creates an elliptical sensor pattern and saves it off as a .patter
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Pro](https://p.widencdn.net/3ezpjj/STK-Pro-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -96,7 +96,7 @@ This is a simple script to propagate a missile with the basic ballistic propagat
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -110,7 +110,7 @@ This sample is used to generate a simple sequence for communicating with a satel
 
 ### Dependencies
 
-* Licenses: Free, Integration, SOLIS
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [SOLIS](https://p.widencdn.net/oxspcl/SOLIS-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 

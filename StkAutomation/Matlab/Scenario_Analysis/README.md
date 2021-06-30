@@ -8,7 +8,7 @@ This script will iterate through every point in a coverage definition and find t
 
 ### Dependencies
 
-* Licenses: Free, Integration, Coverage, Communications
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Coverage](https://p.widencdn.net/hml3i2/Coverage-Product-Specsheet), [Communications](https://p.widencdn.net/nvindd/Communications--Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Inputs:
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ addDirectionalArrows('Aircraft/testAircraft',10,20,45,3,true)
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Analysis Workbench](https://p.widencdn.net/cdz693/Analysis-Workbench-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -85,7 +85,7 @@ Example:
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Astrogator](https://p.widencdn.net/1ozbgh/Astrogator-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -109,7 +109,7 @@ Ensure the spacecraft does not run out of fuel during a maneuver.
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator, Analysis Workbench
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Astrogator](https://p.widencdn.net/1ozbgh/Astrogator-Product-Specsheet), [Analysis Workbench](https://p.widencdn.net/cdz693/Analysis-Workbench-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -123,7 +123,7 @@ To run the script, have STK open with a scenario containing the satellite that y
 
 ### Dependencies
 
-* Licenses: Free, Integration, SatPro
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [SatPro](https://p.widencdn.net/xzzsyk/SatPro--Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -148,7 +148,7 @@ GrazingAngle('Satellite/Satellite1', -45)
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Analysis Workbench](https://p.widencdn.net/cdz693/Analysis-Workbench-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -161,7 +161,7 @@ This script is made for a scenario with the format specified in QuiverExample.vd
 
 ### Dependencies
 
-* Licenses: Free, Integration, Coverage
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Coverage](https://p.widencdn.net/hml3i2/Coverage-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: [QuiverExample.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/fe8f63d5-77f1-40e7-975a-2319d78ae18a)
 
@@ -175,7 +175,7 @@ Report accesses by asset from an "Export Accesses as Text" .cvaa file using a Co
 
 ### Dependencies
 
-* Licenses: Free, Integration, Coverage
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Coverage](https://p.widencdn.net/hml3i2/Coverage-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -198,7 +198,7 @@ Outputs:
 
 ### Dependencies
 
-* Licenses: Free, Integration, Coverage
+* Licenses: Free, [Integration](https://p.widencdn.net/wums3s/Integration-Product-Specsheet), [Coverage](https://p.widencdn.net/hml3i2/Coverage-Product-Specsheet)
 * Other Scripts: N/A
 * Scenario: N/A
 
