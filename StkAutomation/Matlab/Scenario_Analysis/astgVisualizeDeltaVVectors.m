@@ -45,7 +45,7 @@ vectorColor = '00FF00'; % Hexadecimal RGB value
 
 %% Code
 % Create an instance of STK and grab the root
-app = actxGetRunningServer('STK11.application');
+app = actxGetRunningServer('STK12.application');
 app.Visible = 1;
 root = app.Personality2;
 

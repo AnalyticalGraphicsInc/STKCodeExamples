@@ -2,7 +2,7 @@
 % Author: Austin Claybrook
 % Organization: Analytical Graphics Inc.
 % Date Created: 2/12/19
-% Last Modified: 2/18/19 by Austin Claybrook
+% Last Modified: 6/1/20 by Cal Van Doren
 % Description: Creates way points for a STK Object (which uses a GreatArc 
 % propagator) in the shape of a figure eight.
 
