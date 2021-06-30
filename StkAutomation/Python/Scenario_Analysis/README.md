@@ -26,7 +26,7 @@ This script is an example of computing trade studies using the Aviator Object Mo
 
 ---
 
-## [Lifetime Analysis](Lifetime Analysis)
+## [Lifetime Analysis](./Lifetime%20Analysis)
 
 Run trade studies with the Lifetime Tool. Grid searches, Latin Hyper Cube sampling and Monte Carlo analyses are possible. HPOP can also be run to compare to the Lifetime Tool. Multiple instances of STK can be started to speed up the trade studies. Results are saved to a csv file and trade study configurations are saved so they can be loaded and modified later.
 
@@ -39,7 +39,7 @@ Run trade studies with the Lifetime Tool. Grid searches, Latin Hyper Cube sampli
 
 ---
 
-## [Constellation and Network Modeling](Constellation and Network Modeling)
+## [Constellation and Network Modeling](./ConstellationAndNetworkRouting)
 
 All of the notebooks are built to attach to an open instance of STK. In this case STK 12 is used, although the user can specify the version to be STK 11. All of the inputs are at the top of the script. Inputs include chain names or constellation names, analysis start and stop time (there is also a step size a bit further down), either distance or timeDelay for finding the shortest path, and a dictionary of node processing delays which will be applied to every object in that constellation.
 
