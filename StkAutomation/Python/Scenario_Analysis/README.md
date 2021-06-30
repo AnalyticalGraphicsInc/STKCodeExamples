@@ -52,3 +52,18 @@ More information on each of the notebooks can be found in the readme within the 
 * Scenario: [Constellation and Network Routing Example](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
 
 ---
+
+## [EOIR_Synthetic_Scene_and_Data_Generation](./EOIR_Synthetic_Scene_and_Data_Generation)
+
+Automate generating EOIR Synthetic Scene data. Define the analysis interval and the EOIR Atmosphere & Cloud settings. The notebook cycles through the scene, with each setting, and outputs data for each frame. Resulting data (bitmap and/or raw text files) is saved to unique directories for making videos or post processing. 
+
+More information on each of the notebooks can be found in the readme within the project folder.
+
+### Dependencies
+
+* Licenses: Free, Integration, EOIR
+* Other Scripts: N/A
+* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/context/mine/document-details?nodeRef=workspace://SpacesStore/19b625b1-839d-40fc-9774-41ca6ef43f9f)
+
+
+--- 
