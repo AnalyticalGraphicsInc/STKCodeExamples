@@ -1,8 +1,8 @@
 # EOIR Scenario Analysis 
 
-## [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb)
 	
 Problem Description:  
+
 Modeling clouds and understanding their affects on a mission is imperative for mission modeling. EOIR provides the capabilities to model these effects, Python & Matlab allow you process and analyze the results. 
 
 ## Generating EOIR Cloud data 
@@ -26,10 +26,10 @@ Once the scenario is built, a python script with connect commands was used to au
 * Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/context/mine/document-details?nodeRef=workspace://SpacesStore/19b625b1-839d-40fc-9774-41ca6ef43f9f)
  
 
-## [Video](Images_to_video.ipynb)
+## [Images_to_video.ipynb](Images_to_video.ipynb)
 There is a DIY solution to stack all the images to a video. Since this action had to be repeated it was automated. The script reads in a directory of images, resizes them, reorders them (only needed if stacking the bmp files), and then writes them to a video file. 
 
 ### Dependencies
 * Licenses: N/A 
-* Other Scripts: EOIR_Image_Generation.ipynb
+* Other Scripts: [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb)
 * Scenario: N/A 
