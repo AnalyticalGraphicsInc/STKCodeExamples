@@ -9,7 +9,7 @@ The script computes sensor body AzElMasks over a series of times. After the mask
 ### Dependencies
 
 * Licenses: Free, Integration, Pro
-* Other Scripts: N/A
+* Other Scripts: [filterObjectsByType.m](STKCodeExamples/StkAutomation/Matlab/General_Utilities/filterObjectsByType.m)
 * Scenario: [DynamicSensorAzElMask.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/ea415e04-233e-4d2d-870b-a105724d5361)
 
 ---
