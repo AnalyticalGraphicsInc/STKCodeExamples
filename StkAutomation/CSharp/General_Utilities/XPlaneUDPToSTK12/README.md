@@ -1,6 +1,6 @@
 # XPlaneUDPToSTK12
 
-Python code and a user inteface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites.
+This utility connects to X-Plane and reads the position (latitude, longitude, altitude) and attitude (yaw, pitch, roll) data through a UDP connection, then sends it to an aircraft in STK using the Real Time propagator. 
 
 ## Software
 
