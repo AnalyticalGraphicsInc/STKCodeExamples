@@ -43,7 +43,7 @@ winRes = 512; % Resolution of bmsk files
 %% Code
 
 % Grab open STK scenario
-app = actxGetRunningServer('STK11.application');
+app = actxGetRunningServer('STK12.application');
 root = app.personality2;
 root.Isolate();
 
