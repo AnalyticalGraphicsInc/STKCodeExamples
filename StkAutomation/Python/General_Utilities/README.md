@@ -8,7 +8,7 @@ Allows the user to output an xml or json file that includes each object in the s
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ Utility that demonstrates how to grab an array of all objects of a certain type.
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Utility that demonstrates how to subscribe to STKObjectRoot Events using comtype
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -44,7 +44,7 @@ Notebooks that use comtypes or win32 to interact with STK and demonstrate how to
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -56,7 +56,7 @@ This notebook allows for you to extract data from [STK Analyzer](https://help.ag
 
 ### Dependencies
 
-* Licenses: Free, Analyzer
+* Licenses: [Free](https://www.agi.com/products/stk), [Analyzer](https://www.agi.com/products/stk-systems-bundle/stk-analyzer)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -68,7 +68,7 @@ A simple function to assist with the importing of Facility objects from informat
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
@@ -81,7 +81,7 @@ This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: [Free](https://www.agi.com/products/stk), [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
