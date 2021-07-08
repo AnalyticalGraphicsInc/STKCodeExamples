@@ -26,10 +26,10 @@ The repository offers fully functional tools and libraries of example code that 
 <!--### Featured Examples Areas-->
 ![Featured Areas](https://user-images.githubusercontent.com/3358750/119202053-0942d880-ba5e-11eb-902d-3de8a678d6c3.png)
 
-* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK Desktop in a variety of different languages
-* [STK Engine Applications](./StkEngineApplications) contains scripts and applications for utilizing STK Engine
-* [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for STK Desktop
-* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK Desktop and STK Engine
+* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
+* [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
+* [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for the STK desktop application
+* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
 
 These applications contain notional data and are dual use.
 
