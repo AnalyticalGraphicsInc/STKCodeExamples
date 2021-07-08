@@ -28,7 +28,7 @@ The repository offers fully functional tools and libraries of example code that 
 
 * [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
 * [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
-* [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for the STK desktop application
+* [STK UI Plugins](./StkUiPlugins) contains UI Plugin applications for the STK desktop application
 * [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
 
 These applications contain notional data and are dual use.
