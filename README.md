@@ -17,21 +17,19 @@
 
 </div>
 
-Welcome to the Systems Tool Kit (STK) Code Examples Repository, where we'll be sharing Code Examples from our favorite utilities and demonstrations for STK, a commercial software application from Analytical Graphics, Inc. (AGI).
+Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from AGI, an Ansys company.
 
-Feel free to browse the content for both functional tools to add to your tool kit and example code that you can refactor to fit your needs.
-
-This repository does not contain the STK application; STK must be obtained seperately from [AGI's support page](https://support.agi.com/downloads)
+The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. It does not contain the STK application; you must obtain STK from [AGI's support page](https://support.agi.com/downloads "AGI's Downloads")
 
 ----
 
 <!--### Featured Examples Areas-->
 ![Featured Areas](https://user-images.githubusercontent.com/3358750/119202053-0942d880-ba5e-11eb-902d-3de8a678d6c3.png)
 
-* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK Desktop in a variety of different languages
-* [STK Engine Applications](./StkEngineApplications) contains scripts and applications for utilizing STK Engine
-* [STK Ui Plugins](./StkUiPlugins) contains UiPlugin applications for STK Desktop
-* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK Desktop and STK Engine
+* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
+* [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
+* [STK UI Plugins](./StkUiPlugins) contains UI Plugin applications for the STK desktop application
+* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
 
 These applications contain notional data and are dual use.
 
@@ -40,14 +38,14 @@ These applications contain notional data and are dual use.
 <!--### License-->
 ![License](https://user-images.githubusercontent.com/3358750/119202070-15c73100-ba5e-11eb-8113-1ed09a8880a7.png)
 
-The Code Examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
+The code examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
 
 ----
 
 <!--### Redistribution -->
 ![Redistribution](https://user-images.githubusercontent.com/3358750/119202097-21b2f300-ba5e-11eb-9cdd-54e16c03dc6f.png)
 
-If You redistribute the Code Examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the Code Examples, and include the following copyright notice:
+If You redistribute the code examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the code examples, and include the following copyright notice:
 
 © 2021 Analytical Graphics, Inc.
 
@@ -56,7 +54,7 @@ If You redistribute the Code Examples, in whole or in part, You must provide a c
 <!--### What if I have questions about STK -->
 ![Questions](https://user-images.githubusercontent.com/3358750/119202130-2d9eb500-ba5e-11eb-84ed-623992f4611f.png)
 
-Contact [AGI support](mail:support@agi.com) with questions regarding STK, STK Engine or any other AGI products.
+Contact [AGI support](mail:support@agi.com "Email AGI Support") with questions regarding STK, STK Engine or any other AGI products.
 
 AGI's software helps engineers, operators, and analysts deliver digital engineering value at any stage of a program life cycle: from planning and design to training and operations. Our modeling, analysis and visualization tools, coupled with legendary customer support, help those in aerospace and defense organizations make critical decisions faster and more accurately in an operational context.
 
