@@ -27,7 +27,7 @@ Once the scenario is built, a python script with connect commands was used to au
  
 
 ## [Images_to_video.ipynb](Images_to_video.ipynb)
-There is a DIY solution to stack all the images to a video. Since this action had to be repeated it was automated. The script reads in a directory of images, resizes them, reorders them (only needed if stacking the bmp files), and then writes them to a video file. 
+This is a DIY solution to stack all the images to a video. Since this action had to be repeated it was automated. The script reads in a directory of images, resizes them, reorders them (only needed if stacking the bmp files), and then writes them to a video file.
 
 ### Dependencies
 * Licenses: N/A 
