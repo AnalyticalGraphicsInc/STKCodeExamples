@@ -40,6 +40,20 @@ This example runs a trade study in which the inclination and semi-major axis par
 
 ---
 
+## [ChangeSTMComponents.m](ChangeSTMComponents.m)
+
+With STK 11.4 there is now the ability to report out the state transition matrix components for an astrogator propagate segment.  You must first create a custom propagator in the component browser and add the State Transition Matrix as a propagator function.  Then, for any propagate segment that uses a propagator with the STM added, you can report out the components.  In the component browser there are already template components for the STM under Calculation Objects > Cartesian STM.  If you are orbiting Earth, these components will work just fine, but if you are at a different central body, you will need to duplicate each of these components and set the reference frame to a frame for the central body that you are orbiting.  
+
+This script connects to the linked scenario with a satellite orbiting Mars.  The satellite is already configured with a propagate segment that uses a custom propagator called Mars HPOP with STM that has the state transition matrix added to it.  The script creates duplicates of all the STM components and changes the reference frame to Mars J2000.  It then reports out the STM at a given instant in time.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: [MarsSatSTM.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/edc984d2-8757-49ce-bfcc-a01fa764064b)
+
+---
+
 ## [High_Altitude_Balloon.m](High_Altitude_Balloon.m)
 
 This example models the path of a high altitude balloon object using the STK aircraft object type. The user defines the balloons starting location and some basic performance metrics. These inputs are used to generate a balloon flight path with random noise to account for wind variation.
@@ -126,6 +140,18 @@ Required format for ingest to TETK: ddd:HH:mm:ss.sss
 ### Dependencies
 
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [TLE_Deorbit_Estimation.m](TLE_Deorbit_Estimation.m)
+
+Satellite deorbit prediction is difficult due to its sensitivity on the forces experienced during atmospheric reentry and TLEs are often not sufficient to capture these forces. This script is meant to better estimate where a satellite may deorbit by propagating with a higher fidelity force model seeded from set of TLE states.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
 * Other Scripts: N/A
 * Scenario: N/A
 

@@ -42,6 +42,16 @@ This script creates a sweeping/raster scan over a list of area targets. The scan
 
 ---
 
+## [SimpleSimulinkExample](SimpleSimulinkExample)
+
+This is a simple tutorial walkthrough of setting up the connection between Simulink and STK using the S-function block.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
 ## [astgSlewToManeuvers.m](astgSlewToManeuvers.m)
 
 When an Astrogator satellite maneuvers by default the manuever will adjust the attitude to align with the thrust direction, but it will not slew. This script allows the satellite to slew into and out of the maneuver. The user specifies the name of the satellite, the pointing during thrusting intervals, the pointing outside of thrusting intervals, and the slew length. These inputs are set on lines 8-24.

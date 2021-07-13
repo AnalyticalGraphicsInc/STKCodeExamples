@@ -35,3 +35,15 @@ This utility will allow you to connect to an open instance of STK, choose a spec
 * Scenario: N/A
 
 ---
+
+## [XPlaneUDPToSTK12](XPlaneUDPToSTK12)
+
+This utility connects to X-Plane and reads the position (latitude, longitude, altitude) and attitude (yaw, pitch, roll) data through a UDP connection, then sends it to an aircraft in STK using the Real Time propagator. 
+
+### Dependencies
+
+* Licenses: Free, Integration
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
