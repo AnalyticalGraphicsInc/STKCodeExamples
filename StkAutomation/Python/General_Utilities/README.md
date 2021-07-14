@@ -100,3 +100,16 @@ This utility will parse a KML file (.kml) from ForeFlight, FlightAware and possi
 * Third-Party Libraries: Beautiful Soup 4
 
 ---
+
+## [writeCsvToPg](writeCsvToPg)
+
+This is a standalone script that writes a csv with columns Time in UTCG, Lat, Lon, and Alt to a great arc propagator file (.pg). Inputs of vehicle ID and full csv path are prompted from the user. Output is a .pg file following terrain in the same directory that can be imported into any STK object with a great arc propagator. Example .csv file for a ground vehicle is included.
+
+### Dependencies
+
+* Licenses: Free, Engine, Integration
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: N/A
+
+---
