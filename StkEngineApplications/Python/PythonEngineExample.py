@@ -1,37 +1,35 @@
 import time
+from agi.stk12.stkengine import STKEngine
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import *
+from agi.stk12.stkutil import *
+
 startTime = time.time()
-from comtypes.client import CreateObject
-from comtypes.gen import STKObjects, STKUtil
 
 """
 SET TO TRUE TO USE ENGINE, FALSE TO USE GUI
 """
-useStkEngine = True
+useStkEngine = False
 
 ############################################################################
 # Scenario Setup
 ############################################################################
 
 if (useStkEngine):
-    # Launch STK Engine
+    # Launch STK Engine with NoGraphics mode
     print("Launching STK Engine...")
-    stkxApp = CreateObject("STKX12.Application")
-    
-    # Disable graphics. The NoGraphics property must be set to true before the root object is created.
-    stkxApp.NoGraphics = True
+    stk = STKEngine.StartApplication(noGraphics = True)
     
     # Create root object
-    stkRoot = CreateObject('AgStkObjects12.AgStkObjectRoot')
-
+    stkRoot = stk.NewObjectRoot()
+    
 else:
     # Launch GUI
     print("Launching STK...")
-    uiApp = CreateObject("STK12.Application")
-    uiApp.Visible = True
-    uiApp.UserControl = True
+    stk = STKDesktop.StartApplication(visible = True, userControl = True)
     
     # Get root object
-    stkRoot = uiApp.Personality2
+    stkRoot = stk.Root
 
 # Set date format  
 stkRoot.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
@@ -40,10 +38,13 @@ stkRoot.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 print("Creating scenario...")
 stkRoot.NewScenario('PythonEngineExample')
 scenario = stkRoot.CurrentScenario
-scenario2 = scenario.QueryInterface(STKObjects.IAgScenario)
 
 # Set time period
-scenario2.SetTimePeriod("1 Aug 2020 16:00:00", "2 Aug 2020 16:00:00")
+scenario.SetTimePeriod("1 Aug 2020 16:00:00", "2 Aug 2020 16:00:00")
+if (useStkEngine == False):
+    # Graphics calls are not available when running STK Engine in NoGraphics mode
+    stkRoot.Rewind()
+
 totalTime = time.time() - startTime
 splitTime = time.time()
 print("--- Scenario creation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".format(a=totalTime, b=totalTime))
@@ -53,23 +54,21 @@ print("--- Scenario creation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".form
 ############################################################################
 
 # Create satellite
-satellite = scenario.Children.New(18, "MySatellite")
-satellite2 = satellite.QueryInterface(STKObjects.IAgSatellite)
+satellite = scenario.Children.New(AgESTKObjectType.eSatellite, "MySatellite")
 
 # Get propagator
-propagator = satellite2.Propagator
-propagator2 = propagator.QueryInterface(STKObjects.IAgVePropagatorTwoBody)
+satellite.SetPropagatorType(AgEVePropagatorType.ePropagatorTwoBody)
+propagator = satellite.Propagator
 
 # Get orbit state
-orbitState = propagator2.InitialState.Representation
-orbitStateClassical = orbitState.ConvertTo(STKUtil.eOrbitStateClassical).QueryInterface(STKObjects.IAgOrbitStateClassical)
+orbitState = propagator.InitialState.Representation
+orbitStateClassical = orbitState.ConvertTo(AgEOrbitStateType.eOrbitStateClassical)
 
 # Set SMA and eccentricity
-orbitStateClassical.SizeShapeType = STKObjects.eSizeShapeSemimajorAxis
+orbitStateClassical.SizeShapeType = AgEClassicalSizeShape.eSizeShapeSemimajorAxis
 sizeShape = orbitStateClassical.SizeShape
-sizeShape2 = sizeShape.QueryInterface(STKObjects.IAgClassicalSizeShapeSemimajorAxis)
-sizeShape2.Eccentricity = 0
-sizeShape2.SemiMajorAxis = 8000
+sizeShape.Eccentricity = 0
+sizeShape.SemiMajorAxis = 8000
 
 # Set inclination and argument of perigee
 orientation = orbitStateClassical.Orientation
@@ -77,25 +76,24 @@ orientation.Inclination = 25
 orientation.ArgOfPerigee = 0
 
 # Set RAAN
-orientation.AscNodeType = STKObjects.eAscNodeRAAN
-raan = orientation.AscNode.QueryInterface(STKObjects.IAgOrientationAscNodeRAAN)
+orientation.AscNodeType = AgEOrientationAscNode.eAscNodeRAAN
+raan = orientation.AscNode
 raan.Value = 0
 
 # Set true anomaly
-orbitStateClassical.LocationType = STKObjects.eLocationTrueAnomaly
-trueAnomaly = orbitStateClassical.Location.QueryInterface(STKObjects.IAgClassicalLocationTrueAnomaly)
+orbitStateClassical.LocationType = AgEClassicalLocation.eLocationTrueAnomaly
+trueAnomaly = orbitStateClassical.Location
 trueAnomaly.Value = 0
 
 # Assign orbit state and propagate satellite
 orbitState.Assign(orbitStateClassical)
-propagator2.Propagate()
+propagator.Propagate()
 
 # Create faciliy
-facility = scenario.Children.New(STKObjects.eFacility, "MyFacility")
-facility2 = facility.QueryInterface(STKObjects.IAgFacility)
+facility = scenario.Children.New(AgESTKObjectType.eFacility, "MyFacility")
 
 # Set position
-facility2.Position.AssignGeodetic(28.62, -80.62, 0.03) 
+facility.Position.AssignGeodetic(28.62, -80.62, 0.03) 
 
 # Compute access between satellite and facility
 print("\nComputing access...")
@@ -106,7 +104,7 @@ access.ComputeAccess()
 stkRoot.UnitPreferences.SetCurrentUnit("Time", "Min")
 accessDataProvider = access.DataProviders.GetDataPrvIntervalFromPath("Access Data")
 elements = ["Start Time", "Stop Time", "Duration"]
-accessResults = accessDataProvider.ExecElements(scenario2.StartTime, scenario2.StopTime, elements)
+accessResults = accessDataProvider.ExecElements(scenario.StartTime, scenario.StopTime, elements)
 
 startTimes = accessResults.DataSets.GetDataSetByName("Start Time").GetValues()
 stopTimes = accessResults.DataSets.GetDataSetByName("Stop Time").GetValues()
@@ -134,61 +132,60 @@ print("--- Access computation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".for
 satellite.Unload()
 
 # Create constellation object
-constellation = scenario.Children.New(STKObjects.eConstellation, "SatConstellation")
-constellation2 = constellation.QueryInterface(STKObjects.IAgConstellation)
+constellation = scenario.Children.New(AgESTKObjectType.eConstellation, "SatConstellation")
 
 # Insert the constellation of Satellites
 numOrbitPlanes = 4
 numSatsPerPlane = 8
 
+stkRoot.BeginUpdate()
 for orbitPlaneNum, RAAN in enumerate(range(0,180,180//numOrbitPlanes),1): #RAAN in degrees
 
     for satNum, trueAnomaly in enumerate(range(0,360,360//numSatsPerPlane), 1): #trueAnomaly in degrees
         
         # Insert satellite
-        satellite = scenario.Children.New(STKObjects.eSatellite, f"Sat{orbitPlaneNum}{satNum}")
-        satellite2 = satellite.QueryInterface(STKObjects.IAgSatellite)
+        satellite = scenario.Children.New(AgESTKObjectType.eSatellite, f"Sat{orbitPlaneNum}{satNum}")
                 
         # Select Propagator
-        satellite2.SetPropagatorType(STKObjects.ePropagatorTwoBody)
+        satellite.SetPropagatorType(AgEVePropagatorType.ePropagatorTwoBody)
         
         # Set initial state
-        twoBodyPropagator = satellite2.Propagator.QueryInterface(STKObjects.IAgVePropagatorTwoBody)
-        keplarian = twoBodyPropagator.InitialState.Representation.ConvertTo(STKUtil.eOrbitStateClassical).QueryInterface(STKObjects.IAgOrbitStateClassical)
+        twoBodyPropagator = satellite.Propagator
+        keplarian = twoBodyPropagator.InitialState.Representation.ConvertTo(AgEOrbitStateType.eOrbitStateClassical.eOrbitStateClassical)
         
-        keplarian.SizeShapeType = STKObjects.eSizeShapeSemimajorAxis
-        keplarian.SizeShape.QueryInterface(STKObjects.IAgClassicalSizeShapeSemimajorAxis).SemiMajorAxis = 8200 #km
-        keplarian.SizeShape.QueryInterface(STKObjects.IAgClassicalSizeShapeSemimajorAxis).Eccentricity = 0
+        keplarian.SizeShapeType = AgEClassicalSizeShape.eSizeShapeSemimajorAxis
+        keplarian.SizeShape.SemiMajorAxis = 8200 #km
+        keplarian.SizeShape.Eccentricity = 0
 
         keplarian.Orientation.Inclination = 60 #degrees
         keplarian.Orientation.ArgOfPerigee = 0 #degrees
-        keplarian.Orientation.AscNodeType = STKObjects.eAscNodeRAAN
-        keplarian.Orientation.AscNode.QueryInterface(STKObjects.IAgOrientationAscNodeRAAN).Value = RAAN  #degrees
+        keplarian.Orientation.AscNodeType = AgEOrientationAscNode.eAscNodeRAAN
+        keplarian.Orientation.AscNode.Value = RAAN  #degrees
         
-        keplarian.LocationType = STKObjects.eLocationTrueAnomaly
-        keplarian.Location.QueryInterface(STKObjects.IAgClassicalLocationTrueAnomaly).Value = trueAnomaly + (360//numSatsPerPlane/2)*(orbitPlaneNum%2)  #Stagger true anomalies (degrees) for every other orbital plane       
+        keplarian.LocationType = AgEClassicalLocation.eLocationTrueAnomaly
+        keplarian.Location.Value = trueAnomaly + (360//numSatsPerPlane/2)*(orbitPlaneNum%2)  #Stagger true anomalies (degrees) for every other orbital plane       
         
         # Propagate
-        satellite2.Propagator.QueryInterface(STKObjects.IAgVePropagatorTwoBody).InitialState.Representation.Assign(keplarian)
-        satellite2.Propagator.QueryInterface(STKObjects.IAgVePropagatorTwoBody).Propagate()
+        satellite.Propagator.InitialState.Representation.Assign(keplarian)
+        satellite.Propagator.Propagate()
         
         # Add to constellation object
-        constellation2.Objects.AddObject(satellite)
+        constellation.Objects.AddObject(satellite)
 
+stkRoot.EndUpdate()
 # Create chain
-chain = scenario.Children.New(STKObjects.eChain, "Chain")
-chain2 = chain.QueryInterface(STKObjects.IAgChain)
+chain = scenario.Children.New(AgESTKObjectType.eChain, "Chain")
 
 # Add satellite constellation and facility
-chain2.Objects.AddObject(constellation)
-chain2.Objects.AddObject(facility)
+chain.Objects.AddObject(constellation)
+chain.Objects.AddObject(facility)
 
 # Compute chain
-chain2.ComputeAccess()
+chain.ComputeAccess()
 
 # Find satellite with most access time
 chainDataProvider = chain.DataProviders.GetDataPrvIntervalFromPath("Object Access")
-chainResults = chainDataProvider.Exec(scenario2.StartTime, scenario2.StopTime)
+chainResults = chainDataProvider.Exec(scenario.StartTime, scenario.StopTime)
 
 objectList = []
 durationList = []
@@ -222,37 +219,32 @@ print("--- Chain computation: {a:4.2f} sec\t\tTotal time: {b:4.2f} sec ---".form
 ############################################################################
 
 # Create coverage definition
-coverageDef = scenario.Children.New(STKObjects.eCoverageDefinition, "CoverageDefinition")
-coverageDef2 = coverageDef.QueryInterface(STKObjects.IAgCoverageDefinition)
+coverageDefinition = scenario.Children.New(AgESTKObjectType.eCoverageDefinition, "CoverageDefinition")
 
 # Set grid bounds type
-grid = coverageDef2.Grid
-grid.BoundsType = STKObjects.eBoundsCustomRegions
+grid = coverageDefinition.Grid
+grid.BoundsType = AgECvBounds.eBoundsCustomRegions
 
 # Add US shapefile to bounds
-bounds = coverageDef2.Grid.Bounds
-bounds2 = bounds.QueryInterface(STKObjects.IAgCvBoundsCustomRegions)
-bounds2.RegionFiles.Add("C:\\Program Files\\AGI\\STK 12\\Data\\Shapefiles\\Countries\\United_States\\United_States.shp")
+bounds = coverageDefinition.Grid.Bounds
+bounds.RegionFiles.Add(r'C:\Program Files\AGI\STK 12\Data\Shapefiles\Countries\United_States_of_America\United_States_of_America.shp')
 
 # Set resolution
-grid.ResolutionType = STKObjects.eResolutionDistance
+grid.ResolutionType = AgECvResolution.eResolutionDistance
 resolution = grid.Resolution
-resolution2 = resolution.QueryInterface(STKObjects.IAgCvResolutionDistance)
-resolution2.Distance = 75
+resolution.Distance = 75
 
 # Add constellation as asset
-coverageDef2.AssetList.Add("Constellation/SatConstellation")
-coverageDef2.ComputeAccesses()
+coverageDefinition.AssetList.Add("Constellation/SatConstellation")
+coverageDefinition.ComputeAccesses()
 
 # Create figure of merit
-figureOfMerit = coverageDef.Children.New(STKObjects.eFigureOfMerit, "FigureOfMert")
-figureOfMerit2 = figureOfMerit.QueryInterface(STKObjects.IAgFigureOfMerit)
+figureOfMerit = coverageDefinition.Children.New(AgESTKObjectType.eFigureOfMerit, "FigureOfMerit")
 
 # Set the definition and compute type
-figureOfMerit2.SetDefinitionType(STKObjects.eFmAccessDuration)
-definition = figureOfMerit2.Definition
-definition2 = definition.QueryInterface(STKObjects.IAgFmDefCompute)
-definition2.SetComputeType(STKObjects.eAverage)
+figureOfMerit.SetDefinitionType(AgEFmDefinitionType.eFmAccessDuration)
+definition = figureOfMerit.Definition
+definition.SetComputeType(AgEFmCompute.eAverage)
 
 fomDataProvider = figureOfMerit.DataProviders.GetDataPrvFixedFromPath("Overall Value")
 fomResults = fomDataProvider.Exec()
@@ -261,11 +253,17 @@ minAccessDuration = fomResults.DataSets.GetDataSetByName("Minimum").GetValues()[
 maxAccessDuration = fomResults.DataSets.GetDataSetByName("Maximum").GetValues()[0]
 avgAccessDuration = fomResults.DataSets.GetDataSetByName("Average").GetValues()[0]
 
+# Computation time
+totalTime = time.time() - startTime
+sectionTime = time.time() - splitTime
+
+# Print data to console
 print("\nThe minimum coverage duration is {a:4.2f} min.".format(a=minAccessDuration))
 print("The maximum coverage duration is {a:4.2f} min.".format(a=maxAccessDuration))
 print("The average coverage duration is {a:4.2f} min.".format(a=avgAccessDuration))
+print("--- Coverage computation: {a:0.3f} sec\t\tTotal time: {b:0.3f} sec ---".format(a=sectionTime, b=totalTime))
 
-# Print computation time
-totalTime = time.time() - startTime
-sectionTime = time.time() - splitTime
-print("--- Coverage computation: {a:4.2f} sec\t\tTotal time: {b:4.2f} sec ---".format(a=sectionTime, b=totalTime))
+stkRoot.CloseScenario()
+stk.ShutDown()
+
+print("\nClosed STK successfully.")
