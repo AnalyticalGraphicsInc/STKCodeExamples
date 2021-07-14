@@ -1,6 +1,6 @@
 # Python General Utility Samples
 
-## [stkMetaDataExtractor.py](EditIntervalFile.py)
+## [stkMetaDataExtractor.py](stkMetaDataExtractor.py)
 
 Allows the user to output an xml or json file that includes each object in the scenario, the description of the scenario, and unique information for each object. The script will also try to output a CZML preview of the scenario. To use the tool, open a command line and navigate to the file location of the script. Run the script in a python environment and enter the filepath of the .sc or .vdf file to be used, as well as the output location of the xml/json and czml. The command line input would look like this:
 
@@ -14,7 +14,7 @@ Allows the user to output an xml or json file that includes each object in the s
 
 ---
 
-## [FilterObjectsByType.py](EditIntervalFile.py)
+## [FilterObjectsByType.py](FilterObjectsByType.py)
 
 Utility that demonstrates how to grab an array of all objects of a certain type. Returns the STK path of each object of that type. Includes an optional string filter.
 
