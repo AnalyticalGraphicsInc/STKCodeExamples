@@ -209,3 +209,18 @@ Important:  you need to change the STK scenario path into the initialization cal
 * Scenario: [SimulinkAttitudeControlLoop.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/0aaeb6cb-7e91-499b-836c-0c35cd51e183)
 
 ---
+
+## [SimulinkAccess](SimulinkAccess)
+	
+This MATLAB script will create a simple scenario with a satellite set to target a ground control station. The satellite’s YPR angles will be written to an external attitude file (.a) where the yaw angle will be constrained by a user specified amount. That .a file will be loaded in for a cloned satellite object.
+Here is a link to learn more about .a files and how they are created: [Attitude File Format (*.a)](http://help.agi.com/stk/index.htm#stk/importfiles-01.htm)
+
+Open the script in MATLAB, change lines 7-9 to match the user’s desired output file location and yaw constraints. Run the script. 
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
