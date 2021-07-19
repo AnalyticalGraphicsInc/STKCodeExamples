@@ -166,7 +166,7 @@ StkHelp(satellite, 'offline')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -187,5 +187,17 @@ vgtImporterExporter('AWB','Ship/Ship1','Satellite/Satellite1')
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [persistentAccessLines.m](persistentAccessLines.m)
+
+This script will connect to a running instance of STK and generate persistent access lines over time. You must specify the from_objPath, the to_ObjPath, timestep, and option variables. With an option equal to 1, an MTO will be used to statically visualize the access lines between the two objects. With option equal to 2, primitives will be used to dynamically create persistent access lines throughout an access. Note that MTOs will take significantly longer to create than primitives. When the script has completed, you will receive a popup message saying 'Done.'
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: Any scenario with at least two objects that have access to each other at some point in the scenario analysis interval.
 
 ---
