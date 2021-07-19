@@ -160,3 +160,67 @@ The direction of the closest edge is assumed to be in the same plane as the Nadi
 * Scenario: N/A
 
 ---
+
+## [SatelliteAttitudeControl](SatelliteAttitudeControl)
+	
+This example shows how a simple satellite with 3-axis attitude control built in Simulink can be integrated with STK.  An STK scenario is used to generate pointing data for the Simulink satellite model (truth data).  A level-2 s-function block is used to host the STK application.  The attitude is controlled by 3 rate integrating gyros built in Simulink, including the effects of band limited white noise to the gyros input position.   The gyro models are developed after the examples found in *Atmospheric and Space Flight Dynamics*, Ashish Tewari, Birkhauser Boston 2007.
+ 
+The gains for this model are very loose to exaggerate the dampening time and overshoot.  Users can change the gains in the rate gyro blocks and adjust the transfer functions to match the inertia of their satellite.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [SimulinkAccess](SimulinkAccess)
+	
+This is a simple example that shows how Simulink can integrate with STK, where Simulink controls the simulation clock and pulls analysis data from STK. The STK analysis derives from a scenario containing a LEO satellite with an attached sensor and transmitter, an area target, and a ground station with an attached receiver.  From this base scenario, access is calculated to determine when the satellite is in the sun, when the satellite’s sensor can view the area target, and when the satellite’s transmitter can communicate with the ground station w/ a Bit Error Rate less than 1e-8.  The Simulink model consists of a source clock block, a Level-2 S-Function block for the STK component, and three display blocks to view the output from STK.  Simulink passes the current simulation time to the s-function block, where STK is queried to determine the current state of access for the three analyses previously mentioned.  If access is true, a value of 1 is passed to the display block for that case (Sunlight, Experiment, or CommLink).  
+
+Follow the instructions in the included ReadMe.docx
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [SimulinkAttitudeControlLoop](SimulinkAttitudeControlLoop)
+	
+Simulink is a time-driven, visual oriented simulation & analysis tool that allows to easily implement time dependent processes.
+In this example we use it to emulate the AOCS (Attitude and Orbit Control System) subsystem of a LEO satellite. The Simulink plant gets attitude and angular speed information from STK at any time step and returns an update attitude state according with the implemented guidance law and the current settings (such as satellite inertia and actuators specification).
+
+A fully working control law based both on quaternions and Euler angles has been implemented; it has been tested over a number of different attitude profiles and works pretty nice. Some disturbance torques have been also added, so the controller is continuously commanding a small torque to maintain the satellite in the right attitude profile.
+
+Once launched, the Simulink model starts an STK scenario that contains two satellites, one used for reference and the other one that is feeded by Simulink itself. In the scenario there is an HTML page that contains some textboxes to allow  the user to define any inertially fixed attitude profile, plus a spinning Sun pointing and an Earth pointing profile. By inserting any new attitude profile, the satellite will change its attitude accordingly.
+
+A complete tutorial is also provided for your reference (UsingSimulink_v4.pdf)
+
+Important:  you need to change the STK scenario path into the initialization callback function of the S-Function accordingly with your installation directory (otherwise the STK scenario cannot be found).
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: [SimulinkAttitudeControlLoop.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/0aaeb6cb-7e91-499b-836c-0c35cd51e183)
+
+---
+
+## [SimulinkAttitudeFile](SimulinkAttitudeFile)
+	
+This MATLAB script will create a simple scenario with a satellite set to target a ground control station. The satellite’s YPR angles will be written to an external attitude file (.a) where the yaw angle will be constrained by a user specified amount. That .a file will be loaded in for a cloned satellite object.
+Here is a link to learn more about .a files and how they are created: [Attitude File Format (*.a)](http://help.agi.com/stk/index.htm#stk/importfiles-01.htm)
+
+Open the script in MATLAB, change lines 7-9 to match the user’s desired output file location and yaw constraints. Run the script. 
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
