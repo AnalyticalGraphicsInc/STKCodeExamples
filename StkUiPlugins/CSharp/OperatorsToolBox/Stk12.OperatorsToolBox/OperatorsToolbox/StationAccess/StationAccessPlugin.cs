@@ -289,8 +289,8 @@ namespace OperatorsToolbox.StationAccess
                     accessChain.Objects.RemoveAll();
                 }
                 //Compute chain
-                accessChain.Objects.AddObject((IAgStkObject)toConst);
                 accessChain.Objects.AddObject((IAgStkObject)fromConst);
+                accessChain.Objects.AddObject((IAgStkObject)toConst);
                 accessChain.ComputeAccess();
                 //Timeline
                 IAgStkObject accessObject = accessChain as IAgStkObject;
@@ -360,6 +360,26 @@ namespace OperatorsToolbox.StationAccess
                     else if (DataType.SelectedIndex == 1)
                     {
                         cmd = "ReportCreate */Chain/" + accessName + " Style \"Individual Strand Access\" Type Display";
+                    }
+                    try
+                    {
+                        CommonData.StkRoot.ExecuteCommand(cmd);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Could not show report");
+                    }
+                }
+                if (GenerateGraph.Checked)
+                {
+                    cmd = "";
+                    if (DataType.SelectedIndex == 0)
+                    {
+                        cmd = "GraphCreate */Chain/" + accessName + " Style \"Complete Chain Access\" Type Display";
+                    }
+                    else if (DataType.SelectedIndex == 1)
+                    {
+                        cmd = "GraphCreate */Chain/" + accessName + " Style \"Individual Strand Access\" Type Display";
                     }
                     try
                     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Text;
 using System.Threading.Tasks;
 using AGI.STKObjects;
@@ -17,6 +18,8 @@ using OperatorsToolbox.SatelliteCreator;
 using OperatorsToolbox.SmartView;
 using OperatorsToolbox.VolumeCreator;
 using System.Text.RegularExpressions;
+using OperatorsToolbox.Templates;
+using System.Diagnostics;
 
 namespace OperatorsToolbox
 {
@@ -31,7 +34,7 @@ namespace OperatorsToolbox
                 {
                     TypeNameHandling = TypeNameHandling.Auto,
                     NullValueHandling = NullValueHandling.Ignore,
-                    Formatting = Formatting.Indented
+                    Formatting = Newtonsoft.Json.Formatting.Indented
                 };
 
                 var data = JsonConvert.SerializeObject(objectToSerialize, setting);
@@ -69,6 +72,34 @@ namespace OperatorsToolbox
                 return default;
             }
         }
+
+        public static List<string> GetLicensingData()
+        {
+            List<string> validLicenses = new List<string>();
+            string xmlString = CommonData.StkRoot.GetLicensingReport();
+            string status;
+            XmlReader xmlReader = XmlReader.Create(new StringReader(xmlString));
+            while (xmlReader.Read())
+            {
+                if (xmlReader.Name == "LicenseStatus")
+                {
+                    if (xmlReader.HasAttributes)
+                    {
+                        status = xmlReader.GetAttribute("Status");
+                        if (status == "1")
+                        {
+                            if (!validLicenses.Contains(xmlReader.GetAttribute("Product")))
+                            {
+                                validLicenses.Add(xmlReader.GetAttribute("Product"));
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            return validLicenses;
+        }
         //Smart View functions
         public static List<ViewData> ReadSavedViews(string fileStr)
         {
@@ -90,147 +121,210 @@ namespace OperatorsToolbox
         {
             CommonData.SatCatItemList.Clear();
             CommonData.SatCatFofo.Clear();
-            CommonData.SatCatConstellations.Clear();
-            CommonData.SatCatNations.Clear();
+            CommonData.MetadataOptions1.Clear();
+            CommonData.MetadataOptions2.Clear();
+            CommonData.MetadataOptions3.Clear();
+            CommonData.MetadataOptions4.Clear();
+            CommonData.MetadataOptions5.Clear();
+            CommonData.MetadataTypeList.Clear();
             Excel.Workbook myBook = null;
             Excel.Application myApp = null;
             Excel.Worksheet mySheet = null;
 
             myApp = new Excel.Application();
             myApp.Visible = false;
+            //Mostly likely failure is due to lack of excel install or inproper path to the catalog
             try
             {
                 myBook = myApp.Workbooks.Open(CommonData.Preferences.SatCatLocation);
+                mySheet = (Excel.Worksheet)myBook.Sheets[1];
+                Excel.Range range = mySheet.UsedRange;
+                object[,] xlRange = range.Value2;
+                var commonName = xlRange[2, 3];
+                var otherName = xlRange[2, 4];
+                var fofo = xlRange[2, 5];
+                var fov = xlRange[2, 11];
+                //Initialize primary metadata types and headers
+                var metadata1 = xlRange[2, 6];
+                var metadata2 = xlRange[2, 7];
+                var metadata3 = xlRange[2, 8];
+                var metadata4 = xlRange[2, 9];
+                var metadata5 = xlRange[2, 10];
+                string type1 = range.Cells[1, 6].Value;
+                string type2 = range.Cells[1, 7].Value;
+                string type3 = range.Cells[1, 8].Value;
+                string type4 = range.Cells[1, 9].Value;
+                string type5 = range.Cells[1, 10].Value;
+
+                CommonData.MetadataTypeList.Add(type1);
+                CommonData.MetadataTypeList.Add(type2);
+                CommonData.MetadataTypeList.Add(type3);
+                CommonData.MetadataTypeList.Add(type4);
+                CommonData.MetadataTypeList.Add(type5);
+                CommonData.MetadataTypeList.Add("Color");
+                int rows = range.Rows.Count;
+
+                for (int i = 2; i < rows; i++)
+                {
+                    SatCatItem item = new SatCatItem();
+                    item.MetadataTypes.Add(type1);
+                    item.MetadataTypes.Add(type2);
+                    item.MetadataTypes.Add(type3);
+                    item.MetadataTypes.Add(type4);
+                    item.MetadataTypes.Add(type5);
+                    item.Scc = xlRange[i, 2].ToString();
+                    commonName = xlRange[i, 3];
+                    otherName = xlRange[i, 4];
+                    fofo = xlRange[i, 5];
+                    metadata1 = xlRange[i, 6];
+                    metadata2 = xlRange[i, 7];
+                    metadata3 = xlRange[i, 8];
+                    metadata4 = xlRange[i, 9];
+                    metadata5 = xlRange[i, 10];
+                    fov = xlRange[i, 11];
+                    #region Check variables in cells
+                    if (commonName != null)
+                    {
+                        item.CommonName = commonName.ToString();
+                    }
+                    else
+                    {
+                        item.CommonName = "Unspecified";
+                    }
+                    if (otherName != null)
+                    {
+                        item.OtherName = otherName.ToString();
+                    }
+                    else
+                    {
+                        item.OtherName = "Unspecified";
+                    }
+
+                    if (fofo != null)
+                    {
+                        item.Fofo = fofo.ToString();
+                        if (!CommonData.SatCatFofo.Contains(item.Fofo))
+                        {
+                            CommonData.SatCatFofo.Add(item.Fofo);
+                        }
+                    }
+                    else
+                    {
+                        item.Fofo = "Unspecified";
+                        if (!CommonData.SatCatFofo.Contains("Unspecified"))
+                        {
+                            CommonData.SatCatFofo.Add("Unspecified");
+                        }
+                    }
+
+                    if (metadata1 != null)
+                    {
+                        item.Metadata1 = metadata1.ToString();
+                        if (!CommonData.MetadataOptions1.Contains(item.Metadata1))
+                        {
+                            CommonData.MetadataOptions1.Add(item.Metadata1);
+                        }
+                    }
+                    else
+                    {
+                        item.Metadata1 = "Unspecified";
+                        if (!CommonData.MetadataOptions1.Contains("Unspecified"))
+                        {
+                            CommonData.MetadataOptions1.Add("Unspecified");
+                        }
+                    }
+
+                    if (metadata2 != null)
+                    {
+                        item.Metadata2 = metadata2.ToString();
+                        if (!CommonData.MetadataOptions2.Contains(item.Metadata2))
+                        {
+                            CommonData.MetadataOptions2.Add(item.Metadata2);
+                        }
+                    }
+                    else
+                    {
+                        item.Metadata2 = "Unspecified";
+                        if (!CommonData.MetadataOptions2.Contains("Unspecified"))
+                        {
+                            CommonData.MetadataOptions2.Add("Unspecified");
+                        }
+                    }
+
+                    if (metadata3 != null)
+                    {
+                        item.Metadata3 = metadata3.ToString();
+                        if (!CommonData.MetadataOptions3.Contains(item.Metadata3))
+                        {
+                            CommonData.MetadataOptions3.Add(item.Metadata3);
+                        }
+                    }
+                    else
+                    {
+                        item.Metadata3 = "Unspecified";
+                        if (!CommonData.MetadataOptions3.Contains("Unspecified"))
+                        {
+                            CommonData.MetadataOptions3.Add("Unspecified");
+                        }
+                    }
+
+                    if (metadata4 != null)
+                    {
+                        item.Metadata4 = metadata4.ToString();
+                        if (!CommonData.MetadataOptions4.Contains(item.Metadata4))
+                        {
+                            CommonData.MetadataOptions4.Add(item.Metadata4);
+                        }
+                    }
+                    else
+                    {
+                        item.Metadata4 = "Unspecified";
+                        if (!CommonData.MetadataOptions4.Contains("Unspecified"))
+                        {
+                            CommonData.MetadataOptions4.Add("Unspecified");
+                        }
+                    }
+
+                    if (metadata5 != null)
+                    {
+                        item.Metadata5 = metadata5.ToString();
+                        if (!CommonData.MetadataOptions5.Contains(item.Metadata5))
+                        {
+                            CommonData.MetadataOptions5.Add(item.Metadata5);
+                        }
+                    }
+                    else
+                    {
+                        item.Metadata5 = "Unspecified";
+                        if (!CommonData.MetadataOptions5.Contains("Unspecified"))
+                        {
+                            CommonData.MetadataOptions5.Add("Unspecified");
+                        }
+                    }
+
+                    if (fov != null)
+                    {
+                        item.Fov = Double.Parse(fov.ToString());
+                    }
+                    else
+                    {
+                        item.Fov = 0;
+                    }
+                    CommonData.SatCatItemList.Add(item);
+                    CommonData.MetadataOptions1.Sort();
+                    CommonData.SatCatFofo.Sort();
+                    CommonData.MetadataOptions2.Sort();
+                    CommonData.MetadataOptions4.Sort();
+                    #endregion
+                }
+                myBook.Close();
+                myApp.Quit();
             }
             catch (Exception)
             {
                 MessageBox.Show("Could not open satellite catalog");
                 return;
             }
-            mySheet = (Excel.Worksheet)myBook.Sheets[1];
-            Excel.Range range = mySheet.UsedRange;
-            object[,] xlRange = range.Value2;
-            var commonName = xlRange[2, 3];
-            var otherName = xlRange[2, 4];
-            var constellation = xlRange[2, 5];
-            var nation = xlRange[2, 6];
-            var fofo = xlRange[2, 7];
-            var type = xlRange[2, 8];
-            var fov = xlRange[2, 11];
-            int rows = range.Rows.Count;
-
-            for (int i = 2; i < rows; i++)
-            {
-                SatCatItem item = new SatCatItem();
-                item.Ssc = xlRange[i, 2].ToString();
-                commonName = xlRange[i, 3];
-                otherName = xlRange[i, 4];
-                constellation = xlRange[i, 5];
-                nation = xlRange[i, 6];
-                fofo = xlRange[i, 7];
-                type = xlRange[i, 8];
-                fov = xlRange[i, 11];
-                if (commonName != null)
-                {
-                    item.CommonName = commonName.ToString();
-                }
-                else
-                {
-                    item.CommonName = "Unspecified";
-                }
-                if (otherName != null)
-                {
-                    item.OtherName = otherName.ToString();
-                }
-                else
-                {
-                    item.OtherName = "Unspecified";
-                }
-                if (constellation != null)
-                {
-                    item.Constellation = constellation.ToString();
-                    if (!CommonData.SatCatConstellations.Contains(item.Constellation))
-                    {
-                        CommonData.SatCatConstellations.Add(item.Constellation);
-                    }
-                }
-                else
-                {
-                    item.Constellation = "Unspecified";
-                    if (!CommonData.SatCatConstellations.Contains("Unspecified"))
-                    {
-                        CommonData.SatCatConstellations.Add("Unspecified");
-                    }
-                }
-
-                if (nation != null)
-                {
-                    item.Nation = nation.ToString();
-                    if (!CommonData.SatCatNations.Contains(item.Nation))
-                    {
-                        CommonData.SatCatNations.Add(item.Nation);
-                    }
-                }
-                else
-                {
-                    item.Nation = "Unspecified";
-                    if (!CommonData.SatCatNations.Contains("Unspecified"))
-                    {
-                        CommonData.SatCatNations.Add("Unspecified");
-                    }
-                }
-
-                if (fofo != null)
-                {
-                    item.Fofo = fofo.ToString();
-                    if (!CommonData.SatCatFofo.Contains(item.Fofo))
-                    {
-                        CommonData.SatCatFofo.Add(item.Fofo);
-                    }
-                }
-                else
-                {
-                    item.Fofo = "Unspecified";
-                    if (!CommonData.SatCatFofo.Contains("Unspecified"))
-                    {
-                        CommonData.SatCatFofo.Add("Unspecified");
-                    }
-                }
-
-                if (type != null)
-                {
-                    item.Type = type.ToString();
-                    if (!CommonData.SatCatTypes.Contains(item.Type))
-                    {
-                        CommonData.SatCatTypes.Add(item.Type);
-                    }
-                }
-                else
-                {
-                    item.Type = "Unspecified";
-                    if (!CommonData.SatCatTypes.Contains("Unspecified"))
-                    {
-                        CommonData.SatCatTypes.Add("Unspecified");
-                    }
-                }
-
-                if (fov != null)
-                {
-                    item.Fov = Double.Parse(fov.ToString());
-                }
-                else
-                {
-                    item.Fov = 0;
-                }
-                CommonData.SatCatItemList.Add(item);
-                CommonData.SatCatConstellations.Sort();
-                CommonData.SatCatFofo.Sort();
-                CommonData.SatCatNations.Sort();
-                CommonData.SatCatTypes.Sort();
-            }
-            myBook.Close();
-            myApp.Quit();
-
 
         }
 
@@ -378,6 +472,23 @@ namespace OperatorsToolbox
             else
             {
                 MessageBox.Show("Filepath does not exist");
+            }
+            return locations;
+        }
+
+        public static List<GroundLocation> ReadFacilityJson(string fileStr)
+        {
+            List<GroundLocation> locations = new List<GroundLocation>();
+            FacilityJsonInput info = DeserializeObject<FacilityJsonInput>(fileStr);
+            List<FacilityInformation> data = info.data;
+            foreach (var item in data)
+            {
+                GroundLocation loc = new GroundLocation();
+                loc.Latitude = item.geometry.lat;
+                loc.Longitude = item.geometry.lon;
+                loc.Altitude = item.geometry.alt / 1000; //file is in meters but import default is km
+                loc.LocationName = item.properties.name;
+                locations.Add(loc);
             }
             return locations;
         }
@@ -700,12 +811,61 @@ namespace OperatorsToolbox
             return tempNames;
         } 
 
+        public static TemplateScriptData GetTemplateScriptData(string filePath)
+        {
+            TemplateScriptData data = new TemplateScriptData();
+            data = DeserializeObject<TemplateScriptData>(filePath);
+            return data;
+        }
+
+        public static void WriteTemplateScriptData(string filePath, TemplateScriptData data)
+        {
+            SerializeObject(data, filePath);
+        }
+
+        public static IAgStkObject ImportObject(string filePath, bool eraseReplace)
+        {
+            IAgStkObjectCollection children = CommonData.StkRoot.CurrentScenario.Children;
+            string line = filePath.Split('\\').Last();
+            string[] ext = line.Split('.');
+            string className = GetClassFromExtension("." + ext[1]);
+            bool objExists = CommonData.StkRoot.ObjectExists(className + "/" + ext[0]);
+            if (objExists)
+            {
+                IAgStkObject oldObj = CommonData.StkRoot.GetObjectFromPath(className + "/" + ext[0]);
+                if (eraseReplace)
+                {
+                    oldObj.Unload();
+                    IAgStkObject myObj = children.ImportObject(filePath);
+                    return myObj;
+                }
+                else
+                {
+                    return oldObj;
+                }
+            }
+            else
+            {
+                IAgStkObject myObj = children.ImportObject(filePath);
+                return myObj;
+            }
+        }
+
         public static void ImportTemplate(string dirPath, List<string> objectNames, bool eraseReplace)
         {
             if (File.Exists(dirPath+"Order.txt"))
             {
                 int errorNum = 0;
                 string errorMes = "Could not load the following objects: \n";
+                TemplateScriptData data = null;
+                if (File.Exists(dirPath + "ScriptData.json"))
+                {
+                    data = GetTemplateScriptData(dirPath + "ScriptData.json");
+                    if (data.PreImportScriptActive)
+                    {
+                        ExecuteScript(data.PreImportScriptPath, data.PreImportArgs, true);
+                    }
+                }
                 CommonData.StkRoot.ExecuteCommand("BatchGraphics * On");
                 using (StreamReader reader = new StreamReader(dirPath + "Order.txt"))
                 {
@@ -720,30 +880,60 @@ namespace OperatorsToolbox
                         string[] linepeices = line.Split('.');
                         if (objectNames.Contains(linepeices[0]))
                         {
+                            className = GetClassFromExtension("." + linepeices[1]);
+                            objExists = CommonData.StkRoot.ObjectExists(className + "/" + linepeices[0]);
                             if (eraseReplace)
                             {
-                                className = GetClassFromExtension("." + linepeices[1]);
-                                objExists = CommonData.StkRoot.ObjectExists(className + "/" + linepeices[0]);
                                 if (objExists)
                                 {
-                                    IAgStkObject oldObj = CommonData.StkRoot.GetObjectFromPath(className + "/" + linepeices[0]);
-                                    oldObj.Unload();
+                                    try
+                                    {
+                                        IAgStkObject oldObj = CommonData.StkRoot.GetObjectFromPath(className + "/" + linepeices[0]);
+                                        oldObj.Unload();
+                                    }
+                                    catch (Exception)
+                                    {
+                                        //No exception message needed
+                                    }
+                                }
+                                try
+                                {
+                                    children.ImportObject(Path.Combine(dirPath, line));
+                                }
+                                catch (Exception e)
+                                {
+                                    errorMes = errorMes + linepeices[0] + " " + e.Message + "\n";
+                                    errorNum++;
                                 }
                             }
-                            try
+                            else
                             {
-                                children.ImportObject(Path.Combine(dirPath,line));
+                                if (!objExists)
+                                {
+                                    try
+                                    {
+                                        children.ImportObject(Path.Combine(dirPath, line));
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        errorMes = errorMes + linepeices[0] + " " + e.Message + "\n";
+                                        errorNum++;
+                                    }
+                                }
                             }
-                            catch (Exception e)
-                            {
-                                errorMes = errorMes + linepeices[0] + " " + e.Message + "\n";
-                                errorNum++;
-                            }
+
                         }
                         line = reader.ReadLine();
                     }
                 }
                 CommonData.StkRoot.ExecuteCommand("BatchGraphics * Off");
+                if (data != null)
+                {
+                    if (data.PostImportScriptActive)
+                    {
+                        ExecuteScript(data.PostImportScriptPath, data.PostImportArgs, false);
+                    }
+                }
                 if (errorNum>0)
                 {
                     MessageBox.Show(errorMes);
@@ -1027,6 +1217,41 @@ namespace OperatorsToolbox
             }
 
             return output;
+        }
+
+        //Execute external program or script using new process
+        public static void ExecuteScript(string cmdStr, string args, bool executeSerial)
+        {
+            try
+            {
+                //Process newProcess = new Process();
+                if (!String.IsNullOrEmpty(args))
+                {
+                    if (executeSerial)
+                    {
+                        System.Diagnostics.Process.Start(cmdStr, args).WaitForExit();
+                    }
+                    else
+                    {
+                        System.Diagnostics.Process.Start(cmdStr, args);
+                    }
+                }
+                else
+                {
+                    if (executeSerial)
+                    {
+                        System.Diagnostics.Process.Start(cmdStr).WaitForExit();
+                    }
+                    else
+                    {
+                        System.Diagnostics.Process.Start(cmdStr);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Script Error");
+            }
         }
 
 

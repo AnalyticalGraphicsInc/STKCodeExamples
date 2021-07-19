@@ -10,6 +10,8 @@
         public string HalfAngle { get; set; }
         public string MinAz { get; set; }
         public string MaxAz { get; set; }
+        public string Az { get; set; }
+        public string El { get; set; }
 
 
         public RadarParams()
@@ -29,6 +31,8 @@
                 HalfAngle = "85";
                 MinAz = "0";
                 MaxAz = "360";
+                Az = "0";
+                El = "90";
             }
             else
             {
@@ -40,6 +44,8 @@
                 HalfAngle = data.HalfAngle;
                 MinAz = data.MinAz;
                 MaxAz = data.MaxAz;
+                Az = data.Az;
+                El = data.El;
             }
         }
 

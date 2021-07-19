@@ -1,3 +1,0 @@
-Quiver plots in Matlab are a great way of visualizing vector fields. In this example, STK integration is used to bring data in from STK to Matlab. The data is then used to create a quiver plot showing the relative velocity of points on the ground that are covered by a satellite's sensor. 
-This script is made for a scenario with the format specified in QuiverExample.vdf. More information on quiver plots can be found here: https://www.mathworks.com/help/matlab/ref/quiver.html
-This scenario example can be downloaded for STK 12.1+ here: https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/fe8f63d5-77f1-40e7-975a-2319d78ae18a

@@ -1,0 +1,201 @@
+<html>
+	<head>
+	</head>
+		<title> Camera Path Zoom </title>
+		
+		<script language="JavaScript">
+			
+			// Connect to STK
+			uiApp = window.external;
+			root = uiApp.personality2;
+			// All dates must be in epoch seconds
+			root.UnitPreferences.SetCurrentUnit("DateFormat", "EpSec");
+			root.ExecuteCommand("Units_SetConnect / Date \"EpSec\"");
+			
+			thisWindow = uiApp.Windows("HTML Viewer - Camera Path Zoom");
+			thisWindow.DockStyle = 3;
+			thisWindow.Width = 400;
+			
+			// Constant ratio to scale path by (found by trial and error)
+			ratio = (4.5/14);
+			
+			function onLoad()
+			{
+				// Add existing camera paths to drop down
+				var pathResult = root.ExecuteCommand("VO_R * CameraControl GetPaths");
+				var allPaths = pathResult.Item(0).split(" ");
+				
+				pathSelectBox.length = 0;
+				for (var i in allPaths)
+				{
+					var thisPath = allPaths[i].replace(/\"/g, "");
+					pathSelectBox.length++;
+					pathSelectBox[pathSelectBox.length-1].text = thisPath;
+				}
+			}
+			
+			function createPath_Click()
+			{
+				var inputsValid = checkInputs();
+				if (inputsValid == true)
+				{
+					// Create new path and add same starting keyframe
+					var selectedPath = pathSelectBox.options[pathSelectBox.selectedIndex].text;
+					var keyframeResult = root.ExecuteCommand("VO_R * CameraControl GetKeyframeData \"" + selectedPath + "\" Data Time KeyframeNum All");
+					var keyframeTimes = keyframeResult.Item(0).split(" ");
+					
+					var startTime = keyframeTimes[0].replace(/\"/g, "");
+					var stopTime = keyframeTimes[1].replace(/\"/g, "");
+					
+					root.ExecuteCommand("VO * CameraControl CameraPath Add Name \"" + newPathInput.value + "\"");
+					root.ExecuteCommand("VO * CameraControl Follow \"" + selectedPath + "\"");
+					root.CurrentTime = startTime;
+					root.ExecuteCommand("VO * CameraControl Keyframes \"" + newPathInput.value + "\" Add");
+					
+					// Add the rest of the frames
+					createFrames(selectedPath, parseFloat(startTime), parseFloat(stopTime));
+					
+					alert("Done!");
+				}
+			}
+			
+			function createFrames(selectedPath, start, stop)
+			{
+				// Set initial values
+				var initialTime = start + 0.75*(stop - start);
+				var animationTime = initialTime;
+				var pathTime = ratio*pathLengthInput.value;
+				
+				// Create 20 additional frames (based on trial and error)
+				var frames
+				for (frames = 0; frames < 20; frames++)
+				{
+					// Set the graphics window to the selected camera path view at the animation time
+					root.ExecuteCommand("VO * CameraControl Follow \"" + selectedPath + "\"");
+					root.CurrentTime = animationTime;
+					
+					// Stop  following the selected view, so the view doesn't change when the animation time changes
+					// Then set the time to the path time which is scaled by the input length
+					root.ExecuteCommand("VO * CameraControl Follow Off");
+					root.CurrentTime = pathTime;
+					// Add a keyframe at this time
+					root.ExecuteCommand("VO * CameraControl Keyframes \"" + newPathInput.value + "\" Add");
+					
+					// New animation time is at the halfway point of the selected path between the current animation
+					// time and the end of the path
+					animationTime = ((stop-animationTime)/2) + animationTime;
+					pathTime = pathTime + ((1-ratio) * pathLengthInput.value)/19;
+				}
+			}
+			
+			function checkInputs()
+			{
+				// Check if a path with input name already exists
+				var pathResult = root.ExecuteCommand("VO_R * CameraControl GetPaths");
+				var allPaths = pathResult.Item(0).split(" ");
+				var selectedPath = pathSelectBox.options[pathSelectBox.selectedIndex].text;
+				
+				if (selectedPath == "")
+				{
+					alert("No reference path selected!");
+					return false;
+				}
+
+				for (var i in allPaths)
+				{
+					var thisPath = allPaths[i].replace(/\"/g, "");
+					if ( thisPath == newPathInput.value)
+					{
+						alert("A path with this name already exists!");
+						return false;
+					}
+				}
+				
+				if (isNaN(pathLengthInput.value))
+				{
+					alert("Length must be a number.");
+					return false;
+				}
+				
+				return true;
+			}
+
+		</script>
+		
+		<body bgcolor="#ECE9D8" onLoad="onLoad()">
+			<table>	
+				<tr>
+					<td> <b>Reference Camera Path</b> </td>
+				</tr>
+				
+				<tr>
+					<td> <select name="pathSelectBox"/> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> New Path Name: </td>
+					<td> <input type="text" name="newPathInput" value="NewPath" size="10" /> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> Length (sec): </td>
+					<td> <input type="text" name="pathLengthInput" value="10" size ="10" /> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> <input type="button" value="Create Path" onClick="createPath_Click()" /> </td>
+				</tr>
+				
+								<tr>
+					<td> </td>
+				</tr>
+				
+				<tr>
+					<td> </td>
+				</tr>
+				
+			</table>
+			
+			<table>
+				<tr>
+					<td><i>To use this utility, first create a reference camera path with a keyframe specifying the view at the beginning of the zoom and a keyframe at the end of the zoom. Enter a name for the new path and the total time in STK the zoom should take. </i> </td>
+				</tr>
+			</table>
+		</body>
+</html>
