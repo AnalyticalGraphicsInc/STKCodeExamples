@@ -225,7 +225,7 @@ Open the script in MATLAB, change lines 7-9 to match the user’s desired output
 
 ---
 
-## [aircraftSensorPointingandAER.m](aircraftSensorPointingandAER.m)
+## [sensorPointingAndAER.m](sensorPointingAndAER.m)
 	
 This is a standalone script that demonstrates the use of sensor pointing and retrieval of AER data using the Object Model. A new STK scenario is created with 2 aircraft and a sensor on the first aircraft. The sensor is set to target the second aircraft, and access is computed. Time, Az, and El data of the access is loaded into Matlab matrices.
 
