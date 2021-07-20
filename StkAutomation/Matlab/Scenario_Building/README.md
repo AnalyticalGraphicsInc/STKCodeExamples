@@ -127,3 +127,15 @@ This script creates an elliptical sensor .pattern file for a given semi major ax
 * Scenario: N/A
 
 ---
+
+## [Analysis_Workbench_Components.m](Analysis_Workbench_Components.m)
+
+This script serves as an example of how to create each component type within Analysis Workbench. A new STK instance is created with a notional satellite, and one of each component available in the Vector Geometry Tool, Calculation Tool, and Time Tool is initialized.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
