@@ -1,0 +1,12 @@
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\bin\Debug\STK12.UIPlugin.Copier.TetkExample.exe.config
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\bin\Debug\STK12.UIPlugin.Copier.TetkExample.exe
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\bin\Debug\STK12.UIPlugin.Copier.TetkExample.pdb
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.csprojAssemblyReference.cache
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.g.resources
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.InstallForm.resources
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.SetupForm.resources
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.Properties.Resources.resources
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.csproj.GenerateResource.cache
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.csproj.CoreCompileInputs.cache
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.exe
+C:\Users\kkochel\Documents\TETK\Example UI Plugins\Stk12.UiPlugin.TetkExample\STK12.UIPlugin.Copier.TetkExample\obj\Debug\STK12.UIPlugin.Copier.TetkExample.pdb
