@@ -236,3 +236,27 @@ This is a standalone script that demonstrates the use of sensor pointing and ret
 * Scenario: N/A
 
 ---
+
+## [coverageAccumPercent.m](coverageAccumPercent.m)
+	
+This script allows you to specify a % of coverage accumulation over the course of your analysis interval. For example, if you want to know the time it takes for you coverage grid to be 90% covered, it will calculate the time it takes starting at each time step. The script will open STK, create a new scenario with a satellite and coverage definition assigned to a country area target, use the grid inspector data provider to compute accumulated coverage, and display the results in a Matlab table. A Matlab progress bar is created to show computation progress.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [ConvertAERtoLLA](ConvertAERtoLLA)
+
+This script allows for easy conversion of a AER data from a Radar to LLA for a launch vehicle in STK. This same code can be easily modified to be used for any vehicles like Aircrafts/UAVs/GroundVehicles/Satellites. It requires Azimuth Elevation Range (AER) Data from tracker to that vehicle in a .csv as well as the location of the tracker. This script allows you to visualize trajectory data by reading in AER data from a .csv, converting it to LLA, and adding it as a waypoint in the vehicle's trajectory. The data should be formatted in columns of Time(EpSec), Azimuth(deg), Elevation(deg), and Range(km).
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
