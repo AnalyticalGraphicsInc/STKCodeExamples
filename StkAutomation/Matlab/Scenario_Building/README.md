@@ -139,3 +139,27 @@ This script serves as an example of how to create each component type within Ana
 * Scenario: N/A
 
 ---
+
+## [MultiSegmentAttitude.m](MultiSegmentAttitude.m)
+
+This script demonstrates the use of the [SetAttitude](https://help.agi.com/stkdevkit/Subsystems/connectCmds/connectCmds.htm#cmd_SetAttitudeProfile.htm) and [AddAttitude](https://help.agi.com/stkdevkit/Subsystems/connectCmds/connectCmds.htm#cmd_AddAttitudeProfile.htm) Connect commands to create different attitude segments. Several different options to set a multi-segment attitude profile are available, including external attitude files, targeted pointing, and built-in profiles.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: A scenario with the default satellite and facility as well as an external [attitude (*.a) file](https://help.agi.com/stk/index.htm#stk/importfiles-01.htm).
+
+---
+
+## [MultiSegmentAttitudeLoop.m](MultiSegmentAttitudeLoop.m)
+
+This function demonstrates the ability to store bulk attitude profile data and add multiple segments in a loop. It creates ten sample attitude segments of various types and definitions to a satellite within a scenario.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: Scenario with a satellite called 'MySatellite'
+
+---
