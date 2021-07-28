@@ -3,7 +3,8 @@ PLUGIN OVERVIEW:
 This sample plugin is to demonstrate how custom TETK worfklows can be created through custom UIs using TETK Connect commands. This particular example consists of an F35 ownship
 with a radar system under test. The forward-facing radar of the F35 captures tracking data for ten other aircraft flying in the vicinity. TSPI data is loaded for the F35 ownship
 as well as the other ten aircraft. The tracking data for the radar is also loaded and a track is created in the TETK Tracks workflow. A filtered track based on Track ID can also
-be created. A desired track can then be promoted and a Track Comparison can be run to compare how well the radar tracked a particular aircraft relative to its TSPI. Several quick buttons exist to create comparison graphs and a data display.
+be created. A desired track can then be promoted and a Track Comparison can be run to compare how well the radar tracked a particular aircraft relative to its TSPI. Several quick
+buttons exist to create comparison graphs and a data display.
 
 
 TO INSTALL:
@@ -17,7 +18,8 @@ While installing, you can place the plugin in any of the following locations:
 
 BEFORE RUNNING:
 
-You will need to copy the entire "TETK_Notional_Test_Datasets" folder inside the Data_Files folder and paste it to your C drive at the path listed below. If you are accessing this from GitHub you can obtain this folder here: https://agi.widen.net/s/wb8l2zrb9f/tetk_notional_test_datasets. If the folder is zipped make sure to unzip it.
+You will need to copy the entire "TETK_Notional_Test_Datasets" folder inside the Data_Files folder and paste it to your C drive at the path listed below. If you are accessing this
+from GitHub you can obtain this folder here: https://agi.widen.net/s/wb8l2zrb9f/tetk_notional_test_datasets. If the folder is zipped make sure to unzip it.
 C:\AGI
 * Note - You may need to create the AGI folder. This folder path is necessary since the plugin uses hardcoded file paths for certain buttons.
 
