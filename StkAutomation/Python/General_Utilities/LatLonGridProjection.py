@@ -1,10 +1,11 @@
-# Get reference to running STK instance using comtypes
-from comtypes.client import GetActiveObject
-uiApplication = GetActiveObject('STK12.Application')
-uiApplication.Visible = True
+# Get reference to running STK instance using the new API
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import *
+stk = STKDesktop.AttachToApplication()
 
-# Get IAgStkObjectRoot interface
-root = uiApplication.Personality2
+# Get the IAgStkObjectRoot interface
+root = stk.Root
+
 # Delete any existing Primitives (also clears ID numbers so new IDs can be defined)
 # Can use this Delete All to play around & tailor spacing/altitude on each run as desired
 root.ExecuteCommand("VO * Primitive Delete ID All")
