@@ -52,3 +52,15 @@ This excel workbook is a basic example of integrating excel and STK.  There are 
 
 ---
 
+## [TerrainConverter]
+
+This script allows users to convert multiple terrain files of different formats at once. Once an input directory containing terrain data is chosen, clicking "Get Files" populates the list and allows files to be converted to .pdtt files. 
+
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
