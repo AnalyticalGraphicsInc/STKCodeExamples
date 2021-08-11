@@ -172,6 +172,25 @@ StkHelp(satellite, 'offline')
 
 ---
 
+## [StkHelp.m](StkHelp.m)
+
+This function will launch the Programming Help documentation page for a given STK handle. The 'offline' flag can be used to open the local Programming Help (optional).
+
+Example:
+
+```matlab
+% satellite: IAgSatellite
+StkHelp(satellite, 'offline')
+```
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [vgtImporterExporter.m](vgtImporterExporter.m)
 
 This script allows you to export many vgt components on one object and inserts them on another. Through the GUI, you can only do one at a time.
