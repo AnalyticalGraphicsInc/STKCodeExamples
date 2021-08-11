@@ -201,3 +201,20 @@ This script will connect to a running instance of STK and generate persistent ac
 * Scenario: Any scenario with at least two objects that have access to each other at some point in the scenario analysis interval.
 
 ---
+
+## [FilterSegmentsByType.m](FilterSegmentsByType.m)
+
+For an Astrogator satellite, grabs all segments of a specified type and returns a list of handles to the segments.
+
+Inputs:
+	segs: Handle to list of Astrogator segments [IAgVAMCSSegmentCollection]
+	segType: Segment type of an Astrogator satellite, i.e. TargetSequence,Maneuver, etc. [string]
+	segHandles: Column vector storing the list of handles to the segments [nx1 column vector]
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: Any scenario with a propagated Astrogator satellite.
+
+---
