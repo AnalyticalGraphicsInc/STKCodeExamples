@@ -260,3 +260,15 @@ This script allows for easy conversion of a AER data from a Radar to LLA for a l
 * Scenario: N/A
 
 ---
+
+## [DebrisModel.m](DebrisModel.m)
+
+This Debris model is a framework that can be augmented to simulate different types of debris-generating events.  The model uses a maneuver with a Normal Distributed random value for velocity in all directions.  It gives normally (Gaussian) distributed random numbers whose values theoretically lies between -Infinity to Infinity having 0 mean and 1 variance but most fall within +/-3 meters  per second. 50 debris objects are generated and propagated for a 100 minute period.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
