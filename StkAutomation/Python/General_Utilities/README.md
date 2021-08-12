@@ -113,3 +113,14 @@ This is a standalone script that writes a csv with columns Time in UTCG, Lat, Lo
 * Third-Party Libraries: N/A
 
 ---
+## [LatLonGridProjection.py](LatLonGridProjection.py)
+
+Using STK Primitives, creates a latitude/longitude grid at a specifiable altitude off the globe (km) and line spacing (deg).
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
