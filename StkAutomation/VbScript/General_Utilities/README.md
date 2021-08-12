@@ -64,3 +64,17 @@ This script allows users to convert multiple terrain files of different formats 
 * Scenario: N/A
 
 ---
+
+## [AviatorWaypointsConnect.vbs](AviatorWaypointsConnect.vbs)
+
+This script will take the waypoints located in the file "C:/temp/waypoints.txt" and convert it into an Aviator route with waypoints specified by the file. 
+
+**Note**: If there is an Aircraft1 already, it will rewrite any existing waypoints.
+
+### Dependencies
+
+* Licenses: Free, Integration, Aviator
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
