@@ -7,7 +7,7 @@ This script attaches to an open instance of STK12 and imports facilities with po
 Example:
 
 ```matlab
-ImportFacilities('GroundSites.xlsx')
+ImportFacilities('GroundSitesExamples.xlsx')
 ```
 
 ### Dependencies
