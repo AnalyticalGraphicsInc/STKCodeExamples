@@ -1,9 +1,9 @@
 function [ ] = ImportFacilities( filepath )
-% ImportFacilities Attaches to an open instance of STK12 and imports
-% position data from Excel spreadsheet. Units are assumed to be degrees and
-% meters with a header row in the Excel file for ID, LAT, LON, ALT
-% 
-% Example: ImportFacilities('GroundSites.xlsx')
+%ImportFacilities Attaches to an open instance of STK12 and imports
+%position data from Excel spreadsheet. Units are assumed to be degrees and
+%meters with a header row in the Excel file for ID, LAT, LON, ALT
+%
+% Example: ImportFacilities('GroundSitesExamples.xlsx')
 
     % Grab a running instance of STK
     uiapp = actxGetRunningServer('STK12.application');
@@ -36,7 +36,7 @@ function [ ] = ImportFacilities( filepath )
         
         % Create the facility with the name listed in the excel sheet
         fac = scen.Children.New('eFacility', facName);
-        % Choose ot not use terrain
+        % Choose to not use terrain
         fac.UseTerrain = false;
         % Set the latitude, longitude, and altitude
         fac.Position.AssignGeodetic(data.LAT(i), data.LON(i), data.ALT(i));

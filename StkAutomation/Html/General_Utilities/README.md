@@ -65,3 +65,15 @@ This utility allows you to paste data into a text box and ingest that data to cr
 * Scenario: N/A
 
 ---
+
+## [RealTime](RealTime.htm)
+
+This utility creates an aircraft using CONNECT commands and generates realtime position data rather than using a data feed.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
