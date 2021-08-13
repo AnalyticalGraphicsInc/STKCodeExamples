@@ -39,3 +39,15 @@ This script will create a 5 3D Windows so that these can be combine and pieced t
 * Scenario: N/A
 
 ---
+
+## [AdvCatAutomation.xlsm](AdvCatAutomation.xlsm)
+
+This tool shows the ins and outs of automating the AdvCAT module of STK using Excel. The code provides examples of creating satellites from files, setting thresholds in AdvCAT, and manually setting orbital elements/covariance. The code also shows how to to manipulate the HPOP propagator. This tool was originally designed to follow along with [this tutorial](https://help.agi.com/stk/index.htm#training/AdvCatTool.htm). Open an instance of STK using the controls in the upper left corner of the page. The lower left hand box provides all the requirements for the conjunction analysis and the variable shown are the same as the ones shown in the STK GUI version. The file paths for the primary and secondary satellites can be either a TLE/TCE (which will import all assets in the file) or an ephemeris file. Note that you need to change the filepaths before usage. If the checkboxes are selected on the right, then it allows the user to override the file option and hand-define the satellite position and covariance. This was included to show how custom covariance can be added and how a user can manipulate the HPOP propagator using scripting. All of the main code is located on the "Compute Conjunction Analysis" button. To access the code, right-click on the button and click on “Assign Macro”. On the new page click “Edit”, which will open up the VBA code editor and bring you to the code behind the button.
+
+### Dependencies
+
+* Licenses: Free, Integration, Pro, CAT
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
