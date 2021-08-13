@@ -210,18 +210,12 @@ Outputs:
 
 This function will automate the STK Grid Inspector which allows you to get detailed results for every grid point in the coverage defintion or figure of merit. CoverageGridInspectorAutomate(CovDefName) returns a 1 by N struct which includes the latitude, longitude and data provider results for N grid points in the coverage definition.
 
-   Example
-       CoverageGridInspectorAutomate('CoverageDefinition1') 
-       returns 1xN struct array with fields:
-           Lat
-           Lon
-           Data
-   Example
-       CoverageGridInspectorAutomate('CoverageDefinition1','FigureOfMerit1') 
-       returns 1xN struct array with fields:
-           Lat
-           Lon
-           Data
+Examples:
+
+```matlab
+CoverageGridInspectorAutomate('CoverageDefinition1')
+CoverageGridInspectorAutomate('CoverageDefinition1','FigureOfMerit1') 
+```
 
 ### Dependencies
 
