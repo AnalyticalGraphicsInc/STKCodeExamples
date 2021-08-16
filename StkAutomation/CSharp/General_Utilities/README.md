@@ -18,7 +18,7 @@ Recent updates have been added to now include GPX files imported as waypoints on
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -30,7 +30,7 @@ This utility will allow you to connect to an open instance of STK, choose a spec
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
