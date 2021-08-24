@@ -7,7 +7,7 @@ This script attaches to an open instance of STK12 and imports facilities with po
 Example:
 
 ```matlab
-ImportFacilities('GroundSites.xlsx')
+ImportFacilities('GroundSitesExamples.xlsx')
 ```
 
 ### Dependencies
@@ -59,7 +59,7 @@ When an Astrogator satellite maneuvers by default the manuever will adjust the a
 ### Dependencies
 
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
-* Other Scripts: N/A
+* Other Scripts: [FilterSegmentsByType.m](../General_Utilities/FilterSegmentsByType.m)
 * Scenario: N/A
 
 ---
