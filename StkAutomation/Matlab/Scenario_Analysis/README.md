@@ -156,6 +156,14 @@ GrazingAngle('Satellite/Satellite1', -45)
 
 ---
 
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [quiverPlotRelativeGroundVelocity.m](quiverPlotRelativeGroundVelocity.m)
 
 Quiver plots in Matlab are a great way of visualizing vector fields. In this example, STK integration is used to bring data in from STK to Matlab. The data is then used to create a quiver plot showing the relative velocity of points on the ground that are covered by a satellite's sensor.

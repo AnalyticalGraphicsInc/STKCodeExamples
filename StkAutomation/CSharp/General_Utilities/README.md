@@ -1,5 +1,29 @@
 # C# General Utility Samples
 
+## [DataProviderExplorer](DataProviderExplorer)
+
+This utility will allow you to connect to an open instance of STK, choose a specific data provider and export to an [Ansys](https://ansys.com) Library File.
+
+### Dependencies
+
+* Licenses: Free, Integration
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [PullDataFromSTKExample](PullDataFromSTKExample)
+
+This example utility shows how to stream AER data between a satellite and facility as a scenario animates.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [SendEphemerisToSTK](SendEphemerisToSTK)
 
 This utility will allow you to add a new option to your Windows right-click > Send To menu for you to send files directly to STK.
@@ -15,18 +39,6 @@ Recent updates have been added to now include GPX files imported as waypoints on
 * Place a shortcut to that executable here: %AppData%/Microsoft/Windows/SendTo
 * Rename that shortcut "STK"
 * Right click on any Ephemeris File and on the Send To menu you will see an STK option.
-
-### Dependencies
-
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
-* Other Scripts: N/A
-* Scenario: N/A
-
----
-
-## [DataProviderExplorer](DataProviderExplorer)
-
-This utility will allow you to connect to an open instance of STK, choose a specific data provider and export to an [Ansys](https://ansys.com) Library File.
 
 ### Dependencies
 

@@ -173,3 +173,14 @@ This function demonstrates the ability to store bulk attitude profile data and a
 * Scenario: Scenario with a satellite called 'MySatellite'
 
 ---
+
+## [ObjectLines.m](ObjectLines.m)
+
+This script will draw lines from an existing object to another existing object at various specified times in the object's path.
+
+How to use:
+    1. Create two objects in an existing scenario.
+    2. Specify the final animation time in the script.
+    3. Specify the list of time instants in seconds relative to the final animation time that you'd like to draw lines from the path of one object to the other.
+    4. Set the names of your two objects in the script.
+    5. Run the script.  It will create a duplicate object for each time instant and draw lines from it to the other object.

@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E88855D4-300E-4FA3-BD2C-E2FCF184510B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConstrainedAttitude.UiPlugin</RootNamespace>
+    <AssemblyName>ConstrainedAttitude.UiPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AGI.STKGraphics.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKGraphics.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKObjects.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKUtil.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.STKVgt.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Application.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Application.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Core.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Core.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AGI.Ui.Plugins.Interop">
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Ui.Plugins.Interop.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonData.cs" />
+    <Compile Include="CustomConfigPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomConfigPage.Designer.cs">
+      <DependentUpon>CustomConfigPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomUserInterface.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomUserInterface.Designer.cs">
+      <DependentUpon>CustomUserInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OlePictureHelper.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Setup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StkObjectsLibrary.cs" />
+    <Compile Include="UserInputs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomConfigPage.resx">
+      <DependentUpon>CustomConfigPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomUserInterface.resx">
+      <DependentUpon>CustomUserInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\STK.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Aircraft.png" />
+    <EmbeddedResource Include="Images\Antenna.png" />
+    <EmbeddedResource Include="Images\Building.png" />
+    <EmbeddedResource Include="Images\CheckList.png" />
+    <EmbeddedResource Include="Images\Clock.png" />
+    <EmbeddedResource Include="Images\Globe.png" />
+    <EmbeddedResource Include="Images\Home.png" />
+    <EmbeddedResource Include="Images\Missile.png" />
+    <EmbeddedResource Include="Images\Orbit.png" />
+    <EmbeddedResource Include="Images\Satellite.png" />
+    <EmbeddedResource Include="Images\Target.png" />
+    <EmbeddedResource Include="Images\Axes.png" />
+    <Content Include="Stk12.UiPlugin.RENAME.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

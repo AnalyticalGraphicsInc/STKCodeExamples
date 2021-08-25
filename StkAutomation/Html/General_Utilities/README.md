@@ -66,6 +66,10 @@ This utility allows you to paste data into a text box and ingest that data to cr
 
 ---
 
+## [One-Step Graphics Settings.htm](One-Step%20Graphics%20Settings.htm)
+
+As provided on request by our resident movie making expert, this utility will set various STK properties to optimize the appearance of STK images and videos. No more searching through multiple property's panels to set all these values - you can do it all from this simple to use HTML page.
+
 ## [RealTime](RealTime.htm)
 
 This utility creates an aircraft using CONNECT commands and generates realtime position data rather than using a data feed.
