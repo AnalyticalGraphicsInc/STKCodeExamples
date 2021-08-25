@@ -154,13 +154,6 @@ GrazingAngle('Satellite/Satellite1', -45)
 * Other Scripts: N/A
 * Scenario: N/A
 
----
-
-### Dependencies
-
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
-* Other Scripts: N/A
-* Scenario: N/A
 
 ---
 
