@@ -40,7 +40,7 @@ This utility loads a text file of connect commands to execute.
 
 ---
 
-## [CreateAreaTargetFromCSV.html](CreateAreaTargetFromCSV.html)
+## [CreateAreaTargetFromCSV](CreateAreaTargetFromCSV)
 
 This utility allows you to select a CSV file that has two columns of data points to then generate an area target in STK.
 
