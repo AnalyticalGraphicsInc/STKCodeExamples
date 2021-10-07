@@ -16,6 +16,8 @@ namespace OperatorsToolbox.FacilityCreator
             sensor.Graphics.IsObjectGraphicsVisible = false;
             IAgSnSimpleConicPattern pattern = sensor.Pattern as IAgSnSimpleConicPattern;
             pattern.ConeAngle = Double.Parse(rParams.HalfAngle);
+            IAgSnPtFixed pointing = sensor.Pointing as IAgSnPtFixed;
+            pointing.Orientation.AssignAzEl(Double.Parse(rParams.Az), Double.Parse(rParams.El), AGI.STKUtil.AgEAzElAboutBoresight.eAzElAboutBoresightRotate);
 
             IAgAccessConstraintCollection constraints = sensor.AccessConstraints;
             IAgAccessCnstrMinMax elConstraint;
@@ -44,6 +46,8 @@ namespace OperatorsToolbox.FacilityCreator
             sensor.Graphics.IsObjectGraphicsVisible = false;
             IAgSnSimpleConicPattern pattern = sensor.Pattern as IAgSnSimpleConicPattern;
             pattern.ConeAngle = Double.Parse(rParams.HalfAngle);
+            IAgSnPtFixed pointing = sensor.Pointing as IAgSnPtFixed;
+            pointing.Orientation.AssignAzEl(Double.Parse(rParams.Az), Double.Parse(rParams.El), AGI.STKUtil.AgEAzElAboutBoresight.eAzElAboutBoresightRotate);
 
             IAgAccessConstraintCollection constraints = sensor.AccessConstraints;
             IAgAccessCnstrMinMax elConstraint;

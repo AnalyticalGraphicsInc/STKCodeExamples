@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using AGI.STKObjects;
 using AGI.STKUtil;
 using AGI.STKVgt;
+using OperatorsToolbox.SensorBoresightPlugin;
 
 namespace OperatorsToolbox.SmartView
 {
@@ -13,12 +14,14 @@ namespace OperatorsToolbox.SmartView
     {
         public static void Change3DView(ViewData view)
         {
+            IAgStkObject obj = null;           
             IAgSatellite sat;
             IAgExecCmdResult result;
             string cmd = null;
             //Change View
             int windowId = GetWindowId(view.WindowName,1);
-            SetAnimation(view);
+
+            //Change to stored view if required or set correct viewing based on object specification
             if (view.UseStoredView)
             {
                 try
@@ -52,64 +55,165 @@ namespace OperatorsToolbox.SmartView
                     MessageBox.Show("Could not Modify View");
                 }
             }
-            //Update Satellite Graphics
-            if (view.EnableUniversalOrbitTrack)
+
+            //Execute Camera Path
+            if (view.UseCameraPath)
             {
-                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Satellite");
-                string[] newSatArray = null;
-                if (result[0] != "None")
+                cmd = "VO * CameraControl Follow \"" + view.CameraPathName + "\" WindowID "+view.WindowId.ToString();
+                try
                 {
-                    newSatArray = result[0].Split(null);
+                    CommonData.StkRoot.ExecuteCommand(cmd);
                 }
-                if (newSatArray != null)
+                catch (Exception)
                 {
-                    foreach (var item in newSatArray)
+                }
+            }
+
+            //Set Animation Time
+            if (!view.UseStoredView)
+            {
+                SetAnimation(view);
+            }
+
+            //Primary loop: Set Object Hide/show, vectors, vector scaling, and remove previous data displays
+            string message = "Error changing Hide/Show for following objects: \n";
+            int errorCount = 0;
+            if (view.ViewObjectData.Count != 0)
+            {
+                IAgVORefCrdnCollection vgtPrv;
+                dynamic vo = null;
+                //Main loop for all objects
+                foreach (ObjectData item in view.ViewObjectData)
+                {
+                    if (CommonData.StkRoot.ObjectExists(item.SimplePath))
                     {
-                        if (item != "")
+                        //Remove all active data displays for all ojects
+                        try
                         {
-                            string newItem = item.Split('/').Last();
-                            string objPath = "Satellite/" + newItem;
-                            sat = CommonData.StkRoot.GetObjectFromPath(objPath) as IAgSatellite;
-                            cmd = "VO */" + objPath + " Pass3d Inherit Off OrbitLead " + view.LeadType + " OrbitTrail " + view.TrailType;
+                            CommonData.StkRoot.ExecuteCommand("VO " + item.SimplePath + " DynDataText RemoveAll");
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        obj = CommonData.StkRoot.GetObjectFromPath(item.SimplePath);
+                        vo = GetObjectVO(obj);
+                        //Apply vector scaling to object
+                        if (view.ApplyVectorScaling && vo != null)
+                        {
+                            vo.Vector.VectorSizeScale = view.VectorScalingValue;
+                        }
+
+                        //Object Hide/Show
+                        if (view.ObjectHideShow)
+                        {
                             try
                             {
-                                CommonData.StkRoot.ExecuteCommand(cmd);
+                                SetObjectVisibility(item);
                             }
-                            catch (Exception)
+                            catch (Exception e)
                             {
-                                MessageBox.Show("Could not update Lead/Trail Settings");
+                                message = message + item.SimpleName + "\n";
+                                errorCount++;
+                            }
+                        }
+
+                        //Vectors
+                        if (view.VectorHideShow && vo != null)
+                        {
+                            vgtPrv = vo.Vector.RefCrdns;
+                            for (int i = 0; i < vgtPrv.Count; i++)
+                            {
+                                if (item.ActiveVgtComponents.Keys.Contains(vgtPrv[i].Name))
+                                {
+                                    vgtPrv[i].Visible = true;
+                                }
+                                else
+                                {
+                                    vgtPrv[i].Visible = false;
+                                }
+                            }
+                        }
+
+                        //Orbit systems and lead/trail
+                        if (view.EnableUniversalOrbitTrack && (item.ClassName == "Satellite" || item.ClassName == "Aircraft" || item.ClassName == "Missile" 
+                            || item.ClassName == "Ship" || item.ClassName == "LaunchVehicle" || item.ClassName == "GroundVehicle"))
+                        {
+                            if (view.UniqueLeadTrail)//each object custom
+                            {
+                                if (item.ModifyLeadTrail)
+                                {
+                                    SetLeadTrailData3D(item);
+                                    if (item.ClassName.Contains("Satellite"))
+                                    {
+                                        SetOrbitSystem(item, view.WindowName);
+                                    }
+                                }
+                            }
+                            else//set all objects the same
+                            {
+                                item.LeadSetting3D = GetLeadTrailObject(view.LeadType);
+                                //check for SameAsLead
+                                if (GetLeadTrailObject(view.TrailType) == AgELeadTrailData.eDataUnknown)
+                                {
+                                    item.TrailSetting3D = GetLeadTrailObject(view.LeadType);
+                                }
+                                else
+                                {
+                                    item.TrailSetting3D = GetLeadTrailObject(view.TrailType);
+                                }
+                                //Check for time
+                                if (item.LeadSetting3D == AgELeadTrailData.eDataTime)
+                                {
+                                    item.LeadTime = Double.Parse(view.LeadTime);
+                                }
+                                if (item.TrailSetting3D == AgELeadTrailData.eDataTime)
+                                {
+                                    item.TrailTime = Double.Parse(view.TrailTime);
+                                }
+                                //Check for type compatibility with object class (OnePass is the only issue)
+                                if (item.ClassName != "Satellite" && (GetLeadTrailObject(view.LeadType) == AgELeadTrailData.eDataOnePass || GetLeadTrailObject(view.TrailType) == AgELeadTrailData.eDataOnePass))
+                                {
+                                    if (item.LeadSetting3D == AgELeadTrailData.eDataOnePass)
+                                    {
+                                        item.LeadSetting3D = AgELeadTrailData.eDataAll;
+                                    }
+
+                                    if (item.TrailSetting3D == AgELeadTrailData.eDataOnePass)
+                                    {
+                                        item.TrailSetting3D = AgELeadTrailData.eDataAll;
+                                    }
+                                }
+
+                                SetLeadTrailData3D(item);
                             }
                         }
                     }
                 }
-            }
-            foreach (ObjectData item in CommonData.InitialObjectData)
-            {
-                try
-                {
-                    CommonData.StkRoot.ExecuteCommand("VO " + item.SimplePath + " DynDataText RemoveAll");
-                }
-                catch (Exception)
-                {
 
+                if (errorCount != 0)
+                {
+                    MessageBox.Show(message);
                 }
             }
 
-            if (view.DataDisplayActive)
+            //Primary data display
+            if (view.PrimaryDataDisplay.DataDisplayActive)
             {
                 try
                 {
-                    if (view.DataDisplayReportName == "RIC")
+                    if (view.PrimaryDataDisplay.PredataObject != "None")
                     {
-                        cmd = "VO */" + view.DataDisplayObject + " DynDataText DataDisplay \"" + view.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.DataDisplayLocation + " Window " + windowId.ToString() + " PreData \"" + view.ViewTarget + "\"";
+                        cmd = "VO */" + view.PrimaryDataDisplay.DataDisplayObject + " DynDataText DataDisplay \"" + view.PrimaryDataDisplay.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.PrimaryDataDisplay.DataDisplayLocation + " Window " + windowId.ToString() + " PreData \"" + view.PrimaryDataDisplay.PredataObject + "\"";
                         CommonData.StkRoot.ExecuteCommand(cmd);
-                        CommonData.PreviousDataDisplayObject = view.DataDisplayObject;
+                        CommonData.PreviousDataDisplayObject = view.PrimaryDataDisplay.DataDisplayObject;
                     }
                     else
                     {
-                        cmd = "VO */" + view.DataDisplayObject + " DynDataText DataDisplay \"" + view.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.DataDisplayLocation + " Window " + windowId.ToString();
+                        cmd = "VO */" + view.PrimaryDataDisplay.DataDisplayObject + " DynDataText DataDisplay \"" + view.PrimaryDataDisplay.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.PrimaryDataDisplay.DataDisplayLocation + " Window " + windowId.ToString();
                         CommonData.StkRoot.ExecuteCommand(cmd);
-                        CommonData.PreviousDataDisplayObject = view.DataDisplayObject;
+                        CommonData.PreviousDataDisplayObject = view.PrimaryDataDisplay.DataDisplayObject;
                     }
                 }
                 catch (Exception)
@@ -118,31 +222,59 @@ namespace OperatorsToolbox.SmartView
                 }
             }
 
-            if (view.ObjectHideShow)
+            //Secondary data display
+            if (view.SecondaryDataDisplay.DataDisplayActive)
             {
-                string message = "Error changing Hide/Show for following objects: \n";
-                int errorCount = 0;
-                if (view.ViewObjectData.Count != 0)
+                try
                 {
-                    foreach (ObjectData item in view.ViewObjectData)
+                    if (view.SecondaryDataDisplay.PredataObject != "None")
                     {
-                        try
-                        {
-                            SetObjectVisibility(item);
-                        }
-                        catch (Exception e)
-                        {
-                            message = message + item.SimpleName + "\n";
-                            errorCount++;
-                        }
+                        cmd = "VO */" + view.SecondaryDataDisplay.DataDisplayObject + " DynDataText DataDisplay \"" + view.SecondaryDataDisplay.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.SecondaryDataDisplay.DataDisplayLocation + " Window " + windowId.ToString() + " PreData \"" + view.SecondaryDataDisplay.PredataObject + "\"";
+                        CommonData.StkRoot.ExecuteCommand(cmd);
+                        CommonData.PreviousDataDisplayObject = view.SecondaryDataDisplay.DataDisplayObject;
                     }
-
-                    if (errorCount != 0)
+                    else
                     {
-                        MessageBox.Show(message);
+                        cmd = "VO */" + view.SecondaryDataDisplay.DataDisplayObject + " DynDataText DataDisplay \"" + view.SecondaryDataDisplay.DataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.SecondaryDataDisplay.DataDisplayLocation + " Window " + windowId.ToString();
+                        CommonData.StkRoot.ExecuteCommand(cmd);
+                        CommonData.PreviousDataDisplayObject = view.PrimaryDataDisplay.DataDisplayObject;
                     }
                 }
+                catch (Exception)
+                {
+                    MessageBox.Show("Could not create data display");
+                }
             }
+
+            //Proximity plane
+            if (view.EnableProximityBox)
+            {
+                CreateProximityPlane(view);
+            }
+
+            //Prximity Ellipsoid
+            if (view.EnableProximityEllipsoid)
+            {
+                EnableProxEllipse(view);
+            }
+
+            //GEO Box
+            if (view.EnableGeoBox)
+            {
+                EnableGEOBox(view);
+            }
+
+            //Sensor Boresight View Plugin option
+            if (view.LinkToSensorView)
+            {
+                CreateSensorBoresightView(view);
+            }
+
+            if (view.OverrideTimeStep)
+            {
+                ((IAgScenario)CommonData.StkRoot.CurrentScenario).Animation.AnimStepValue = Double.Parse(view.TimeStep);
+            }
+
         }
 
         public static void Change2DView(ViewData view)
@@ -205,16 +337,6 @@ namespace OperatorsToolbox.SmartView
                 }
             }
 
-            if (view.ShowGroundSensors)
-            {
-
-            }
-
-            if (view.ShowAerialSensors)
-            {
-
-            }
-
             if (view.ObjectHideShow)
             {
                 string message = "Error changing Hide/Show for following objects: \n";
@@ -242,315 +364,182 @@ namespace OperatorsToolbox.SmartView
             }
         }
 
-        public static void ChangeTargetThreatView(ViewData view)
+        public static void CreateSensorBoresightView(ViewData view)
         {
-            IAgSatellite sat;
-            IAgExecCmdResult result;
-            string cmd = null;
-            int windowId = GetWindowId(view.WindowName, 1);
-            SetAnimation(view);
-
-            try
+            IAgStkObject sensor = null;
+            SensorViewClass sensorViewCreator;
+            SensorViewData viewData = view.SensorBoresightData;
+            bool exists = CommonData.StkRoot.ObjectExists(viewData.SelectedSensor);
+            if (exists)
             {
-                string objectPath = view.TargetSatellite;
-                cmd = "VO * View FromTo FromRegName \"STK Object\" FromName \"" + objectPath + "\" ToRegName  \"STK Object\" ToName  \"" + objectPath + "\" WindowID " + windowId.ToString();
-                CommonData.StkRoot.ExecuteCommand(cmd);
-                CommonData.StkRoot.ExecuteCommand("VO * View Top WindowID " + windowId.ToString());
-                CommonData.StkRoot.ExecuteCommand("VO * View Zoom WindowID " + windowId.ToString() + " FractionofCB -0.3");
+                sensor = CommonData.StkRoot.GetObjectFromPath(viewData.SelectedSensor);
             }
-            catch (Exception)
+            if (sensor != null)
             {
-
-            }
-
-            string objPath = view.TargetSatellite;
-            string objPath1 = view.TargetSatellite;
-            sat = CommonData.StkRoot.GetObjectFromPath(objPath) as IAgSatellite;
-            sat.VO.OrbitSystems.FixedByWindow.IsVisible = true;
-            sat.VO.OrbitSystems.InertialByWindow.IsVisible = false;
-            cmd = "VO */" + objPath + " Pass3d Inherit Off OrbitLead OnePass OrbitTrail SameAsLead";
-            try
-            {
-                CommonData.StkRoot.ExecuteCommand(cmd);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Could not update Lead/Trail Settings");
-            }
-
-            foreach (var item in view.ThreatSatNames)
-            {
-                if (item != "")
+                sensorViewCreator = new SensorViewClass(CommonData.StkRoot, sensor);
+                if (viewData.AutoUpVector)
                 {
-                    objPath = item;
-                    sat = CommonData.StkRoot.GetObjectFromPath(objPath) as IAgSatellite;
-                    cmd = "VO */" + objPath + " Pass3d Inherit Off OrbitLead None OrbitTrail Quarter";
-                    try
-                    {
-                        CommonData.StkRoot.ExecuteCommand(cmd);
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Could not update Lead/Trail Settings");
-                    }
-                }
-            }
-
-            if (view.EnableProximityBox)
-            {
-                try
-                {
-                    sat = CommonData.StkRoot.GetObjectFromPath(objPath1) as IAgSatellite;
-                    IAgStkObject sat1 = CommonData.StkRoot.GetObjectFromPath(objPath1);
-                    IAgCrdnPlaneNormal plane = sat1.Vgt.Planes.Factory.Create("ProximityPlane", "", AgECrdnPlaneType.eCrdnPlaneTypeNormal) as IAgCrdnPlaneNormal;
-                    //IAgVORefCrdn newPlane = plane as IAgVORefCrdn;
-                    //string planeName = newPlane.Name;
-                    plane.NormalVector.SetPath(view.TargetSatellite + " Nadir(Detic)");
-                    plane.ReferencePoint.SetPath(view.TargetSatellite + " Center");
-                    plane.ReferenceVector.SetPath(view.TargetSatellite + " Velocity");
-
-                    sat.VO.Vector.RefCrdns.Add(AgEGeometricElemType.ePlaneElem, objPath1 + " ProximityPlane");
-                    IAgVORefCrdn newPlane = sat.VO.Vector.RefCrdns.GetCrdnByName(AgEGeometricElemType.ePlaneElem, objPath1 + " ProximityPlane Plane");
-                    newPlane.Visible = true;
-                    newPlane.LabelVisible = false;
-                    newPlane.Color = System.Drawing.Color.LimeGreen;
-                    sat.VO.Vector.VectorSizeScale = 5;
-                    IAgVORefCrdnPlane newPlane1 = newPlane as IAgVORefCrdnPlane;
-                    newPlane1.CircGridVisible = true;
-                    newPlane1.Size = 3;
-                    newPlane1.PlaneGridSpacing = 50; //km
-                    newPlane1.TransparentPlaneVisible = true;
-                    newPlane1.DrawAtObject = true;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not create proximity box");
-                }
-            }
-
-            if (view.EnableProximityEllipsoid)
-            {
-                try
-                {
-                    sat = CommonData.StkRoot.GetObjectFromPath(objPath1) as IAgSatellite;
-                    IAgStkObject sat1 = CommonData.StkRoot.GetObjectFromPath(objPath1);
-                    sat.VO.Proximity.Ellipsoid.IsVisible = true;
-                    sat.VO.Proximity.Ellipsoid.XSemiAxisLength = Double.Parse(view.EllipsoidX);
-                    sat.VO.Proximity.Ellipsoid.YSemiAxisLength = Double.Parse(view.EllipsoidY);
-                    sat.VO.Proximity.Ellipsoid.ZSemiAxisLength = Double.Parse(view.EllipsoidZ);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not create proximity ellipsoid");
-                }
-            }
-
-            foreach (ObjectData item in CommonData.InitialObjectData)
-            {
-                try
-                {
-                    CommonData.StkRoot.ExecuteCommand("VO " + item.SimplePath + " DynDataText RemoveAll");
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-            //if (CommonData.PreviousDataDisplayObject != null)
-            //{
-            //    try
-            //    {
-            //        CommonData.StkRoot.ExecuteCommand("VO */" + CommonData.PreviousDataDisplayObject + " DynDataText RemoveAll");
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //    }
-            //}
-
-            if (view.TtDataDisplayActive)
-            {
-                if (view.TtDataDisplayObject=="AllThreat")
-                {
-                    List<string> locations = new List<string>();
-                    int count = 0;
-                    locations.Add("TopLeft"); locations.Add("TopRight"); locations.Add("BottomLeft"); locations.Add("BottomRight");
-
-                    foreach (string item in view.ThreatSatNames)
-                    {
-                        if (count<4)
-                        {
-                            try
-                            {
-                                if (view.TtDataDisplayReportName=="RIC")
-                                {
-                                    cmd = "VO */" + view.ThreatSatNames[count] + " DynDataText DataDisplay \"" + view.TtDataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + locations[count] + " Window " + windowId.ToString() + " PreData \"" + view.TargetSatellite + "\"";
-                                    CommonData.StkRoot.ExecuteCommand(cmd);
-                                    CommonData.PreviousDataDisplayObject = view.TtDataDisplayObject;
-                                }
-                                else
-                                {
-                                    cmd = "VO */" + view.ThreatSatNames[count] + " DynDataText DataDisplay \"" + view.TtDataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + locations[count] + " Window " + windowId.ToString();
-                                    CommonData.StkRoot.ExecuteCommand(cmd);
-                                    CommonData.PreviousDataDisplayObject = view.TtDataDisplayObject;
-                                }
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        }
-                        count++;
-                    }
+                    sensorViewCreator.CreateSensorWindow(Convert.ToInt16(viewData.VertWinSize));
                 }
                 else
                 {
-                    try
-                    {
-                        if (view.TtDataDisplayReportName == "RIC")
-                        {
-                            cmd = "VO */" + view.TtDataDisplayObject + " DynDataText DataDisplay \"" + view.TtDataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.TtDataDisplayLocation + " Window " + windowId.ToString() + " PreData \"" + view.TargetSatellite+"\"";
-                            CommonData.StkRoot.ExecuteCommand(cmd);
-                            CommonData.PreviousDataDisplayObject = view.TtDataDisplayObject;
-                        }
-                        else
-                        {
-                            cmd = "VO */" + view.TtDataDisplayObject + " DynDataText DataDisplay \"" + view.TtDataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.TtDataDisplayLocation + " Window " + windowId.ToString();
-                            CommonData.StkRoot.ExecuteCommand(cmd);
-                            CommonData.PreviousDataDisplayObject = view.TtDataDisplayObject;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        MessageBox.Show("Could not create data display");
-                    }
+                    sensorViewCreator.CreateSensorWindow(Convert.ToInt16(viewData.VertWinSize), viewData.UpVector);
                 }
-            }
 
-            if (view.ObjectHideShow)
-            {
-                string message = "Error changing Hide/Show for following objects: \n";
-                int errorCount = 0;
-                if (view.ViewObjectData.Count != 0)
+                if (viewData.ShowCompass)
                 {
-                    foreach (ObjectData item in view.ViewObjectData)
+                    sensorViewCreator.EnableCompass();
+                }
+                if (viewData.ShowLatLon)
+                {
+                    sensorViewCreator.EnableLLA();
+                }
+                if (viewData.ShowRulers)
+                {
+                    sensorViewCreator.EnableRulers();
+                }
+                if (viewData.ShowCrosshairs)
+                {
+                    viewData.ShowCrosshairs = true;
+                    if (viewData.CrosshairType == SensorViewClass.CrosshairType.Square)
                     {
-                        try
-                        {
-                            SetObjectVisibility(item);
-                        }
-                        catch (Exception e)
-                        {
-                            message = message + item.SimpleName + "\n";
-                            errorCount++;
-                        }
+                        sensorViewCreator.EnableCrosshairs(SensorViewClass.CrosshairType.Square);
                     }
-
-                    if (errorCount != 0)
+                    else if (viewData.CrosshairType == SensorViewClass.CrosshairType.Grid)
                     {
-                        MessageBox.Show(message);
+                        sensorViewCreator.EnableCrosshairs(SensorViewClass.CrosshairType.Grid);
+                    }
+                    else if (viewData.CrosshairType == SensorViewClass.CrosshairType.Circular)
+                    {
+                        sensorViewCreator.EnableCrosshairs(SensorViewClass.CrosshairType.Circular);
                     }
                 }
             }
-
         }
 
-        public static void ChangeGeoDriftView(ViewData view)
+        public static void CreateProximityPlane(ViewData view)
         {
-            IAgSatellite sat;
-            IAgExecCmdResult result;
-            string cmd = null;
-            int windowId = GetWindowId(view.WindowName, 1);
-            SetAnimation(view);
             try
             {
-                double radius = Double.Parse(view.GeoRadius);
-                double alt = radius - 6371;
-                cmd = "VO * View FromTo FromToRegName \"Latitude, Longitude, Altitude\" FromToName \"Latitude, Longitude, Altitude\" FromToCallData \"Lat 0.0 Lon "+view.GeoLongitude+" Alt "+alt.ToString()+"\"";
-                string objectPath = view.ViewTarget;
-                //cmd = "VO * View FromTo FromRegName \"STK Object\" FromName \"" + objectPath + "\" ToRegName  \"STK Object\" ToName  \"" + objectPath + "\" WindowID " + windowID.ToString();
-                CommonData.StkRoot.ExecuteCommand(cmd);
-                CommonData.StkRoot.ExecuteCommand("VO * View Top WindowID " + windowId.ToString());
-                CommonData.StkRoot.ExecuteCommand("VO * View Zoom WindowID " + windowId.ToString() + " FractionofCB -7.4");
+                if (view.ViewTarget.Contains("Satellite"))
+                {
+                    IAgStkObject obj = CommonData.StkRoot.GetObjectFromPath(view.ViewTarget);
+                    IAgCrdnPlaneNormal plane = null;
+                    if (obj.Vgt.Planes.Contains("ProximityPlane"))
+                    {
+                        plane = (IAgCrdnPlaneNormal)obj.Vgt.Planes["ProximityPlane"];
+                    }
+                    else
+                    {
+                        plane = obj.Vgt.Planes.Factory.Create("ProximityPlane", "", AgECrdnPlaneType.eCrdnPlaneTypeNormal) as IAgCrdnPlaneNormal;
+                    }
+                    //IAgVORefCrdn newPlane = plane as IAgVORefCrdn;
+                    //string planeName = newPlane.Name;
+                    plane.NormalVector.SetPath(view.ViewTarget + " Nadir(Detic)");
+                    plane.ReferencePoint.SetPath(view.ViewTarget + " Center");
+                    plane.ReferenceVector.SetPath(view.ViewTarget + " Velocity");
+                    dynamic vo = GetObjectVO(obj);
+                    vo.Vector.RefCrdns.Add(AgEGeometricElemType.ePlaneElem, view.ViewTarget + " ProximityPlane");
+                    IAgVORefCrdn newPlane = vo.Vector.RefCrdns.GetCrdnByName(AgEGeometricElemType.ePlaneElem, view.ViewTarget + " ProximityPlane Plane");
+                    newPlane.Visible = true;
+                    newPlane.LabelVisible = false;
+                    newPlane.Color = System.Drawing.Color.LimeGreen;
+                    vo.Vector.VectorSizeScale = 5;
+                    IAgVORefCrdnPlane newPlane1 = newPlane as IAgVORefCrdnPlane;
+                    newPlane1.CircGridVisible = true;
+                    newPlane1.Size = 3;
+                    newPlane1.PlaneGridSpacing = Double.Parse(view.ProxGridSpacing); //km
+                    newPlane1.TransparentPlaneVisible = true;
+                    newPlane1.DrawAtObject = true;
+                }
             }
             catch (Exception)
             {
-
+                MessageBox.Show("Could not create proximity plane");
             }
-            string objPath = view.ViewTarget;
-            sat = CommonData.StkRoot.GetObjectFromPath(objPath) as IAgSatellite;
-            sat.VO.OrbitSystems.FixedByWindow.IsVisible = true;
-            sat.VO.OrbitSystems.InertialByWindow.IsVisible = false;
-            cmd = "VO */" + objPath + " Pass3d Inherit Off OrbitLead Quarter OrbitTrail All";
+        }
+
+        public static void EnableProxEllipse(ViewData view)
+        {
             try
             {
-                CommonData.StkRoot.ExecuteCommand(cmd);
+                IAgStkObject obj = CommonData.StkRoot.GetObjectFromPath(view.ViewTarget);
+                dynamic vo = GetObjectVO(obj);
+                vo.Proximity.Ellipsoid.IsVisible = true;
+                vo.Proximity.Ellipsoid.XSemiAxisLength = Double.Parse(view.EllipsoidX);
+                vo.Proximity.Ellipsoid.YSemiAxisLength = Double.Parse(view.EllipsoidY);
+                vo.Proximity.Ellipsoid.ZSemiAxisLength = Double.Parse(view.EllipsoidZ);
             }
             catch (Exception)
             {
-                MessageBox.Show("Could not update Lead/Trail Settings");
+                MessageBox.Show("Could not create proximity ellipsoid");
             }
+        }
 
-            if (view.EnableGeoBox)
+        public static void EnableGEOBox(ViewData view)
+        {
+            IAgStkObject obj = CommonData.StkRoot.GetObjectFromPath(view.ViewTarget);
+            dynamic vo = GetObjectVO(obj);
+            if (view.ViewTarget.Contains("Satellite"))
             {
-                sat.VO.Proximity.GeoBox.IsVisible = true;
-                sat.VO.Proximity.GeoBox.Longitude = Double.Parse(view.GeoLongitude);
-                sat.VO.Proximity.GeoBox.Radius = Double.Parse(view.GeoRadius);
-                sat.VO.Proximity.GeoBox.NorthSouth = Double.Parse(view.GeoNorthSouth);
-                sat.VO.Proximity.GeoBox.EastWest = Double.Parse(view.GeoEastWest);
-                sat.VO.Proximity.GeoBox.Color = System.Drawing.Color.Red;
+                vo.Proximity.GeoBox.IsVisible = true;
+                vo.Proximity.GeoBox.Longitude = Double.Parse(view.GeoLongitude);
+                vo.Proximity.GeoBox.Radius = Double.Parse(view.GeoRadius);
+                vo.Proximity.GeoBox.NorthSouth = Double.Parse(view.GeoNorthSouth);
+                vo.Proximity.GeoBox.EastWest = Double.Parse(view.GeoEastWest);
+                vo.Proximity.GeoBox.Color = System.Drawing.Color.Red;
             }
-            
-            foreach (ObjectData item in CommonData.InitialObjectData)
+        }
+
+        public static dynamic GetObjectVO(IAgStkObject obj)
+        {
+            dynamic classObj;
+            switch (obj.ClassType)
             {
-                try
-                {
-                    CommonData.StkRoot.ExecuteCommand("VO " + item.SimplePath + " DynDataText RemoveAll");
-                }
-                catch (Exception)
-                {
-
-                }
-            }
-
-            if (view.GeoDataDisplayActive)
-            {
-                try
-                {
-
-                    cmd = "VO */" + view.GeoDataDisplayObject + " DynDataText DataDisplay \"" + view.GeoDataDisplayReportName + "\" Show On Font Medium Color yellow Pos " + view.GeoDataDisplayLocation + " Window " + windowId.ToString();
-                    CommonData.StkRoot.ExecuteCommand(cmd);
-                    CommonData.PreviousDataDisplayObject = view.GeoDataDisplayObject;
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Could not create data display");
-                }
-            }
-
-            if (view.ObjectHideShow)
-            {
-                string message = "Error changing Hide/Show for following objects: \n";
-                int errorCount = 0;
-                if (view.ViewObjectData.Count != 0)
-                {
-                    foreach (ObjectData item in view.ViewObjectData)
-                    {
-                        try
-                        {
-                            SetObjectVisibility(item);
-                        }
-                        catch (Exception e)
-                        {
-                            message = message + item.SimpleName + "\n";
-                            errorCount++;
-                        }
-                    }
-
-                    if (errorCount != 0)
-                    {
-                        MessageBox.Show(message);
-                    }
-                }
+                case AgESTKObjectType.eAircraft:
+                    classObj = obj as IAgAircraft;
+                    return classObj.VO as IAgGreatArcVO;
+                case AgESTKObjectType.eFacility:
+                    classObj = obj as IAgFacility;
+                    return classObj.VO;
+                case AgESTKObjectType.eGroundVehicle:
+                    classObj = obj as IAgGroundVehicle;
+                    return classObj.VO as IAgGreatArcVO;
+                case AgESTKObjectType.eLaunchVehicle:
+                    classObj = obj as IAgLaunchVehicle;
+                    return classObj.VO;
+                case AgESTKObjectType.eMissile:
+                    classObj = obj as IAgMissile;
+                    return classObj.VO;
+                case AgESTKObjectType.eRadar:
+                    classObj = obj as IAgRadar;
+                    return classObj.VO;
+                case AgESTKObjectType.eReceiver:
+                    classObj = obj as IAgReceiver;
+                    return classObj.VO;
+                case AgESTKObjectType.eSatellite:
+                    classObj = obj as IAgSatellite;
+                    return classObj.VO;
+                case AgESTKObjectType.eSensor:
+                    classObj = obj as IAgSensor;
+                    return classObj.VO;
+                case AgESTKObjectType.eShip:
+                    classObj = obj as IAgShip;
+                    return classObj.VO as IAgGreatArcVO;
+                case AgESTKObjectType.eTarget:
+                    classObj = obj as IAgTarget;
+                    return classObj.VO;
+                case AgESTKObjectType.eTransmitter:
+                    classObj = obj as IAgTransmitter;
+                    return classObj.VO;
+                case AgESTKObjectType.eAntenna:
+                    classObj = obj as IAgAntenna;
+                    return classObj.VO;
+                case AgESTKObjectType.ePlace:
+                    classObj = obj as IAgPlace;
+                    return classObj.VO;
+                default:
+                    return null;
             }
         }
 
@@ -560,6 +549,7 @@ namespace OperatorsToolbox.SmartView
             {
                 try
                 {
+                    //string newTime = CommonData.StkRoot.ConversionUtility.ConvertDate("EpSec", "UTCG", view.AnimationTime);
                     CommonData.StkRoot.ExecuteCommand("SetAnimation * CurrentTime \"" + view.AnimationTime + "\"");
                 }
                 catch (Exception)
@@ -591,7 +581,7 @@ namespace OperatorsToolbox.SmartView
                 {
                     newItem = item.Replace("\n", "");
                     string[] windowInfoParts = newItem.Split(new string[] { " - " },2, StringSplitOptions.RemoveEmptyEntries);
-                    if (windowInfoParts[1] == windowName)
+                    if (windowInfoParts[1].Contains(windowName))
                     {
                         windowId = Int32.Parse(windowInfoParts[0]);
                     }
@@ -602,6 +592,22 @@ namespace OperatorsToolbox.SmartView
                 windowId = 1;
             }
             return windowId;
+        }
+
+        public static Tuple<bool,int> DoesWindowExist(string windowName, int windowType)
+        {
+            Tuple<bool, int> exists = new Tuple<bool, int>(false, -1);
+            List<string> names = GetWindowNames(windowType);
+            foreach (var item in names)
+            {
+                if (item.Contains(windowName))
+                {
+                    int id = GetWindowId(windowName, 1);
+                    exists = new Tuple<bool, int>(true, id);
+                }
+            }
+
+            return exists;
         }
 
         public static List<string> GetWindowNames(int windowType)
@@ -951,6 +957,18 @@ namespace OperatorsToolbox.SmartView
                     myObject.Graphics.IsObjectGraphicsVisible = false;
                 }
             }
+            else if (className == "Ship")
+            {
+                IAgShip myObject = CommonData.StkRoot.GetObjectFromPath(simplePath) as IAgShip;
+                if (objectData.HideShow)
+                {
+                    myObject.Graphics.IsObjectGraphicsVisible = true;
+                }
+                else
+                {
+                    myObject.Graphics.IsObjectGraphicsVisible = false;
+                }
+            }
         }
 
         public static List<AgELeadTrailData> GetLeadTrailData(string objectPath,string className)
@@ -1012,55 +1030,104 @@ namespace OperatorsToolbox.SmartView
             return leadTrailData;
         }
 
-        public static void SetLeadTrailData(ObjectData stkObject)
+        public static void SetLeadTrailData3D(ObjectData stkObject)
         {
-            List<string> leadTrailData = new List<string>();
-
+            IAgVeVOLeadTrailData leadTrailData = null;
             if (stkObject.ClassName == "Satellite")
             {
-                IAgSatellite mySat = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgSatellite;
+                IAgSatellite mySat = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgSatellite;                
                 mySat.VO.Pass.TrackData.PassData.Orbit.SetLeadDataType(stkObject.LeadSetting3D);
                 mySat.VO.Pass.TrackData.PassData.Orbit.SetTrailDataType(stkObject.TrailSetting3D);
-                mySat.Graphics.PassData.GroundTrack.SetLeadDataType(stkObject.LeadSetting2D);
-                mySat.Graphics.PassData.GroundTrack.SetTrailDataType(stkObject.TrailSetting2D);
+                leadTrailData = mySat.VO.Pass.TrackData.PassData.Orbit;
             }
             else if (stkObject.ClassName == "Aircraft")
             {
                 IAgAircraft myAircraft = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgAircraft;
                 myAircraft.VO.Route.TrackData.SetLeadDataType(stkObject.LeadSetting3D);
                 myAircraft.VO.Route.TrackData.SetTrailDataType(stkObject.TrailSetting3D);
-                myAircraft.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
-                myAircraft.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+                leadTrailData = myAircraft.VO.Route.TrackData;
             }
             else if (stkObject.ClassName == "Missile")
             {
                 IAgMissile myMissile = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgMissile;
                 myMissile.VO.Trajectory.TrackData.PassData.Trajectory.SetLeadDataType(stkObject.LeadSetting3D);
                 myMissile.VO.Trajectory.TrackData.PassData.Trajectory.SetTrailDataType(stkObject.TrailSetting3D);
-                myMissile.Graphics.PassData.Trajectory.SetLeadDataType(stkObject.LeadSetting2D);
-                myMissile.Graphics.PassData.Trajectory.SetTrailDataType(stkObject.TrailSetting2D);
+                leadTrailData = myMissile.VO.Trajectory.TrackData.PassData.Trajectory;
             }
             else if (stkObject.ClassName == "GroundVehicle")
             {
                 IAgGroundVehicle myGv = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgGroundVehicle;
                 myGv.VO.Route.TrackData.SetLeadDataType(stkObject.LeadSetting3D);
                 myGv.VO.Route.TrackData.SetTrailDataType(stkObject.TrailSetting3D);
-                myGv.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
-                myGv.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+                leadTrailData = myGv.VO.Route.TrackData;
             }
             else if (stkObject.ClassName == "Ship")
             {
                 IAgShip myShip = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgShip;
                 myShip.VO.Route.TrackData.SetLeadDataType(stkObject.LeadSetting3D);
                 myShip.VO.Route.TrackData.SetTrailDataType(stkObject.TrailSetting3D);
-                myShip.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
-                myShip.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+                leadTrailData = myShip.VO.Route.TrackData;
             }
             else if (stkObject.ClassName == "LaunchVehicle")
             {
                 IAgLaunchVehicle myLv = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgLaunchVehicle;
                 myLv.VO.Trajectory.TrackData.PassData.Trajectory.SetLeadDataType(stkObject.LeadSetting3D);
                 myLv.VO.Trajectory.TrackData.PassData.Trajectory.SetTrailDataType(stkObject.TrailSetting3D);
+                leadTrailData = myLv.VO.Trajectory.TrackData.PassData.Trajectory;
+            }
+            //Check for time
+            if (leadTrailData != null)
+            {
+                if (leadTrailData.LeadDataType == AgELeadTrailData.eDataTime)
+                {
+                    IAgVeLeadTrailDataTime data = leadTrailData.LeadData as IAgVeLeadTrailDataTime;
+                    data.Time = stkObject.LeadTime;
+                }
+                if (leadTrailData.TrailDataType == AgELeadTrailData.eDataTime)
+                {
+                    IAgVeLeadTrailDataTime data = leadTrailData.TrailData as IAgVeLeadTrailDataTime;
+                    data.Time = stkObject.LeadTime;
+                }
+            }
+        }
+
+        public static void SetLeadTrailData2D(ObjectData stkObject)
+        {
+            List<string> leadTrailData = new List<string>();
+
+            if (stkObject.ClassName == "Satellite")
+            {
+                IAgSatellite mySat = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgSatellite;
+                mySat.Graphics.PassData.GroundTrack.SetLeadDataType(stkObject.LeadSetting2D);
+                mySat.Graphics.PassData.GroundTrack.SetTrailDataType(stkObject.TrailSetting2D);
+            }
+            else if (stkObject.ClassName == "Aircraft")
+            {
+                IAgAircraft myAircraft = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgAircraft;
+                myAircraft.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
+                myAircraft.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+            }
+            else if (stkObject.ClassName == "Missile")
+            {
+                IAgMissile myMissile = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgMissile;
+                myMissile.Graphics.PassData.Trajectory.SetLeadDataType(stkObject.LeadSetting2D);
+                myMissile.Graphics.PassData.Trajectory.SetTrailDataType(stkObject.TrailSetting2D);
+            }
+            else if (stkObject.ClassName == "GroundVehicle")
+            {
+                IAgGroundVehicle myGv = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgGroundVehicle;
+                myGv.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
+                myGv.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+            }
+            else if (stkObject.ClassName == "Ship")
+            {
+                IAgShip myShip = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgShip;
+                myShip.Graphics.PassData.Route.SetLeadDataType(stkObject.LeadSetting2D);
+                myShip.Graphics.PassData.Route.SetTrailDataType(stkObject.TrailSetting2D);
+            }
+            else if (stkObject.ClassName == "LaunchVehicle")
+            {
+                IAgLaunchVehicle myLv = CommonData.StkRoot.GetObjectFromPath(stkObject.SimplePath) as IAgLaunchVehicle;
                 myLv.Graphics.PassData.GroundTrack.SetLeadDataType(stkObject.LeadSetting2D);
                 myLv.Graphics.PassData.GroundTrack.SetTrailDataType(stkObject.TrailSetting2D);
             }
@@ -1072,7 +1139,7 @@ namespace OperatorsToolbox.SmartView
             string systemName = null;
             IAgSatellite sat = CommonData.StkRoot.GetObjectFromPath(objectPath) as IAgSatellite;
             IAgVeVOSystemsCollection orbitSystems = sat.VO.OrbitSystems;
-            int numberSys = orbitSystems.Count;
+            int numberSys = orbitSystems.Count;           
             for (int i = 0; i < numberSys; i++)
             {
                 if (orbitSystems[i].IsVisible)
@@ -1080,36 +1147,112 @@ namespace OperatorsToolbox.SmartView
                     systemName = orbitSystems[i].Name;
                 }
             }
+            if (orbitSystems.InertialByWindow.IsVisible)
+            {
+                systemName = "Inertial";
+            }
+            else if(orbitSystems.FixedByWindow.IsVisible)
+            {
+                systemName = "Fixed";
+            }
+            else
+            {
+                systemName = "Inertial";
+            }
             return systemName;
         }
 
-        public static void SetOrbitSystem(ObjectData data)
+        public static void SetOrbitSystem(ObjectData data, string windowName)
         {
             IAgSatellite sat = CommonData.StkRoot.GetObjectFromPath(data.SimplePath) as IAgSatellite;
             IAgVeVOSystemsCollection orbitSystems = sat.VO.OrbitSystems;
             int numberSys = orbitSystems.Count;
-            for (int i = 0; i < numberSys; i++)
+            if (data.CoordSys.Contains("Inertial"))
             {
-                if (orbitSystems[i].Name==data.CoordSys)
+                orbitSystems.InertialByWindow.IsVisible = true;
+                orbitSystems.InertialByWindow.VOWindow = windowName;
+                if (orbitSystems.FixedByWindow.IsVisible)
                 {
-                    orbitSystems[i].IsVisible = true;
+                    if (orbitSystems.FixedByWindow.VOWindow == windowName || orbitSystems.FixedByWindow.VOWindow == "All")
+                    {
+                        orbitSystems.FixedByWindow.IsVisible = false;
+                    }
                 }
-                else
+                for (int i = 0; i < numberSys; i++)
                 {
-                    orbitSystems[i].IsVisible = false;
+                    if (orbitSystems[i].VOWindow == windowName || orbitSystems[i].VOWindow == "All")
+                    {
+                        orbitSystems[i].IsVisible = false;
+                    }
                 }
             }
+            else if (data.CoordSys.Contains("Fixed"))
+            {
+                orbitSystems.FixedByWindow.IsVisible = true;
+                orbitSystems.FixedByWindow.VOWindow = windowName;
+                if (orbitSystems.InertialByWindow.IsVisible)
+                {
+                    if (orbitSystems.InertialByWindow.VOWindow == windowName || orbitSystems.InertialByWindow.VOWindow == "All")
+                    {
+                        orbitSystems.InertialByWindow.IsVisible = false;
+                    }
+                }
+                for (int i = 0; i < numberSys; i++)
+                {
+                    if (orbitSystems[i].VOWindow == windowName || orbitSystems[i].VOWindow == "All")
+                    {
+                        orbitSystems[i].IsVisible = false;
+                    }
+                }
+            }
+            else if (data.CoordSys.Contains("VVLH"))
+            {
+                try
+                {
+                    orbitSystems.Remove(data.CoordSys);
+                }
+                catch (Exception)
+                {
 
+                }
+                if (!orbitSystems.Contains(data.CoordSys))
+                {
+                    IAgVeVOSystemsElement elem = orbitSystems.Add(data.CoordSys);
+                    elem.IsVisible = true;
+                    elem.VOWindow = windowName;
+                }
+                if (orbitSystems.InertialByWindow.IsVisible)
+                {
+                    if (orbitSystems.InertialByWindow.VOWindow == windowName || orbitSystems.InertialByWindow.VOWindow == "All")
+                    {
+                        orbitSystems.InertialByWindow.IsVisible = false;
+                    }
+                }
+                if (orbitSystems.FixedByWindow.IsVisible)
+                {
+                    if (orbitSystems.FixedByWindow.VOWindow == windowName || orbitSystems.FixedByWindow.VOWindow == "All")
+                    {
+                        orbitSystems.FixedByWindow.IsVisible = false;
+                    }
+                }
+                for (int i = 0; i < numberSys; i++)
+                {
+                    if ((orbitSystems[i].VOWindow == windowName || orbitSystems[i].VOWindow == "All") && orbitSystems[i].Name != data.CoordSys)
+                    {
+                        orbitSystems[i].IsVisible = false;
+                    }
+                }
+            }
         }
 
         public static void SetAllObjectData(ObjectData data)
         {
             CommonData.StkRoot.ExecuteCommand("BatchGraphics * On");
             SetObjectVisibility(data);
-            SetLeadTrailData(data);
+            SetLeadTrailData3D(data);
             if (data.ClassName=="Satellite")
             {
-                SetOrbitSystem(data);
+                //SetOrbitSystem(data);
             }
             CommonData.StkRoot.ExecuteCommand("BatchGraphics * Off");
         }
@@ -1125,7 +1268,7 @@ namespace OperatorsToolbox.SmartView
             {
                 className = mStkObjectsLibrary.ClassNameFromObjectPath(objectName);
 
-                if (className != "Scenario"  && className != "Antenna" && className != "Radar" && className != "Constellation" && className != "Volumetric")
+                if (className != "Scenario"  && className != "Constellation" && className != "Volumetric")
                 {
                     ObjectData current = new ObjectData();
 
@@ -1187,9 +1330,51 @@ namespace OperatorsToolbox.SmartView
             else if (typeStr.Contains("Time"))
             {
                 type = AgELeadTrailData.eDataTime;
-
+            }
+            else if (typeStr.Contains("SameAsLead"))
+            {
+                type = AgELeadTrailData.eDataUnknown;
             }
             return type;
+        }
+
+        public static string GetLeadTrailString(AgELeadTrailData data)
+        {
+            switch (data)
+            {
+                case AgELeadTrailData.eDataUnknown:
+                    return "SameAsLead";
+                case AgELeadTrailData.eDataNone:
+                    return "None";
+                case AgELeadTrailData.eDataAll:
+                    return "All";
+                case AgELeadTrailData.eDataFull:
+                    return "Full";
+                case AgELeadTrailData.eDataHalf:
+                    return "half";
+                case AgELeadTrailData.eDataOnePass:
+                    return "OnePass";
+                case AgELeadTrailData.eDataQuarter:
+                    return "Quarter";
+                case AgELeadTrailData.eDataTime:
+                    return "Time";
+                default:
+                    return null;
+            }
+        }
+
+        public static List<string> GetCameraPaths()
+        {
+            List<string> paths = new List<string>();
+            IAgExecCmdResult result = CommonData.StkRoot.ExecuteCommand("VO_R * CameraControl GetPaths");
+            string resultStr = result[0].Replace("\"", "");
+            string[] pathNames = resultStr.Split(null);
+            foreach (var path in pathNames)
+            {
+                paths.Add(path);
+            }
+
+            return paths;
         }
     }
 }

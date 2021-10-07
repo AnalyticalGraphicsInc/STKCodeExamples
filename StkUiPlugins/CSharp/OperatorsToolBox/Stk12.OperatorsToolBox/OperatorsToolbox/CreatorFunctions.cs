@@ -404,10 +404,10 @@ namespace OperatorsToolbox
         //Constraint functions
         public static void SetCnstMinMax(IAgAccessCnstrMinMax constraint, double min,double max)
         {
-            constraint.EnableMin = true;
-            constraint.Min = min;
             constraint.EnableMax = true;
-            constraint.Max = max;            
+            constraint.Max = max;
+            constraint.EnableMin = true;
+            constraint.Min = min;        
         }
 
         public static IAgAccessCnstrMinMax GetRangeCnst(IAgAccessConstraintCollection constraints)
@@ -1177,7 +1177,7 @@ namespace OperatorsToolbox
                     }
                 }
             }
-            else if (className == "Radaar")
+            else if (className == "Radar")
             {
                 result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Radar");
                 if (result[0] != "None")
@@ -1195,6 +1195,66 @@ namespace OperatorsToolbox
             else if (className == "Constellation")
             {
                 result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Constellation");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
+            else if (className == "LaunchVehicle")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class LaunchVehicle");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
+            else if (className == "GroundVehicle")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class GroundVehicle");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
+            else if (className == "Ship")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class Ship");
+                if (result[0] != "None")
+                {
+                    string[] sensorArray = result[0].Split(null);
+                    foreach (var item in sensorArray)
+                    {
+                        if (item != null && item != "")
+                        {
+                            objectPaths.Add(library.TruncatedObjectPath(item));
+                        }
+                    }
+                }
+            }
+            else if (className == "AreaTarget")
+            {
+                result = CommonData.StkRoot.ExecuteCommand("ShowNames * Class AreaTarget");
                 if (result[0] != "None")
                 {
                     string[] sensorArray = result[0].Split(null);
@@ -1303,35 +1363,38 @@ namespace OperatorsToolbox
 
         public static void ChangeSatColor(string satPath, int satCatIndex)
         {
-            string fofo = CommonData.SatCatItemList[satCatIndex].Fofo;
-            dynamic sat = CommonData.StkRoot.GetObjectFromPath(satPath);
-            IAgVeGfxAttributesBasic graphics = sat.Graphics.Attributes as IAgVeGfxAttributesBasic;
-            string colorRgb = null;
-            string colorBgr = null;
-            if (fofo == "Blue")
+            if (!String.IsNullOrEmpty(satPath) && satCatIndex != -1)
             {
-                colorRgb = "00ffff";
-                graphics.Color = System.Drawing.Color.Cyan;
-            }
-            else if (fofo == "Red")
-            {
-                colorRgb = "ff0000";
-                graphics.Color = System.Drawing.Color.Red;
-            }
-            else if (fofo == "Grey")
-            {
-                colorRgb = "ffffff";
-                graphics.Color = System.Drawing.Color.White;
-            }
-            else if (fofo == "Green")
-            {
-                colorRgb = "00ff00";
-                graphics.Color = System.Drawing.Color.Green;
-            }
-            else
-            {
-                colorRgb = "ffff00";
-                graphics.Color = System.Drawing.Color.Yellow;
+                string fofo = CommonData.SatCatItemList[satCatIndex].Fofo;
+                dynamic sat = CommonData.StkRoot.GetObjectFromPath(satPath);
+                IAgVeGfxAttributesBasic graphics = sat.Graphics.Attributes as IAgVeGfxAttributesBasic;
+                string colorRgb = null;
+                string colorBgr = null;
+                if (fofo == "Blue")
+                {
+                    colorRgb = "00ffff";
+                    graphics.Color = System.Drawing.Color.Cyan;
+                }
+                else if (fofo == "Red")
+                {
+                    colorRgb = "ff0000";
+                    graphics.Color = System.Drawing.Color.Red;
+                }
+                else if (fofo == "Grey")
+                {
+                    colorRgb = "ffffff";
+                    graphics.Color = System.Drawing.Color.White;
+                }
+                else if (fofo == "Green")
+                {
+                    colorRgb = "00ff00";
+                    graphics.Color = System.Drawing.Color.Green;
+                }
+                else
+                {
+                    colorRgb = "ffff00";
+                    graphics.Color = System.Drawing.Color.Yellow;
+                }
             }
             //colorBGR = colorRGB.Substring(4, 5) +colorRGB.Substring(2,3)+colorRGB.Substring(0,1);
             //int decColor = Convert.ToInt32(colorBGR, 16);

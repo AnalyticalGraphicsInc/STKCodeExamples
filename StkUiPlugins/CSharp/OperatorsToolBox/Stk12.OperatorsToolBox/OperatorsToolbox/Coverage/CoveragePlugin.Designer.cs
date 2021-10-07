@@ -44,6 +44,7 @@
             this.Compute = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.ClearLegends = new System.Windows.Forms.Button();
+            this.AddAreaTarget = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label13
@@ -66,7 +67,7 @@
             this.Cancel.ForeColor = System.Drawing.Color.White;
             this.Cancel.ImageIndex = 3;
             this.Cancel.ImageList = this.imageList3;
-            this.Cancel.Location = new System.Drawing.Point(318, 2);
+            this.Cancel.Location = new System.Drawing.Point(324, 2);
             this.Cancel.Margin = new System.Windows.Forms.Padding(2);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(24, 26);
@@ -118,7 +119,7 @@
             this.CoverageList.Margin = new System.Windows.Forms.Padding(2);
             this.CoverageList.MultiSelect = false;
             this.CoverageList.Name = "CoverageList";
-            this.CoverageList.Size = new System.Drawing.Size(301, 265);
+            this.CoverageList.Size = new System.Drawing.Size(307, 341);
             this.CoverageList.SmallImageList = this.imageList3;
             this.CoverageList.TabIndex = 46;
             this.CoverageList.UseCompatibleStateImageBehavior = false;
@@ -135,7 +136,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Window;
-            this.label1.Location = new System.Drawing.Point(7, 318);
+            this.label1.Location = new System.Drawing.Point(7, 394);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 17);
@@ -150,12 +151,12 @@
             this.CoverageDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CoverageDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CoverageDetails.ForeColor = System.Drawing.Color.White;
-            this.CoverageDetails.Location = new System.Drawing.Point(9, 342);
+            this.CoverageDetails.Location = new System.Drawing.Point(9, 418);
             this.CoverageDetails.Margin = new System.Windows.Forms.Padding(2);
             this.CoverageDetails.Multiline = true;
             this.CoverageDetails.Name = "CoverageDetails";
             this.CoverageDetails.ReadOnly = true;
-            this.CoverageDetails.Size = new System.Drawing.Size(333, 163);
+            this.CoverageDetails.Size = new System.Drawing.Size(339, 163);
             this.CoverageDetails.TabIndex = 44;
             // 
             // RemoveCoverage
@@ -234,11 +235,27 @@
             this.ClearLegends.Click += new System.EventHandler(this.ClearLegends_Click);
             this.ClearLegends.MouseHover += new System.EventHandler(this.ClearLegends_MouseHover);
             // 
+            // AddAreaTarget
+            // 
+            this.AddAreaTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.AddAreaTarget.BackColor = System.Drawing.Color.SteelBlue;
+            this.AddAreaTarget.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AddAreaTarget.ForeColor = System.Drawing.Color.White;
+            this.AddAreaTarget.Location = new System.Drawing.Point(10, 585);
+            this.AddAreaTarget.Margin = new System.Windows.Forms.Padding(2);
+            this.AddAreaTarget.Name = "AddAreaTarget";
+            this.AddAreaTarget.Size = new System.Drawing.Size(171, 36);
+            this.AddAreaTarget.TabIndex = 50;
+            this.AddAreaTarget.Text = "Add Area Target To Database";
+            this.AddAreaTarget.UseVisualStyleBackColor = false;
+            this.AddAreaTarget.Click += new System.EventHandler(this.AddAreaTarget_Click);
+            // 
             // CoveragePlugin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(12)))), ((int)(((byte)(12)))));
+            this.Controls.Add(this.AddAreaTarget);
             this.Controls.Add(this.ClearLegends);
             this.Controls.Add(this.Compute);
             this.Controls.Add(this.EditCoverage);
@@ -252,7 +269,7 @@
             this.Controls.Add(this.Cancel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoveragePlugin";
-            this.Size = new System.Drawing.Size(344, 624);
+            this.Size = new System.Drawing.Size(350, 700);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,5 +291,6 @@
         private System.Windows.Forms.Button Compute;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button ClearLegends;
+        private System.Windows.Forms.Button AddAreaTarget;
     }
 }

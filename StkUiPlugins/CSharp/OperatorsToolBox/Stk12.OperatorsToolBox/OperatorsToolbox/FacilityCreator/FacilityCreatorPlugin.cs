@@ -287,70 +287,135 @@ namespace OperatorsToolbox.FacilityCreator
                 {
                     if (!String.IsNullOrEmpty(FilenameText.Text))
                     {
+                        SensorCadance cad = new SensorCadance();
+                        cad.FacilityList = new List<FcFacility>();
+                        cad.CadenceColor = "Custom";
+                        cad.Name = "NewCadence";
                         IAgStkObject facObj;
                         IAgFacility fac;
                         IAgStkObject sensor;
-                        List<GroundLocation> locations = ReadWrite.ReadFacilityFile(FilenameText.Text);
-                        foreach  (GroundLocation loc in locations)
+                        List<GroundLocation> locations = null;
+                        if (FilenameText.Text.Contains(".json"))
                         {
-                            facObj = CreatorFunctions.GetCreateFacility(loc.LocationName);
-                            fac = facObj as IAgFacility;
-                            sensor = null;
-                            fac.Position.AssignGeodetic(loc.Latitude, loc.Longitude, loc.Altitude);
-                            fac.AltRef = AgEAltRefType.eWGS84;
-                            if (SensorType.SelectedIndex == 1)
+                            try
                             {
-                                OpticalParams oParams = new OpticalParams();
-                                oParams.MinEl = "0";
-                                oParams.MaxEl = "90";
-                                oParams.MinRange = "4800";
-                                oParams.MaxRange = "90000";
-                                oParams.LunarExAngle = "10";
-                                oParams.SunElAngle = "-12";
-                                oParams.HalfAngle = "70";
-                                oParams.MinAz = "0";
-                                oParams.MaxAz = "360";
-                                sensor = FacilityCreatorFunctions.AttachFacilityOptical(facObj, FacilityName.Text + "_Opt", oParams);
+                                List<SensorCadance> tempCadences = ReadWrite.ReadCadences(FilenameText.Text);
+                                if (SaveData.Checked)
+                                {
+                                    foreach (var item in tempCadences)
+                                    {
+                                        CommonData.Cadences.Add(item);
+                                    }
+                                    ReadWrite.WriteCadenceDatabase();
+                                    PopulateCadanceList();
+                                }
                             }
-                            else if (SensorType.SelectedIndex == 2)
-                            {
-                                RadarParams rParams = new RadarParams();
-                                rParams.MinEl = "0";
-                                rParams.MaxEl = "90";
-                                rParams.MinRange = "1600";
-                                rParams.MaxRange = "40000";
-                                rParams.SolarExAngle = "10";
-                                rParams.HalfAngle = "85";
-                                rParams.MinAz = "0";
-                                rParams.MaxAz = "360";
-                                sensor = FacilityCreatorFunctions.AttachFacilityRadar(facObj, FacilityName.Text + "_Radar", rParams);
-                            }
-                            else
+                            catch (Exception)
                             {
 
+                                MessageBox.Show("Json Error");
                             }
-                            if (ConstType.SelectedIndex != 0)
+                        }
+                        else
+                        {
+                            locations = ReadWrite.ReadFacilityFile(FilenameText.Text);
+                            foreach (GroundLocation loc in locations)
                             {
-                                IAgStkObject constObj = null;
-                                IAgConstellation constel = null;
-                                if (ConstType.SelectedIndex == 1)
+                                FcFacility fcFac = new FcFacility();
+                                fcFac.Name = loc.LocationName;
+                                fcFac.Latitude = loc.Latitude.ToString();
+                                fcFac.Longitude = loc.Longitude.ToString();
+                                fcFac.Altitude = loc.Altitude.ToString();
+                                facObj = CreatorFunctions.GetCreateFacility(loc.LocationName);
+                                fac = facObj as IAgFacility;
+                                sensor = null;
+                                fac.Position.AssignGeodetic(loc.Latitude, loc.Longitude, loc.Altitude);
+                                fac.AltRef = AgEAltRefType.eWGS84;
+
+                                FCSensor fcSensor = new FCSensor();
+                                fcSensor.SensorName = loc.LocationName + "_Opt";
+                                if (SensorType.SelectedIndex == 0 || SensorType.SelectedIndex == 1)
                                 {
-                                    constObj = CreatorFunctions.GetCreateConstellation(ExistingConst.Text);
-                                    constel = constObj as IAgConstellation;
+                                    OpticalParams oParams = new OpticalParams();
+                                    cad.Type = "Opt";
+                                    cad.NumOptical = locations.Count;
+                                    cad.NumRadars = 0;
+                                    fcFac.Type = "Optical";
+                                    fcFac.IsOpt = true;
+                                    oParams.MinEl = "0";
+                                    oParams.MaxEl = "90";
+                                    oParams.MinRange = "4800";
+                                    oParams.MaxRange = "90000";
+                                    oParams.LunarExAngle = "10";
+                                    oParams.SunElAngle = "-12";
+                                    oParams.HalfAngle = "70";
+                                    oParams.MinAz = "0";
+                                    oParams.MaxAz = "360";
+                                    oParams.Az = "0";
+                                    oParams.El = "90";
+                                    fcSensor.OParams = oParams;
+                                    if (SensorType.SelectedIndex == 1)
+                                    {
+                                        sensor = FacilityCreatorFunctions.AttachFacilityOptical(facObj, loc.LocationName + "_Opt", oParams);
+                                    }
                                 }
-                                else if (ConstType.SelectedIndex == 2)
+                                else if (SensorType.SelectedIndex == 2)
                                 {
-                                    constObj = CreatorFunctions.GetCreateConstellation(ConstName.Text);
-                                    constel = constObj as IAgConstellation;
+                                    RadarParams rParams = new RadarParams();
+                                    fcSensor.SensorName = loc.LocationName + "_Rad";
+                                    cad.Type = "Rad";
+                                    cad.NumOptical = 0;
+                                    cad.NumRadars = locations.Count;
+                                    fcFac.Type = "Radar";
+                                    fcFac.IsOpt = false;
+                                    rParams.MinEl = "0";
+                                    rParams.MaxEl = "90";
+                                    rParams.MinRange = "1600";
+                                    rParams.MaxRange = "40000";
+                                    rParams.SolarExAngle = "10";
+                                    rParams.HalfAngle = "85";
+                                    rParams.MinAz = "0";
+                                    rParams.MaxAz = "360";
+                                    rParams.Az = "0";
+                                    rParams.El = "90";
+                                    fcSensor.RParams = rParams;
+                                    sensor = FacilityCreatorFunctions.AttachFacilityRadar(facObj, loc.LocationName + "_Radar", rParams);
                                 }
-                                if (SensorType.SelectedIndex == 0)
+                                else
                                 {
-                                    constel.Objects.AddObject(facObj);
+
                                 }
-                                else if (SensorType.SelectedIndex == 1 || SensorType.SelectedIndex == 2)
+                                fcFac.Sensors.Add(fcSensor);
+                                cad.FacilityList.Add(fcFac);
+                                if (ConstType.SelectedIndex != 0)
                                 {
-                                    constel.Objects.AddObject(sensor);
+                                    IAgStkObject constObj = null;
+                                    IAgConstellation constel = null;
+                                    if (ConstType.SelectedIndex == 1)
+                                    {
+                                        constObj = CreatorFunctions.GetCreateConstellation(ExistingConst.Text);
+                                        constel = constObj as IAgConstellation;
+                                    }
+                                    else if (ConstType.SelectedIndex == 2)
+                                    {
+                                        constObj = CreatorFunctions.GetCreateConstellation(ConstName.Text);
+                                        constel = constObj as IAgConstellation;
+                                    }
+                                    if (SensorType.SelectedIndex == 0)
+                                    {
+                                        constel.Objects.AddObject(facObj);
+                                    }
+                                    else if (SensorType.SelectedIndex == 1 || SensorType.SelectedIndex == 2)
+                                    {
+                                        constel.Objects.AddObject(sensor);
+                                    }
                                 }
+                            }
+                            if (SaveData.Checked)
+                            {
+                                CommonData.Cadences.Add(cad);
+                                ReadWrite.WriteCadenceDatabase();
+                                PopulateCadanceList();
                             }
                         }
                     }
@@ -522,6 +587,7 @@ namespace OperatorsToolbox.FacilityCreator
                 Altitude.Enabled = true;
                 FilenameText.Enabled = false;
                 FileBrowse.Enabled = false;
+                SaveData.Enabled = false;
             }
         }
 
@@ -536,6 +602,7 @@ namespace OperatorsToolbox.FacilityCreator
                 Altitude.Enabled = false;
                 FilenameText.Enabled = true;
                 FileBrowse.Enabled = true;
+                SaveData.Enabled = true;
             }
         }
 
