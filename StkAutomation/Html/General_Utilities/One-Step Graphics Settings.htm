@@ -1,0 +1,448 @@
+<html>
+<meta name="Graphics Settings" content="Ed Gee's Video and Image Settings Extravaganza">
+	<head>
+		<title>Graphics Settings</title>
+
+		<script language="JavaScript">
+
+			root  = window.external.personality2;
+
+			function init () {
+				//
+				//get all 3D windows and add to sel_windowid
+				//
+				wins = root.ExecuteCommand("VO_R * MapID").Item(0);
+				wins = wins.split("\n");
+
+				for (w=1; w < wins.length - 1; w++){
+					sel_windowid.length++;
+					sel_windowid[sel_windowid.length-1].text = wins[w];
+					sel_windowid[sel_windowid.length-1].value = w;
+					}
+
+				//
+				// get current fonts to set as `Scenario default`
+				//
+				smallFont = root.CurrentScenario.VO.SmallFont.Name;
+				medFont   = root.CurrentScenario.VO.MediumFont.Name;
+				largeFont = root.CurrentScenario.VO.LargeFont.Name;
+				smallPt   = root.CurrentScenario.VO.SmallFont.PtSize;
+				medPt     = root.CurrentScenario.VO.MediumFont.PtSize;
+				largePt   = root.CurrentScenario.VO.LargeFont.PtSize;
+				}
+
+			function btn_fieldoffiew() {
+				root.ExecuteCommand("Window3D * ViewVolume FieldOfview " + sel_fieldoffiew.value + " WindowID " + sel_windowid.value);
+				}
+
+			function btn_windowsize() {
+				root.ExecuteCommand("Window3D * InnerSize " + sel_windowsize.value + " WindowID " + sel_windowid.value);
+				}
+
+			function btn_lighting() {
+				// smooth lighting
+				root.ExecuteCommand("VO * Lighting UsePerPixelLighting On WindowID " + sel_windowid.value);
+
+				if (sel_lighting.value == "STK Installed Defaults"){
+					root.ExecuteCommand("VO * Lighting Show On Ambient 25 Sun 500 NightLights 500 Positional On Object On ObjAmbient 25 ObjSun 100 SolarIntensity On WindowID " + sel_windowid.value);
+					}
+				if (sel_lighting.value == "Custom"){
+					root.ExecuteCommand("VO * Lighting Show On Ambient 20 Sun 500 NightLights 500 Positional On Object On ObjAmbient 20 ObjSun 80 SolarIntensity On WindowID " + sel_windowid.value);
+					}
+				if (sel_lighting.value == "High Contrast"){
+					root.ExecuteCommand("VO * Lighting Show On Ambient 5 Sun 500 NightLights 500 Positional On Object On ObjAmbient 5 ObjSun 95 SolarIntensity On WindowID " + sel_windowid.value);
+					}
+				}
+
+			function btn_celestial() {
+				try{
+				if (sel_celestial.value == "STK Installed Defaults"){
+					root.ExecuteCommand("VO * Celestial Stars Show On ShowPts On ShowTx Off WindowID " + sel_windowid.value);
+					root.ExecuteCommand("VO * Celestial Stars CollectionName \"ScenarioCollection\" BrightMag -1.0 MediumMag 7.0 DimMag 12.0 BrightPtSize 5 MediumPtSize 1 DimPtSize .1 BrightTranslucency 0 MediumTranslucency 25 DimTranslucency 80 ColorizeStars Off WindowID " + sel_windowid.value);
+					}
+				if (sel_celestial.value == "Optimized - Bright Star"){
+					root.ExecuteCommand("VO * Celestial Stars Show On ShowPts On ShowTx Off WindowID " + sel_windowid.value);
+					root.ExecuteCommand("VO * Celestial Stars CollectionName \"Bright Star v5 Mag 6\" BrightMag -1.44 MediumMag 3.0 DimMag 6.0 BrightPtSize 4 MediumPtSize 2 DimPtSize 1 BrightTranslucency 0 MediumTranslucency 0 DimTranslucency 0 ColorizeStars On WindowID " + sel_windowid.value);
+					}
+				if (sel_celestial.value == "Optimized - Hipparcos"){
+					root.ExecuteCommand("VO * Celestial Stars Show On ShowPts On ShowTx Off WindowID " + sel_windowid.value);
+					root.ExecuteCommand("VO * Celestial Stars CollectionName \"Hipparcos 2 Mag 6\" BrightMag -1.46 MediumMag 3.0 DimMag 6.0 BrightPtSize 4 MediumPtSize 2 DimPtSize 1 BrightTranslucency 0 MediumTranslucency 0 DimTranslucency 0 ColorizeStars On WindowID " + sel_windowid.value);
+					}
+				if (sel_celestial.value == "No Stars"){
+					root.ExecuteCommand("VO * Celestial Stars Show Off WindowID " + sel_windowid.value);
+					}
+					}
+				catch (er){
+					alert ("error " + er.Message);
+					}
+				}
+
+			function btn_clouds() {
+				root.ExecuteCommand("VO * Attributes Clouds " + sel_clouds.value + " " + sel_windowid.value);
+				}
+
+			function btn_camerainertia() {
+				root.ExecuteCommand("VO * View Mouse Inertia " + sel_camerainertia.value + " WindowID " + sel_windowid.value);
+				}
+
+			function btn_unconstrainedrotation() {
+				root.ExecuteCommand("VO * View Parameters UseUpAxis " + sel_unconstrainedrotation.value + " WindowID " + sel_windowid.value);
+				}
+
+			function btn_usefont() {
+
+				if (sel_usefont.value == "Scenario default"){
+					root.ExecuteCommand("VO * Fonts Small Face \"" + smallFont + "\" Size " + smallPt + " Bold Off");
+					root.ExecuteCommand("VO * Fonts Medium Face \"" + medFont  + "\" Size " + medPt + " Bold Off");
+					root.ExecuteCommand("VO * Fonts Large Face \"" + largeFont + "\" Size " + largePt + " Bold Off");
+					}
+				else {
+					fonts = root.CurrentScenario.VO.SmallFont.AvailableFonts.toArray();
+					found = "";
+					for (var i = 0; i < fonts.length; i++) {
+						if (fonts[i] == sel_usefont.value){
+							found = 1;
+							break;
+							}
+						}
+					if ( found ) {
+						root.ExecuteCommand("VO * Fonts Small Face \"" + sel_usefont.value + "\" Size 18 Bold On");
+						root.ExecuteCommand("VO * Fonts Medium Face \"" + sel_usefont.value + "\" Size 24 Bold On");
+						root.ExecuteCommand("VO * Fonts Large Face \"" + sel_usefont.value + "\" Size 36 Bold On");
+						}
+					else {
+						alert("Font not found: " + sel_usefont.value);
+						}
+					}
+				}
+
+			function btn_imagecache() {
+				root.ExecuteCommand("VO * TerrainAndImagery Data ChunkImageCacheSize " + sel_imagecache.value);
+				}
+
+			function btn_useepochseconds() {
+				root.ExecuteCommand("Units_Set * GUI Date " + sel_useepochseconds.value);
+				}
+
+			function btn_linethicknesses() {
+				// there`s lots of linewidths for objects, I`m just hitting the basic/graphcis
+				// line width for all object classes
+
+				//LineTarget, AreaTarget, Sensor or Planet
+				try {root.ExecuteCommand("Graphics */LineTarget/* LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */Sensor/* LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */AreaTarget/* LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */Planet/* LineWidth " + sel_linethicknesses.value);}catch(er){}
+
+				//Vehicles
+				try {root.ExecuteCommand("Graphics */Satellite/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */Aircraft/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */Ship/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */Missile/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */LaunchVehicle/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+				try {root.ExecuteCommand("Graphics */GroundVehicle/* Basic LineWidth " + sel_linethicknesses.value);}catch(er){}
+
+				}
+
+			function btn_reset() {
+				sel_fieldoffiew.value             = "70";
+				cb_fieldoffiew.checked            = 1;
+
+				sel_windowsize.value              = "1280 720";
+				cb_windowsize.checked             = 1;
+
+				sel_lighting.value                = "Custom";
+				cb_lighting.checked               = 1;
+
+				sel_celestial.value               = "Optimized - Bright Star";
+				cb_celestial.checked              = 1;
+
+				sel_clouds.value                  = "Off";
+				cb_clouds.checked                 = 1;
+
+				sel_camerainertia.value           = "Off";
+				cb_camerainertia.checked          = 1;
+
+				sel_unconstrainedrotation.value   = "Off";
+				cb_unconstrainedrotation.checked  = 1;
+
+				sel_usefont.value                 = "Arial";
+				cb_usefont.checked                = 1;
+
+				sel_imagecache.value              = "512";
+				cb_imagecache.checked             = 1;
+
+				sel_useepochseconds.value         = "EpSec";
+				cb_useepochseconds.checked        = 1;
+
+				sel_linethicknesses.value         = "2";
+				cb_linethicknesses.checked        = 0;
+				}
+
+			function btn_setall() {
+				if (cb_fieldoffiew.checked)            { btn_fieldoffiew()           }
+				if (cb_windowsize.checked)             { btn_windowsize()            }
+				if (cb_lighting.checked)               { btn_lighting()              }
+				if (cb_celestial.checked)              { btn_celestial()             }
+				if (cb_clouds.checked)                 { btn_clouds()                }
+				if (cb_camerainertia.checked)          { btn_camerainertia()         }
+				if (cb_unconstrainedrotation.checked)  { btn_unconstrainedrotation() }
+				if (cb_usefont.checked)                { btn_usefont()               }
+				if (cb_imagecache.checked)             { btn_imagecache()            }
+				if (cb_useepochseconds.checked)        { btn_useepochseconds()       }
+				if (cb_linethicknesses.checked)        { btn_linethicknesses()       }
+				}
+
+		</script>
+
+	</head>
+
+	<body onLoad="init()" style="margin: 0;padding: 0">
+
+
+		<table border-colapse="0" width="100%" height="100%" style="filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=1, StartColorStr='#FFFFC0', EndColorStr='#6699CC')">
+			<tr>
+				<td>
+					<h3> Ed Gee's Video and Image Settings Extravaganza</h3>
+					This utility will optimize your STK properties for recording movies and taking snapshots.
+					<br><br>
+					<table>
+
+						<tr>
+							<td>
+
+							</td>
+							<td>
+								WindowID:
+							</td>
+							<td>
+								<select name="sel_windowid" style="width:200;">
+								</select>
+							</td>
+							<td>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_fieldoffiew" />
+							</td>
+							<td>
+								Field Of View:
+							</td>
+							<td >
+								<select name="sel_fieldoffiew" style="width:100%;">
+								  <option value="45">          45 (STK default) </option>
+								  <option value="50">          50               </option>
+								  <option value="60">          60               </option>
+								  <option value="70" selected> *70               </option>
+								  <option value="75">          75               </option>
+								  <option value="85">          85               </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_fieldoffiew()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_windowsize" />
+							</td>
+							<td>
+								Window Size:
+							</td>
+							<td>
+								<select name="sel_windowsize" style="width:100%;">
+								  <option value="720 480">           720 x 480   </option>
+								  <option value="800 600">           800 x 600   </option>
+								  <option value="1024 768">          1024 x 768  </option>
+								  <option value="1280 720" selected> *1280 x 720  </option>
+								  <option value="1920 1080">         1920 x 1080 </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_windowsize()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_lighting" />
+							</td>
+							<td>
+								Lighting:
+							</td>
+							<td>
+								<select name="sel_lighting" style="width:100%;">
+								  <option value="STK Installed Defaults"> STK Installed Defaults </option>
+								  <option value="Custom" selected>        *Custom                 </option>
+								  <option value="High Contrast">          High Contrast          </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_lighting()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_celestial" />
+							</td>
+							<td>
+								Celestial:
+							</td>
+							<td>
+								<select name="sel_celestial" style="width:100%;">
+									<option value="STK Installed Defaults">           STK Installed Defaults  </option>
+									<option value="Optimized - Bright Star" selected> *Optimized - Bright Star </option>
+									<option value="Optimized - Hipparcos">            Optimized - Hipparcos   </option>
+									<option value="No Stars">                         No Stars                </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_celestial()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_clouds" />
+							</td>
+							<td>
+								Clouds:
+							</td>
+							<td>
+								<select name="sel_clouds" style="width:100%;">
+								  <option value="Off" selected> *Off (STK default) </option>
+								  <option value="On">           On                </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_clouds()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_camerainertia" />
+							</td>
+							<td>
+								Camera Inertia:
+							</td>
+							<td>
+								<select name="sel_camerainertia" style="width:100%;">
+								  <option value="Off" selected> *Off              </option>
+								  <option value="On">           On (STK defualt) </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_camerainertia()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_unconstrainedrotation" />
+							</td>
+							<td>
+								Unconstrained Rotation:
+							</td>
+							<td>
+								<select name="sel_unconstrainedrotation" style="width:100%;">
+								  <option value="Off" selected> *Off (STK defualt) </option>
+								  <option value="On">           On  </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_unconstrainedrotation()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_usefont" />
+							</td>
+							<td>
+								Use Font:
+							</td>
+							<td>
+								<select name="sel_usefont" style="width:100%;">
+									<option value="Arial" selected> *Arial </option>
+									<option value="Scenario default">                  Scenario default </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_usefont()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_imagecache" />
+							</td>
+							<td>
+								Image Cache:
+							</td>
+							<td>
+								<select name="sel_imagecache" style="width:100%;">
+									<option value="64">           64 (STK default)  </option>
+									<option value="512" selected> *512 </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_imagecache()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked name="cb_useepochseconds" />
+							</td>
+							<td>
+								Show Time As:
+							</td>
+							<td>
+								<select name="sel_useepochseconds" style="width:100%;">
+									<option value="EpSec" selected> *Epoch Seconds          </option>
+									<option value="GregUTC">        Greg UTC (STK default) </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_useepochseconds()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" name="cb_linethicknesses" />
+							</td>
+							<td>
+								Line Widths:
+							</td>
+							<td>
+								<select name="sel_linethicknesses" style="width:100%;">
+									<option value="1">          1 </option>
+									<option value="2" selected> *2 </option>
+									<option value="3">          3 </option>
+								</select>
+							</td>
+							<td>
+								<input type="button" value="Set" onClick="btn_linethicknesses()" />
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan=3>
+								<br>
+								<input type="button" value="Reset" onClick="btn_reset()" />
+								<input type="button" value="Set All" title="Set All Checked Options" onClick="btn_setall()" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+
+</html>
