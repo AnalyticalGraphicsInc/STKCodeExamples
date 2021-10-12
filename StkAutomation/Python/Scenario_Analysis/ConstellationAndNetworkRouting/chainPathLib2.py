@@ -10,93 +10,253 @@ import pickle
 import os
 import time
 
-## Potential Future Work ##
 
-#  Maximize bandwidth, which is not just summing a bandwidth value of the edges along the path, because the network may be bottlenecked by individual edges.
-# Potential Issues: nx find the shortest number of hops and then uses the edge weight, it doesnt investigate alternate paths with more hops where bandwidths might be better. The best bandwidth path would be limited by the minimum edge of the path. nx looks for minimums not maximums along a path. This might need to be a custom algorithm and not an nx native one.
+# Potential Future Work: Switch to max flow problem in nx. After initial runtime investigation there does not appear to be much benefit, at most a factor of 2 better, but that estimate was missing a bunch of other processing steps
+# Allow for possibility of stoping, saving and reusing data
 
-# # Start of adding bandwidth 
-# metric = 'bandwidth'
-# bandwidthBetweenConstellations = {('ObservingSatsTransmitters','ObservingSatsReceivers'):1/2,('RelaySats','RelaySats'):1/10}
-# bandwidthDefault = 10
-# timesEdgesDistancesDelaysBandwidths = addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,bandwidthBetweenConstellations,defaultValue=bandwidthDefault)
+############## Added Data Transfer, 
 
+def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDistancesDelaysBandwidths,timesDataToTransfer,timesDataTransfered,startingNodes,endingNodes,priorityCase=1,nodeTransferPriority=[],nodeDestinationPriority=[],metric='distance',maxDataTransfer=1e15,breakOnceAllDataIsTransfered = True,overrideData=False,printTime=False,filename=''):
 
-#### Adding Multi path and load functions
-
-def generateDiNetworkBandwidth(t,timeEdgesDistancesDelaysBandwidth,timeNodePos):
-    G = nx.DiGraph()
-    for edge,distanceDelayBandwidth in timeEdgesDistancesDelaysBandwidth[t].items():
-        distance = distanceDelayBandwidth[0]
-        timeDelay = distanceDelayBandwidth[1]
-        bandwidth = distanceDelayBandwidth[2]
-        G.add_edge(*edge,distance=distance,timeDelay=timeDelay,bandwidth=bandwidth)
-    for node,pos in timeNodePos[t].items():
-        G.add_node(node,Type=node.split('/')[0],Position=pos)
-    return G
-
-
-def recomputeMissingData(strands,dfStrands,nodesTimesPos,strandsAtTimes,recomputeIfDataIsMissing=True):
-
-    computedNodeTimes = np.unique([item for nodeDict in list(nodesTimesPos.values()) for item in list(nodeDict.keys())])
-    missingDataTimes = [t for t in np.array(list(strandsAtTimes.keys())) if t not in computedNodeTimes]
-
-    
-    if len(missingDataTimes) > 0:
-        print('Data for nodes is missing at the following times')
-        print(missingDataTimes)
-        print('Adjust the start, stop or step to match previously saved data time or the recompute data')
-        if recomputeIfDataIsMissing == True:
-            print('Recalculating Strands')
-            strands,dfStrands = getAllStrands(stkRoot,chainNames,start,stop,overrideData=True)
-            print('Recalculating Node Positions')
-            nodesTimesPos = computeNodesPosOverTime(stkRoot,strands,start,stop,step,overrideData=True) # Pull node position over time
-            print('Rebuilding strandsAtTimes')
-            strandsAtTimes = getStrandsAtTimes(strands,start,stop,step) # Discretize strand intervals into times
+    # Use first nodes for the naming convention
+    if not filename:
+        filename1 = 'SavedNetworkData/DataTransfer.pkl'
+        filename2 = 'SavedNetworkData/DataSources.pkl'
+        filename3 = 'SavedNetworkData/DataDestinations.pkl'
+    else:
+        filename1 = 'SavedNetworkData/{}DataTransfer.pkl'.format(filename)
+        filename2 = 'SavedNetworkData/{}DataSources.pkl'.format(filename)
+        filename3 = 'SavedNetworkData/{}DataDestinations.pkl'.format(filename)
         
-    return strands,dfStrands,nodesTimesPos,strandsAtTimes
+    needToCompute = True
+    if os.path.exists(filename1) and os.path.exists(filename2) and os.path.exists(filename3) and overrideData == False:
+        with open(filename1,'rb') as f:
+            df = pickle.load(f)
+        with open(filename2,'rb') as f:
+            dfTimesDataToTransfer = pickle.load(f)  
+        with open(filename3,'rb') as f:
+            dfTimesDataTransfered = pickle.load(f)
+        needToCompute = False
+        simulationStopTime = dfTimesDataToTransfer['time'].values[-1]
+        return df,dfTimesDataToTransfer,dfTimesDataTransfered,simulationStopTime
 
-
-def addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,constellationPairsDict,defaultValue=0):
-
-    # Get possible edges from the constellation pairs dict 
-    edgesBandwith = []
-    for constellationPair,bandwidth in constellationPairsDict.items():
-        nodesCon1 = getNodesFromConstellation(stkRoot,constellationPair[0])
-        nodesCon2 = getNodesFromConstellation(stkRoot,constellationPair[1])
-        edgesBandwith.append([(start,end,bandwidth) for start,end in itertools.product(nodesCon1, nodesCon2)])
-    edgesBandwith = {(item[0],item[1]):item[2] for sublist in edgesBandwith for item in sublist}
+    # Skip if data loaded
+    if needToCompute == True:
     
-    # Add the new metric to timesEdgesDistancesDelays
-    timesEdgesDistancesDelaysBandwidths = {}
-    edgesDistanceDelayBandwidths = {}
-    for t,edgesDistanceDelays in timesEdgesDistancesDelays.items():
-        edges = edgesDistanceDelays.keys()
-        for edge in edges:
-            distance = edgesDistanceDelays[edge][0]
-            delay = edgesDistanceDelays[edge][1]
-            if edge in edgesBandwith.keys():
-                edgesDistanceDelayBandwidths[edge] = (distance,delay,edgesBandwith[edge])
-            else:
-                edgesDistanceDelayBandwidths[edge] = (distance,delay,defaultValue)    
-        timesEdgesDistancesDelaysBandwidths[t] = edgesDistanceDelayBandwidths
-    return timesEdgesDistancesDelaysBandwidths
+        # Define initial variables
+        strandsShort = []
+        distances = []
+        timeStrandMetric = []
+        i = 0
 
-def createColorRamp(rgb1,rgb2,data):
-    rgb1 = np.array(rgb1)
-    rgb2 = np.array(rgb2)
-    data = np.array(data)
+        # Determine time of last data added
+        if breakOnceAllDataIsTransfered:
+            timeWhenNoMoreDataIsAdded = findTimeOfLastDataAdded(timesDataToTransfer)
+        else:
+            timeWhenNoMoreDataIsAdded = stop
 
-    minData = min(data)
-    maxData = max(data)
-    scale = maxData-minData
-    dRGB = rgb2-rgb1
+        # Loop through each time
+        times = np.arange(start,stop,step)
+        times = np.append(times,stop)
 
-    colors = np.array([(item-minData)/(scale)*dRGB+rgb1 for item in data]).astype(int)
+        # Build network, compute shortest path, fill up bandwidth, transfer data, update data storage, repeat
+        for ii,t in enumerate(times):
+
+            t1 = time.time()
+            totalBandwidthTransfered = 0
+            dataTransfered = 0
+
+        #     # Add layer with highest bandwidth
+        #     uniqueBandwidths = np.unique([v[2] for k,v in timesEdgesDistancesDelaysBandwidths[t].items()])
+        #     ii = len(uniqueBandwidths)-1
+            tDataToTransfer = timesDataToTransfer[t].copy()
+            tDataTransfered = timesDataTransfered[t].copy()
+
+
+            # Recompute priorities, recompute layers of network
+            if priorityCase in [2,3,4]:
+                layers = computePriorityNetworkLayers(priorityCase,tDataToTransfer,tDataTransfered)
+                numLayers = len(layers[:,0])
+            elif priorityCase == 5:
+                layers = computePriorityNetworkLayers(priorityCase,nodeTransferPriority,nodeDestinationPriority)
+                numLayers = len(layers[:,0])
+            else: 
+                numLayers = 1
+                startingNodesInLayer = startingNodes
+                endingNodesInLayer = endingNodes
+
+
+            # Loop through priority of layers
+            for layerii in range(numLayers):
+
+                # layer of network
+                if priorityCase in [2,3,4,5]:
+                    startingNodesInLayer = layers[layerii,0]
+                    endingNodesInLayer = layers[layerii,1]
+
+                pathsAvailable = True
+
+                while totalBandwidthTransfered < maxDataTransfer and pathsAvailable: # see if there are more layers to add
+
+
+                    G = nx.DiGraph()
+
+                    noDataNodes = [k for k,v in tDataToTransfer.items() if abs(v) < 1e-6]
+
+                    # Add edges and nodes with highest bandwidth until data is transfered
+                    edgesToRemove = []
+                    for edge,distanceDelayBandwidth in timesEdgesDistancesDelaysBandwidths[t].items():
+                        if edge[0] in noDataNodes:
+                            edgesToRemove.append(edge)
+                        elif (edge[0] not in startingNodes and edge[1] not in endingNodes) or (edge[0] in startingNodesInLayer) or (edge[1] in endingNodesInLayer):
+                            distance = distanceDelayBandwidth[0]
+                            timeDelay = distanceDelayBandwidth[1]
+                            bandwidth = 1/(distanceDelayBandwidth[2])
+                            G.add_edge(*edge,distance=distance,timeDelay=timeDelay,bandwidth=bandwidth)
+
+                    # Remove edges with empty nodes
+                    for edge in edgesToRemove:
+                        timesEdgesDistancesDelaysBandwidths[t].pop(edge)
+
+
+                    ## LOOP here to keep doing while strands are available        
+                    # Find shortest strand metric
+                    if any([node in G.nodes() for node in startingNodes]) and any([node in G.nodes() for node in endingNodes]):
+
+                        # Consider using the maxflow instead. Although there doesn't seem to be a huge performance increase, maybe even a decrease.
+    #                     for node1 in startingNodes:
+    #                         for node2 in endingNodes:
+    #                             val,dataTransfer = nx.maximum_flow(G,node1,node2)
+    #                             edgesToUpdate = {(k1,k2):v2 for k1,v1 in dataTransfer.items() for k2,v2 in v1.items() if v2 !=0}
+    #                             vals = list(edgesToUpdate.values())
+    #                             print(edgesToUpdate)
+    #                             if vals:
+    #                                 if max(vals) <= tDataToTransfer[node1]:
+    #                                     dataToTransfer = val
+    #                                     for edge in edgesToUpdate:
+    #                                         G[edge[0]][edge[1]]['capacity']-=edgesToUpdate[edge]
+    #                                 else:
+    #                                     dataToTransfer = min([vals,tDataToTransfer[node1]])
+    #                                     for edge in edgesToUpdate:
+    #                                         G[edge[0]][edge[1]]['capacity']-=dataToTransfer
+
+
+
+                        strandShort,metricVal = shortestStrandDistance(G,startingNodes,endingNodes,metric=metric)
+                        # Count total data transfered
+                        if not np.isnan(float(metricVal)):  
+                            startNode = strandShort[0]
+                            endNode = strandShort[-1]
+                            edges = [(strandShort[jj],strandShort[jj+1]) for jj in range(len(strandShort)-1)]
+                            bandwidths = [1/(G.edges[edge]['bandwidth']) for edge in edges]
+                            bandwidths.append(tDataToTransfer[startNode]) # Don't allow negative data at the source
+                            bandwidths.append(maxDataTransfer-totalBandwidthTransfered) # Don't go past maximum network transfer
+                            dataTransfered = min(bandwidths)
+                            totalBandwidthTransfered += dataTransfered
+                            # Modify Bandwidth and remove filled bandwidth, remove any used edge
+                            for edge in edges:
+                                distance,timeDelay,availableBandwidth = timesEdgesDistancesDelaysBandwidths[t][edge]
+                                timesEdgesDistancesDelaysBandwidths[t].update({edge:(distance,timeDelay,availableBandwidth-dataTransfered)})
+                                if abs(timesEdgesDistancesDelaysBandwidths[t][edge][2]) < 1e-6: # Allow some numerical issues, effectively 0
+            #                         print("Saturated bandwidth on edge:",edge)
+                                    # Could store saturated edges? Or reverse engineer later
+                                    timesEdgesDistancesDelaysBandwidths[t].pop(edge)
+
+                            # Update data transfer
+                            tDataToTransfer.update({startNode:tDataToTransfer[startNode]-dataTransfered})
+                            tDataTransfered.update({endNode:tDataTransfered[endNode]+dataTransfered})
+            #                 print(timeStrandMetric[-1][-2])
+            #                 print('Total BandwidthTransfered:', totalBandwidthTransfered)
+                        else:
+                            pathsAvailable = False
+
+                        if (totalBandwidthTransfered-dataTransfered) > 0: # check if data has already been transfered
+                            if not np.isnan(float(metricVal)): # don't append nan values if data has already been transfered/paths have been found
+                                timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
+                        else:
+                            timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
+                    else:
+                        pathsAvailable = False
+
+            #update with index
+            if t != times[-1]:
+                for node in timesDataToTransfer[t].keys():
+                    timesDataToTransfer[times[ii+1]].update({node:tDataToTransfer[node]+timesDataToTransfer[times[ii+1]][node]})
+
+                for node in timesDataTransfered[t].keys():
+                    timesDataTransfered[times[ii+1]].update({node:tDataTransfered[node]+timesDataTransfered[times[ii+1]][node]})
+
+
+            if printTime == True:
+                print('t=',t,'computation time=',time.time()-t1)
+
+            # Break from processing if all data has been removed and time is greater than last data collected
+            if all(np.asarray(list(timesDataToTransfer[t].values()))==0) and t>=timeWhenNoMoreDataIsAdded:
+                print('Stopped Processing at time',t)
+                break
+                
+
+
+        simulationStopTime = t
+        df = pd.DataFrame(timeStrandMetric,columns=['time','strand',metric,'data transfered'])
+        df[metric] = df[metric].astype(float)
+        if metric == 'bandwidth':
+            df = df.drop([metric], axis=1)
+        df['num hops'] = df['strand'].apply(lambda x: len(x)-2)
+        df['num parent hops'] = df['strand'].apply(lambda x: len(set([str.split(obj,'/')[1] for obj in x]))-2) # numb parent hops
+        df.loc[df['num hops'] < 0,'num hops'] = np.nan
+        df.loc[df['num parent hops'] < 0,'num parent hops'] = np.nan
+
+        
+        dfTimesDataToTransfer = convertTimesDataToDataFrame(timesDataToTransfer,simulationStopTime)
+        dfTimesDataTransfered = convertTimesDataToDataFrame(timesDataTransfered,simulationStopTime)
+        
+        # Save to file
+        with open(filename1,'wb') as f:
+            pickle.dump(df,f)
+        with open(filename2,'wb') as f:
+            pickle.dump(dfTimesDataToTransfer ,f)
+        with open(filename3,'wb') as f:
+            pickle.dump(dfTimesDataTransfered,f)
+        return df,dfTimesDataToTransfer,dfTimesDataTransfered,timesEdgesDistancesDelaysBandwidths,simulationStopTime
+
+
+
+###### Updated methods of pushing data to STK and color bars
+def createTimesEdgesCountFromDF(df,weightColumn=None):
+    # Read df of discrete values to numpy array
+    npArr = df.to_numpy()
+    if weightColumn:
+        mask = df.columns == 'data transfered'
+        column = np.arange(0,len(df.columns))[mask][0]
+        edgeWeights = np.round(npArr[:,column].astype(float),6)
+
+    # Loop through time, break down edges at each time
+    timesUnique = np.array(list(set(npArr[:,0])))
+    times = timesUnique[np.argsort(timesUnique)]
+    timeEdgeCountAll = np.empty((0,3))
+    for t in times:
+        rows = npArr[:,0] == t
+        npArrT = npArr[rows,:]
+        strandsAtT = npArrT[:,1]
+        if weightColumn:
+            weightsAtT = edgeWeights[rows]
+        else:
+            weightsAtT = np.ones((len(npArrT),))
+        edgesAtT = np.asarray([(t,(strand[ii],strand[ii+1]),weightsAtT[jj]) for jj,strand in enumerate(strandsAtT) for ii in range(len(strand)-1)])
+        weights = edgesAtT[:,2]
+        uniqueEdges = np.unique(edgesAtT[:,1])
+        timeEdgeCount = np.asarray([(t,edge,np.round(sum(edgesAtT[[ii for ii,val in enumerate(edgesAtT[:,1]) if val == edge],2]),6)) for edge in uniqueEdges])
+        if len(timeEdgeCount)>0:
+            timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
+    return timeEdgeCountAll
+
+def createColorDict(cmap,data):
+    colors = np.array(cmap(data/max(data))[:,0:3]*255,dtype=int)
     colorsDict = {data[ii]:'%{:03d}{:03d}{:03d}'.format(colors[ii,0],colors[ii,1],colors[ii,2]) for ii in range(colors.shape[0])}
     return colorsDict
 
-def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,useColorRamp=True,rampColor1=[255,255,255],rampColor2=[255,0,0],colorScale=np.nan,addTo2D=False):
+def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,colorMap=None,addTo2D=False):
     if deleteOldLines == True:
         stkRoot.ExecuteCommand('VO * ObjectLine DeleteAll')
     
@@ -104,9 +264,9 @@ def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow'
     uniqueEdges = list(set(timeEdgeCountAll[:,1]))
 
     # Color by count
-    if useColorRamp == True:
-        uniqueCountsAll = np.array(list(set(timeEdgeCountAll[:,2])))
-        colorDict = createColorRamp(rampColor1,rampColor2,uniqueCountsAll)
+    if colorMap:
+        uniqueCountsAll = np.asarray(list(set(timeEdgeCountAll[:,2].astype(float))))
+        colorDict = createColorDict(colorMap,uniqueCountsAll)
         
         for uniqueEdge in uniqueEdges:
             # Get data for unique Edges
@@ -159,8 +319,8 @@ def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow'
     else:
         for uniqueEdge in uniqueEdges:
             # Get data for unique Edges
-            mask = [True if edge==uniqueEdge else False for edge in timesEdgeCountAll[:,1]]
-            timeEdgeUniqueCount = timesEdgeCountAll[mask,:]
+            mask = [True if edge==uniqueEdge else False for edge in timeEdgeCountAll[:,1]]
+            timeEdgeUniqueCount = timeEdgeCountAll[mask,:]
 
             # Create merged intervals 
             timeUnique = timeEdgeUniqueCount[:,0]
@@ -186,6 +346,542 @@ def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow'
         
     return
 
+def plotColorbar(timesEdgeCountAll,cmap,plotBoth=True,tickRotationInDeg=65):
+    from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+    #display stacked bar chart
+    barHeight = 1
+    bottom = 0
+    xtickCenters = []
+    uniqueCountsAll = np.sort(np.asarray(list(set(timesEdgeCountAll[:,2].astype(float)))))
+    diffs = list(np.diff(uniqueCountsAll))
+    diffs.append(diffs[0])
+    maxVal = max(uniqueCountsAll)
+    fig, ax = plt.subplots(figsize = (8,2))
+    for val,width in zip(uniqueCountsAll,diffs):
+        ax.barh(1, width, height=barHeight,left=bottom,color=cmap(val/maxVal))
+        bottom += width
+        xtickCenters.append(bottom-width/2)
+    ax.set_yticks([1])
+    ax.set_yticklabels([])
+    ax.set_xticks(xtickCenters)
+    ax.set_xticklabels(uniqueCountsAll,rotation=tickRotationInDeg)
+    ax.set_ylabel('data/sec')
+    ax.set_ylim([1-barHeight/2,1+barHeight/2])
+    ax.set_xlim([xtickCenters[0]-diffs[0]/2,xtickCenters[-1]+diffs[0]/2])
+    plt.show()
+    
+    # Scatter and color bar
+    if plotBoth:
+        fig, ax = plt.subplots(figsize = (8,4))
+        plt.scatter(uniqueCountsAll,np.ones((len(uniqueCountsAll),)),c=uniqueCountsAll,cmap=cmap,s=200)
+        divider = make_axes_locatable(ax)
+        cax = divider.append_axes("bottom", size="100%", pad=0.7)
+        cbar = plt.colorbar(ticks=uniqueCountsAll,orientation="horizontal",cax=cax);
+
+        ax.set_yticks([1])
+        ax.set_yticklabels([])
+        ax.set_xticks(uniqueCountsAll)
+        ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        ax.set_ylabel('data/sec')
+        ax.set_ylim([1-barHeight/2,1+barHeight/2])
+        ax.set_xlim([xtickCenters[0],xtickCenters[-1]+diffs[0]])
+        cbar.ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        plt.show()
+
+
+
+
+### Addeded network data transfer and various supportinf functions
+
+def dictToArray(d):
+    return np.asarray(list(d.items()))
+
+def dictToKeysValues(d):
+    return np.asarray(list(d.keys())),np.asarray(list(d.values()))
+
+def computePriorityNetworkLayers(priorityCase=[],nodeTransferPriority=[],nodeDestinationPriority=[]):
+        
+    # Pick from cases
+    layers = []
+    cases = [2,3,4,5]
+    
+    if priorityCase in cases:
+        reverseSource=False
+        reverseDestination=False
+        setTransferPrioritesEqual=False
+        setDestinationPrioritesEqual=False
+        
+        # priorityCase = 2 # Priority is highest for the sources with the most data, destinations are treated equally, recomputed at each timestep,
+        if priorityCase==2:
+            reverseSource=True # Node with most data is the highest priority
+            setDestinationPrioritesEqual = True
+
+        # priorityCase = 3 # Priority is highest for the destinaton with the least data, sources are treated equally, recomputed at each timestep
+        elif priorityCase==3:
+            setTransferPrioritesEqual=True
+
+        # priorityCase = 4 # Priority is highest for the sources with the most data and priority is highest for the destinaton with the least data, recomputed at each timestep at each timestep
+        elif priorityCase==4:
+            reverseSource=True # Node with most data is the highest priority
+
+        # priorityCase = 5 # A specified priority will be used, nodeTransferPriority and nodeDestinationPriority
+        if priorityCase==5:
+            pass
+        
+        # Convert to array for easier indexing and sorting
+        sourceNodes,sourcePriority = dictToKeysValues(nodeTransferPriority)
+        destinationNodes,destinationPriority = dictToKeysValues(nodeDestinationPriority)
+
+        # Set equal
+        if setTransferPrioritesEqual:
+            sourcePriority[:] = 100
+
+        if setDestinationPrioritesEqual:
+            destinationPriority[:] = 100
+        
+        # Sort
+#         sortedIndices = np.argsort(sourcePriority) # Ascending
+#         sourcePriority = sourcePriority[sortedIndices]
+#         sourceNodes = sourceNodes[sortedIndices]
+#         sortedIndices = np.argsort(destinationPriority) # Ascending
+#         destinationPriority = destinationPriority[sortedIndices]
+#         destinationNodes = destinationNodes[sortedIndices]
+
+
+        # Get unique priorites
+        sourcePriorities = np.unique(sourcePriority)
+        destinationPriorities = np.unique(destinationPriority)
+        slen = len(sourcePriorities)
+        dlen = len(destinationPriorities)
+        # Reverse
+        if reverseSource:
+            sourcePriorities = sourcePriorities[::-1]
+        if reverseDestination:
+            destinationPriorities = destinationPriorities[::-1]
+
+
+        # Get nodes in each layer
+        for ii in range(max(slen,dlen)):
+            if ii < slen:
+                if reverseSource:
+                    sourceNodesToInclude = sourceNodes[sourcePriority >= sourcePriorities[ii]]
+                else:
+                    sourceNodesToInclude = sourceNodes[sourcePriority <= sourcePriorities[ii]]
+            else:
+                sourceNodesToInclude = sourceNodes
+            if ii < dlen:
+                if reverseDestination:
+                    destinationNodesToInclude = destinationNodes[destinationPriority >= destinationPriorities[ii]]
+                else:
+                    destinationNodesToInclude = destinationNodes[destinationPriority <= destinationPriorities[ii]]
+            else: 
+                destinationNodesToInclude = destinationNodes
+            layers.append([sourceNodesToInclude,destinationNodesToInclude])
+        
+    else:
+        # priorityCase = 1 # No priority of sources or destinations, also the default case
+        pass
+
+    return np.asarray(layers)
+
+# Adds in total data transfer
+def addDataMetrics(dfData,step):
+    dfData2 = dfData.copy()
+    data = dfData2.to_numpy()
+    dataTotal = np.sum(data[:,1:],axis=1)
+    transferedAtT = list(np.diff(dataTotal))
+    transferedAtT2 = [transferedAtT[0]]+transferedAtT
+    dfData2['Total Data'] = dataTotal
+    dfData2['Data per time step'] = transferedAtT2
+    dfData2['Data per sec'] = np.asarray(transferedAtT2)/step
+    return dfData2
+
+
+
+#### Adding Multi path and load functions
+
+# Build the dictionary of data storage. Use the buildTimesAdditionalNodeData. buildTimesNodeData looks at the data if none is transfered at each timestep
+def buildTimesNodeData(stkRoot,bulkData,dataRate,start,stop,step,overrideData=False):
+    # sort data
+    bulkData = dict(sorted(bulkData.items()))
+    dataRate = dict(sorted(dataRate.items()))
+
+    #
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
+    
+    #
+    timesNodeBulkData = {}
+    timesNodeDataRate = {}
+    for t,dataDict in bulkData.items():
+        nodeData = {}
+        for conName,data in dataDict.items():
+            nodes = getNodesFromConstellation(stkRoot,conName,overrideData=overrideData)
+            for node in nodes:
+                nodeData.update({node:data})
+        timesNodeBulkData.update({t:nodeData})
+        
+    for t,dataRateDict in dataRate.items():
+        nodeData = {}
+        for conName,data in dataRateDict.items():
+            nodes = getNodesFromConstellation(stkRoot,conName,overrideData=overrideData)
+            for node in nodes:
+                nodeData.update({node:data})
+        timesNodeDataRate.update({t:nodeData})
+    
+    #
+    timesNodeData = {}
+    nodeData = {}
+    nodeDataRate = {}
+    bulkTimes = list(timesNodeBulkData.keys())
+    dataRateTimes = list(timesNodeDataRate.keys())
+    b = 0
+    d = 0
+    for t in times: 
+        
+        # Only update the nodeData when new info is available
+        if b < len(bulkTimes):
+            bulkTime = bulkTimes[b]
+        else:
+            bulkTime = times[-1]+1 # ensure there are no more updates
+        
+        if d < len(dataRateTimes):
+            dataRateTime = dataRateTimes[d]
+        else:
+            dataRateTime = times[-1]+1
+
+        if t >= bulkTime:
+            nodeBulkData = timesNodeBulkData[bulkTime]
+            for node in nodeBulkData.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:nodeData[node]+nodeBulkData[node]})
+                else:
+                     nodeData.update({node:nodeBulkData[node]})
+            b+=1
+        
+        
+        if t >= dataRateTime:
+            # Add old data rate
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:nodeData[node]+nodeDataRate[node]*(step-(t-dataRateTime))})               
+                else:
+                    nodeData.update({node:nodeDataRate[node]*(step-(t-dataRateTime))}) 
+            # Add new data rate
+            nodeDataRate = timesNodeDataRate[dataRateTime]
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:nodeData[node]+nodeDataRate[node]*(t-dataRateTime)})                
+                else:
+                    nodeData.update({node:nodeDataRate[node]*(t-dataRateTime)})  
+            d+=1
+        else:
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:nodeData[node]+nodeDataRate[node]*step})                
+                else:
+                    nodeData.update({node:nodeDataRate[node]*(step)})  
+            
+        timesNodeData.update({t:nodeData.copy()})
+        
+        
+        
+    return timesNodeData
+
+# Build the dictionary of data storage. Use this one. Which is the amount of data added at each time step
+def buildTimesNodeAdditionalData(stkRoot,bulkData,dataRate,start,stop,step,overrideData=False):
+    # sort data
+    bulkData = dict(sorted(bulkData.items()))
+    dataRate = dict(sorted(dataRate.items()))
+
+    #
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
+    
+    #
+    timesNodeBulkData = {}
+    timesNodeDataRate = {}
+    for t,dataDict in bulkData.items():
+        nodeData = {}
+        for conName,data in dataDict.items():
+            nodes = getNodesFromConstellation(stkRoot,conName,overrideData=overrideData)
+            for node in nodes:
+                nodeData.update({node:data})
+        timesNodeBulkData.update({t:nodeData})
+        
+    for t,dataRateDict in dataRate.items():
+        nodeData = {}
+        for conName,data in dataRateDict.items():
+            nodes = getNodesFromConstellation(stkRoot,conName,overrideData=overrideData)
+            for node in nodes:
+                nodeData.update({node:data})
+        timesNodeDataRate.update({t:nodeData})
+    
+    #
+    timesNodeData = {}
+    nodeData = {}
+    nodeDataRate = {}
+    bulkTimes = list(timesNodeBulkData.keys())
+    dataRateTimes = list(timesNodeDataRate.keys())
+    nodeNames = timesNodeBulkData[bulkTimes[0]].keys() # Name of nodes with data, currently assuming the first time instance of data updates has all of the nodes we will ever care about
+    b = 0
+    d = 0
+    decimalPlace = 6
+    
+    for ii,t in enumerate(times): 
+        nodeData = {node:0 for node in nodeNames}
+        # Only update the nodeData when new info is available
+        if b < len(bulkTimes):
+            bulkTime = bulkTimes[b]
+        else:
+            bulkTime = times[-1]+1 # ensure there are no more updates
+        
+        if d < len(dataRateTimes):
+            dataRateTime = dataRateTimes[d]
+        else:
+            dataRateTime = times[-1]+1
+
+        
+        # Add all data between timesteps
+        while t>= bulkTime:
+            nodeBulkData = timesNodeBulkData[bulkTime]
+            for node in nodeData.keys():
+                nodeData.update({node:nodeData[node]+nodeBulkData[node]})  
+            b+=1
+            if b < len(bulkTimes):
+                bulkTime = bulkTimes[b]
+            else:
+                bulkTime = times[-1]+1 # ensure there are no more updates
+            
+            
+        # Add data rate for each timestep
+        if t >= dataRateTime:
+            # Add old data rate
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:np.round(nodeData[node]+nodeDataRate[node]*(step-(t-dataRateTime)),decimalPlace)})               
+                else:
+                    nodeData.update({node:np.round(nodeDataRate[node]*(step-(t-dataRateTime)),decimalPlace)}) 
+            # Add new data rate
+            nodeDataRate = timesNodeDataRate[dataRateTime]
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:np.round(nodeData[node]+nodeDataRate[node]*(t-dataRateTime),decimalPlace)})                
+                else:
+                    nodeData.update({node:np.round(nodeDataRate[node]*(t-dataRateTime),decimalPlace )})  
+            d+=1
+        else:
+            for node in nodeDataRate.keys():
+                if node in nodeData.keys():
+                    nodeData.update({node:np.round(nodeData[node]+nodeDataRate[node]*step,decimalPlace)})                
+                else:
+                    nodeData.update({node:np.round(nodeDataRate[node]*(step),decimalPlace)})  
+            
+        timesNodeData.update({t:nodeData.copy()})
+
+    return timesNodeData
+
+def convertTimesDataToDataFrame(timesDataTransfer,simulationStopTime):
+    ts = np.asarray(list(timesDataTransfer.keys()))
+    ts = ts[ts <= simulationStopTime]
+    numberofTimes = len(ts)
+    numberOfNodes = len(timesDataTransfer[ts[0]])
+    nodeNames = timesDataTransfer[ts[0]].keys()
+    data = np.zeros((numberofTimes,numberOfNodes+1))
+    data[:,0] = ts
+    columns = ['time']
+    for ii,item in enumerate(timesDataTransfer.items()):
+        if ii >= len(ts):
+            break
+        nodeData = item[1]
+        for jj,node in enumerate(nodeData):
+            data[ii,jj+1] = nodeData[node]
+    for node in nodeNames:
+        columns.append(node)
+    dfDataTransfer = pd.DataFrame(data,columns=columns)
+    return dfDataTransfer
+
+# Used to stop the data simulation once no more data is being added and all data has been transfered
+def findTimeOfLastDataAdded(timesDataToTransfer):
+    timesValues = np.asarray([(t,value) for t,data in timesDataToTransfer.items() for value in data.values()][::-1])
+    reverseTimes = np.unique(timesValues[:,0])[::-1]
+    for ii,t in enumerate(reverseTimes):
+        values = timesValues[timesValues[:,0] == t,1]
+        if not all(values==0):
+            if ii == 0:
+                return reverseTimes[ii]
+            else:
+                return reverseTimes[ii-1]
+
+    return reverseTimes[0]
+
+
+def generateDiNetworkBandwidth(t,timeEdgesDistancesDelaysBandwidth,timeNodePos):
+    G = nx.DiGraph()
+    for edge,distanceDelayBandwidth in timeEdgesDistancesDelaysBandwidth[t].items():
+        distance = distanceDelayBandwidth[0]
+        timeDelay = distanceDelayBandwidth[1]
+        bandwidth = distanceDelayBandwidth[2]
+        G.add_edge(*edge,distance=distance,timeDelay=timeDelay,bandwidth=bandwidth)
+    for node,pos in timeNodePos[t].items():
+        G.add_node(node,Type=node.split('/')[0],Position=pos)
+    return G
+
+
+def recomputeMissingData(strands,nodesTimesPos,strandsAtTimes,recomputeIfDataIsMissing=True):
+
+    computedNodeTimes = np.unique([item for nodeDict in list(nodesTimesPos.values()) for item in list(nodeDict.keys())])
+    missingDataTimes = [t for t in np.array(list(strandsAtTimes.keys())) if t not in computedNodeTimes]
+
+    
+    if len(missingDataTimes) > 0:
+        print('Data for nodes is missing at the following times')
+        print(missingDataTimes)
+        print('Adjust the start, stop or step to match previously saved data time or the recompute data')
+        if recomputeIfDataIsMissing == True:
+            print('Recalculating Strands')
+            strands = getAllStrands(stkRoot,chainNames,start,stop,overrideData=True)[0]
+            print('Recalculating Node Positions')
+            nodesTimesPos = computeNodesPosOverTime(stkRoot,strands,start,stop,step,overrideData=True) # Pull node position over time
+            print('Rebuilding strandsAtTimes')
+            strandsAtTimes = getStrandsAtTimes(strands,start,stop,step) # Discretize strand intervals into times
+        
+    return strands,nodesTimesPos,strandsAtTimes
+
+# Updates the timeEdgesDistancesDelays to include bandwidths
+def addEdgeMetricToTimesEdges(stkRoot,timesEdgesDistancesDelays,constellationPairsDict,defaultValue=0):
+
+    # Get possible edges from the constellation pairs dict 
+    edgesBandwidth = []
+    for constellationPair,bandwidth in constellationPairsDict.items():
+        nodesCon1 = getNodesFromConstellation(stkRoot,constellationPair[0])
+        nodesCon2 = getNodesFromConstellation(stkRoot,constellationPair[1])
+        edgesBandwidth.append([(start,end,bandwidth) for start,end in itertools.product(nodesCon1, nodesCon2)])
+    edgesBandwidth = {(item[0],item[1]):item[2] for sublist in edgesBandwidth for item in sublist}
+    
+    # Add the new metric to timesEdgesDistancesDelays
+    timesEdgesDistancesDelaysBandwidths = {}
+    
+    for t,edgesDistanceDelays in timesEdgesDistancesDelays.items():
+        edgesDistanceDelayBandwidths = {}
+        edges = edgesDistanceDelays.keys()
+        for edge in edges:
+            distance = edgesDistanceDelays[edge][0]
+            delay = edgesDistanceDelays[edge][1]
+            if edge in edgesBandwidth.keys():
+                edgesDistanceDelayBandwidths.update({edge:(distance,delay,edgesBandwidth[edge])})
+            else:
+                edgesDistanceDelayBandwidths.update({edge:(distance,delay,defaultValue)})    
+        timesEdgesDistancesDelaysBandwidths.update({t:edgesDistanceDelayBandwidths.copy()})
+    return timesEdgesDistancesDelaysBandwidths
+
+def createColorRamp(rgb1,rgb2,data):
+    rgb1 = np.array(rgb1)
+    rgb2 = np.array(rgb2)
+    data = np.array(data)
+
+    minData = min(data)
+    maxData = max(data)
+    scale = maxData-minData
+    dRGB = rgb2-rgb1
+
+    colors = np.array([(item-minData)/(scale)*dRGB+rgb1 for item in data]).astype(int)
+    colorsDict = {data[ii]:'%{:03d}{:03d}{:03d}'.format(colors[ii,0],colors[ii,1],colors[ii,2]) for ii in range(colors.shape[0])}
+    return colorsDict
+
+
+## Old verion, added support for weighted edges and colorschemes from matplotlib
+# def addTimesEdgesCountAsObjectLines(stkRoot,timeEdgeCountAll,step,color='yellow',lineWidth=4,deleteOldLines=True,useColorRamp=True,rampColor1=[255,255,255],rampColor2=[255,0,0],colorScale=np.nan,addTo2D=False):
+#     if deleteOldLines == True:
+#         stkRoot.ExecuteCommand('VO * ObjectLine DeleteAll')
+    
+#     # Get unique Edges
+#     uniqueEdges = list(set(timeEdgeCountAll[:,1]))
+
+#     # Color by count
+#     if useColorRamp == True:
+#         uniqueCountsAll = np.array(list(set(timeEdgeCountAll[:,2])))
+#         colorDict = createColorRamp(rampColor1,rampColor2,uniqueCountsAll)
+        
+#         for uniqueEdge in uniqueEdges:
+#             # Get data for unique Edges
+#             mask = [True if edge==uniqueEdge else False for edge in timeEdgeCountAll[:,1]]
+#             timeEdgeUniqueCount = timeEdgeCountAll[mask,:]
+
+#             # Color each edge by count number at a time, unfortunately you cannot do this with line width
+#             uniqueCounts = list(set(timeEdgeUniqueCount[:,2]))
+#             add = True
+#             for uniqueCount in uniqueCounts:
+#                 mask2 = [True if count==uniqueCount else False for count in timeEdgeUniqueCount[:,2]]
+#                 timeEdgeUniqueCountUnique = timeEdgeUniqueCount[mask2,:]
+
+#                 # Create merged intervals 
+#                 timeUnique = timeEdgeUniqueCountUnique[:,0]
+#                 intervalsNum = np.stack((timeUnique-step/2,timeUnique+step/2),axis=1)
+#                 mergedIntervals = np.array(mergeIntervals(intervalsNum))
+
+#                 # Build and execute Connect Commaands to add Object Lines to STK
+#                 strIntervals = mergedIntervals.astype(str)
+#                 startStop = ['" "'.join(intervalii) for intervalii in strIntervals]
+#                 node1 = uniqueEdge[0]
+#                 node2 = uniqueEdge[1]
+#                 numIntervals = len(mergedIntervals)
+#                 intervals = '"'+'" "'.join(startStop)+'"'
+#                 if add == True:
+#                     cmd = 'VO * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+colorDict[uniqueCount]+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#                     stkRoot.ExecuteCommand(cmd)
+#                     cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+#                     stkRoot.ExecuteCommand(cmd)
+#                     if addTo2D==True:
+#                         cmd = 'Graphics * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+colorDict[uniqueCount]+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#                         stkRoot.ExecuteCommand(cmd)
+#                         cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+#                         stkRoot.ExecuteCommand(cmd)
+#                     add = False
+#                 else: # If an edge already exists add additionalintervals, each interval color has to be modified seperately
+#                     cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#                     stkRoot.ExecuteCommand(cmd)
+#                     if addTo2D==True:
+#                         cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#                         stkRoot.ExecuteCommand(cmd)
+#                     for startStopii in startStop:
+#                         cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' ModifyInterval "'+startStopii +'" Color '+colorDict[uniqueCount]
+#                         stkRoot.ExecuteCommand(cmd)
+#                         if addTo2D==True:
+#                             cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' ModifyInterval "'+startStopii +'" Color '+colorDict[uniqueCount]
+#                             stkRoot.ExecuteCommand(cmd)
+
+#     else:
+#         for uniqueEdge in uniqueEdges:
+#             # Get data for unique Edges
+#             mask = [True if edge==uniqueEdge else False for edge in timesEdgeCountAll[:,1]]
+#             timeEdgeUniqueCount = timesEdgeCountAll[mask,:]
+
+#             # Create merged intervals 
+#             timeUnique = timeEdgeUniqueCount[:,0]
+#             intervalsNum = np.stack((timeUnique-step/2,timeUnique+step/2),axis=1)
+#             mergedIntervals = np.array(mergeIntervals(intervalsNum))
+
+#             # Build and execute Connect Commands to add all intervals as Object Lines to STK
+#             strIntervals = mergedIntervals.astype(str)
+#             startStop = ['" "'.join(intervalii) for intervalii in strIntervals]
+#             node1 = uniqueEdge[0]
+#             node2 = uniqueEdge[1]
+#             numIntervals = len(mergedIntervals)
+#             intervals = '"'+'" "'.join(startStop)+'"'
+#             cmd = 'VO * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+color+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#             stkRoot.ExecuteCommand(cmd)
+#             cmd = 'VO * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+#             stkRoot.ExecuteCommand(cmd)
+#             if addTo2D==True:
+#                 cmd = 'Graphics * ObjectLine Add FromObj '+node1+' ToObj '+node2+' Color '+color+' LineWidth '+str(lineWidth)+' AddIntervals '+str(numIntervals)+' '+intervals
+#                 stkRoot.ExecuteCommand(cmd)
+#                 cmd = 'Graphics * ObjectLine Modify FromObj '+node1+' ToObj '+node2+' IntervalType UseIntervals'
+#                 stkRoot.ExecuteCommand(cmd)
+        
+#     return
+
 def topNShortestPaths(G,t,startingNode,endingNode,metric,topN=3):
     allPaths = nx.shortest_simple_paths(G,startingNode,endingNode,weight=metric)
     ii = 1
@@ -207,8 +903,7 @@ def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,sta
     t1 = time.time()
     
     # Use first nodes for the naming convention
-    if not filename:
-        filename = 'SavedNetworkData/dfTop{}{}{}.pkl'.format(topN,startingNode.split('/')[-1],endingNode.split('/')[-1])
+    filename = 'SavedNetworkData/dfTop{}{}{}{}.pkl'.format(topN,filename,startingNode.split('/')[-1],endingNode.split('/')[-1])
     
     needToCompute = True
     if os.path.exists(filename) and overrideData == False:
@@ -264,6 +959,22 @@ def computeNetworkTopN(start,stop,step,timeNodePos,timesEdgesDistancesDelays,sta
                     G = Gnew.copy()
             else:
                 timeStrandMetric.append(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
+                # Attempted to add in filtering of minimum length of node paths,but this infinite looped. So passing on this for now.
+#                 if minNumOfHops:
+#                     numOfSolutions = 0
+#                     noPaths = False
+#                     while numOfSolutions < topN:
+#                         unFilteredPaths = np.asarray(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
+#                         if not len(unFilteredPaths[-1,1]):
+#                             noPaths = True
+#                         numOfParents = np.apply_along_axis(lambda x: len(set([str.split(obj,'/')[1] for obj in x[0]]))-2,0,unFilteredPaths[:,1])
+#                         solutions = unFilteredPaths[numOfParents >= minNumOfHops]
+#                         timeStrandMetric.append(solutions)
+#                         numOfSolutions += len(solutions)
+#                         if noPaths:
+#                             break
+#                 else:
+#                     timeStrandMetric.append(topNShortestPaths(G,t,startingNode,endingNode,metric,topN=topN))
             
         # Unpack into a list, instead of a list of sublists
         timeStrandMetric = [item for sublist in timeStrandMetric for item in sublist]
@@ -379,27 +1090,29 @@ def loadNetworkDf(nodePairs,neededTimes=[],filenames=''):
 
     return df
 
-def createTimesEdgesCountFromDF(df):
-    # Read df of discrete values to numpy array
-    npArr = df.to_numpy()
 
-    # Loop through time, break down edges at each time
-    timesUnique = np.array(list(set(npArr[:,0])))
-    times = timesUnique[np.argsort(timesUnique)]
-    timeEdgeCountAll = np.empty((0,2))
-    for t in times:
-        npArrT = npArr[npArr[:,0] == t,:]
-        strandsAtT = npArrT[:,1]
-        edgesAtT = [(t,(strand[ii],strand[ii+1])) for strand in strandsAtT for ii in range(len(strand)-1)]
-        timeEdgeCount = np.array(list(Counter((edge for edge in edgesAtT)).items()))
-        if len(timeEdgeCount)>0:
-            timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
+## Old function version
+# def createTimesEdgesCountFromDF(df):
+#     # Read df of discrete values to numpy array
+#     npArr = df.to_numpy()
+
+#     # Loop through time, break down edges at each time
+#     timesUnique = np.array(list(set(npArr[:,0])))
+#     times = timesUnique[np.argsort(timesUnique)]
+#     timeEdgeCountAll = np.empty((0,2))
+#     for t in times:
+#         npArrT = npArr[npArr[:,0] == t,:]
+#         strandsAtT = npArrT[:,1]
+#         edgesAtT = [(t,(strand[ii],strand[ii+1])) for strand in strandsAtT for ii in range(len(strand)-1)]
+#         timeEdgeCount = np.array(list(Counter((edge for edge in edgesAtT)).items()))
+#         if len(timeEdgeCount)>0:
+#             timeEdgeCountAll = np.append(timeEdgeCountAll,timeEdgeCount,axis=0)
     
-    # Rearranging data, there is probably a cleaner way to build this, but this works
-    timeArr,edgeArr = np.array(list(zip(*timeEdgeCountAll[:,0])))
-    countArr = timeEdgeCountAll[:,1]
-    timeEdgeCountAll = np.stack((timeArr,edgeArr,countArr),axis=1)
-    return timeEdgeCountAll
+#     # Rearranging data, there is probably a cleaner way to build this, but this works
+#     timeArr,edgeArr = np.array(list(zip(*timeEdgeCountAll[:,0])))
+#     countArr = timeEdgeCountAll[:,1]
+#     timeEdgeCountAll = np.stack((timeArr,edgeArr,countArr),axis=1)
+#     return timeEdgeCountAll
 
 
 
@@ -1266,6 +1979,12 @@ def countNodesOverTime(listOfListOfNodesAtT,topN=''):
     scores = scores[np.argsort(scores[:,1].astype(float)),:][::-1]
     return scores[0:topN,:]
 
+def countEdgesOverTime(listofEdges,topN=''):
+    if not topN:
+        topN = len(listOfListOfNodesAtT)
+    scores = np.asarray(list(Counter(listofEdges).items()))
+    scores = scores[np.argsort(scores[:,1].astype(float)),:][::-1]
+    return scores[0:topN,:]
 
 def getMaxDegrees(G):
     nodes,degs = zip(*G.degree(G.nodes()))
@@ -1483,10 +2202,9 @@ def computeNetworkMetrics(start,stop,step,timeNodePos,timesEdgesDistancesDelays,
     t1 = time.time()
     
     # Use first nodes for the naming convention
-    if not filename:
-        startingNode = startingNodes[0].split('/')[-1]
-        endingNode = endingNodes[0].split('/')[-1]
-        filename = 'SavedNetworkData/df{}{}.pkl'.format(startingNode,endingNode)
+    startingNode = startingNodes[0].split('/')[-1]
+    endingNode = endingNodes[0].split('/')[-1]
+    filename = 'SavedNetworkData/df{}{}{}.pkl'.format(filename,startingNode,endingNode)
         
     needToCompute = True
     if os.path.exists(filename) and overrideData == False:
