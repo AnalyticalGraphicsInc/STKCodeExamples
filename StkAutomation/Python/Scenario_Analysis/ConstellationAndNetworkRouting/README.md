@@ -1,7 +1,7 @@
 # Constellation and Network Routing
 
 All of the notebooks attach to an open instance of STK.
-The associated example scenarios can be found on our [**Constellation and Network Routing Example.**](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
+The associated example scenarios can be found on our [**Constellation and Network Routing Example.**](https://www.agi.com/search?filter=content%3acodesample)
 
 **Terminology**
 * Node = Object in STK: Satellites, Aircraft, Facilities, Sensors, Transmitters, etc.
@@ -17,9 +17,14 @@ The associated example scenarios can be found on our [**Constellation and Networ
 * See the impacts on network connectivity when nodes are removed
 * Load data back into STK for visualization and for reports/graphs
 
+
+## DataTransfer.ipynb 
+This is the most up-to-date notebook, focused on transfering data through a notebook based on bandwidth. It is recommended you take a look at the other notebooks to figureout other types of analysis you can do. Use this notebook and MultiConstellationMultiHop.ipynb for most problems.
+<img src="DataTransfer.JPG" alt="Drawing" style="width: 400px;"/>
+
 ## MultiConstellationMultiHop.ipynb
 
-This is the most up-to-date and capable notebook using chainPathLib2. Computes the "best" multihop path between a starting and ending nodes. Supports a series of hops between multiple constellations, finding the top N best pathways and merging results into one network. The constellation order concept is similar to a chain but multiple hops between each constellation are permitted. Shows an example with satellites, sensors, transitters and recievers.
+This is the 2nd most up-to-date and capable notebook using chainPathLib2. Computes the "best" multihop path between a starting and ending nodes. Supports a series of hops between multiple constellations, finding the top N best pathways and merging results into one network. The constellation order concept is similar to a chain but multiple hops between each constellation are permitted. Shows an example with satellites, sensors, transitters and recievers.
 <img src="MultipleConstellations.JPG" alt="Drawing" style="width: 400px;"/>
 
 ## Older notebooks examples using the chainPathLib
