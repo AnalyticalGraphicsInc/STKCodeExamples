@@ -4,6 +4,11 @@ clear all; close all;
 % STK Chains with MATLAB
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% This script is a short demonstration of how to use the STK Object Model
+% to create a Chain and Constellation object, then compute Chain access.
+% This script also creates a cell array that contains all of the AER data
+% for the Chain access computation.
+
 % New scenario
 uiApp = actxserver('STK12.Application');
 uiApp.Visible = true;
