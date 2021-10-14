@@ -95,7 +95,7 @@ Rerunning the script will update the current time and the set of visible satelli
 
 ---
 
-## [TargetedSensorPointingClosestFacility](TargetedSensorPointingClosestFacility)
+## [TargetedSensorPointingClosestFacility.py](TargetedSensorPointingClosestFacility.py)
 
 This script computes access between a series of sensors on satellites and place objects and creates a pointing algorithm based on the place object that is the closest to the satellite at a given time. The script uses satellite names, place names and a time step for the algorithm to use as inputs. It also assumes that a scenario with these places and satellites already exists and that the satellites already have sensor objects. 
 
