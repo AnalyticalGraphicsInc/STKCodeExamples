@@ -190,3 +190,16 @@ How to use:
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [chainAutomationExample.m](chainAutomationExample.m)
+
+This script is a short demonstration of how to use the STK Object Model to create a Chain and Constellation object, then compute Chain access. This script also creates a cell array that contains all of the AER data for the Chain access computation.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
