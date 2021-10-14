@@ -17,7 +17,13 @@ except:
              from an anaconda command prompt.")
     sys.exit(1)
 
-
+# This script computes access between a series of sensors on satellites and place objects and 
+# creates a pointing algorithm based on the place object that is the closest to the satellite
+# at a given time. The script uses satellite names, place names and a time step for the 
+# algorithm to use as inputs. It also assumes that a scenario with these places an satellites
+# already exists and that the satellites already have sensor objects. 
+# The script can be easily modified to use a different ground object type by changing the 
+# contents of the "getPlaces" function to instead search for a different object type.
 
 #--------------------------------------------Variables---------------------------------------#
 
