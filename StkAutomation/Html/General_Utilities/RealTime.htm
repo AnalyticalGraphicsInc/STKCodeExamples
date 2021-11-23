@@ -1,0 +1,102 @@
+<html>
+	<head>
+
+		<title>RealTime example</title>
+		<link type="text/css" rel="stylesheet" href="stkstyle5.css">
+
+		<script language="VBSCRIPT">
+		    Dim app
+			Set app = window.external
+			set stk = app.Personality2
+		</script>
+
+		<script language="JavaScript">
+
+			function go() {
+		
+				lat = 0;
+				lon = 0;
+				alt = 10000;
+
+				if (goButton.value == "GO"){
+					goButton.value = "STOP";
+					
+					}
+				else {
+					goButton.value = "GO";
+					return;
+					}
+		
+				stk.ExecuteCommand("Message / ClearAllMessages");
+		
+				
+				alert ("Initial setup here!\nThis includes turning verbose and ack off \(if communicating to STK via TCP/IP\). For this example, I'll set VerboseON so that you can see the CONNECT traffic in the STK Message Viewer.");
+					stk.ExecuteCommand("Message / ClearAllMessages");
+					stk.ExecuteCommand("ConControl / VerboseOn");
+		
+				alert ("Set up defualt units which will be used by the CONNECT commands.");
+					stk.ExecuteCommand("Message / ClearAllMessages");
+					stk.ExecuteCommand("SetUnits / METER EPOCHSEC SEC DEGREE");
+
+				alert ("Create the new object \(Aircraft\), and define its properties.");
+					result = stk.ExecuteCommand("DoesObjExist / */Aircraft/MyRealTimeAircraft");
+					if (result(0) == "1") {
+						stk.ExecuteCommand("Unload / */Aircraft/MyRealTimeAircraft");
+						}
+					stk.ExecuteCommand("Message / ClearAllMessages");
+					stk.ExecuteCommand("New / */Aircraft MyRealTimeAircraft");
+					stk.ExecuteCommand("Realtime */Aircraft/MyRealTimeAircraft SetProp SetLookAhead DeadReckon 500 1 10");
+					stk.ExecuteCommand("RealTime */Aircraft/MyRealTimeAircraft SetHistory 3600 5");
+					stk.ExecuteCommand("SetAttitude */Aircraft/MyRealTimeAircraft RealTime Extrapolate 500 3600");
+					stk.ExecuteCommand("Graphics */Aircraft/MyRealTimeAircraft SetAttrType RealTime");
+
+				alert ("Set up STK to animate in real time with a refresh rate of .1 second, and begin the animation");
+					stk.ExecuteCommand("Message / ClearAllMessages");
+					stk.ExecuteCommand("SetAnimation * AnimationMode RealTime RealTimeOffset 0 RefreshDelta .1 RefreshMode RefreshDelta");
+					stk.ExecuteCommand("Animate * Start");
+
+				alert ("This is where I'll start a java script timer and create position/attitude data. This is when you would start processing your realtime data feed. I'll be sending in data sets every second. You'll notice that I'm using 'now' as a keyword in the CONNECT commands - this is just a shortcut which pulls the time from the system clock. You can use an actual date/time value. If your system clock is not insync with the data feed, you may need to apply an animation real time offset.");
+					MyTimer = setInterval("timer_function()", 1000);
+
+				stk.ExecuteCommand("Message / ClearAllMessages");
+				}
+
+			function timer_function () {
+				if (goButton.value == "GO"){
+					clearInterval( MyTimer );
+					stk.ExecuteCommand("Message / ClearAllMessages");
+					stk.ExecuteCommand("Animate * Pause");
+					alert ("Real Time Processing has been termintated!!!");
+					return;
+					}
+
+				stk.ExecuteCommand("SetPosition */Aircraft/MyRealTimeAircraft LLA \"now\" " + lat + " " + lon + " " + alt);
+
+				if (lon == 0){
+					stk.ExecuteCommand("VO * ViewFromTo Normal From Aircraft/MyRealTimeAircraft To Aircraft/MyRealTimeAircraft");
+					}
+
+				lon = lon + .01;
+				lat = 60 * Math.sin(lon * (Math.PI/180));
+				alt = alt + (Math.random() - .5);
+
+				}
+
+		</script>
+
+	</head>
+
+	<body bgcolor="#ECE9D8">
+
+		<h3> RealTime example </h3>
+
+		This utility will create an aircraft to show how to utilize STK in a single-object feed real time environment. This utility will generate the position/attitude data rather than reading from an actual data feed.
+
+		<p />
+		<hr />
+
+		<input type="button" name="goButton"   value="GO"      onClick=go()   />
+
+	</body>
+
+</html>

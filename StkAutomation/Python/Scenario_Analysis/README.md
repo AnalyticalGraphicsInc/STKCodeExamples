@@ -6,7 +6,7 @@ This script will create a number of force model vectors on satellites at differe
 
 ### Dependencies
 
-* Licenses: Free, Integration, SatPro, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This script is an example of computing trade studies using the Aviator Object Mo
 
 ### Dependencies
 
-* Licenses: Free, Integration, Aviator
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Run trade studies with the Lifetime Tool. Grid searches, Latin Hyper Cube sampli
 
 ### Dependencies
 
-* Licenses: Free, Integration, SatPro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: pyDOE2, poliastro
@@ -47,8 +47,23 @@ More information on each of the notebooks can be found in the readme within the 
 
 ### Dependencies
 
-* Licenses: Free, Integration, Communications, Pro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: [Constellation and Network Routing Example](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
 
 ---
+
+## [EOIR_Synthetic_Scene_and_Data_Generation](./EOIR_Synthetic_Scene_and_Data_Generation)
+
+Automate generating EOIR Synthetic Scene data. Define the analysis interval and the EOIR Atmosphere & Cloud settings. The notebook cycles through the scene, with each setting, and outputs data for each frame. Resulting data (bitmap and/or raw text files) is saved to unique directories for making videos or post processing. 
+
+More information on each of the notebooks can be found in the readme within the project folder.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
+* Other Scripts: N/A
+* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/context/mine/document-details?nodeRef=workspace://SpacesStore/19b625b1-839d-40fc-9774-41ca6ef43f9f)
+
+
+--- 

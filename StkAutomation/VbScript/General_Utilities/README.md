@@ -8,7 +8,7 @@ This script will take the "Euler Angles" report and generate an attitude file fr
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ This script will take the "Yaw Pitch Roll" report and generate an attitude file 
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This excel workbook will allow you to define a column with the header "CMDS_HERE
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,9 +46,35 @@ This excel workbook is a basic example of integrating excel and STK.  There are 
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
 
+## [TerrainConverter](TerrainConverter)
+
+This script allows users to convert multiple terrain files of different formats at once. Once an input directory containing terrain data is chosen, clicking "Get Files" populates the list and allows files to be converted to .pdtt files. 
+
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [AviatorWaypointsConnect.vbs](AviatorWaypointsConnect.vbs)
+
+This script will take the waypoints located in the file "C:/temp/waypoints.txt" and convert it into an Aviator route with waypoints specified by the file. 
+
+**Note**: If there is an Aircraft1 already, it will rewrite any existing waypoints.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---

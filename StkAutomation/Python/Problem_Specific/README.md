@@ -6,7 +6,7 @@ This script allows you to add a series of annotations to the path of a moving ST
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -21,7 +21,7 @@ The user specifies the names of the satellites, the names of the sensors on the 
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -33,7 +33,7 @@ Allows the user to take an interval file ([.int](https://help.agi.com/stk/index.
 
 ### Dependencies
 
-* Licenses: Free, Analysis Workbench
+* Licenses: Free, [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -48,7 +48,7 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -62,7 +62,7 @@ Notebooks and libraries to automate STK, take EOIR images, process images, gener
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro, EOIR
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy, pandas, cv2, shutil, imageio, matplotlib, sklearn, skimage, scipy, astropy, PIL
@@ -75,7 +75,21 @@ Python code and a user inteface to allow subsets of large satellite constellatio
 
 ### Dependencies
 
-* Licenses: Free, Integration, Pro, Communications
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [DeckAccess](DeckAccess)
+
+When the question comes up "What satellites can I see?", STK has a tool to answer this question called Deck Access. Deck Access can be accesses through the GUI or scripted via Connect Command to consider access to a list of many objects. This Jupyter notebook builds a scenario, creates an observer with a constraint and then runs deck access to the TLE satellite database at the current time. Then the subset of visible satellites are imported into STK as an MTO object for visualization and further investigation of the deck access report and TLE data is done with Python.
+
+Rerunning the script will update the current time and the set of visible satellites will be updated.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
 

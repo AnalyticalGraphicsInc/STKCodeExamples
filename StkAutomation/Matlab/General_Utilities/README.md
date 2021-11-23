@@ -14,7 +14,7 @@ convertTLEState('Satellite1','ePropagatorHPOP')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -39,7 +39,7 @@ coordSys = 'Satellite/Satellite2 RIC';
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -63,7 +63,7 @@ FilterObjectsByType('Satellite', 'gps')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -81,7 +81,7 @@ getSTKDCM('Satellite1','Body','CentralBody/Earth J2000','15 Apr 2021 18:00:30.00
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -101,7 +101,7 @@ root.registerevent('printRootEvents')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -129,7 +129,7 @@ object = root.GetObjectFromPath('Satellite/Satellite1');
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -147,7 +147,45 @@ Example:
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [StkHelp.m](StkHelp.m)
+
+This function will launch the Programming Help documentation page for a given STK handle. The 'offline' flag can be used to open the local Programming Help (optional).
+
+Example:
+
+```matlab
+% satellite: IAgSatellite
+StkHelp(satellite, 'offline')
+```
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [StkHelp.m](StkHelp.m)
+
+This function will launch the Programming Help documentation page for a given STK handle. The 'offline' flag can be used to open the local Programming Help (optional).
+
+Example:
+
+```matlab
+% satellite: IAgSatellite
+StkHelp(satellite, 'offline')
+```
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -165,8 +203,32 @@ vgtImporterExporter('AWB','Ship/Ship1','Satellite/Satellite1')
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [persistentAccessLines.m](persistentAccessLines.m)
+
+This script will connect to a running instance of STK and generate persistent access lines over time. You must specify the from_objPath, the to_ObjPath, timestep, and option variables. With an option equal to 1, an MTO will be used to statically visualize the access lines between the two objects. With option equal to 2, primitives will be used to dynamically create persistent access lines throughout an access. Note that MTOs will take significantly longer to create than primitives. When the script has completed, you will receive a popup message saying 'Done.'
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: Any scenario with at least two objects that have access to each other at some point in the scenario analysis interval.
+
+---
+
+## [FilterSegmentsByType.m](FilterSegmentsByType.m)
+
+For an Astrogator satellite, grabs all segments of a specified type and returns a list of handles to the segments.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: Any scenario with a propagated Astrogator satellite.
 
 ---
