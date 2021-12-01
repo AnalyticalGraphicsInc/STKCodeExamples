@@ -298,3 +298,14 @@ This Debris model is a framework that can be augmented to simulate different typ
 * Scenario: N/A
 
 ---
+
+## [AST_output_Acceleration_Data.m](AST_output_Acceleration_Data.m)
+
+This short script allows the user to input an Astrogator satellite name, a finite maneuver name, and a time step and then export the acceleration history and mass rate into a .accelhist file that is usable by ODTK. More information on the .accelhist file can be found in the [ODTK Help](https://help.agi.com/ODTK/index.htm#od/ODObjectsSatelliteManeuversAccelerationFiles.htm). 
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: N/A
+
