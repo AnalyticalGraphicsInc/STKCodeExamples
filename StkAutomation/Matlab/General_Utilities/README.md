@@ -69,6 +69,18 @@ FilterObjectsByType('Satellite', 'gps')
 
 ---
 
+## [getAllObjectHandles.m](getAllObjectHandles.m)
+
+Connects to an existing STK instance and loops through every object in the scenario while assigning a local MATLAB variable with the same name as each object pointing to that object. This is commonly used for debugging getting more comfortable with the object model. Users can create complex scenarios manually and then run getAllObjectHandles to navigate through the object model and inspect properties.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: Any scenario open with at least one object
+
+---
+
 ## [getDCM.m](getDCM.m)
 
 Allows users to output a quaternion from the Axes Choose Axes data provider and convert that quaternion into a Direction Cosine Matrix (DCM). The user first specifies and object and coordinate system that will be the system of interest or the "to" system in the transformation. Then specifies a coordinate system that will be the reference or "from" system and finally specifies a time for the DCM to be computed at. Note that this time must be within the scenario time period.
