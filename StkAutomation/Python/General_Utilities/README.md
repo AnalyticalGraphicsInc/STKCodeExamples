@@ -137,3 +137,15 @@ This simple function requires an open STK 12 scenario with a satellite that has 
 * Scenario: N/A
 
 ---
+
+## [getAllObjectHandles.py](getAllObjectHandles.py)
+
+Connects to an existing STK instance and loops through every object in the scenario while assigning a local Python IDE variable with the same name as each object pointing to that object. This is commonly used for debugging getting more comfortable with the object model. Users can create complex scenarios manually and then run getAllObjectHandles to navigate through the object model and inspect properties.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: Any scenario open with at least one object
+
+---
