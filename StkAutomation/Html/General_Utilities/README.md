@@ -81,3 +81,15 @@ This utility creates an aircraft using CONNECT commands and generates realtime p
 * Scenario: N/A
 
 ---
+
+## [SGP4toJ4](SGP4toJ4.html)
+
+This utility creates a Keplerian (J4) copy of a satellite that was created using a TLE. This is useful if you have a satellite propagated from a TLE and want to manually change its orbital elements or if you want to create a walker constellation. You can open this HTML page within STK by opening the HTML Viewer (View > HTML Viewer) and browsing to this file.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---

@@ -113,6 +113,7 @@ This is a standalone script that writes a csv with columns Time in UTCG, Lat, Lo
 * Third-Party Libraries: N/A
 
 ---
+
 ## [LatLonGridProjection.py](LatLonGridProjection.py)
 
 Using STK Primitives, creates a latitude/longitude grid at a specifiable altitude off the globe (km) and line spacing (deg).
@@ -122,5 +123,29 @@ Using STK Primitives, creates a latitude/longitude grid at a specifiable altitud
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [convertTLEState.py](convertTLEState.py)
+
+This simple function requires an open STK 12 scenario with a satellite that has been propagated with the SGP4 propagator. This function will pull out the initial state of all the SGP4 satellites in the scenario in the ICRF frame then create and propagate a new satellite of the specified propagator type using that initial state.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [getAllObjectHandles.py](getAllObjectHandles.py)
+
+Connects to an existing STK instance and loops through every object in the scenario while assigning a local Python IDE variable with the same name as each object pointing to that object. This is commonly used for debugging getting more comfortable with the object model. Users can create complex scenarios manually and then run getAllObjectHandles to navigate through the object model and inspect properties.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: Any scenario open with at least one object
 
 ---
