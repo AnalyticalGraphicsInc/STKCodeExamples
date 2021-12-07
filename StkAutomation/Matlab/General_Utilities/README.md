@@ -232,3 +232,15 @@ For an Astrogator satellite, grabs all segments of a specified type and returns 
 * Scenario: Any scenario with a propagated Astrogator satellite.
 
 ---
+
+## [intervalListFromTimeArray.m](intervalListFromTimeArray.m)
+
+Create a new time interval list given a time array or an STK Object with an offset time in seconds.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: Any scenario with a STK object.
+
+---
