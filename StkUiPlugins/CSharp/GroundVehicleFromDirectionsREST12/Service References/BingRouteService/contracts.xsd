@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://dev.virtualearth.net/webservices/v1/route/contracts" elementFormDefault="qualified" targetNamespace="http://dev.virtualearth.net/webservices/v1/route/contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://dev.virtualearth.net/webservices/v1/metadata/routeservice/routeservice3.xsd" namespace="http://dev.virtualearth.net/webservices/v1/route" />
+  <xs:element name="CalculateRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://dev.virtualearth.net/webservices/v1/route" minOccurs="0" name="request" nillable="true" type="q1:RouteRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CalculateRouteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://dev.virtualearth.net/webservices/v1/route" minOccurs="0" name="CalculateRouteResult" nillable="true" type="q2:RouteResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CalculateRoutesFromMajorRoads">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://dev.virtualearth.net/webservices/v1/route" minOccurs="0" name="request" nillable="true" type="q3:MajorRoutesRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CalculateRoutesFromMajorRoadsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://dev.virtualearth.net/webservices/v1/route" minOccurs="0" name="CalculateRoutesFromMajorRoadsResult" nillable="true" type="q4:MajorRoutesResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
