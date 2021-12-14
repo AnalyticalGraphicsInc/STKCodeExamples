@@ -309,3 +309,16 @@ This short script allows the user to input an Astrogator satellite name, a finit
 * Other Scripts: N/A
 * Scenario: N/A
 
+---
+
+## [LinkBudgetLatLonChain_Rev4.m](LinkBudgetLatLonChain_Rev4.m)
+
+This script takes the TransponderLB STK scenario and outputs the Eb/No, rain loss, and atm loss at the aircraft and facility's latitude and longitude. The facility is used as a 'dummy' object for the ground vehicle. The script works by moving the facility to each point in the ground vehicle's ephemeris file then outputting the LLA information of facility and aircraft. At each facility position, the aircraft flies its entire route and comm parameters are exported to an Excel spreadsheet.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications)
+* Other Scripts: N/A
+* Scenario: [TransponderLB.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/048cbff3-4567-4409-acdf-3dbb1830615c)
+
+---
