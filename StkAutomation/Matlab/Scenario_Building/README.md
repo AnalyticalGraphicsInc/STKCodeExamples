@@ -216,3 +216,19 @@ These scripts are from a training that walked through using MATLAB to create an 
 * Scenario: N/A
 
 ---
+
+## [ImportAreaTarget](ImportAreaTarget)
+
+A sample Excel file is included to show you the format for the area target information that you want to import into STK. The script will read the Excel file and create an area target object in STK based on the lat/lon points defined in the spreadsheet. Type 'help ImportAreaTarget' in the Matlab command window for a description on how to use the function.
+
+Example:
+
+```matlab
+ImportFacilities('USA.xlsx', 'UnitedStates')
+```
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A

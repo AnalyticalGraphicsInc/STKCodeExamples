@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://dev.virtualearth.net/webservices/v1/route" elementFormDefault="qualified" targetNamespace="http://dev.virtualearth.net/webservices/v1/route" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://dev.virtualearth.net/webservices/v1/metadata/routeservice/routeservice.xsd" namespace="http://dev.virtualearth.net/webservices/v1/common" />
+  <xs:complexType name="RouteRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://dev.virtualearth.net/webservices/v1/common" base="q1:RequestBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Options" nillable="true" type="tns:RouteOptions" />
+          <xs:element minOccurs="0" name="Waypoints" nillable="true" type="tns:ArrayOfWaypoint" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RouteRequest" nillable="true" type="tns:RouteRequest" />
+  <xs:complexType name="RouteOptions">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Mode" type="tns:TravelMode" />
+      <xs:element minOccurs="0" name="Optimization" type="tns:RouteOptimization" />
+      <xs:element minOccurs="0" name="RoutePathType" type="tns:RoutePathType" />
+      <xs:element minOccurs="0" name="TrafficUsage" type="tns:TrafficUsage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RouteOptions" nillable="true" type="tns:RouteOptions" />
+  <xs:simpleType name="TravelMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Driving" />
+      <xs:enumeration value="Walking" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TravelMode" nillable="true" type="tns:TravelMode" />
+  <xs:simpleType name="RouteOptimization">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MinimizeTime" />
+      <xs:enumeration value="MinimizeDistance" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RouteOptimization" nillable="true" type="tns:RouteOptimization" />
+  <xs:simpleType name="RoutePathType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Points" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RoutePathType" nillable="true" type="tns:RoutePathType" />
+  <xs:simpleType name="TrafficUsage">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="TrafficBasedTime" />
+      <xs:enumeration value="TrafficBasedRouteAndTime" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TrafficUsage" nillable="true" type="tns:TrafficUsage" />
+  <xs:complexType name="ArrayOfWaypoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Waypoint" nillable="true" type="tns:Waypoint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWaypoint" nillable="true" type="tns:ArrayOfWaypoint" />
+  <xs:complexType name="Waypoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="Location" nillable="true" type="q2:Location" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Waypoint" nillable="true" type="tns:Waypoint" />
+  <xs:complexType name="RouteResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://dev.virtualearth.net/webservices/v1/common" base="q3:ResponseBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Result" nillable="true" type="tns:RouteResult" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RouteResponse" nillable="true" type="tns:RouteResponse" />
+  <xs:complexType name="RouteResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Legs" nillable="true" type="tns:ArrayOfRouteLeg" />
+      <xs:element minOccurs="0" name="RoutePath" nillable="true" type="tns:RoutePath" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="tns:RouteSummary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RouteResult" nillable="true" type="tns:RouteResult" />
+  <xs:complexType name="ArrayOfRouteLeg">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RouteLeg" nillable="true" type="tns:RouteLeg" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRouteLeg" nillable="true" type="tns:ArrayOfRouteLeg" />
+  <xs:complexType name="RouteLeg">
+    <xs:sequence>
+      <xs:element xmlns:q4="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="ActualEnd" nillable="true" type="q4:Location" />
+      <xs:element xmlns:q5="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="ActualStart" nillable="true" type="q5:Location" />
+      <xs:element minOccurs="0" name="Itinerary" nillable="true" type="tns:ArrayOfItineraryItem" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="tns:RouteSummary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RouteLeg" nillable="true" type="tns:RouteLeg" />
+  <xs:complexType name="ArrayOfItineraryItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItineraryItem" nillable="true" type="tns:ItineraryItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItineraryItem" nillable="true" type="tns:ArrayOfItineraryItem" />
+  <xs:complexType name="ItineraryItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CompassDirection" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Hints" nillable="true" type="tns:ArrayOfItineraryItemHint" />
+      <xs:element xmlns:q6="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="Location" nillable="true" type="q6:Location" />
+      <xs:element minOccurs="0" name="ManeuverType" type="tns:ManeuverType" />
+      <xs:element minOccurs="0" name="Summary" nillable="true" type="tns:RouteSummary" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Warnings" nillable="true" type="tns:ArrayOfItineraryItemWarning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItineraryItem" nillable="true" type="tns:ItineraryItem" />
+  <xs:complexType name="ArrayOfItineraryItemHint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItineraryItemHint" nillable="true" type="tns:ItineraryItemHint" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItineraryItemHint" nillable="true" type="tns:ArrayOfItineraryItemHint" />
+  <xs:complexType name="ItineraryItemHint">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HintType" type="tns:ItineraryItemHintType" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItineraryItemHint" nillable="true" type="tns:ItineraryItemHint" />
+  <xs:simpleType name="ItineraryItemHintType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PreviousIntersection" />
+      <xs:enumeration value="NextIntersection" />
+      <xs:enumeration value="Landmark" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ItineraryItemHintType" nillable="true" type="tns:ItineraryItemHintType" />
+  <xs:simpleType name="ManeuverType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="DepartStart" />
+      <xs:enumeration value="DepartIntermediateStop" />
+      <xs:enumeration value="DepartIntermediateStopReturning" />
+      <xs:enumeration value="ArriveFinish" />
+      <xs:enumeration value="ArriveIntermediateStop" />
+      <xs:enumeration value="TurnLeft" />
+      <xs:enumeration value="TurnRight" />
+      <xs:enumeration value="TurnBack" />
+      <xs:enumeration value="UTurn" />
+      <xs:enumeration value="TurnToStayLeft" />
+      <xs:enumeration value="TurnToStayRight" />
+      <xs:enumeration value="BearLeft" />
+      <xs:enumeration value="BearRight" />
+      <xs:enumeration value="KeepToStayLeft" />
+      <xs:enumeration value="KeepToStayRight" />
+      <xs:enumeration value="KeepToStayStraight" />
+      <xs:enumeration value="KeepLeft" />
+      <xs:enumeration value="KeepRight" />
+      <xs:enumeration value="KeepStraight" />
+      <xs:enumeration value="Take" />
+      <xs:enumeration value="TakeRampLeft" />
+      <xs:enumeration value="TakeRampRight" />
+      <xs:enumeration value="TakeRampStraight" />
+      <xs:enumeration value="KeepOnrampLeft" />
+      <xs:enumeration value="KeepOnrampRight" />
+      <xs:enumeration value="KeepOnrampStraight" />
+      <xs:enumeration value="Merge" />
+      <xs:enumeration value="Continue" />
+      <xs:enumeration value="RoadNameChange" />
+      <xs:enumeration value="EnterRoundabout" />
+      <xs:enumeration value="ExitRoundabout" />
+      <xs:enumeration value="TurnRightThenTurnRight" />
+      <xs:enumeration value="TurnRightThenTurnLeft" />
+      <xs:enumeration value="TurnRightThenBearRight" />
+      <xs:enumeration value="TurnRightThenBearLeft" />
+      <xs:enumeration value="TurnLeftThenTurnLeft" />
+      <xs:enumeration value="TurnLeftThenTurnRight" />
+      <xs:enumeration value="TurnLeftThenBearLeft" />
+      <xs:enumeration value="TurnLeftThenBearRight" />
+      <xs:enumeration value="BearRightThenTurnRight" />
+      <xs:enumeration value="BearRightThenTurnLeft" />
+      <xs:enumeration value="BearRightThenBearRight" />
+      <xs:enumeration value="BearRightThenBearLeft" />
+      <xs:enumeration value="BearLeftThenTurnLeft" />
+      <xs:enumeration value="BearLeftThenTurnRight" />
+      <xs:enumeration value="BearLeftThenBearRight" />
+      <xs:enumeration value="BearLeftThenBearLeft" />
+      <xs:enumeration value="RampThenHighwayRight" />
+      <xs:enumeration value="RampThenHighwayLeft" />
+      <xs:enumeration value="RampToHighwayStraight" />
+      <xs:enumeration value="EnterThenExitRoundabout" />
+      <xs:enumeration value="BearThenMerge" />
+      <xs:enumeration value="TurnThenMerge" />
+      <xs:enumeration value="BearThenKeep" />
+      <xs:enumeration value="Transfer" />
+      <xs:enumeration value="Wait" />
+      <xs:enumeration value="TakeTransit" />
+      <xs:enumeration value="Walk" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ManeuverType" nillable="true" type="tns:ManeuverType" />
+  <xs:complexType name="RouteSummary">
+    <xs:sequence>
+      <xs:element xmlns:q7="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="BoundingRectangle" nillable="true" type="q7:Rectangle" />
+      <xs:element minOccurs="0" name="Distance" type="xs:double" />
+      <xs:element minOccurs="0" name="TimeInSeconds" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RouteSummary" nillable="true" type="tns:RouteSummary" />
+  <xs:complexType name="ArrayOfItineraryItemWarning">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ItineraryItemWarning" nillable="true" type="tns:ItineraryItemWarning" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfItineraryItemWarning" nillable="true" type="tns:ArrayOfItineraryItemWarning" />
+  <xs:complexType name="ItineraryItemWarning">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Severity" type="tns:ItineraryWarningSeverity" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WarningType" type="tns:ItineraryWarningType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ItineraryItemWarning" nillable="true" type="tns:ItineraryItemWarning" />
+  <xs:simpleType name="ItineraryWarningSeverity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="LowImpact" />
+      <xs:enumeration value="Minor" />
+      <xs:enumeration value="Moderate" />
+      <xs:enumeration value="Serious" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ItineraryWarningSeverity" nillable="true" type="tns:ItineraryWarningSeverity" />
+  <xs:simpleType name="ItineraryWarningType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Accident" />
+      <xs:enumeration value="AdminDivisionChange" />
+      <xs:enumeration value="BlockedRoad" />
+      <xs:enumeration value="CheckTimetable" />
+      <xs:enumeration value="Congestion" />
+      <xs:enumeration value="CountryChange" />
+      <xs:enumeration value="DisabledVehicle" />
+      <xs:enumeration value="GateAccess" />
+      <xs:enumeration value="GetOffTransit" />
+      <xs:enumeration value="GetOnTransit" />
+      <xs:enumeration value="IllegalUTurn" />
+      <xs:enumeration value="MassTransit" />
+      <xs:enumeration value="Miscellaneous" />
+      <xs:enumeration value="NoIncident" />
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Other" />
+      <xs:enumeration value="OtherNews" />
+      <xs:enumeration value="OtherTrafficIncidents" />
+      <xs:enumeration value="PlannedEvent" />
+      <xs:enumeration value="PrivateRoad" />
+      <xs:enumeration value="RestrictedTurn" />
+      <xs:enumeration value="RoadClosures" />
+      <xs:enumeration value="RoadHazard" />
+      <xs:enumeration value="ScheduledConstruction" />
+      <xs:enumeration value="SeasonalClosures" />
+      <xs:enumeration value="Tollbooth" />
+      <xs:enumeration value="TollRoad" />
+      <xs:enumeration value="TrafficFlow" />
+      <xs:enumeration value="UnpavedRoad" />
+      <xs:enumeration value="UnscheduledConstruction" />
+      <xs:enumeration value="Weather" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ItineraryWarningType" nillable="true" type="tns:ItineraryWarningType" />
+  <xs:complexType name="RoutePath">
+    <xs:sequence>
+      <xs:element xmlns:q8="http://dev.virtualearth.net/webservices/v1/common" minOccurs="0" name="Points" nillable="true" type="q8:ArrayOfLocation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RoutePath" nillable="true" type="tns:RoutePath" />
+  <xs:complexType name="MajorRoutesRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q9="http://dev.virtualearth.net/webservices/v1/common" base="q9:RequestBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Destination" nillable="true" type="tns:Waypoint" />
+          <xs:element minOccurs="0" name="Options" nillable="true" type="tns:MajorRoutesOptions" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MajorRoutesRequest" nillable="true" type="tns:MajorRoutesRequest" />
+  <xs:complexType name="MajorRoutesOptions">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RouteOptions">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ReturnRoutes" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MajorRoutesOptions" nillable="true" type="tns:MajorRoutesOptions" />
+  <xs:complexType name="MajorRoutesResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q10="http://dev.virtualearth.net/webservices/v1/common" base="q10:ResponseBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Routes" nillable="true" type="tns:ArrayOfRouteResult" />
+          <xs:element minOccurs="0" name="StartingPoints" nillable="true" type="tns:ArrayOfWaypoint" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MajorRoutesResponse" nillable="true" type="tns:MajorRoutesResponse" />
+  <xs:complexType name="ArrayOfRouteResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RouteResult" nillable="true" type="tns:RouteResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRouteResult" nillable="true" type="tns:ArrayOfRouteResult" />
+</xs:schema>
