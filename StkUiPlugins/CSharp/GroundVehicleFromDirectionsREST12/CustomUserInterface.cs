@@ -27,6 +27,10 @@ using System.Xml;
 ///             - switch from SOAP to REST services
 ///             - allows user to use their own Bing maps key
 ///             - added traffic tab
+/// updated: 14 Dec 2021
+///             - updated to work with STK12
+///             - requires user to use their own Bing maps key
+///             - updated links to https
 
 namespace Agi.Ui.Directions
 {
@@ -38,7 +42,7 @@ namespace Agi.Ui.Directions
 
 
         // update these paths to match your setup
-        // Bing maps keys are available here: http://msdn.microsoft.com/en-us/library/ff428642.aspx
+        // Bing maps keys are available here: https://msdn.microsoft.com/en-us/library/ff428642.aspx
         private string m_bingMapKey = "XXX";
 
 
@@ -90,7 +94,7 @@ namespace Agi.Ui.Directions
 
             if (mapKey == "XXX")
             {
-                MessageBox.Show("A valid Bing Maps key was not provided. Obtain one from http://msdn.microsoft.com/en-us/library/ff428642.aspx and load it into BingMapsKey.config");
+                MessageBox.Show("A valid Bing Maps key was not provided. Obtain one from https://msdn.microsoft.com/en-us/library/ff428642.aspx and load it into BingMapsKey.config");
                 return;
             }
 
