@@ -8,7 +8,7 @@ This script is an example of running Aviator connect commands (labeled as missio
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [CAT](https://www.agi.com/products/stk-specialized-modules/stk-conjunction-analysis-tool-cat)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [CAT](https://www.agi.com/products/stk-specialized-modules/stk-conjunction-analysis-tool-cat)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This script allow you to read in a tle database file, visualize the data in exce
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ This is a very basic starter script to start STK, create a scenario and insert a
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
