@@ -190,3 +190,45 @@ How to use:
 * Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [chainAutomationExample.m](chainAutomationExample.m)
+
+This script is a short demonstration of how to use the STK Object Model to create a Chain and Constellation object, then compute Chain access. This script also creates a cell array that contains all of the AER data for the Chain access computation.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [AstrogatorObjectModel](AstrogatorObjectModel)
+
+These scripts are from a training that walked through using MATLAB to create an Astrogator MCS from scratch. The satellite completes a Hohmann transfer from LEO to GEO and also preforms an inclination change. In the version that is not complete, users are required to fill in lines that have headers stating "ACTION REQUIRED". The completed version contains the full script and can be run without any changes.  
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://help.agi.com/stk/index.htm#astrogator.htm)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [ImportAreaTarget](ImportAreaTarget)
+
+A sample Excel file is included to show you the format for the area target information that you want to import into STK. The script will read the Excel file and create an area target object in STK based on the lat/lon points defined in the spreadsheet. Type 'help ImportAreaTarget' in the Matlab command window for a description on how to use the function.
+
+Example:
+
+```matlab
+ImportFacilities('USA.xlsx', 'UnitedStates')
+```
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A

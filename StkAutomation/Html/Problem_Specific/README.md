@@ -14,6 +14,18 @@ This utility allows you to ingest a csv file that defines air traffic and an are
 
 ---
 
+## [CameraPathZoom.htm](CameraPathZoom.htm)
+
+This utility creates a camera path with a smooth zoom-in effect using specified start and stop keyframes.
+
+### Dependencies
+
+* Licenses: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [ExplodeSatellite.html](ExplodeSatellite.html)
 
 This is a utility to create a visual satellite explosion in STK.  This generates a number of "random" debris pieces all moving at slightly different speeds.
