@@ -1,0 +1,8 @@
+<?xml version = "1.0"?>
+<AGIRegistry version="1.0">
+	<CategoryRegistry>
+		<Category Name="UiPlugins">
+	 		<UiPlugin ProgID="$safeprojectname$" DisplayName="RENAME Plugin Name"/>
+		</Category>
+	</CategoryRegistry>
+</AGIRegistry>

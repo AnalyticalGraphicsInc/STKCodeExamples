@@ -1,0 +1,50 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>stk12.UiPlugin.Template</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>stk12.UiPlugin.Template</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="stkplugtest.csproj" File="stkplugtest.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="CommonData.cs">CommonData.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomConfigPage.cs">CustomConfigPage.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomConfigPage.Designer.cs">CustomConfigPage.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomConfigPage.resx">CustomConfigPage.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomUserInterface.cs">CustomUserInterface.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomUserInterface.Designer.cs">CustomUserInterface.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="CustomUserInterface.resx">CustomUserInterface.resx</ProjectItem>
+      <Folder Name="Images" TargetFolderName="Images">
+        <ProjectItem ReplaceParameters="false" TargetFileName="Aircraft.png">Aircraft.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Antenna.png">Antenna.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Building.png">Building.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="CheckList.png">CheckList.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Clock.png">Clock.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Globe.png">Globe.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Home.png">Home.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Missile.png">Missile.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Orbit.png">Orbit.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Satellite.png">Satellite.png</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="STK.ico">STK.ico</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Target.png">Target.png</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="OlePictureHelper.cs">OlePictureHelper.cs</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+      </Folder>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Setup.cs">Setup.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Stk12.UiPlugin.RENAME.xml">Stk12.UiPlugin.RENAME.xml</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="StkObjectsLibrary.cs">StkObjectsLibrary.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>
