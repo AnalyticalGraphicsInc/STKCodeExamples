@@ -1,10 +1,3 @@
-%% Written By: Karynna Tuan
-%% Date: December 17th, 2015
-%% Modifed: December 21st, 2015
-%%          January 6th, 2016
-%%          January 29th, 2016
-%%          March 2nd, 2016
-
 % This script takes the TransponderLB STK scenario and outputs the
 % Eb/No, rain loss, and atm loss at the aircraft and facility's
 % latitude and longitude. The facility is used as a 'dummy' object for the
