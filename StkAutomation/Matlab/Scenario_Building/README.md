@@ -232,3 +232,17 @@ ImportFacilities('USA.xlsx', 'UnitedStates')
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [ObjectModelTutorial.m](ObjectModelTutorial.m)
+
+A basic example of using the object model and connect syntax to control STK from MATLAB
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
