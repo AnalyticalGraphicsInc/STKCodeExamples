@@ -58,7 +58,7 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
 * Other Scripts: N/A
 * Scenario: N/A
 
-  ---
+---
   
 ## [GetSegmentsByType.cs](GetSegmentsByType.cs)
 
@@ -70,4 +70,4 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
 * Other Scripts: N/A
 * Scenario: A scenario with at least one propagated Astrogator satellite
 
-  ---
+---
