@@ -60,7 +60,7 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
 
   ---
   
-  ## [GetSegmentsByType.cs](GetSegmentsByType.cs)
+## [GetSegmentsByType.cs](GetSegmentsByType.cs)
 
   Function to grab all instances of <segment type> Astrogator segments. Returns a list containing the handles to all <segment type> segments.
 
