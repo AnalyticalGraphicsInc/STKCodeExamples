@@ -21,7 +21,7 @@ Once the scenario is built, a python script with connect commands was used to au
 
 ### Dependencies
 
-* Licenses: Free, Integration, EOIR
+* Capabilities: Free, Integration, EOIR
 * Other Scripts: N/A
 * Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/context/mine/document-details?nodeRef=workspace://SpacesStore/19b625b1-839d-40fc-9774-41ca6ef43f9f)
  
@@ -30,6 +30,6 @@ Once the scenario is built, a python script with connect commands was used to au
 This is a DIY solution to stack all the images to a video. Since this action had to be repeated it was automated. The script reads in a directory of images, resizes them, reorders them (only needed if stacking the bmp files), and then writes them to a video file.
 
 ### Dependencies
-* Licenses: N/A 
+* Capabilities: N/A 
 * Other Scripts: [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb)
 * Scenario: N/A 
