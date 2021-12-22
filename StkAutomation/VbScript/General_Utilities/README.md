@@ -85,7 +85,7 @@ Sample VBscript to connect to STK and pull Coverage Data Providers
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
 * Other Scripts: N/A
 * Scenario: Any scenario open with a coverage definition. 
 
