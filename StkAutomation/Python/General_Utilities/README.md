@@ -8,7 +8,7 @@ Allows the user to output an xml or json file that includes each object in the s
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ Utility that demonstrates how to grab an array of all objects of a certain type.
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Utility that demonstrates how to subscribe to STKObjectRoot Events using comtype
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -44,7 +44,7 @@ Notebooks that use comtypes or win32 to interact with STK and demonstrate how to
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -56,7 +56,7 @@ This notebook allows for you to extract data from [STK Analyzer](https://help.ag
 
 ### Dependencies
 
-* Licenses: Free, [Analyzer](https://www.agi.com/products/stk-systems-bundle/stk-analyzer)
+* Capabilities: Free, [Analyzer](https://www.agi.com/products/stk-systems-bundle/stk-analyzer)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -68,7 +68,7 @@ A simple function to assist with the importing of Facility objects from informat
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
@@ -81,7 +81,7 @@ This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
@@ -94,7 +94,7 @@ This utility will parse a KML file (.kml) from ForeFlight, FlightAware and possi
 
 ### Dependencies
 
-* Licenses: N/A
+* Capabilities: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Beautiful Soup 4
@@ -107,7 +107,7 @@ This is a standalone script that writes a csv with columns Time in UTCG, Lat, Lo
 
 ### Dependencies
 
-* Licenses: Free, Engine, Integration
+* Capabilities: Free, Engine, Integration
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: N/A
@@ -120,7 +120,7 @@ Using STK Primitives, creates a latitude/longitude grid at a specifiable altitud
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -132,7 +132,7 @@ This simple function requires an open STK 12 scenario with a satellite that has 
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -144,7 +144,7 @@ Connects to an existing STK instance and loops through every object in the scena
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: Any scenario open with at least one object
 

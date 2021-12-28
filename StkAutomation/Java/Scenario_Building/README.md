@@ -6,7 +6,7 @@ An example application that creates a new instance of the STK application, gener
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 

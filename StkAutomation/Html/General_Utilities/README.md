@@ -8,7 +8,7 @@ This utility exports STK generated data as points, lines, and polygons in the fo
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This utility allows you to test out connect or object model commands inside STK.
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This utility loads a text file of connect commands to execute.
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This utility allows you to select a CSV file that has two columns of data points
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ This utility allows you to paste data into a text box and ingest that data to cr
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -76,7 +76,7 @@ This utility creates an aircraft using CONNECT commands and generates realtime p
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -88,7 +88,7 @@ This utility creates a Keplerian (J4) copy of a satellite that was created using
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
