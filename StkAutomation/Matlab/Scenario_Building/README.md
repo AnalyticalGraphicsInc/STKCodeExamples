@@ -246,3 +246,15 @@ A basic example of using the object model and connect syntax to control STK from
 * Scenario: N/A
 
 ---
+
+## [Coverage_FOM_GridInspector_CodeHelp.m](Coverage_FOM_GridInspector_CodeHelp.m)
+
+This MATLAB COM script will create a simple satellite scenario and calculate the revisit time for that satellite using Coverage. The data will be returned and parsed in MATLAB. This script uses Object Model commands to create the scenario, it's objects, and return the values to MATLAB. Additionally this uses Grid Inspector Tool. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any open scenario
+
+---
