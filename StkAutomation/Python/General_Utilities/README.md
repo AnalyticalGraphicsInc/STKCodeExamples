@@ -149,3 +149,15 @@ Connects to an existing STK instance and loops through every object in the scena
 * Scenario: Any scenario open with at least one object
 
 ---
+
+## [stkSocket.py](stkSocket.py)
+
+Allows the user to open a TCP/IP socket to send Connect commands to STK using default IP address (localhost) and port (5001). Changing default host address and port can be completed in the Edit -> Preferences -> Connect section in STK's GUI.
+
+### Dependencies
+
+* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
