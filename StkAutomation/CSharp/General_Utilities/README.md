@@ -54,7 +54,7 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
 
 ### Dependencies
 
-* Capabilities: Free, Integration
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -66,7 +66,7 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
 
 ### Dependencies
 
-* Capabilities: Free, Integration, Astrogator
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
 * Other Scripts: N/A
 * Scenario: A scenario with at least one propagated Astrogator satellite
 
