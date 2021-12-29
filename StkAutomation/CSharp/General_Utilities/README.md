@@ -47,3 +47,27 @@ Recent updates have been added to now include GPX files imported as waypoints on
 * Scenario: N/A
 
 ---
+
+## [GetObjectsByType.cs](GetObjectsByType.cs)
+
+Function to grab all instances of <object type> STK objects. Returns a list containing the handles to all <object type> objects. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+  
+## [GetSegmentsByType.cs](GetSegmentsByType.cs)
+
+  Function to grab all instances of <segment type> Astrogator segments. Returns a list containing the handles to all <segment type> segments.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: A scenario with at least one propagated Astrogator satellite
+
+---
