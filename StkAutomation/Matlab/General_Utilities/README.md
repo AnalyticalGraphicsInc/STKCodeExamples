@@ -256,3 +256,15 @@ Create a new time interval list given a time array or an STK Object with an offs
 * Scenario: Any scenario with a STK object.
 
 ---
+
+## [FOMDataPrv.m](FOMDataPrv.m)
+
+Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, Longitude and FOM Value. This snippet assumes a scenario has already been created with a Coverage Definition and a Figure of Merit. To use the snippet the user must edit the script to redefine the path to the scenario file (the ScenarioPath variable), the Coverage Definition and FOM object names/paths, and the Time of interest (dataPrv.PreData).
+ 
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any scenario open with Coverage definition and Figure of Merit
+
+---

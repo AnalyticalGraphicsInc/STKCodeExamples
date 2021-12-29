@@ -78,3 +78,16 @@ This script will take the waypoints located in the file "C:/temp/waypoints.txt" 
 * Scenario: N/A
 
 ---
+
+## [CovDP_PlusComments.vbs](CovDP_PlusComments.vbs)
+
+Sample VBscript to connect to STK and pull Coverage Data Providers
+
+### Dependencies
+
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any scenario open with a coverage definition. 
+
+---
