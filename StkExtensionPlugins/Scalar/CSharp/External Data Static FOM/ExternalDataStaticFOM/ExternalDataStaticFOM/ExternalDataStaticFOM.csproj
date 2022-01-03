@@ -60,7 +60,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <RegisterForComInterop>false</RegisterForComInterop>
+    <RegisterForComInterop>true</RegisterForComInterop>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -77,31 +77,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AGI.Attr.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Attr.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Attr.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.Plugin.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.Plugin.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.Plugin.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STK.Plugin.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STK.Plugin.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STK.Plugin.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STKObjects.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKObjects.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STKUtil.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKUtil.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.STKVgt.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.STKVgt.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="AGI.VectorGeometryTool.Plugin.Interop">
-      <HintPath>C:\Program Files\AGI\STK 11\bin\Primary Interop Assemblies\AGI.VectorGeometryTool.Plugin.Interop.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\AGI\STK 12\bin\Primary Interop Assemblies\AGI.VectorGeometryTool.Plugin.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
