@@ -47,7 +47,7 @@ The code examples in this repository are licensed under the AGI Code Examples Li
 
 If You redistribute the code examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the code examples, and include the following copyright notice:
 
-© 2021 Analytical Graphics, Inc.
+© 2022 Analytical Graphics, Inc.
 
 ----
 

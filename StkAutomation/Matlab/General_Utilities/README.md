@@ -14,7 +14,7 @@ convertTLEState('Satellite1','ePropagatorHPOP')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -39,7 +39,7 @@ coordSys = 'Satellite/Satellite2 RIC';
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -63,7 +63,7 @@ FilterObjectsByType('Satellite', 'gps')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -75,7 +75,7 @@ Connects to an existing STK instance and loops through every object in the scena
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: Any scenario open with at least one object
 
@@ -93,7 +93,7 @@ getSTKDCM('Satellite1','Body','CentralBody/Earth J2000','15 Apr 2021 18:00:30.00
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -113,7 +113,7 @@ root.registerevent('printRootEvents')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -141,7 +141,7 @@ object = root.GetObjectFromPath('Satellite/Satellite1');
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -159,7 +159,7 @@ Example:
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -178,7 +178,7 @@ StkHelp(satellite, 'offline')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -197,7 +197,7 @@ StkHelp(satellite, 'offline')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -215,7 +215,7 @@ vgtImporterExporter('AWB','Ship/Ship1','Satellite/Satellite1')
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -227,7 +227,7 @@ This script will connect to a running instance of STK and generate persistent ac
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: Any scenario with at least two objects that have access to each other at some point in the scenario analysis interval.
 
@@ -239,8 +239,32 @@ For an Astrogator satellite, grabs all segments of a specified type and returns 
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
 * Other Scripts: N/A
 * Scenario: Any scenario with a propagated Astrogator satellite.
+
+---
+
+## [intervalListFromTimeArray.m](intervalListFromTimeArray.m)
+
+Create a new time interval list given a time array or an STK Object with an offset time in seconds.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: Any scenario with a STK object.
+
+---
+
+## [FOMDataPrv.m](FOMDataPrv.m)
+
+Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, Longitude and FOM Value. This snippet assumes a scenario has already been created with a Coverage Definition and a Figure of Merit. To use the snippet the user must edit the script to redefine the path to the scenario file (the ScenarioPath variable), the Coverage Definition and FOM object names/paths, and the Time of interest (dataPrv.PreData).
+ 
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any scenario open with Coverage definition and Figure of Merit
 
 ---

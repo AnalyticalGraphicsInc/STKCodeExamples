@@ -6,7 +6,7 @@ Creates a scenario that demonstrates an aircraft carrier landing using two Aviat
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -18,7 +18,7 @@ STK Object Model Walkthrough using Python with comtypes. In the incomplete versi
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -30,7 +30,7 @@ These notebooks walk you through an introduction to [STK Astrogator](https://hel
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
 * Other Scripts: N/A
 * Scenario: N/A
 

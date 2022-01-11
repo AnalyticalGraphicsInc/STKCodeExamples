@@ -8,7 +8,7 @@ This script will take the "Euler Angles" report and generate an attitude file fr
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ This script will take the "Yaw Pitch Roll" report and generate an attitude file 
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This excel workbook will allow you to define a column with the header "CMDS_HERE
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This excel workbook is a basic example of integrating excel and STK.  There are 
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -59,7 +59,7 @@ This script allows users to convert multiple terrain files of different formats 
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -73,8 +73,21 @@ This script will take the waypoints located in the file "C:/temp/waypoints.txt" 
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [CovDP_PlusComments.vbs](CovDP_PlusComments.vbs)
+
+Sample VBscript to connect to STK and pull Coverage Data Providers
+
+### Dependencies
+
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any scenario open with a coverage definition. 
 
 ---
