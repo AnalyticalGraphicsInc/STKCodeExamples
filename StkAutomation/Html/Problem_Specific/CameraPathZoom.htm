@@ -77,7 +77,7 @@
 					// Stop  following the selected view, so the view doesn't change when the animation time changes
 					// Then set the time to the path time which is scaled by the input length
 					root.ExecuteCommand("VO * CameraControl Follow Off");
-					root.CurrentTime = pathTime;
+					root.CurrentTime = pathTime + initialTime;
 					// Add a keyframe at this time
 					root.ExecuteCommand("VO * CameraControl Keyframes \"" + newPathInput.value + "\" Add");
 					
