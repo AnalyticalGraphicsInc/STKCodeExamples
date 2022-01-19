@@ -73,3 +73,17 @@ This utility will allow you to select an object and a vector and will create a n
 * Scenario: N/A
 
 ---
+
+## [SimGen_UMT_Exporter](SimGen_UMT_Exporter)
+
+This utility allows the user to create a SimGEN user motion file (*.umt) for an STK vehicle.  
+
+There is an optional configuration file that is white space delimeted containing `START-TIME`, `STOP-TIME`, and `FILE-PATH`.  [example configuration file](SimGen_UMT_Exporter/output-config-EXAMPLE.txt)
+
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
