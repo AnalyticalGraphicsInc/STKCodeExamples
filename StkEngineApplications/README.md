@@ -1,8 +1,8 @@
-## STK Engine Applications
+# STK Engine Applications
 
 A variety of scripts and applications for utilizing STK Engine.
 
-### Choose your language
+## Choose your language
 
 * [Kotlin](Kotlin)
 * [CSharp](CSharp)
