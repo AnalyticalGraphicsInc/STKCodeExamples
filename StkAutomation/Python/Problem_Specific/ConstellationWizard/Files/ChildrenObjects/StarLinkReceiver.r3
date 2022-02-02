@@ -1,4 +1,4 @@
-VO_V110		
+VO_V120		
 ShowBoresight		 No
 BEGIN GeneralVectorAxes
     PersistentLineWidth		 2

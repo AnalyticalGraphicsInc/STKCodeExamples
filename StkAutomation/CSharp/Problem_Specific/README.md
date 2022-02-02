@@ -8,7 +8,7 @@ This utility will allow you to Analyze CDM (Conjuction Data Messages).
 
 ### Dependencies
 
-* Licenses: Free, Integration, Analysis Workbench
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ This utility will allow you to create many different flower consetllations.  Sim
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -36,7 +36,7 @@ This utility provides a simple Gui to fly an aircraft in STK with the ability to
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -50,7 +50,19 @@ This utility will allow you to compute the reentry point and duration of satelli
 
 ### Dependencies
 
-* Licenses: Free, Integration, Astrogator
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [XPlaneUDPToSTK12](XPlaneUDPToSTK12)
+
+This utility connects to X-Plane and reads the position (latitude, longitude, altitude) and attitude (yaw, pitch, roll) data through a UDP connection, then sends it to an aircraft in STK using the Real Time propagator. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 

@@ -6,7 +6,7 @@ This is a utility to create interval list AWB component containing intervals for
 
 ### Dependencies
 
-* Licenses: Free, Analysis Workbench
+* Capabilities: Free, [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
 * Other Scripts: N/A
 * Scenario: N/A
 

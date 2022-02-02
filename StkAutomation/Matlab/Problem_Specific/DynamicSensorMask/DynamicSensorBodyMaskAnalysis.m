@@ -71,7 +71,7 @@ end
 
 res = root.ExecuteCommand('GetDirectory / Scenario');
 dir = res.Item(0);
-folderPath = [dir,'\DynamicMaskFiles'];
+folderPath = [dir,'DynamicMaskFiles'];
 if ~exist(folderPath, 'dir')
    mkdir(folderPath)
 end

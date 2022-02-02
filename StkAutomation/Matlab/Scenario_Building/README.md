@@ -7,12 +7,12 @@ This script attaches to an open instance of STK12 and imports facilities with po
 Example:
 
 ```matlab
-ImportFacilities('GroundSites.xlsx')
+ImportFacilities('GroundSitesExamples.xlsx')
 ```
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -24,7 +24,7 @@ This folder contains four scripts that demonstrate use cases for the realtime pr
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -36,11 +36,21 @@ This script creates a sweeping/raster scan over a list of area targets. The scan
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
+
+## [SimpleSimulinkExample](SimpleSimulinkExample)
+
+This is a simple tutorial walkthrough of setting up the connection between Simulink and STK using the S-function block.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
 
 ## [astgSlewToManeuvers.m](astgSlewToManeuvers.m)
 
@@ -48,8 +58,8 @@ When an Astrogator satellite maneuvers by default the manuever will adjust the a
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
-* Other Scripts: N/A
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: [FilterSegmentsByType.m](../General_Utilities/FilterSegmentsByType.m)
 * Scenario: N/A
 
 ---
@@ -60,7 +70,7 @@ This script creates waypoints for any GreatArc propagated STK vehicle in the sha
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -72,7 +82,7 @@ This script creates an ephemeris file for any GreatArc propagated STK vehicle in
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -84,7 +94,7 @@ This function creates an elliptical sensor pattern and saves it off as a .patter
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -96,7 +106,7 @@ This is a simple script to propagate a missile with the basic ballistic propagat
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -110,7 +120,7 @@ This sample is used to generate a simple sequence for communicating with a satel
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SOLIS](https://www.agi.com/products/stk-specialized-modules/stk-solis)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -122,8 +132,129 @@ This script creates an elliptical sensor .pattern file for a given semi major ax
 
 ### Dependencies
 
-* Licenses: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [Analysis_Workbench_Components.m](Analysis_Workbench_Components.m)
+
+This script serves as an example of how to create each component type within Analysis Workbench. A new STK instance is created with a notional satellite, and one of each component available in the Vector Geometry Tool, Calculation Tool, and Time Tool is initialized.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [MultiSegmentAttitude.m](MultiSegmentAttitude.m)
+
+This script demonstrates the use of the [SetAttitude](https://help.agi.com/stkdevkit/Subsystems/connectCmds/connectCmds.htm#cmd_SetAttitudeProfile.htm) and [AddAttitude](https://help.agi.com/stkdevkit/Subsystems/connectCmds/connectCmds.htm#cmd_AddAttitudeProfile.htm) Connect commands to create different attitude segments. Several different options to set a multi-segment attitude profile are available, including external attitude files, targeted pointing, and built-in profiles.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: A scenario with the default satellite and facility as well as an external [attitude (*.a) file](https://help.agi.com/stk/index.htm#stk/importfiles-01.htm).
+
+---
+
+## [MultiSegmentAttitudeLoop.m](MultiSegmentAttitudeLoop.m)
+
+This function demonstrates the ability to store bulk attitude profile data and add multiple segments in a loop. It creates ten sample attitude segments of various types and definitions to a satellite within a scenario.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Other Scripts: N/A
+* Scenario: Scenario with a satellite called 'MySatellite'
+
+---
+
+## [ObjectLines.m](ObjectLines.m)
+
+This script will draw lines from an existing object to another existing object at various specified times in the object's path.
+
+How to use:
+    1. Create two objects in an existing scenario.
+    2. Specify the final animation time in the script.
+    3. Specify the list of time instants in seconds relative to the final animation time that you'd like to draw lines from the path of one object to the other.
+    4. Set the names of your two objects in the script.
+    5. Run the script.  It will create a duplicate object for each time instant and draw lines from it to the other object.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [chainAutomationExample.m](chainAutomationExample.m)
+
+This script is a short demonstration of how to use the STK Object Model to create a Chain and Constellation object, then compute Chain access. This script also creates a cell array that contains all of the AER data for the Chain access computation.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [AstrogatorObjectModel](AstrogatorObjectModel)
+
+These scripts are from a training that walked through using MATLAB to create an Astrogator MCS from scratch. The satellite completes a Hohmann transfer from LEO to GEO and also preforms an inclination change. In the version that is not complete, users are required to fill in lines that have headers stating "ACTION REQUIRED". The completed version contains the full script and can be run without any changes.  
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://help.agi.com/stk/index.htm#astrogator.htm)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [ImportAreaTarget](ImportAreaTarget)
+
+A sample Excel file is included to show you the format for the area target information that you want to import into STK. The script will read the Excel file and create an area target object in STK based on the lat/lon points defined in the spreadsheet. Type 'help ImportAreaTarget' in the Matlab command window for a description on how to use the function.
+
+Example:
+
+```matlab
+ImportFacilities('USA.xlsx', 'UnitedStates')
+```
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [ObjectModelTutorial.m](ObjectModelTutorial.m)
+
+A basic example of using the object model and connect syntax to control STK from MATLAB
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [Coverage_FOM_GridInspector_CodeHelp.m](Coverage_FOM_GridInspector_CodeHelp.m)
+
+This MATLAB COM script will create a simple satellite scenario and calculate the revisit time for that satellite using Coverage. The data will be returned and parsed in MATLAB. This script uses Object Model commands to create the scenario, it's objects, and return the values to MATLAB. Additionally this uses Grid Inspector Tool. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Other Scripts: N/A
+* Scenario: Any open scenario
 
 ---

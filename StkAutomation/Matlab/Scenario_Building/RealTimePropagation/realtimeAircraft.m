@@ -1,125 +1,177 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Realtime Aircraft Propagation
+%
+% Description: This script simulates a realtime aircraft propagation where
+% position/velocity/attitude data is coming from an external source. In
+% this case the external source is a text file of states whereas the same
+% process would be followed if data was streaming in from another source.
+% The simulation runs off of a timer where MATLAB dictates the time step to
+% STK.
+%
+% Programming Help: https://help.agi.com/stkdevkit/index.htm#automationTree/treeOver.htm?TocPath=_____1
+% Connect Command Reference: https://help.agi.com/stkdevkit/index.htm#../Subsystems/connect/Content/theVeryTop.htm
+% Object Model Reference: https://help.agi.com/stkdevkit/index.htm#automationTree/objModel.htm?TocPath=Using%2520Core%2520Libraries%257CSTK%2520Object%2520Model%257C_____0
+% MATLAB Code Snippets: https://help.agi.com/stkdevkit/index.htm#stkObjects/ObjModMatlabCodeSamples.htm?Highlight=matlab
+% RealTime Propagator: https://help.agi.com/stk/index.htm#stk/veh_propagator_realTime.htm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Housekeeping
 close all
 clear all
 clc
 
-%Initialize 
-%Establish the connection
+%% Establish STK Connection
+%Attempt to grab an open STK instance, if there are none then create a new
+%instance and connect to it
 try
-    % Grab an existing instance of STK
+    %Grab an existing instance of STK
     uiapp = actxGetRunningServer('STK12.application');
 catch
-    % STK is not running, launch new instance
-    % Launch a new instance of STK and grab it
+    %STK is not running, launch new instance
+    %Launch a new instance of STK and grab it
     uiapp = actxserver('STK12.application');
 end
-
-%get the root from the personality
-%it has two... get the second, its the newer STK Object Model Interface as
-%documented in the STK Help
+%Get the root from the personality it has two... get the second, its the 
+%newer STK Object Model Interface as documented in the STK Help
 root = uiapp.Personality2;
-
-% set visible to true (show STK GUI)
+%Set visible to true (show STK GUI)
 uiapp.visible = 1;
 
-%%From the STK Object Root you can command every aspect of the STK GUI
-
-%close current scenario or open new one
+%% Create a New STK Scenario
+%Try closing an open scenario and opening a new one named 'RealTimeTest', 
+%if that fails then there isn't a scenario open so just open a new one
 try
     root.CloseScenario();
     root.NewScenario('RealTimeTest');
 catch
     root.NewScenario('RealTimeTest');
 end
-
-%get the scenario root, its of type IAgScenario 
+%Get the scenario root, its of type IAgScenario
+%IAgScenario documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScenario.html?Highlight=IAgScenario
 scenObj = root.CurrentScenario;
 
-%set the object model to expect all dates in Local Gregorian
+%% Configure Scenario Time and Animation
+%Set the object model to expect all dates in Local Gregorian
 root.UnitPreferences.Item('DateFormat').SetCurrentUnit('LCLG');
-%set the Connect module to expect all dates in Local Gregorian
-root.ExecuteCommand(['SetUnits / GregorianLOCAL']);
-
+%Set the Connect module to expect all dates in Local Gregorian
+root.ExecuteCommand('SetUnits / GregorianLOCAL');
 %Get the system clock time and use that to set up the scenario's start and
 %stop time.
 tomorrow_date = datestr((now+1), 'dd mmm yyyy HH:MM:SS.FFF');
 current_date = datestr((now), 'dd mmm yyyy HH:MM:SS.FFF');
-
+%Set scenario epoch (reference for all relative times)
 scenObj.Epoch = current_date;
+%Set scenario start and stop times
 scenObj.StopTime = tomorrow_date;
 scenObj.StartTime = current_date;
-
-%set the scenario's animation properties to animate in realtime mode
+%Set the scenario's animation properties to animate in realtime mode
+%IAgScAnimcation documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
 scAnimation = scenObj.Animation;
+%AgEScTimeStepType types: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
 scAnimation.AnimStepType = 'eScRealTime';
- 
-%create a new satellite object named "Satellite1"
+
+%% Create Aircraft Object
+%create a new aicraft object named "Aircraft1"
 aircraft = scenObj.Children.New('eAircraft', 'Aircraft1');
 aircraft.VO.Model.ModelData.Filename = 'C:\Program Files\AGI\STK 12\STKData\VO\Models\Air\f-18c_hornet.mdl';
 
-%set the satellite to expect realtime position and attitude data
+%% Configure Position Propagation
+%Set realtime propagator and configure look ahead
+%Realtime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_RealTime.htm?Highlight=Realtime
 root.ExecuteCommand('Realtime */Aircraft/Aircraft1 SetProp')
-root.ExecuteCommand('Realtime */Aircraft/Aircraft1 SetLookAhead HoldCBFPosition 3600 60 3600')
-root.ExecuteCommand('SetAttitude */Aircraft/Aircraft1 RealTime Hold 3600 3600')
+root.ExecuteCommand('Realtime */Aircraft/Aircraft1 SetLookAhead HoldCBFPosition 60 60 60')
+
+%% Configure Attitude Propagation
+%SetAttitude RealTime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeRealTime.htm?Highlight=setattitude
+root.ExecuteCommand('SetAttitude */Aircraft/Aircraft1 RealTime Hold 60 60')
+%SetAttitude DataReference connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeDataReference.htm?Highlight=setattitude
 root.ExecuteCommand('SetAttitude */Aircraft/Aircraft1 DataReference Fixed Quat 0 0 0 1 "CentralBody/Earth Fixed"');
 
-%reset the VO window and then begin playing the animation (in realtime)
+%% Begin Animation
+%Reset the VO window and then begin playing the animation (in realtime)
 root.Rewind
 root.PlayForward
 
-%find the J2000 Position and Velocity data display 
-for i = 0:aircraft.VO.DataDisplay.Count-1
-    if (strcmp(aircraft.VO.DataDisplay.Item(i).Name, 'LLA Position'))
-        posDD = aircraft.VO.DataDisplay.Item(i);
-        posDD.IsVisible = 1;
-        posDD.FontColor = '000255000';
-    elseif (strcmp(aircraft.VO.DataDisplay.Item(i).Name, 'Velocity Heading'))
-        attDD = aircraft.VO.DataDisplay.Item(i);
-        attDD.IsVisible = 1;
-        attDD.Y = 200;
-        attDD.FontColor = '255255000';
-    end
-end
+%% Configure 3D Graphics Data Displays
+%Remove all data displays to be able to add more by name
+aircraft.VO.DataDisplay.RemoveAll();
+%Add LLA Position data display
+%IAgVODataDisplayElement documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgVODataDisplayElement.html?Highlight=IAgVODataDisplayElement
+positionDataDisplay = aircraft.VO.DataDisplay.Add('LLA Position');
+positionDataDisplay.IsVisible = 1;
+% Change font color to green check out rgb2stkColor.m here: https://github.com/AnalyticalGraphicsInc/STKCodeExamples/tree/master/StkAutomation/Matlab/General_Utilities
+positionDataDisplay.FontColor = '000255000';
+%Add Velocity Heading data display
+velocityDataDisplay = aircraft.VO.DataDisplay.Add('Velocity Heading');
+velocityDataDisplay.IsVisible = 1;
+% Change the y location to 200 pixels
+velocityDataDisplay.Y = 200;
+% Change font color to white check out rgb2stkColor.m here: https://github.com/AnalyticalGraphicsInc/STKCodeExamples/tree/master/StkAutomation/Matlab/General_Utilities
+velocityDataDisplay.FontColor = '255255000';
 
-
-%open the file with all positional data (this wouldn't be necessary in a
+%% Open Position/Attitude Data Files
+%Open the file with all positional data (this wouldn't be necessary in a
 %realworld application where you'd be getting the realtime data from an
-%outside application.
+%outside application)
+posFile = fopen('FighterPosition.txt','r');
+fseek(posFile, 0, 'eof');
+eof_byte = ftell(posFile);
+fseek(posFile, 0, 'bof');
+%Repeat the same thing for the attitude data
+attFile = fopen('FighterAttitude.txt','r');
+fseek(attFile, 0, 'eof');
+eof_byte2 = ftell(attFile);
+fseek(attFile, 0, 'bof');
 
-fid = fopen('FighterPosition.txt','r');
-%fid = fopen('FighterPosition_0.1sec.csv','r')
-fseek(fid, 0, 'eof');
-eof_byte = ftell(fid);
-fseek(fid, 0, 'bof');
-
-%do the same thing for the attitude data
-fid2 = fopen('FighterAttitude.txt','r');
-%fid2 = fopen('FighterAttitude_0.1sec.csv','r')
-fseek(fid2, 0, 'eof');
-eof_byte2 = ftell(fid2);
-fseek(fid2, 0, 'bof');
-
-%loop through each line of the position and attitude files and pass the
+%% Propagate with Real Time Data
+%Loop through each line of the position and attitude files and pass the
 %data into STK.  The data in the files was generated with a 1 second time
 %step, so i put a pause command at the bottom of the loop to simulate that
 %we actually receive the data every one second.  This is not precise.
 primID = 1;
-while ftell(fid) < eof_byte
+while ftell(posFile) < eof_byte
     
-    %call the functions to read the data lines from the file and pass back
-    %the position and attitude data
-    [epsec, x_pos, y_pos, z_pos, x_vel, y_vel, z_vel] = get_posvel_data(fid);
-    [epsec, q1, q2, q3, q4] = get_attitude_data(fid2);
+    %Grab next line in position data file
+    data_line = fgetl(posFile);
+    %Parse line by spaces
+    spLine = regexp(data_line, '\s', 'split');
+    %Break out each component in the data line
+    epsec = spLine{1}; %Unused
+    x_pos = spLine{2};
+    y_pos = spLine{3};
+    z_pos = spLine{4};
+    x_vel = spLine{5};
+    y_vel = spLine{6};
+    z_vel = spLine{7};
+    
+    %Grab next line in attitude data file
+    att_line = fgetl(attFile);
+    %Parse line by spaces
+    spLine = regexp(att_line, '\s', 'split');
+    %Break out each component in the data line
+    epsec = spLine{1}; %Unused
+    q1 = spLine{2};
+    q2 = spLine{3};
+    q3 = spLine{4};
+    q4 = spLine{5};
 
     %check what the current system clock time is, use this as the time
     %stamp for the data to be passed into STK
     curTime = datestr((now), 'dd mmm yyyy HH:MM:SS.FFF');
+    %Push position point to STK scenario
+    %SetPosition connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetPositionVehicles.htm?Highlight=setposition
     root.ExecuteCommand(['SetPosition */Aircraft/Aircraft1 ECF "' curTime '" ' x_pos ' ' y_pos ' ' z_pos ' ' x_vel ' ' y_vel ' ' z_vel]);
+    %Push attitude point to STK scenario  
+    %AddAttitude connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_AddAttitudeQuat.htm?Highlight=addattitude
     root.ExecuteCommand(['AddAttitude */Aircraft/Aircraft1 Quat "' curTime '" ' q1 ' ' q2 ' ' q3 ' ' q4]);
     
-%     %output the time, quat, position to the matlab screen
-     disp(sprintf(['Time: ' curTime '\nPosition: ' x_pos ' ' y_pos ' ' z_pos ...
-        '\nAttitude: ' q1 ' ' q2 ' ' q3 ' ' q4 '\n']));
-     pause(0.08)
+    %output the time, quat, position to the matlab screen
+    fprintf(['Time: ' curTime '\nPosition: ' x_pos ' ' y_pos ' ' z_pos ...
+        '\nAttitude: ' q1 ' ' q2 ' ' q3 ' ' q4 '\n']);
+    
+    %Pause for 1 second
+    pause(0.1)
 end
 
 

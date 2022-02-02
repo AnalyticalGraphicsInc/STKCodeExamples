@@ -1,5 +1,29 @@
 # C# General Utility Samples
 
+## [DataProviderExplorer](DataProviderExplorer)
+
+This utility will allow you to connect to an open instance of STK, choose a specific data provider and export to an [Ansys](https://ansys.com) Library File.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [PullDataFromSTKExample](PullDataFromSTKExample)
+
+This example utility shows how to stream AER data between a satellite and facility as a scenario animates.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [SendEphemerisToSTK](SendEphemerisToSTK)
 
 This utility will allow you to add a new option to your Windows right-click > Send To menu for you to send files directly to STK.
@@ -18,20 +42,32 @@ Recent updates have been added to now include GPX files imported as waypoints on
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
 
-## [DataProviderExplorer](DataProviderExplorer)
+## [GetObjectsByType.cs](GetObjectsByType.cs)
 
-This utility will allow you to connect to an open instance of STK, choose a specific data provider and export to an [Ansys](https://ansys.com) Library File.
+Function to grab all instances of <object type> STK objects. Returns a list containing the handles to all <object type> objects. 
 
 ### Dependencies
 
-* Licenses: Free, Integration
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+  
+## [GetSegmentsByType.cs](GetSegmentsByType.cs)
+
+  Function to grab all instances of <segment type> Astrogator segments. Returns a list containing the handles to all <segment type> segments.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Other Scripts: N/A
+* Scenario: A scenario with at least one propagated Astrogator satellite
 
 ---
