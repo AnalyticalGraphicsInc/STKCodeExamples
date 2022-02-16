@@ -54,7 +54,7 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 ---
 
-## [EOIRInTheLoop](EOIRInTheLoop)
+## [EOIRTrackingInTheLoop](EOIRTrackingInTheLoop)
 
 Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
 
