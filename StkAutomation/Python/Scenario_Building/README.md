@@ -35,3 +35,17 @@ These notebooks walk you through an introduction to [STK Astrogator](https://hel
 * Scenario: N/A
 
 ---
+
+## [PythonAPI12.2_Demo](PythonAPI12.2_Demo)
+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
+
+This script is a demo of the STK Python API that creates a complex search and rescue scenario using custom Aviator models and mission procedures. The only user input required is a Cesium Ion access code, but Cesium Ion buildings can be turned off in the variable list at the top of the script. This script should prove a useful tool for learning to use the Python API for creating Aviator and Communications objects. A custom 3D model of a Cessna 206 aircraft is included with this demo.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator), [Communications](https://www.agi.com/capabilities/communications)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
