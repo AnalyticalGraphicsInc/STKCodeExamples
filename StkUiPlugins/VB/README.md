@@ -18,7 +18,7 @@ Once the plugin is correctly installed in the right folders, simply open STK, cr
 
 ## [ReentryHeatingPlugin](ReentryHeatingPlugin)
 
-This plugin was created to allow users the ability to supply design parameters for capsule styled reentry vehicles similar to NASA’s Apollo program (http://en.wikipedia.org/wiki/Space_capsule). The Plugin will create stagnation point heating data for the designed capsule as well as deceleration (G-Load) data which can be reported or graphed natively inside of STK.
+This plugin was created to allow users the ability to supply design parameters for capsule styled reentry vehicles similar to [NASA’s Apollo program](http://en.wikipedia.org/wiki/Space_capsule). The Plugin will create stagnation point heating data for the designed capsule as well as deceleration (G-Load) data which can be reported or graphed natively inside of STK.
 
 For more information about the plugin please refer to the [pdf writeup](ReentryHeatingPlugin/Reentry_Heating_Plugin_README.pdf) or [word writeup](ReentryHeatingPlugin/Reentry_Heating_Plugin_README.doc)
 
