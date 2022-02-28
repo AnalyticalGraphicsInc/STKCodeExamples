@@ -1,6 +1,8 @@
 # STK Plugins (Engine and Plugin Scripts)
 
-Example engine plugins and plugin scripts for STK Desktop and STK Engine
+Example engine plugins and plugin scripts for STK Desktop and STK Engine.
+
+Instructions for using plugin scripts can be found in the [STK help](https://help.agi.com/stkdevkit/index.htm#../Subsystems/pluginScripts/Content/pluginScriptsinstall.htm).
 
 ## [Access Constraints](AccessConstraints)
 
