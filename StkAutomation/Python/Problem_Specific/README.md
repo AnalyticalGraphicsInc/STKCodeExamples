@@ -106,3 +106,16 @@ This script computes access between a series of sensors on satellites and place 
 * Scenario: N/A
 
 ---
+
+
+## [createCovariancePoints.py](createCovariancePoints.py)
+
+This script will take the prinicple axes of a covariance matrix and turn it into point. These can be used for access computations to determine when a satellite may be visible accounting for the orbit uncertainty. It will write 6 ephemris file and add points and satellites for the positive and negative direction of the major, intermediate and minor axis. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional),[Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy
+---
