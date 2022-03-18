@@ -43,4 +43,3 @@ function [ ] = intervalListFromTimeArray( stkObjectPath, timeArrayName, timeOffs
         error('The IntervalList component already exists.');
     end
 end
-
