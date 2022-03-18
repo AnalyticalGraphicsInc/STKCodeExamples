@@ -54,7 +54,7 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 ---
 
-## [EOIRInTheLoop](EOIRInTheLoop)
+## [EOIRTrackingInTheLoop](EOIRTrackingInTheLoop)
 
 Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
 
@@ -105,4 +105,17 @@ This script computes access between a series of sensors on satellites and place 
 * Other Scripts: N/A
 * Scenario: N/A
 
+---
+
+
+## [createCovariancePoints.py](createCovariancePoints.py)
+
+This script will take the prinicple axes of a covariance matrix and turn it into point. These can be used for access computations to determine when a satellite may be visible accounting for the orbit uncertainty. It will write 6 ephemris file and add points and satellites for the positive and negative direction of the major, intermediate and minor axis. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional),[Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy
 ---
