@@ -1,0 +1,9 @@
+; Agi.Radar.RCS.CPP.Example.def : Declares the module parameters.
+
+LIBRARY      "Agi.Radar.RCS.CPP.Example.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

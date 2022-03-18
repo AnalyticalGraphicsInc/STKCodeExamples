@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2006-2007, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="JScript.SearchControlRealExample"
+	    progid="JScript.SearchControlRealExample.WSC"
+	    version="1.00"
+	    classid="{B48C0AED-28F0-4e4a-9DAF-465D50326978}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Step"	get="GetStep"	put="SetStep"/>
+		<property name="IsActive" get="IsActive" put="SetActive"/>
+		<property name="ControlName" get="GetControlName"	put="SetControlName"/>
+		<property name="ObjectName" get="GetObjectName"		put="SetObjectName"/>
+		<property name="ControlType"	get="GetControlType"	put="SetControlType"/>
+		<property name="CurrentValue" get="GetCurrentValue"	put="SetCurrentValue"/>
+		<property name="InitialValue" get="GetInitialValue" put="SetInitialValue"/>
+		<property name="Dimension"	get="GetDimension"		put="SetDimension"/>
+		<property name="InternalUnit"	get="GetInternalUnit"	put="SetInternalUnit"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="JScript" src="JScript.SearchControlRealExample.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2006-2007, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->

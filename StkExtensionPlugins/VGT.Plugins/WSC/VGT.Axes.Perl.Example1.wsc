@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{08EFC82A-08B2-4a14-B2CB-09CA9680DE60}"
+		progid="Agi.VGT.Axes.Plugin.Examples.Perl.Example1"
+		description="Agi.VGT.Axes.Plugin.Examples.Perl.Example1"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+		<property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		
+		<method name="Init">
+					<parameter name="AgStkPluginSite"/>
+		</method>
+		
+		<method name="Register">
+			<parameter name="AgCrdnAxesPluginResultReg"/>
+		</method>
+		
+		<method name="Reset">
+					<parameter name="AgCrdnAxesPluginResultReset"/>
+		</method>
+				
+		<method name="Evaluate">
+			<parameter name="AgCrdnAxesPluginResultEval"/>
+		</method>
+		
+		<method name="Free"/>
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+	</public>
+
+	<script language="PerlScript" src="VGT.Axes.Perl.Example1.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

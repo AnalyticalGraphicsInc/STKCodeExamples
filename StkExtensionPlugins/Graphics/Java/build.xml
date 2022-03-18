@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Extend_Graphics" default="compile">
+	<fileset id="build.files" dir=".">
+		<include name="**/build.xml" />
+		<exclude name="build.xml" />
+	</fileset>
+
+	<target name="clean">
+		<subant target="clean" failonerror="true" inheritall="false" inheritrefs="false">
+			<fileset refid="build.files" />
+		</subant>
+	</target>
+
+	<target name="compile">
+		<subant target="compile" failonerror="true" inheritall="false" inheritrefs="false">
+			<fileset refid="build.files" />
+		</subant>
+	</target>
+</project>

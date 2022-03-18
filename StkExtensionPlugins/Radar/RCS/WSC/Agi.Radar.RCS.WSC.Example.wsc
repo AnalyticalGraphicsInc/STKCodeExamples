@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{83786D22-8163-48fd-8F09-28EC7FCB516A}"
+		progid="Agi.Radar.RCS.WSC.Example"
+		description="Agi.Radar.RCS.WSC.Example"
+		version="1.00"
+	/>  
+	
+   <public>
+
+      <!-- ========== -->
+      <!-- Properties -->
+      <!-- ========== -->
+
+      <property name="IsDynamic" get="GetIsDynamic"/>
+      <property name="ConstantRCS" get="GetConstantRCS" put="SetConstantRCS"/>
+      <property name="EnablePolarization" get="GetEnablePolarization" put="SetEnablePolarization"/>
+      <property name="Verbose" get="GetVerbose" put="SetVerbose"/>
+    
+      <!-- ======= -->
+      <!-- Methods -->
+      <!-- ======= -->
+    
+      <method name="Initialize">
+        <parameter name="pluginSite"/>
+      </method>
+      <method name="PreCompute" />
+      <method name="ProcessSignals">
+        <parameter name="processSignalsParams"/>
+      </method>
+      <method name="Compute">
+        <parameter name="computeParams"/>
+      </method>
+      <method name="PostCompute" />
+      <method name="Free" />
+      <method name="GetPluginConfig">
+        <parameter name="attrBuilder" />
+      </method>
+      <method name="VerifyPluginConfig">
+        <parameter name="verifyResult" />
+      </method>
+    
+   </public>
+	
+   <script language="VBScript" src="Agi.Radar.RCS.WSC.Example.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

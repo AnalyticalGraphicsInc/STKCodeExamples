@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2005, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{70ACC552-FEFF-4b83-A3A1-B3EF0F10A5A4}"
+		progid="AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Matlab.Example1.Wsc"
+		description="AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Matlab.Example1.Wsc"
+		version="1.00"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"       			get="GetName"       			put="SetName"/>
+		<property name="Enabled"    			get="GetEnabled"    			put="SetEnabled"/>
+		<property name="VectorName" 			get="GetVectorName" 			put="SetVectorName"/>
+		<property name="AccelRefFrame" 			get="GetAccelRefFrame" 			put="SetAccelRefFrame"/>
+		<property name="AccelRefFrameChoices" 	get="GetAccelRefFrameChoices" 	put="SetAccelRefFrameChoices"/>
+		<property name="AccelX" 				get="GetAccelX" 				put="SetAccelX"/>
+		<property name="AccelY" 				get="GetAccelY" 				put="SetAccelY"/>
+		<property name="AccelZ" 				get="GetAccelZ" 				put="SetAccelZ"/>
+		<property name="MsgStatus" 				get="GetMsgStatus" 				put="SetMsgStatus"/>
+		<property name="EvalMsgInterval" 		get="GetEvalMsgInterval" 		put="SetEvalMsgInterval"/>
+		<property name="PostEvalMsgInterval" 	get="GetPostEvalMsgInterval" 	put="SetPostEvalMsgInterval"/>
+		<property name="PreNextMsgInterval" 	get="GetPreNextMsgInterval" 	put="SetPreNextMsgInterval"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="AgAsHpopPluginResultEval"/>
+		</method>
+		<method name="PostEvaluate">
+			<parameter name="AgAsHpopPluginResultPostEval"/>
+		</method>
+		<method name="PostPropagate">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+	
+	<!-- NOTE:  The method for using Matlab here is NOT to have Matlab
+				itself create a COM component. Instead, we're using
+				a VBScript based COM component to implement the HPOP plugin.
+				
+				BUT... the VBScript code will get a handle to Matlab
+				using COM, and will use Matlab's COM-available functions
+				to set inputs into Matlab, execute an m-file, 
+				and get output results from Matlab.  These are then passed
+				on through the VBScript plugin
+	-->
+	
+	<script language="VBScript" src="Matlab.Example1.Hpop.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2005, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

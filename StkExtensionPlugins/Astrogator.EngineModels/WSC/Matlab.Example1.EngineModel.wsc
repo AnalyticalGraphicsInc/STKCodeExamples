@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2005-2009, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="Matlab.Example1.EngineModel"
+	    progid="Matlab.Example1.EngineModel.WSC"
+	    version="1.00"
+	    classid="{15EF9C5D-8CF8-4747-BAD7-A33B0031C31A}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"	get="GetName"/>
+		<property name="T0"		get="GetT0"     put="SetT0"/>
+		<property name="T1"    	get="GetT1"    	put="SetT1"/>
+		<property name="T2" 	get="GetT2" 	put="SetT2"/>
+		<property name="TS" 	get="GetTS" 	put="SetTS"/>
+		<property name="TC" 	get="GetTC" 	put="SetTC"/>
+		<property name="ISP" 	get="GetISP" 	put="SetISP"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="site"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="result"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="result"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+	
+	<!-- NOTE:  The method for using Matlab here is NOT to have Matlab
+					itself create a COM component. Instead, we're using
+					a VBScript based COM component to implement the HPOP plugin.
+					
+					BUT... the VBScript code will get a handle to Matlab
+					using COM, and will use Matlab's COM-available functions
+					to set inputs into Matlab, execute an m-file, 
+					and get output results from Matlab.  These are then passed
+					on through the VBScript plugin
+	-->
+
+	<script language="VBScript" src="Matlab.Example1.EngineModel.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2005-2009, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
