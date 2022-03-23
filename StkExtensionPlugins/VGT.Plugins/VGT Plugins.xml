@@ -1,0 +1,51 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+
+    <!--
+    <Category Name = "VGT Vector Plugins">
+      <Plugin DisplayName = "CSharp Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.CSharp.Example1"/>
+      <Plugin DisplayName = "VB_NET Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.VB_NET.Example1"/>
+      <Plugin DisplayName = "CPP Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.CPP.Example1"/>
+      <Plugin DisplayName = "JScript Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.JScript.Example1"/>
+      <Plugin DisplayName = "VBScript Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.VBScript.Example1"/>
+      <Plugin DisplayName = "Perl Vector Example" ProgID = "Agi.VGT.Vector.Plugin.Examples.Perl.Example1"/>
+    </Category>
+
+    <Category Name = "VGT Axes Plugins">
+      <Plugin DisplayName = "CSharp Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.CSharp.Example1"/>
+      <Plugin DisplayName = "VB_NET Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.VB_NET.Example1"/>
+      <Plugin DisplayName = "CPP Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.CPP.Example1"/>
+      <Plugin DisplayName = "JScript Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.JScript.Example1"/>
+      <Plugin DisplayName = "VBScript Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.VBScript.Example1"/>
+      <Plugin DisplayName = "Perl Axes Example" ProgID = "Agi.VGT.Axes.Plugin.Examples.Perl.Example1"/>
+    </Category>
+
+    <Category Name = "VGT Point Plugins">
+      <Plugin DisplayName = "CSharp Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.CSharp.Example1"/>
+      <Plugin DisplayName = "VB_NET Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.VB_NET.Example1"/>
+      <Plugin DisplayName = "CPP Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.CPP.Example1"/>
+      <Plugin DisplayName = "JScript Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.JScript.Example1"/>
+      <Plugin DisplayName = "VBScript Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.VBScript.Example1"/>
+      <Plugin DisplayName = "Perl Point Example" ProgID = "Agi.VGT.Point.Plugin.Examples.Perl.Example1"/>
+    </Category>
+
+    <Category Name = "VGT CalcScalar Plugins">
+      <Plugin DisplayName = "CSharp CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.CSharp.Example1"/>
+      <Plugin DisplayName = "VB_NET CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.VB_NET.Example1"/>
+      <Plugin DisplayName = "CPP CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.CPP.Example1"/>
+      <Plugin DisplayName = "JScript CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.JScript.Example1"/>
+      <Plugin DisplayName = "VBScript CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.VBScript.Example1"/>
+      <Plugin DisplayName = "Perl CalcScalar Example" ProgID = "Agi.VGT.CalcScalar.Plugin.Examples.Perl.Example1"/>
+    </Category>
+    -->
+
+	</CategoryRegistry>
+
+</AGIRegistry>

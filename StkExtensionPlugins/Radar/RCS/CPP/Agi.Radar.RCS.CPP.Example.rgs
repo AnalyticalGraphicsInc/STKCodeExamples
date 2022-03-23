@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'AgiRadarRCSCPPExample'
+		'Agi.Radar.RCS.CPP.Example.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

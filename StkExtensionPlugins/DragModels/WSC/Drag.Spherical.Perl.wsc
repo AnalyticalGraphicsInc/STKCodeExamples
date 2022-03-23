@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2010, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{4D9FEA8E-8E7C-4716-88E2-121BC322218C}"
+		progid="AGI.Drag.Spherical.Perl.Example"
+		description="Drag.Spherical.Perl plugin example"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+				
+		<!-- =============================================================== -->
+		<!-- "DragCoefficient" was added for STK as there is no way to		 -->
+		<!-- modify CD via GUI, but should be removed when using with ODTK.	 -->
+		<!-- See BUG53691                                                 	 -->
+		<!-- =============================================================== -->
+
+		<property name="Enabled"    			get="GetEnabled"    			put="SetEnabled"/>
+		<property name="DebugMode"    			get="GetDebugMode"    			put="SetDebugMode"/>
+		<property name="DebugFile"    			get="GetDebugFile"    			put="SetDebugFile"/>
+		<property name="MsgInterval" 			get="GetMsgInterval" 			put="SetMsgInterval"/>
+		<property name="DragCoefficient" 		get="GetDragCoefficient" 		put="SetDragCoefficient"/>
+		<property name="DragArea" 				get="GetDragArea" 				put="SetDragArea"/>
+		<property name="RefFrame" 				get="GetRefFrame" 				put="SetRefFrame"/>
+		<property name="RefFrameChoices" 		get="GetRefFrameChoices"/>
+
+		
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Register">
+			<parameter name="IAgAsDragModelResultRegister"/>
+		</method>
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="PreCompute">
+			<parameter name="IAgAsDragModelResult"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="IAgAsDragModelResultEval"/>
+		</method>
+		<method name="PostCompute">
+			<parameter name="IAgAsDragModelResult"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="PerlScript" src="Drag.Spherical.Perl.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2010, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

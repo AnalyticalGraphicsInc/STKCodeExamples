@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{E786D97D-13A6-4ff1-A081-797CAF321B02}"
+		progid="Agi.VGT.Point.Plugin.Examples.JScript.Example1"
+		description="Agi.VGT.Point.Plugin.Examples.JScript.Example1"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+		<property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		
+		<method name="Init">
+					<parameter name="AgStkPluginSite"/>
+		</method>
+		
+		<method name="Register">
+			<parameter name="AgCrdnPointPluginResultReg"/>
+		</method>
+		
+		<method name="Reset">
+					<parameter name="AgCrdnPointPluginResultReset"/>
+		</method>
+				
+		<method name="Evaluate">
+			<parameter name="AgCrdnPointPluginResultEval"/>
+		</method>
+		
+		<method name="Free"/>
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+	</public>
+
+	<script language="JScript" src="VGT.Point.JScript.Example1.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

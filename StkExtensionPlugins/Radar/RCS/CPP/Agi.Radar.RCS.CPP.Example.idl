@@ -1,0 +1,57 @@
+// AgiRadarRCSCPPExample.idl : IDL source for Agi.Radar.RCS.CPP.Example
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (AgiRadarRCSCPPExample.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(0BD1A501-FAC6-4C8D-83DF-BD8A0861F452),
+    helpstring("CPP Radar RCS Plugin Example1 Interface"),
+    pointer_default(unique),
+    dual,
+    nonextensible
+]
+interface IExample1 : IDispatch
+{
+    [propget, id(1), helpstring("Gets the constant RCS value")] 
+    HRESULT ConstantRCS([out, retval] double* pConstantRCS);
+
+    [propput, id(1), helpstring("Sets the constant RCS value")] 
+    HRESULT ConstantRCS([in] double constantRCS);
+
+    [propget, id(2), helpstring("Gets the polarization enabled flag")] 
+    HRESULT EnablePolarization([out, retval] VARIANT_BOOL* pEnablePolarization);
+
+    [propput, id(2), helpstring("Sets the polarization enabled flag")] 
+    HRESULT EnablePolarization([in] VARIANT_BOOL enablePolarization);
+}
+
+[
+    uuid(35F9FAA4-D0A4-404C-91A8-5E67E3F0AF86),
+    version(1.0),
+    helpstring("AgiRadarRCSCPPExample 1.0 Type Library")
+]
+library AgiRadarRCSCPPExampleLib
+{
+    importlib("stdole2.tlb");
+    importlib("AgAttrAutomation.tlb");
+    importlib("AgUtPlugin.tlb");
+    importlib("AgCrdnPlugin.tlb");
+    importlib("AgCommRdrFoundation.tlb");
+    importlib("AgSTKRadar.tlb");
+
+    [
+        uuid(1764271E-8B31-45F6-AC77-A6F41492CB99),
+        helpstring("Example1 Class")
+    ]
+    coclass Example1
+    {
+        [default] interface IExample1;
+        interface IAgUtPluginConfig;
+        interface IAgStkRadarRcsPlugin;
+    };
+};

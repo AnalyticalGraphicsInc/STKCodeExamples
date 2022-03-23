@@ -1,0 +1,1 @@
+C:\windows\microsoft.net\Framework64\v4.0.30319\regasm.exe ./bin/x64/Debug/AGI.Drag.Lift.CSharp.Example.dll /codebase /nologo
