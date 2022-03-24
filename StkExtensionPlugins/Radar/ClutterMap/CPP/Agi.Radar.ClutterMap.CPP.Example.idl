@@ -1,0 +1,57 @@
+// AgiRadarClutterMapCPPExample.idl : IDL source for Agi.Radar.ClutterMap.CPP.Example
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (AgiRadarClutterMapCPPExample.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(96DC5283-4E82-411E-8CBA-3B50972163DD),
+    helpstring("CPP Radar Clutter Map Plugin Example1 Interface"),
+    pointer_default(unique),
+    dual,
+    nonextensible
+]
+interface IExample1 : IDispatch
+{
+    [propget, id(1), helpstring("Gets the constant coefficient value")] 
+    HRESULT ConstantCoefficient([out, retval] double* pConstantCoefficient);
+
+    [propput, id(1), helpstring("Sets the constant coefficient value")] 
+    HRESULT ConstantCoefficient([in] double constantCoefficient);
+
+    [propget, id(2), helpstring("Gets the apply grazing mask flag")] 
+    HRESULT ApplyGrazingMask([out, retval] VARIANT_BOOL* pApplyGrazingMask);
+
+    [propput, id(2), helpstring("Sets the apply grazing mask flag")] 
+    HRESULT ApplyGrazingMask([in] VARIANT_BOOL applyGrazingMask);
+}
+
+[
+    uuid(05874D34-82B2-4CD1-A52D-245207273D0E),
+    version(1.0),
+    helpstring("AgiRadarClutterMapCPPExample 1.0 Type Library")
+]
+library AgiRadarClutterMapCPPExampleLib
+{
+    importlib("stdole2.tlb");
+    importlib("AgAttrAutomation.tlb");
+    importlib("AgUtPlugin.tlb");
+    importlib("AgCrdnPlugin.tlb");
+    importlib("AgCommRdrFoundation.tlb");
+    importlib("AgSTKRadar.tlb");
+
+    [
+        uuid(11A19ED2-66D0-46D4-98D6-04B004DC656C),
+        helpstring("Example1 Class")
+    ]
+    coclass Example1
+    {
+        [default] interface IExample1;
+        interface IAgUtPluginConfig;
+        interface IAgStkRadarClutterMapPlugin;
+    };
+};

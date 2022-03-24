@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2005-2009, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="VBScript.Example1.AttitudeController"
+	    progid="VBScript.Example1.AttitudeController.WSC"
+	    version="1.00"
+	    classid="{3B66CF25-4678-4cf8-B738-F9FC721681BB}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"	get="GetName"/>
+		<property name="Y0"		get="GetY0"     put="SetY0"/>
+		<property name="Y1"    	get="GetY1"    	put="SetY1"/>
+		<property name="Y2" 	get="GetY2" 	put="SetY2"/>
+		<property name="YS" 	get="GetYS" 	put="SetYS"/>
+		<property name="YC" 	get="GetYC" 	put="SetYC"/>
+		<property name="P0" 	get="GetP0" 	put="SetP0"/>
+		<property name="P1" 	get="GetP1" 	put="SetP1"/>
+		<property name="P2" 	get="GetP2" 	put="SetP2"/>
+		<property name="PS" 	get="GetPS" 	put="SetPS"/>
+		<property name="PC" 	get="GetPC" 	put="SetPC"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="site"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="result"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="result"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="result"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="VBScript" src="VBScript.Example1.AttitudeController.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2005-2009, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Extend_STK_Plugin_Graphics_ProjectionStream_Basic" default="compile">
+	<import file="../../Common/common.xml" />
+
+	<path id="build.sourcepath">
+		<pathelement location="src" />
+	</path>
+
+	<path id="build.dependentprojects">
+		<pathelement location="../../RasterStream/Basic/build.xml" />
+	</path>
+
+	<path id="build.classpath">
+		<path refid="extend.stk.plugin.graphics.classpath" />
+		<pathelement location="../../RasterStream/Basic/classes" />
+	</path>
+	
+	<path id="build.resourcepath">
+		<fileset dir="src">
+			<exclude name="**/*.java" />
+		</fileset>
+	</path>
+
+	<target name="run" description="Not supported. This is not a runnable project.">
+		<fail message="This is not a runnable project." />
+	</target>
+</project>

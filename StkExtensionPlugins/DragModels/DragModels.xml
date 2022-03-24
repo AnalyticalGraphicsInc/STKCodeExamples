@@ -1,0 +1,42 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+		
+		<Category Name = "DragModel">
+
+			<!-- This tag to the left indicates the start of a comment block
+			
+				Register your plugins with those below. Use the following format:
+			
+				<Plugin DisplayName = "YOUR_NAME_TO_APPEAR_IN_USER_INTERFACE_GOES_HERE" ProgID = "YOUR_PROGID_GOES_HERE"/>
+				 
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+					   ProgId is invalid because of the 'd' not being capitalized. 
+					   Any improper keyword casing violation will cause the plugin to 
+					   not be registered.
+			-->
+			
+			<!-- This section is a comment block.
+			
+			The following Plugin tags register each Plugin component as a Drag Model Plugin. 
+			
+			To enable one of the sample plugins in STK or ODTK, simply build the component (if necessary), 
+			register it in the Windows Registry, and move the registration line below 
+			outside of this comment block.
+
+			<Plugin DisplayName = "Drag.Spherical.Perl" ProgID = "AGI.Drag.Spherical.Perl.Example"/>
+			<Plugin DisplayName = "Drag.NPlate_Cube.Perl" ProgID = "AGI.Drag.NPlate_Cube.Perl.Example"/>
+      		<Plugin DisplayName = "Drag.Lift.Perl" ProgID = "AGI.Drag.Lift.Perl.Example"/>
+     		<Plugin DisplayName = "Drag.Lift.CSharp" ProgID = "AGI.Drag.Lift.CSharp.Example"/>
+
+			-->
+
+    		</Category>
+
+	</CategoryRegistry>
+
+</AGIRegistry>

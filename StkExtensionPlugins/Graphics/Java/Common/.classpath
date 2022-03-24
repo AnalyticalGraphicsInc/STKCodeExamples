@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.core.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.attr.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.accessconstraints.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.astrogator.plugin.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.graphics.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.crdn.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.stk.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stk.plugin.util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkgraphics.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkobjects.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkobjects.astrogator.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+    <classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkobjects.aviator.jar">
+        <attributes>
+            <attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+            <attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+        </attributes>
+    </classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkutil.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="/SharedResources/JavaDevKit/agi.stkvgt.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/SharedResources/JavaDevKit/agi.stk.javadocs.jar!/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SharedResources/JavaDevKit"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="classes"/>
+</classpath>

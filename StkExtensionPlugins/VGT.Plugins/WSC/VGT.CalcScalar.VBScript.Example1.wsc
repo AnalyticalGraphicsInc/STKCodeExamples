@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+  <?component error="true" debug="true"?>
+  <registration
+		classid="{664F3215-BF04-4a95-B18E-DEF9F8D34501}"
+		progid="Agi.VGT.CalcScalar.Plugin.Examples.VBScript.Example1"
+		description="Agi.VGT.CalcScalar.Plugin.Examples.VBScript.Example1"
+		version="1.00"
+	>
+  </registration>
+  <public>
+
+    <property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+    <property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+    <!-- ======= -->
+    <!-- Methods -->
+    <!-- ======= -->
+
+    <method name="Init">
+      <parameter name="AgStkPluginSite"/>
+    </method>
+
+    <method name="Register">
+      <parameter name="AgCrdnCalcScalarPluginResultReg"/>
+    </method>
+
+    <method name="Reset">
+      <parameter name="AgCrdnCalcScalarPluginResultReset"/>
+    </method>
+
+    <method name="Evaluate">
+      <parameter name="AgCrdnCalcScalarPluginResultEval"/>
+    </method>
+
+    <method name="Free"/>
+
+    <method name="GetPluginConfig">
+      <parameter name="AgAttrBuilder"/>
+    </method>
+
+    <method name="VerifyPluginConfig">
+      <parameter name="AgUtPluginCfgVerifyResult"/>
+    </method>
+
+  </public>
+
+  <script language="VBScript" src="VGT.CalcScalar.VBScript.Example1.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

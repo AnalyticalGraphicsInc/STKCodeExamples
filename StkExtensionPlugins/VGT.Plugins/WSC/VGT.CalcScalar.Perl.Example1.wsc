@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+  <?component error="true" debug="true"?>
+  <registration
+		classid="{928CBCD9-F27F-4690-8FCC-DE1DBEA62078}"
+		progid="Agi.VGT.CalcScalar.Plugin.Examples.Perl.Example1"
+		description="Agi.VGT.CalcScalar.Plugin.Examples.Perl.Example1"
+		version="1.00"
+	>
+  </registration>
+  <public>
+
+    <property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+    <property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+    <!-- ======= -->
+    <!-- Methods -->
+    <!-- ======= -->
+
+    <method name="Init">
+      <parameter name="AgStkPluginSite"/>
+    </method>
+
+    <method name="Register">
+      <parameter name="AgCrdnCalcScalarPluginResultReg"/>
+    </method>
+
+    <method name="Reset">
+      <parameter name="AgCrdnCalcScalarPluginResultReset"/>
+    </method>
+
+    <method name="Evaluate">
+      <parameter name="AgCrdnCalcScalarPluginResultEval"/>
+    </method>
+
+    <method name="Free"/>
+
+    <method name="GetPluginConfig">
+      <parameter name="AgAttrBuilder"/>
+    </method>
+
+    <method name="VerifyPluginConfig">
+      <parameter name="AgUtPluginCfgVerifyResult"/>
+    </method>
+
+  </public>
+
+  <script language="PerlScript" src="VGT.CalcScalar.Perl.Example1.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
