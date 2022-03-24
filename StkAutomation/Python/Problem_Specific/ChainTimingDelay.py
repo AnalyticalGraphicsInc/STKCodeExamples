@@ -198,4 +198,4 @@ def extendAccesses(strand: Strand, preserveObjects: bool):
 
 
 if __name__ == '__main__':
-    main(preserveObjects=True)
+    main(preserveObjects=PRESERVE_OBJECTS)
