@@ -1,8 +1,0 @@
-<?xml version = "1.0"?>
-<AGIRegistry version = "1.0">
-	<CategoryRegistry>
-        <Category Name = "VGT CalcScalar Plugins">
-            <Plugin DisplayName = "DistanceToGEO.CalcScalar" ProgID = "DistanceToGEO.CalcScalar"/>
-       </Category>
-	</CategoryRegistry>
-</AGIRegistry>

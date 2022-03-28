@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'AgiRadarClutterMapCPPExample'
+		'Agi.Radar.ClutterMap.CPP.Example.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

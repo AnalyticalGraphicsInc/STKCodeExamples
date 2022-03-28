@@ -1,0 +1,158 @@
+
+<html>
+	<head>
+	<title>SGP4 to J4 Satellite</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="description" content="This HTML page creates a copy of another satellite using the classical orbital elements of the original">
+	<script language="VBSCRIPT">
+	<!--
+		Dim uiApp
+		Dim list
+		Dim HomeDir
+		Dim stkCommand
+		Dim notUsed
+					Dim thisWindow
+					Dim DescWindow
+					Dim Win3D
+					Dim scen
+					Dim root
+					Dim directory
+					Dim filePath
+	
+	
+					Sub InitPage()
+	
+					'on error resume next
+	
+					Set uiApp = window.external
+					Set root = uiApp.Personality2
+					Set scen = root.CurrentScenario
+					Set list = root.ExecuteCommand("GetSTKHomeDir /")
+	
+						HomeDir = list(0)
+						If (Right(HomeDir,1) = "/") Or (Right(HomeDir,1) = "\") Then
+									HomeDir = Left(HomeDir,len(HomeDir) - 1)
+						End If
+	
+	
+									Set directory = root.ExecuteCommand("GetDefaultDir /")
+					
+									loadObjOption()
+	
+					End Sub
+	
+	
+					Sub loadObjOption()
+									Dim tmpObjNames, arrObjNames, i
+	
+									Dim intLen
+									'remove previous stuff
+									intLen = optObj.length
+									for i = 0 to intLen - 1
+													optObj.remove(0)
+									next
+	
+									' add all Objects to pull-down
+									Set tmpObjNames = root.ExecuteCommand("ShowNames * SubObjects")
+									arrObjNames = split(tmpObjNames(0))
+	
+									For i = 1 to Ubound(arrObjNames) step 1
+													addObjOptions(arrObjNames(i)) 'Replace(Mid(arrObjNames(i), InstrRev(arrObjNames(i),"/")+1),vbLf,""))
+									Next
+					End Sub
+	
+					Sub execute()
+	
+									Dim obj, objectName, scen, Time, a, e, i, raan, aop, ta, Intervals, sc, prop, keplerian, size, scName
+	
+									objectName = optObj.Options(optObj.SelectedIndex).Text
+									NameLength = Len(objectName) - InStrRev(objectName,"/")
+									NameOnly = Right(objectName,NameLength)
+	
+									Set scen = root.CurrentScenario
+									Set obj = root.GetObjectFromPath(objectName)
+	
+									Set ClassElemdp = obj.DataProviders("Classical Elements").Group("J2000")
+	
+									Set results = ClassElemdp.Exec(scen.StartTime, scen.StopTime, 600)
+									Time = results.DataSets.GetDataSetByName("Time").GetValues
+									a = results.DataSets.GetDataSetByName("Semi-major Axis").GetValues
+									e = results.DataSets.GetDataSetByName("Eccentricity").GetValues
+									i = results.DataSets.GetDataSetByName("Inclination").GetValues
+									raan = results.DataSets.GetDataSetByName("RAAN").GetValues
+									aop = results.DataSets.GetDataSetByName("Arg of Perigee").GetValues
+									ta = results.DataSets.GetDataSetByName("True Anomaly").GetValues
+									ma = results.DataSets.GetDataSetByName("Mean Anomaly").GetValues
+									Intervals = results.Intervals.Count
+	
+									scName = (NameOnly & "_Copy")
+									Set sc = scen.Children.New(18, scName)
+	
+									root.ExecuteCommand("SetState */Satellite/" & scName & " Classical J4Perturbation "  & chr(34) & scen.StartTime & chr(34) & " " & chr(34) & scen.StopTime & chr(34) & " 60 J2000 " & chr(34) & scen.StartTime & chr(34) & " " & a(0)*1000 & " " & " " & e(0) & " " & i(0) & " " & aop(0) & " " & raan(0) & " " & ma(0))
+					End Sub
+	
+	
+					Sub UnLoadPage()
+			Set uiApp = Nothing
+			Set stk = Nothing
+		End Sub
+	
+	
+	// -->
+	</script>
+	
+	
+	<SCRIPT language="JavaScript">
+	<!--
+	function addObjOptions(optText)
+	{
+									var oOption = document.createElement("OPTION");
+									oOption.text=optText;
+									optObj.add(oOption);
+	}
+	
+	-->
+	</script>
+	
+	
+	</head>
+	
+	<BODY onLoad="InitPage()" onUnLoad="UnLoadPage()" class="light" marginheight="0" marginwidth="0" leftmargin="0" topmargin="0">
+	<TABLE border="0" cellpadding="0" cellspacing="0" align="center" class="task_box" width="100%" height="100%">
+					<tr>
+									<td align="center" valign="top">
+													<table border="0" cellpadding="6" cellspacing="0">
+																	<tr>
+																					<td align="center" colspan="2" class="demoScenarioHeaderCenter"><strong><FONT COLOR= "Navy"> SGP4 to J4 Satellite<br></font></strong></td>
+																	</tr>
+	
+	
+	
+	<!-- Select Object -->
+	
+																	<tr>
+																					<td align="center"colspan="2"><div class="addScenarioHeaderCenter">Select a Satellite Object</div>
+																		<select id="optObj" name="optObj"></select><br>
+																		</td>
+																	</tr>
+	
+	<!-- Click button to Run -->
+																	<tr>
+																					<td align="center" colspan="2"><input type="button" value="GO!" onClick="Execute()" class="submit"><br></td>
+																	</tr>
+	
+																	<tr>
+																					<td width="25%"><br></td><td width="75%"><br></td>
+																	</tr>
+	<!-- Notes -->
+	
+													</table>
+									</td>
+					</tr>
+	</TABLE>
+	
+	</body>
+	</html>
+	
+
+

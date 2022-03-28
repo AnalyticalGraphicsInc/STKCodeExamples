@@ -8,7 +8,7 @@ This utility allows you to ingest a csv file that defines air traffic and an are
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This utility creates a camera path with a smooth zoom-in effect using specified 
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ This is a utility to create a visual satellite explosion in STK.  This generates
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -44,7 +44,7 @@ This is a utility to generate a file that contains data for multiple satellites 
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -56,7 +56,7 @@ This is a utility that allows the user to select a rectangular sensor and genera
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -68,7 +68,21 @@ This utility will allow you to select an object and a vector and will create a n
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [SimGen_UMT_Exporter](SimGen_UMT_Exporter)
+
+This utility allows the user to create a SimGEN user motion file (*.umt) for an STK vehicle.  
+
+There is an optional configuration file that is white space delimeted containing `START-TIME`, `STOP-TIME`, and `FILE-PATH`.  [example configuration file](SimGen_UMT_Exporter/output-config-EXAMPLE.txt)
+
+### Dependencies
+
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 

@@ -8,7 +8,7 @@ This utility exports STK generated data as points, lines, and polygons in the fo
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This utility allows you to test out connect or object model commands inside STK.
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This utility loads a text file of connect commands to execute.
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This utility allows you to select a CSV file that has two columns of data points
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ This utility allows you to paste data into a text box and ingest that data to cr
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -76,7 +76,19 @@ This utility creates an aircraft using CONNECT commands and generates realtime p
 
 ### Dependencies
 
-* Licenses: Free
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [SGP4toJ4](SGP4toJ4.html)
+
+This utility creates a Keplerian (J4) copy of a satellite that was created using a TLE. This is useful if you have a satellite propagated from a TLE and want to manually change its orbital elements or if you want to create a walker constellation. You can open this HTML page within STK by opening the HTML Viewer (View > HTML Viewer) and browsing to this file.
+
+### Dependencies
+
+* Capabilities: Free
 * Other Scripts: N/A
 * Scenario: N/A
 

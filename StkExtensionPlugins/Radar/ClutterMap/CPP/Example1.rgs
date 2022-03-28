@@ -1,0 +1,27 @@
+HKCR
+{
+	Agi.Radar.ClutterMap.CPP.Example1.1 = s 'Example1 Class'
+	{
+		CLSID = s '{11A19ED2-66D0-46D4-98D6-04B004DC656C}'
+	}
+	Agi.Radar.ClutterMap.CPP.Example1 = s 'Example1 Class'
+	{
+		CLSID = s '{11A19ED2-66D0-46D4-98D6-04B004DC656C}'
+		CurVer = s 'Agi.Radar.ClutterMap.CPP.Example1.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {11A19ED2-66D0-46D4-98D6-04B004DC656C} = s 'Example1 Class'
+		{
+			ProgID = s 'Agi.Radar.ClutterMap.CPP.Example1.1'
+			VersionIndependentProgID = s 'Agi.Radar.ClutterMap.CPP.Example1'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{05874D34-82B2-4CD1-A52D-245207273D0E}'
+		}
+	}
+}

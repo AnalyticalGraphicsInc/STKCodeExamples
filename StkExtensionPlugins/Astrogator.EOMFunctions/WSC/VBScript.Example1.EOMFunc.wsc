@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{21380C11-D022-4745-9E9A-92DD22539E0A}"
+		progid="AGI.EOMFunc.Plugin.Examples.Stk.VBScript.Example1.Wsc"
+		description="AGI.EOMFunc.Plugin.Examples.Stk.VBScript.Example1.Wsc"
+		version="1.00"
+	/>  
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+    <property name="DeltaVAxes" 			get="GetDeltaVAxes" 			put="SetDeltaVAxes"/>
+
+    <!-- ======= -->
+    <!-- Methods -->
+    <!-- ======= -->
+    <method name="Init">
+      <parameter name="AgUtPluginSite"/>
+    </method>
+    <method name="Register">
+      <parameter name="AgAsEOMFuncPluginRegisterIntf"/>
+    </method>
+    <method name="SetIndices">
+      <parameter name="AgAsEOMFuncPluginSetIndicesIntf"/>
+    </method>
+    <method name="Calc">
+      <parameter name="EventType"/>
+      <parameter name="AgAsEOMFuncPluginStateVector"/>
+    </method>
+    <method name="Free"/>
+    <method name="GetPluginConfig">
+      <parameter name="AgAttrBuilder"/>
+    </method>
+    <method name="VerifyPluginConfig">
+      <parameter name="AgUtPluginCfgVerifyResult"/>
+    </method>
+  </public>
+	
+	<script language="VBScript" src="VBScript.Example1.EOMFunc.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

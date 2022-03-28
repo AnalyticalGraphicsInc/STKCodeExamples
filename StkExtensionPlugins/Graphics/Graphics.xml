@@ -1,0 +1,62 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+		
+		<Category Name = "GfxPlugins">
+				
+			<!-- This tag to the left indicates the start of a comment block
+
+				Register your plugins with those below. Use the following format:
+
+				<Plugin ProgID="YOUR_PROGID_GOES_HERE" DisplayName="UNIQUE_NAME_USED_IN_OBJECT_MODEL_OR_GUI"/>
+
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+			           ProgId is invalid because of the 'd' not being capitalized. 
+			           Any improper keyword casing violation will cause the plugin to 
+			           not be registered.
+			-->
+
+			<!-- This section is a comment block.
+			
+				The following Plugin tags register each Plugin component as an Graphics Plugin.
+
+				To enable one of the sample plugins in STK, simply build the component (if necessary), 
+				register it in the Windows Registry, and move the registration line below 
+				outside of this comment block.
+
+				<Plugin ProgID="ProjectionRasterStreamPlugin.CSharp" DisplayName="ProjectionRasterStreamPlugin.CSharp"/>
+				<Plugin ProgID="ProjectionRasterStreamPlugin.VBNET" DisplayName="ProjectionRasterStreamPlugin.VBNET"/>
+				<Plugin ProgID="OpenStreetMapPlugin.CSharp" DisplayName="OpenStreetMapPlugin.CSharp"/>
+				<Plugin ProgID="OpenStreetMapPlugin.VBNET" DisplayName="OpenStreetMapPlugin.VBNET"/>
+
+				If Windows 32 bit OS (only x86 JRE) then use ...
+				NOTE: You must edit the classpath to the provide compile path of the plugin samples, it may not be the default installed location.
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.ProjectionRasterStreamDriver" DisplayName="Java.ProjectionRasterStream.Basic" ClassName="agi.stk.plugin.graphics.projectionstream.basic.JavaExample" ClassPath="C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\ProjectionStream\Basic\classes;C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.RasterStreamDriver" DisplayName="Java.RasterStream.Basic" ClassName="agi.stk.plugin.graphics.rasterstream.basic.JavaExample" ClassPath="C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\RasterStream\Basic\classes;C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.CustomImageGlobeOverlayDriver" DisplayName="Java.CustomImageGlobeOverlay.OpenStreetMap" ClassName="agi.stk.plugin.graphics.cigo.osm.JavaExample" ClassPath="C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\CustomImageGlobeOverlay\OpenStreetMap\classes;C:\Program Files\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+
+				If Windows 64 bit OS (regardless of x86 JRE OR x64 JRE), then use ...
+				NOTE: You must edit the classpath to the provide compile path of the plugin samples, it may not be the default installed location.
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.ProjectionRasterStreamDriver" DisplayName="Java.ProjectionRasterStream.Basic" ClassName="agi.stk.plugin.graphics.projectionstream.basic.JavaExample" ClassPath="C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\ProjectionStream\Basic\classes;C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.RasterStreamDriver" DisplayName="Java.RasterStream.Basic" ClassName="agi.stk.plugin.graphics.rasterstream.basic.JavaExample" ClassPath="C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\RasterStream\Basic\classes;C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.CustomImageGlobeOverlayDriver" DisplayName="Java.CustomImageGlobeOverlay.OpenStreetMap" ClassName="agi.stk.plugin.graphics.cigo.osm.JavaExample" ClassPath="C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\CustomImageGlobeOverlay\OpenStreetMap\classes;C:\Program Files (x86)\AGI\STK 12\CodeSamples\Extend\Graphics\Java\Common\classes"/>
+
+				If Linux OS, then use ...
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.ProjectionRasterStreamDriver" DisplayName="Java.ProjectionRasterStream.Basic" ClassName="agi.stk.plugin.graphics.projectionstream.basic.JavaExample" ClassPath="/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/ProjectionStream/Basic/classes;/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/Common/classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.RasterStreamDriver" DisplayName="Java.RasterStream.Basic" ClassName="agi.stk.plugin.graphics.rasterstream.basic.JavaExample" ClassPath="/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/RasterStream/Basic/classes;/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/Common/classes"/>
+				<JavaPlugin ProgID="AgJNIStkPluginGraphicsDriver12.CustomImageGlobeOverlayDriver" DisplayName="Java.CustomImageGlobeOverlay.OpenStreetMap" ClassName="agi.stk.plugin.graphics.cigo.osm.JavaExample" ClassPath="/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/CustomImageGlobeOverlay/OpenStreetMap/classes;/usr/local/stk12.0.0/CodeSamples/Extend/Graphics/Java/Common/classes"/>
+			-->
+		</Category>
+		
+	</CategoryRegistry>
+
+</AGIRegistry>
