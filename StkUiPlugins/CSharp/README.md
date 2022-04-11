@@ -4,7 +4,7 @@ STK UiPlugins using C#.
 
 For general installation direction please refer to:
 
-* [reg free](https://help.agi.com/stkdevkit/index.htm#STKPlugins/NETuiPlugins_Registration.htm)
+* [registration free](https://help.agi.com/stkdevkit/index.htm#STKPlugins/NETuiPlugins_Registration.htm)
 * [registered](https://help.agi.com/stkdevkit/index.htm#STKPlugins/uiPlugins_Registration.htm)
 
 ---
