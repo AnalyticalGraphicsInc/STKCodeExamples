@@ -49,23 +49,9 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 
 ## Social Media
 
-<div align="left">
-<p style="white-space: nowrap;">
-<a href="https://www.facebook.com/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/ittkxedjpm/png/facebook.png" width="80" height="80" alt="Facebook">
-</a>
-<a href="https://www.youtube.com/user/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/i5vb9swh4e/png/Youtube.png" width="80" height="80" alt="Youtube">
-</a>
-<a href="https://www.linkedin.com/company/agi?trk=company_logo">
-<img src="https://agi.widen.net/content/foz3n4wgkh/png/linkedin.png" width="80" height="80" alt="LinkedIn">
-</a>
-<a href="https://twitter.com/agitweets">
-<img src="https://agi.widen.net/content/xbt8vag5rw/png/twitter.png" width="80" height="80" alt="Twitter">
-</a>
+[![Twitter URL](https://img.shields.io/badge/twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/agitweets)
+[![Youtube URL](https://img.shields.io/badge/youtube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/user/AnalyticalGraphics)
+[![Linkedin URL](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agi?trk=company_logo)
 
-<a href="https://www.agi.com">
-<img src="https://agi.widen.net/content/aoqxb2klxi/png/AGI-Logo_2C-W.png" width="148" height="80" alt="AGI" style="float:right">
-</a>
-</p>
-</div>
+![AGI Logo Dark](https://user-images.githubusercontent.com/3358750/162795809-4fc8326e-fd6a-4022-b731-cee62fcc58db.png#gh-dark-mode-only)
+![AGI Logo Light](https://user-images.githubusercontent.com/3358750/162795908-bf530bb9-bbab-45b0-82d7-cabd67186699.png#gh-light-mode-only)
