@@ -43,6 +43,18 @@ def addNodeContraints(stkRoot,nodeConstraints,timesEdgesDistancesDelaysBandwidth
                 # Add edge from nodeWithConstraint to the original node with the constrained value
                 timesEdgesDistancesDelaysBandwidths[t][(node2+'Constraint',node2)] = (0,0,nodesWithConstraints[node2]*step) # rate*step size
 
+
+            # Also need to check if the starting Nodes need to have a constraint added
+            startingEdgesToModify = [edge for edge in timesEdgesDistancesDelaysBandwidths[t].keys() if edge[0] in nodesWithConstraints]
+
+            for node1,node2 in startingEdgesToModify:
+                # Add edge from nodeWithConstraint to the original node with the constrained value
+                timesEdgesDistancesDelaysBandwidths[t][(node1,node1+'Constraint')] = (0,0,nodesWithConstraints[node1]*step) # rate*step size
+                # Replace end node with constrained node and delete the original edge
+                timesEdgesDistancesDelaysBandwidths[t][(node1+'Constraint',node2)] = timesEdgesDistancesDelaysBandwidths[t][(node1,node2)]
+                timesEdgesDistancesDelaysBandwidths[t].pop((node1,node2),None)
+
+
     return timesEdgesDistancesDelaysBandwidths
 
 ##### Added copyObjectForConstraints, since sometimes you need object constraints and filter a network by nodes ####
@@ -457,39 +469,42 @@ def plotColorbar(timesEdgeCountAll,cmap,plotBoth=True,tickRotationInDeg=65):
     xtickCenters = []
     uniqueCountsAll = np.sort(np.asarray(list(set(timesEdgeCountAll[:,2].astype(float)))))
     diffs = list(np.diff(uniqueCountsAll))
-    diffs.append(diffs[0])
-    maxVal = max(uniqueCountsAll)
-    fig, ax = plt.subplots(figsize = (8,2))
-    for val,width in zip(uniqueCountsAll,diffs):
-        ax.barh(1, width, height=barHeight,left=bottom,color=cmap(val/maxVal))
-        bottom += width
-        xtickCenters.append(bottom-width/2)
-    ax.set_yticks([1])
-    ax.set_yticklabels([])
-    ax.set_xticks(xtickCenters)
-    ax.set_xticklabels(uniqueCountsAll,rotation=tickRotationInDeg)
-    ax.set_ylabel('data/sec')
-    ax.set_ylim([1-barHeight/2,1+barHeight/2])
-    ax.set_xlim([xtickCenters[0]-diffs[0]/2,xtickCenters[-1]+diffs[0]/2])
-    plt.show()
-    
-    # Scatter and color bar
-    if plotBoth:
-        fig, ax = plt.subplots(figsize = (8,4))
-        plt.scatter(uniqueCountsAll,np.ones((len(uniqueCountsAll),)),c=uniqueCountsAll,cmap=cmap,s=200)
-        divider = make_axes_locatable(ax)
-        cax = divider.append_axes("bottom", size="100%", pad=0.7)
-        cbar = plt.colorbar(ticks=uniqueCountsAll,orientation="horizontal",cax=cax);
-
+    if diffs:
+        diffs.append(diffs[0])
+        maxVal = max(uniqueCountsAll)
+        fig, ax = plt.subplots(figsize = (8,2))
+        for val,width in zip(uniqueCountsAll,diffs):
+            ax.barh(1, width, height=barHeight,left=bottom,color=cmap(val/maxVal))
+            bottom += width
+            xtickCenters.append(bottom-width/2)
         ax.set_yticks([1])
         ax.set_yticklabels([])
-        ax.set_xticks(uniqueCountsAll)
-        ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        ax.set_xticks(xtickCenters)
+        ax.set_xticklabels(uniqueCountsAll,rotation=tickRotationInDeg)
         ax.set_ylabel('data/sec')
         ax.set_ylim([1-barHeight/2,1+barHeight/2])
-        ax.set_xlim([xtickCenters[0],xtickCenters[-1]+diffs[0]])
-        cbar.ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        ax.set_xlim([xtickCenters[0]-diffs[0]/2,xtickCenters[-1]+diffs[0]/2])
         plt.show()
+        
+        # Scatter and color bar
+        if plotBoth:
+            fig, ax = plt.subplots(figsize = (8,4))
+            plt.scatter(uniqueCountsAll,np.ones((len(uniqueCountsAll),)),c=uniqueCountsAll,cmap=cmap,s=200)
+            divider = make_axes_locatable(ax)
+            cax = divider.append_axes("bottom", size="100%", pad=0.7)
+            cbar = plt.colorbar(ticks=uniqueCountsAll,orientation="horizontal",cax=cax);
+
+            ax.set_yticks([1])
+            ax.set_yticklabels([])
+            ax.set_xticks(uniqueCountsAll)
+            ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+            ax.set_ylabel('data/sec')
+            ax.set_ylim([1-barHeight/2,1+barHeight/2])
+            ax.set_xlim([xtickCenters[0],xtickCenters[-1]+diffs[0]])
+            cbar.ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+            plt.show()
+    else:
+        print('Only 1 value, no colorbar will be generated:',uniqueCountsAll[0])
 
 
 
@@ -588,7 +603,7 @@ def computePriorityNetworkLayers(priorityCase=[],nodeTransferPriority=[],nodeDes
     return np.asarray(layers)
 
 # Adds in total data transfer
-def addDataMetrics(dfData,step):
+def addDataMetrics(dfData,step,addColumnForEachEndLocation=True):
     dfData2 = dfData.copy()
     data = dfData2.to_numpy()
     dataTotal = np.sum(data[:,1:],axis=1)
@@ -597,7 +612,16 @@ def addDataMetrics(dfData,step):
     dfData2['Total Data'] = dataTotal
     dfData2['Data per time step'] = transferedAtT2
     dfData2['Data per sec'] = np.asarray(transferedAtT2)/step
+    if addColumnForEachEndLocation:
+        for ii in range(1,len(dfData.columns)):
+            col = dfData.columns[ii]
+            dataCol = data[:,ii]
+            transferedAtT = list(np.diff(dataCol))
+            transferedAtT2 = [transferedAtT[0]]+transferedAtT
+            dfData2[col+' Data per sec'] = np.asarray(transferedAtT2)/step
+
     return dfData2
+
 
 
 
@@ -2473,7 +2497,6 @@ def GetNodesFromChain(stkRoot,chainName):
     objs = ['/'.join(chain2.Objects.Item(ii).Path.split('/')[-2:]) for ii in range(chain2.Objects.Count)]
     constellations = [obj for obj in objs if obj.split('/')[0] == 'Constellation']
     constellations    
-
     for obj in objs:
         if obj.split('/')[0] == 'Constellation': 
             con = stkRoot.GetObjectFromPath(obj)
