@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2015-2019, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		description="Perl Exponential Density Example"
+		progid="Density.Exponential.Perl"
+		version="1.00"
+		classid="{677E995D-DC09-453F-A3F0-EBFB3E8450DD}"
+	>
+	</registration>
+	<public>
+	
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Enabled"    			get="GetEnabled"    			put="SetEnabled"/>
+		<property name="DebugMode"    			get="GetDebugMode"    			put="SetDebugMode"/>
+		<property name="DebugFile"    			get="GetDebugFile"    			put="SetDebugFile"/>
+		<property name="MsgInterval" 			get="GetMsgInterval" 			put="SetMsgInterval"/>
+        <property name="CentralBodyName" 		get="GetCentralBodyName" 		put="SetCentralBodyName"/>
+		<property name="RefDensity" 			get="GetRefDensity" 			put="SetRefDensity"/>
+		<property name="RefAltitude" 			get="GetRefAltitude" 			put="SetRefAltitude"/>
+		<property name="ScaleAltitude" 			get="GetScaleAltitude" 			put="SetScaleAltitude"/>
+        <property name="MaxScaleHeights" 		get="GetMaxScaleHeights" 		put="SetMaxScaleHeights"/>
+		<property name="LowestValidAltitude" 	get="GetLowestValidAlt" 		put="SetLowestValidAlt"/>
+		
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Register">
+			<parameter name="IAgAsDensityModelResultRegister"/>
+		</method>
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="IAgAsDensityModelResultEval"/>
+		</method>
+		<method name="Free"/>
+		<method name="ComputesTemperature"/>
+		<method name="ComputesPressure"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+    <method name="CentralBody"/>
+    <method name="UsesAugmentedSpaceWeather"/>
+	<method name="GetLowestValidAltitude"/>
+	
+	<!-- Following methods won't work in IDispatch plugins (JScript, VBScript, Perl) -->
+    <method name="AtmFluxLags"/>
+    <method name="AugmentedAtmFluxLags"/>
+  </public>
+  <script language="PerlScript" src="Density.Exponential.Perl.pl"/>
+
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2015-2019, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->

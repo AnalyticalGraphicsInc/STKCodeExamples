@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{7AE92F30-3C27-41e1-A9CD-831DAB4F5716}"
+		progid="Agi.VGT.Vector.Plugin.Examples.Perl.Example1"
+		description="Agi.VGT.Vector.Plugin.Examples.Perl.Example1"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+		<property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		
+		<method name="Init">
+					<parameter name="AgStkPluginSite"/>
+		</method>
+		
+		<method name="Register">
+			<parameter name="AgCrdnVectorPluginResultReg"/>
+		</method>
+		
+		<method name="Reset">
+					<parameter name="AgCrdnVectorPluginResultReset"/>
+		</method>
+		
+		<method name="Evaluate">
+			<parameter name="AgCrdnVectorPluginResultEval"/>
+		</method>
+		
+		<method name="Free"/>
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+	</public>
+
+	<script language="PerlScript" src="VGT.Vector.Perl.Example1.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

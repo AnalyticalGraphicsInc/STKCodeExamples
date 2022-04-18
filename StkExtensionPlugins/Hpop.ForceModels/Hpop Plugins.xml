@@ -1,0 +1,53 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+
+		<Category Name = "HPOP Plugins">
+		
+			<!-- This tag to the left indicates the start of a comment block
+			
+				Register your plugins with those below. Use the following format:
+			
+				<Plugin DisplayName = "YOUR_NAME_TO_APPEAR_IN_USER_INTERFACE_GOES_HERE" ProgID = "YOUR_PROGID_GOES_HERE"/>
+				 
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+					   ProgId is invalid because of the 'd' not being capitalized. 
+					   Any improper keyword casing violation will cause the plugin to 
+					   not be registered.
+			-->
+			
+			<!-- This section is a comment block.
+			
+			The following Plugin tags register each Plugin component as a HPOP Plugin. 
+			
+			To enable one of the sample plugins in STK, simply build the component (if necessary), 
+			register it in the Windows Registry, and move the registration line below 
+			outside of this comment block.
+			
+			<Plugin DisplayName = "VB_NET Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.VB_NET.Example1"/>
+			<Plugin DisplayName = "VB_NET SRP Example" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Srp.VB_NET.Example1"/>
+			<Plugin DisplayName = "CSharp Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.CSharp.Example1"/>
+			<Plugin DisplayName = "CSharp SRP Example" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Srp.CSharp.Example1"/>
+			<Plugin DisplayName = "CPP Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.CPP.Example1"/>
+			<Plugin DisplayName = "VBScript Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.VBScript.Example1.Wsc"/>
+			<Plugin DisplayName = "JScript Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.JScript.Example1.Wsc"/>
+			<Plugin DisplayName = "Perl Example1" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Perl.Example1.Wsc"/>
+			<Plugin DisplayName = "Perl SRP Example" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Srp.Perl.Example1.Wsc"/>
+			<Plugin DisplayName = "Matlab Example" ProgID = "AGI.Hpop.Plugin.Examples.Stk.ForceModeling.Matlab.Example1.Wsc"/>
+			
+			-->
+			
+		</Category>
+		
+	</CategoryRegistry>
+
+</AGIRegistry>

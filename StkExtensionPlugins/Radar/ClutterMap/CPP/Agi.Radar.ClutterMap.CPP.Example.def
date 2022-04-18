@@ -1,0 +1,9 @@
+; Agi.Radar.ClutterMap.CPP.Example.def : Declares the module parameters.
+
+LIBRARY      "Agi.Radar.ClutterMap.CPP.Example.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

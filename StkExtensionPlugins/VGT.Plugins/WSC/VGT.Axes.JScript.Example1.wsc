@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{E6F7BAF4-3A2D-4b43-BD1A-D26A8BA25837}"
+		progid="Agi.VGT.Axes.Plugin.Examples.JScript.Example1"
+		description="Agi.VGT.Axes.Plugin.Examples.JScript.Example1"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+		<property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		
+		<method name="Init">
+					<parameter name="AgStkPluginSite"/>
+		</method>
+		
+		<method name="Register">
+			<parameter name="AgCrdnAxesPluginResultReg"/>
+		</method>
+		
+		<method name="Reset">
+					<parameter name="AgCrdnAxesPluginResultReset"/>
+		</method>
+				
+		<method name="Evaluate">
+			<parameter name="AgCrdnAxesPluginResultEval"/>
+		</method>
+		
+		<method name="Free"/>
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+	</public>
+
+	<script language="JScript" src="VGT.Axes.JScript.Example1.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

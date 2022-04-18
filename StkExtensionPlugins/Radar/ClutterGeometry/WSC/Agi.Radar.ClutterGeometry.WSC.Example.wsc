@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{2AF0EA5A-323E-4a62-9582-02158D8F78CA}"
+		progid="Agi.Radar.ClutterGeometry.WSC.Example"
+		description="Agi.Radar.ClutterGeometry.WSC.Example"
+		version="1.00"
+	/>  
+	
+   <public>
+
+      <!-- ========== -->
+      <!-- Properties -->
+      <!-- ========== -->
+      
+      <property name="Verbose" get="GetVerbose" put="SetVerbose"/>
+      <property name="PatchArea" get="GetPatchArea" put="SetPatchArea"/>
+      <property name="OffsetAngle" get="GetOffsetAngle" put="SetOffsetAngle"/>
+    
+      <!-- ======= -->
+      <!-- Methods -->
+      <!-- ======= -->
+    
+      <method name="Initialize">
+        <parameter name="pluginSite"/>
+      </method>
+      <method name="Register">
+        <parameter name="regInfo" />
+      </method>
+      <method name="PreCompute" />
+      <method name="Compute">
+        <parameter name="computeParams"/>
+      </method>
+      <method name="PostCompute" />
+      <method name="Free" />
+      <method name="GetPluginConfig">
+        <parameter name="attrBuilder" />
+      </method>
+      <method name="VerifyPluginConfig">
+        <parameter name="verifyResult" />
+      </method>
+    
+   </public>
+	
+   <script language="VBScript" src="Agi.Radar.ClutterGeometry.WSC.Example.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

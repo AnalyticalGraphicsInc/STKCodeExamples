@@ -1,0 +1,27 @@
+HKCR
+{
+	Agi.Radar.RCS.CPP.Example1.1 = s 'Example1 Class'
+	{
+		CLSID = s '{1764271E-8B31-45F6-AC77-A6F41492CB99}'
+	}
+	Agi.Radar.RCS.CPP.Example1 = s 'Example1 Class'
+	{
+		CLSID = s '{1764271E-8B31-45F6-AC77-A6F41492CB99}'
+		CurVer = s 'Agi.Radar.RCS.CPP.Example1.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {1764271E-8B31-45F6-AC77-A6F41492CB99} = s 'Example1 Class'
+		{
+			ProgID = s 'Agi.Radar.RCS.CPP.Example1.1'
+			VersionIndependentProgID = s 'Agi.Radar.RCS.CPP.Example1'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{35F9FAA4-D0A4-404C-91A8-5E67E3F0AF86}'
+		}
+	}
+}

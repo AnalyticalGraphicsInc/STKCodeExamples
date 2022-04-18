@@ -43,7 +43,6 @@ def addNodeContraints(stkRoot,nodeConstraints,timesEdgesDistancesDelaysBandwidth
                 # Add edge from nodeWithConstraint to the original node with the constrained value
                 timesEdgesDistancesDelaysBandwidths[t][(node2+'Constraint',node2)] = (0,0,nodesWithConstraints[node2]*step) # rate*step size
 
-
             # Also need to check if the starting Nodes need to have a constraint added
             startingEdgesToModify = [edge for edge in timesEdgesDistancesDelaysBandwidths[t].keys() if edge[0] in nodesWithConstraints]
 
@@ -621,9 +620,6 @@ def addDataMetrics(dfData,step,addColumnForEachEndLocation=True):
             dfData2[col+' Data per sec'] = np.asarray(transferedAtT2)/step
 
     return dfData2
-
-
-
 
 #### Adding Multi path and load functions
 
@@ -2497,6 +2493,7 @@ def GetNodesFromChain(stkRoot,chainName):
     objs = ['/'.join(chain2.Objects.Item(ii).Path.split('/')[-2:]) for ii in range(chain2.Objects.Count)]
     constellations = [obj for obj in objs if obj.split('/')[0] == 'Constellation']
     constellations    
+
     for obj in objs:
         if obj.split('/')[0] == 'Constellation': 
             con = stkRoot.GetObjectFromPath(obj)

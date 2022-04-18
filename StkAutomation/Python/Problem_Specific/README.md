@@ -12,6 +12,22 @@ This script allows you to add a series of annotations to the path of a moving ST
 
 ---
 
+## [ChainTimingDelay.py](ChainTimingDelay.py)
+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?) available in STK 12.1+
+
+Complete chain access in STK means that each link in the chain simultaneously has access. This script allows a maximum delay between target/asset access and the rest of the chain. This is useful for scenarios such as an imaging system with onboard storage, where a target can be imaged, then downlinked at a later time specified by the maximum delay.
+
+To use the script, just modify the user inputs then run.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [DutyCycleMultiSat.py](DutyCycleMultiSat.py)
 
 Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
