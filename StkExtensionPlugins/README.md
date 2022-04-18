@@ -100,6 +100,11 @@ Extension plugins for the Real-Time Tracking (RT3) tool. Documentation can be fo
 
 ---
 
+## [Scalar](Scalar)
+
+Extension plugins for calc scalars within Analysis Workbench. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/AgSTKVgtLib~IAgCrdnCalcScalarPlugin.html?Highlight=IAgCrdnCalcScalarPlugin)
+
+---
 ## [SRP Light Reflection](SRP.LightReflection)
 
 Customize a solar pressure force model used in the propagation of the satellite trajectory. The SRP light reflection interface documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/AgAsHpopPlugin~IAgAsLightReflectionPlugin.html).
