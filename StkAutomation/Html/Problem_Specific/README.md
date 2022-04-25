@@ -14,6 +14,20 @@ This utility allows you to ingest a csv file that defines air traffic and an are
 
 ---
 
+## [ScanningSensor_Utility](ScanningSensor_Utility)
+
+This utility allows you to to create a sensor pattern that will scan an area. You are able to specify the horizontal and vertical scan dimensions, a scan direction, and duration.
+
+![scanningsensor](https://user-images.githubusercontent.com/43221447/163268509-deeefde0-21cf-454a-af49-a99cc9452da9.jpg)
+
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [CameraPathZoom.htm](CameraPathZoom.htm)
 
 This utility creates a camera path with a smooth zoom-in effect using specified start and stop keyframes.
