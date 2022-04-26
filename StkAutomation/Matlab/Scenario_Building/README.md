@@ -52,6 +52,8 @@ This is a simple tutorial walkthrough of setting up the connection between Simul
 * Other Scripts: N/A
 * Scenario: N/A
 
+---
+
 ## [astgSlewToManeuvers.m](astgSlewToManeuvers.m)
 
 When an Astrogator satellite maneuvers by default the manuever will adjust the attitude to align with the thrust direction, but it will not slew. This script allows the satellite to slew into and out of the maneuver. The user specifies the name of the satellite, the pointing during thrusting intervals, the pointing outside of thrusting intervals, and the slew length. These inputs are set on lines 8-24.
@@ -253,7 +255,7 @@ This MATLAB COM script will create a simple satellite scenario and calculate the
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
 * Other Scripts: N/A
 * Scenario: Any open scenario
 

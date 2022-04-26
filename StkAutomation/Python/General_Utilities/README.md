@@ -126,7 +126,7 @@ Using STK Primitives, creates a latitude/longitude grid at a specifiable altitud
 
 ---
 
-## [convertTLEState.py](convertTLEState.py)
+## [convertTLEState.py](convertTleState.py)
 
 This simple function requires an open STK 12 scenario with a satellite that has been propagated with the SGP4 propagator. This function will pull out the initial state of all the SGP4 satellites in the scenario in the ICRF frame then create and propagate a new satellite of the specified propagator type using that initial state.
 
