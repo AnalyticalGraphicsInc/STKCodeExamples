@@ -161,3 +161,13 @@ Allows the user to open a TCP/IP socket to send Connect commands to STK using de
 * Scenario: N/A
 
 ---
+
+## [sunObscuration.py](sunObscuration.py)
+
+This automates the use of the Sensor Obscuration Tool to determine when the sun's disk is in the FOV of a sensor. The script takes inputs of a sensor path, step size in seconds, and save location for a calc scalar file. The script executes over the scenario analysis period and writes a calculation scalar file that represents the percent obscuration of the sensor's FOV by the sun's disk. This gets imported back into STK and is used as a condition, where the condition is satisfied if the percent obscuration is greater than zero. This condition is used to create a satisfaction interval when the sun is in the sensor FOV. This script can be easily adapted for other obscuring objects as well.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
