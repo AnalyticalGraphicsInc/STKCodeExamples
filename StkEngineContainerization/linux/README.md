@@ -1,6 +1,7 @@
 # STK Engine Containerization
 
-Examples of applications that demonstrate containerization of STK Engine on Linux.
+Examples of applications that demonstrate containerization of STK Engine on Linux.  Since these examples use a license 
+provided by the Ansys License Manager, they require STK Engine for Linux 12.4.0 or later.
 
 The following is a list of the examples in this collection along with a description of what they demonstrate.  
 Each example project provides:
