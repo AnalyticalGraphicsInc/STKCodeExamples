@@ -8,7 +8,7 @@ Uprop returns approximately zero for atmospheric loss when it determines LOS is 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [UProp] (https://www.agi.com/products/stk-specialized-modules/stk-urban-propagation)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [UProp](https://www.agi.com/products/stk-specialized-modules/stk-urban-propagation)
 * Other Scripts: N/A
 * Scenario: [SingaporeLOSplugin.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/f29a6489-e855-438b-8876-1cf75648b50f)
 

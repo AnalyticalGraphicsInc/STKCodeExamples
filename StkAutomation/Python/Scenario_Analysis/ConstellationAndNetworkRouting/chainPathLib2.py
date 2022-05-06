@@ -11,12 +11,97 @@ import os
 import time
 
 
+
+#### Added in method to account for node constraints as edge constraints between a fictious node
+def addNodeContraints(stkRoot,nodeConstraints,timesEdgesDistancesDelaysBandwidths,start,stop,step):
+
+    def buildNodesWithConstraints(stkRoot,nodeConstraints):
+        nodesWithConstraints = {}
+        for constellationName,val in nodeConstraints.items():
+            nodes = getNodesFromConstellation(stkRoot,constellationName)
+            for node in nodes:
+                nodesWithConstraints[node]  = val
+        return nodesWithConstraints
+
+    # Get Node constraint for each node
+    nodesWithConstraints = buildNodesWithConstraints(stkRoot,nodeConstraints)
+
+    # Build times
+    times = np.arange(start,stop,step)
+    times = np.append(times,stop)
+
+    if nodesWithConstraints:
+        # Loop through each time and add in constraints
+        for t in times:
+            # Find where the edge ends in a node, force it to go to the constrained node instead and build an edge to map the node constraint onto the edge
+            edgesToModify = [edge for edge in timesEdgesDistancesDelaysBandwidths[t].keys() if edge[1] in nodesWithConstraints]
+
+            for node1,node2 in edgesToModify:
+                # Replace end node with constrained node and delete the original edge
+                timesEdgesDistancesDelaysBandwidths[t][(node1,node2+'Constraint')] = timesEdgesDistancesDelaysBandwidths[t][(node1,node2)]
+                timesEdgesDistancesDelaysBandwidths[t].pop((node1,node2),None)
+                # Add edge from nodeWithConstraint to the original node with the constrained value
+                timesEdgesDistancesDelaysBandwidths[t][(node2+'Constraint',node2)] = (0,0,nodesWithConstraints[node2]*step) # rate*step size
+
+            # Also need to check if the starting Nodes need to have a constraint added
+            startingEdgesToModify = [edge for edge in timesEdgesDistancesDelaysBandwidths[t].keys() if edge[0] in nodesWithConstraints]
+
+            for node1,node2 in startingEdgesToModify:
+                # Add edge from nodeWithConstraint to the original node with the constrained value
+                timesEdgesDistancesDelaysBandwidths[t][(node1,node1+'Constraint')] = (0,0,nodesWithConstraints[node1]*step) # rate*step size
+                # Replace end node with constrained node and delete the original edge
+                timesEdgesDistancesDelaysBandwidths[t][(node1+'Constraint',node2)] = timesEdgesDistancesDelaysBandwidths[t][(node1,node2)]
+                timesEdgesDistancesDelaysBandwidths[t].pop((node1,node2),None)
+
+
+    return timesEdgesDistancesDelaysBandwidths
+
+##### Added copyObjectForConstraints, since sometimes you need object constraints and filter a network by nodes ####
+# In theory we don't need to do this. A ficticious version could be created
+def copyObjectsForConstraints(root,objTypes):
+    # objTypes = {'Facility','Place','Target'}
+    scenario = root.CurrentScenario
+    for ii in range(scenario.Children.Count-1,0,-1):
+        object = scenario.Children.Item(ii)
+        if object.ClassName in objTypes:
+            object.CopyObject('{}ForConstraints'.format(object.InstanceName))
+    return
+
+
+def networkIncludingNode(nodesToInclude,df):
+    includedNodes = []
+    for id,row in df['strand'].iteritems():
+        include = False
+        for node in nodesToInclude:
+            if node in row:
+                include = True
+                break
+        includedNodes.append(include)
+    dfOfInterest = df.loc[includedNodes,:]
+    return dfOfInterest
+
+
 # Potential Future Work: Switch to max flow problem in nx. After initial runtime investigation there does not appear to be much benefit, at most a factor of 2 better, but that estimate was missing a bunch of other processing steps
 # Allow for possibility of stoping, saving and reusing data
 
+# Upon further thought, my implementation is similar to Edmonds-Karp Algorithm. Edmonds-Karp does a BFS and then finds the max flow through that path,
+# augments the paths by the capacity remaining and then does another BFS. I do the same thing but with djikstra's algorithm.
+
+# Done: All sources and sinks could be linked to a super node, and then all of the nx algorithms would work out of the box, but there are less oppurtunities for customization.
+
 ############## Added Data Transfer, 
 
-def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDistancesDelaysBandwidths,timesDataToTransfer,timesDataTransfered,startingNodes,endingNodes,priorityCase=1,nodeTransferPriority=[],nodeDestinationPriority=[],metric='distance',maxDataTransfer=1e15,breakOnceAllDataIsTransfered = True,overrideData=False,printTime=False,filename=''):
+# Find shortest strand between Source and Sink, which are fictious nodes which make calculations easier
+def shortestStrandDistanceOptimized(G,metric='distance'):
+    try:
+        distance = nx.shortest_path_length(G,'Source','Sink',weight=metric)
+        strand = nx.shortest_path(G,'Source','Sink',weight=metric)
+    except:
+        strand = ''
+        distance = np.nan
+    return strand,distance
+
+def computeDataTransferThroughNetwork(start,stop,step,timesEdgesDistancesDelaysBandwidths,timesDataToTransfer,timesDataTransfered,startingNodes,endingNodes,priorityCase=1,nodeTransferPriority=[],nodeDestinationPriority=[],metric='distance',maxDataTransfer=1e15,breakOnceAllDataIsTransfered = True,overrideData=False,printTime=False,filename='',minPacketSize = 0):
 
     # Use first nodes for the naming convention
     if not filename:
@@ -118,6 +203,14 @@ def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDist
                     for edge in edgesToRemove:
                         timesEdgesDistancesDelaysBandwidths[t].pop(edge)
 
+                    # Use super node Source And Sink
+                    for node in startingNodes:
+                        if not G.has_edge('Source',node):
+                            G.add_edge(*('Source',node),distance=0,timeDelay=0,bandwidth=1/maxDataTransfer)
+                    for node in endingNodes:
+                        if not G.has_edge(node,'Sink'):
+                            G.add_edge(*(node,'Sink'),distance=0,timeDelay=0,bandwidth=1/maxDataTransfer)
+
 
                     ## LOOP here to keep doing while strands are available        
                     # Find shortest strand metric
@@ -142,9 +235,14 @@ def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDist
 
 
 
-                        strandShort,metricVal = shortestStrandDistance(G,startingNodes,endingNodes,metric=metric)
+                        # strandShort,metricVal = shortestStrandDistance(G,startingNodes,endingNodes,metric=metric) # old version.
+                        strandShort,metricVal = shortestStrandDistanceOptimized(G,metric=metric) # About twice as fast as the old version.
+                        # And I think it scales far better instead of running the algorithms numStartNodes*numEndNodes, just let the edges from the source and sink account for it all
+                        
                         # Count total data transfered
+                        dataTransferedFlag = False
                         if not np.isnan(float(metricVal)):  
+                            strandShort = strandShort[1:-1] # Remove Source and Sink pseudo nodes
                             startNode = strandShort[0]
                             endNode = strandShort[-1]
                             edges = [(strandShort[jj],strandShort[jj+1]) for jj in range(len(strandShort)-1)]
@@ -152,29 +250,43 @@ def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDist
                             bandwidths.append(tDataToTransfer[startNode]) # Don't allow negative data at the source
                             bandwidths.append(maxDataTransfer-totalBandwidthTransfered) # Don't go past maximum network transfer
                             dataTransfered = min(bandwidths)
-                            totalBandwidthTransfered += dataTransfered
-                            # Modify Bandwidth and remove filled bandwidth, remove any used edge
-                            for edge in edges:
-                                distance,timeDelay,availableBandwidth = timesEdgesDistancesDelaysBandwidths[t][edge]
-                                timesEdgesDistancesDelaysBandwidths[t].update({edge:(distance,timeDelay,availableBandwidth-dataTransfered)})
-                                if abs(timesEdgesDistancesDelaysBandwidths[t][edge][2]) < 1e-6: # Allow some numerical issues, effectively 0
-            #                         print("Saturated bandwidth on edge:",edge)
-                                    # Could store saturated edges? Or reverse engineer later
-                                    timesEdgesDistancesDelaysBandwidths[t].pop(edge)
 
-                            # Update data transfer
-                            tDataToTransfer.update({startNode:tDataToTransfer[startNode]-dataTransfered})
-                            tDataTransfered.update({endNode:tDataTransfered[endNode]+dataTransfered})
-            #                 print(timeStrandMetric[-1][-2])
-            #                 print('Total BandwidthTransfered:', totalBandwidthTransfered)
+                            # Handle minimum packet size, pop off edges with too little remaining bandwidth and repeat
+                            transferData = True
+                            if (dataTransfered - minPacketSize) < -1e-6:  # Allow for some numerical issues, effectively less than 0
+                                for edge in edges:
+                                    if (timesEdgesDistancesDelaysBandwidths[t][edge][2] - minPacketSize) < -1e-6: # Allow for some numerical issues, effectively less than 0
+                                        timesEdgesDistancesDelaysBandwidths[t].pop(edge)
+                                        transferData = False
+
+                            # If data transfered > minPacketSize. OR if the remaining data to transfer < min Packet size, and it isn't an edge constraint issue
+                            if (dataTransfered - minPacketSize) >= -1e-6 or transferData:
+                                dataTransferedFlag = True
+                                # Transfer the data
+                                totalBandwidthTransfered += dataTransfered
+                                # Modify Bandwidth and remove filled bandwidth, remove any used edge
+                                for edge in edges:
+                                    distance,timeDelay,availableBandwidth = timesEdgesDistancesDelaysBandwidths[t][edge]
+                                    timesEdgesDistancesDelaysBandwidths[t].update({edge:(distance,timeDelay,availableBandwidth-dataTransfered)})
+                                    if (timesEdgesDistancesDelaysBandwidths[t][edge][2]) < 1e-6: # Allow for some numerical issues, effectively 0
+                #                         print("Saturated bandwidth on edge:",edge)
+                                        # Could store saturated edges? Or reverse engineer later
+                                        timesEdgesDistancesDelaysBandwidths[t].pop(edge)
+
+                                # Update data transfer
+                                tDataToTransfer.update({startNode:tDataToTransfer[startNode]-dataTransfered})
+                                tDataTransfered.update({endNode:tDataTransfered[endNode]+dataTransfered})
+                #                 print(timeStrandMetric[-1][-2])
+                #                 print('Total BandwidthTransfered:', totalBandwidthTransfered)
                         else:
                             pathsAvailable = False
 
-                        if (totalBandwidthTransfered-dataTransfered) > 0: # check if data has already been transfered
-                            if not np.isnan(float(metricVal)): # don't append nan values if data has already been transfered/paths have been found
-                                timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
-                        else:
-                            timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
+                        if dataTransferedFlag:
+                            if (totalBandwidthTransfered-dataTransfered) > 0: # check if data has already been transfered
+                                if not np.isnan(float(metricVal)): # don't append nan values if data has already been transfered/paths have been found
+                                    timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
+                            else:
+                                    timeStrandMetric.append((t,strandShort,metricVal,dataTransfered))
                     else:
                         pathsAvailable = False
 
@@ -202,6 +314,7 @@ def computeDataTransferThroughNetwork(start,stop,step,timeNodePos,timesEdgesDist
         df[metric] = df[metric].astype(float)
         if metric == 'bandwidth':
             df = df.drop([metric], axis=1)
+        df['strand'] = df['strand'].apply(lambda x: [node for node in x if not 'Constraint' in node]) # Remove constrained nodes
         df['num hops'] = df['strand'].apply(lambda x: len(x)-2)
         df['num parent hops'] = df['strand'].apply(lambda x: len(set([str.split(obj,'/')[1] for obj in x]))-2) # numb parent hops
         df.loc[df['num hops'] < 0,'num hops'] = np.nan
@@ -355,39 +468,42 @@ def plotColorbar(timesEdgeCountAll,cmap,plotBoth=True,tickRotationInDeg=65):
     xtickCenters = []
     uniqueCountsAll = np.sort(np.asarray(list(set(timesEdgeCountAll[:,2].astype(float)))))
     diffs = list(np.diff(uniqueCountsAll))
-    diffs.append(diffs[0])
-    maxVal = max(uniqueCountsAll)
-    fig, ax = plt.subplots(figsize = (8,2))
-    for val,width in zip(uniqueCountsAll,diffs):
-        ax.barh(1, width, height=barHeight,left=bottom,color=cmap(val/maxVal))
-        bottom += width
-        xtickCenters.append(bottom-width/2)
-    ax.set_yticks([1])
-    ax.set_yticklabels([])
-    ax.set_xticks(xtickCenters)
-    ax.set_xticklabels(uniqueCountsAll,rotation=tickRotationInDeg)
-    ax.set_ylabel('data/sec')
-    ax.set_ylim([1-barHeight/2,1+barHeight/2])
-    ax.set_xlim([xtickCenters[0]-diffs[0]/2,xtickCenters[-1]+diffs[0]/2])
-    plt.show()
-    
-    # Scatter and color bar
-    if plotBoth:
-        fig, ax = plt.subplots(figsize = (8,4))
-        plt.scatter(uniqueCountsAll,np.ones((len(uniqueCountsAll),)),c=uniqueCountsAll,cmap=cmap,s=200)
-        divider = make_axes_locatable(ax)
-        cax = divider.append_axes("bottom", size="100%", pad=0.7)
-        cbar = plt.colorbar(ticks=uniqueCountsAll,orientation="horizontal",cax=cax);
-
+    if diffs:
+        diffs.append(diffs[0])
+        maxVal = max(uniqueCountsAll)
+        fig, ax = plt.subplots(figsize = (8,2))
+        for val,width in zip(uniqueCountsAll,diffs):
+            ax.barh(1, width, height=barHeight,left=bottom,color=cmap(val/maxVal))
+            bottom += width
+            xtickCenters.append(bottom-width/2)
         ax.set_yticks([1])
         ax.set_yticklabels([])
-        ax.set_xticks(uniqueCountsAll)
-        ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        ax.set_xticks(xtickCenters)
+        ax.set_xticklabels(uniqueCountsAll,rotation=tickRotationInDeg)
         ax.set_ylabel('data/sec')
         ax.set_ylim([1-barHeight/2,1+barHeight/2])
-        ax.set_xlim([xtickCenters[0],xtickCenters[-1]+diffs[0]])
-        cbar.ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+        ax.set_xlim([xtickCenters[0]-diffs[0]/2,xtickCenters[-1]+diffs[0]/2])
         plt.show()
+        
+        # Scatter and color bar
+        if plotBoth:
+            fig, ax = plt.subplots(figsize = (8,4))
+            plt.scatter(uniqueCountsAll,np.ones((len(uniqueCountsAll),)),c=uniqueCountsAll,cmap=cmap,s=200)
+            divider = make_axes_locatable(ax)
+            cax = divider.append_axes("bottom", size="100%", pad=0.7)
+            cbar = plt.colorbar(ticks=uniqueCountsAll,orientation="horizontal",cax=cax);
+
+            ax.set_yticks([1])
+            ax.set_yticklabels([])
+            ax.set_xticks(uniqueCountsAll)
+            ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+            ax.set_ylabel('data/sec')
+            ax.set_ylim([1-barHeight/2,1+barHeight/2])
+            ax.set_xlim([xtickCenters[0],xtickCenters[-1]+diffs[0]])
+            cbar.ax.set_xticklabels(uniqueCountsAll,rotation = tickRotationInDeg)
+            plt.show()
+    else:
+        print('Only 1 value, no colorbar will be generated:',uniqueCountsAll[0])
 
 
 
@@ -486,7 +602,7 @@ def computePriorityNetworkLayers(priorityCase=[],nodeTransferPriority=[],nodeDes
     return np.asarray(layers)
 
 # Adds in total data transfer
-def addDataMetrics(dfData,step):
+def addDataMetrics(dfData,step,addColumnForEachEndLocation=True):
     dfData2 = dfData.copy()
     data = dfData2.to_numpy()
     dataTotal = np.sum(data[:,1:],axis=1)
@@ -495,9 +611,15 @@ def addDataMetrics(dfData,step):
     dfData2['Total Data'] = dataTotal
     dfData2['Data per time step'] = transferedAtT2
     dfData2['Data per sec'] = np.asarray(transferedAtT2)/step
+    if addColumnForEachEndLocation:
+        for ii in range(1,len(dfData.columns)):
+            col = dfData.columns[ii]
+            dataCol = data[:,ii]
+            transferedAtT = list(np.diff(dataCol))
+            transferedAtT2 = [transferedAtT[0]]+transferedAtT
+            dfData2[col+' Data per sec'] = np.asarray(transferedAtT2)/step
+
     return dfData2
-
-
 
 #### Adding Multi path and load functions
 
@@ -729,7 +851,7 @@ def generateDiNetworkBandwidth(t,timeEdgesDistancesDelaysBandwidth,timeNodePos):
     return G
 
 
-def recomputeMissingData(strands,nodesTimesPos,strandsAtTimes,recomputeIfDataIsMissing=True):
+def recomputeMissingData(stkRoot,strands,start,stop,step,chainNames,nodesTimesPos,strandsAtTimes,recomputeIfDataIsMissing=True):
 
     computedNodeTimes = np.unique([item for nodeDict in list(nodesTimesPos.values()) for item in list(nodeDict.keys())])
     missingDataTimes = [t for t in np.array(list(strandsAtTimes.keys())) if t not in computedNodeTimes]
@@ -1981,7 +2103,7 @@ def countNodesOverTime(listOfListOfNodesAtT,topN=''):
 
 def countEdgesOverTime(listofEdges,topN=''):
     if not topN:
-        topN = len(listOfListOfNodesAtT)
+        topN = len(listofEdges)
     scores = np.asarray(list(Counter(listofEdges).items()))
     scores = scores[np.argsort(scores[:,1].astype(float)),:][::-1]
     return scores[0:topN,:]
@@ -2016,6 +2138,9 @@ def shortestStrandDistance(G,startingNodes,endingNodes,metric='distance'):
         strand = ''
         distance = np.nan
     return strand,distance
+
+
+
 
 # Find how many nodes need to be removed to lose access between starting and ending nodes
 # def nodesToLoseAccessOld(G,startingNodes,endingNodes,loseAccessTo='all'):
@@ -2165,6 +2290,8 @@ def network_plot_3D(G,t=0,save=False,metric='distance',startingNodes=[],endingNo
     # Plot shortest Path
     if startingNodes and endingNodes:
         strand,distance = shortestStrandDistance(G,startingNodes,endingNodes,metric=metric)
+        # Could switch to this to run faster, just need to add in source and sink as done in computeDataTransferThroughNetwork
+        # strandShort,metricVal = shortestStrandDistanceOptimized(G,metric=metric)
         edges = [(strand[ii],strand[ii+1]) for ii in range(len(strand)-1)]
         for i,j in enumerate(edges):
             x = np.array((pos[j[0]][0], pos[j[1]][0]))
@@ -2251,6 +2378,9 @@ def computeNetworkMetrics(start,stop,step,timeNodePos,timesEdgesDistancesDelays,
             # Find shortest strand metric
             if any([node in G.nodes() for node in startingNodes]) and any([node in G.nodes() for node in endingNodes]):
                 strandShort,metricVal = shortestStrandDistance(G,startingNodes,endingNodes,metric=metric)
+                # Could switch to this to run faster, just need to add in source and sink as done in computeDataTransferThroughNetwork
+                # strandShort,metricVal = shortestStrandDistanceOptimized(G,metric=metric)
+                
                 timeStrandMetric.append((t,strandShort,metricVal))
             else:
                 timeStrandMetric.append((t,'',np.nan))
@@ -2450,7 +2580,7 @@ def computeEdgeDistance2(edges,t,allEdgesOverTime):
 
 # Merge results
 # Merge strands into one dict and df
-def mergerChainResults2(allChainResults):
+def mergerChainResults2(allChainResults,times,chainNames):
     mergedTimesStrandsDistances = {}
     for t in times:
         tempDict = {}
@@ -2508,7 +2638,7 @@ def computeMinStrandsDistances2(times,timeStrandsDistances,numStrands=1):
     df.loc[df['num hops'] < 0,'num hops'] = np.nan
     return df
 
-def computeTimeStrandsDistances(strandsAtTimes,stationaryNodes):
+def computeTimeStrandsDistances(strandsAtTimes,stationaryNodePos):
     timeStrandsDistances = {strandsAtTime[0]: strandsAtTimeToEdges(strandsAtTime,stationaryNodePos)[0] for strandsAtTime in strandsAtTimes}
     return timeStrandsDistances
 
@@ -2554,7 +2684,7 @@ def strandsAtTimeToEdges2(strandsAtTime,allEdgesOverTime):
     return strandsAtTimeDistance,edgesDistances
 
 
-def minRangeIntervals2(timesMinStrandsDistances):
+def minRangeIntervals2(timesMinStrandsDistances,stop):
     strandList = list('-')
     starts = []
     for t,s,d in timesMinStrandsDistances:

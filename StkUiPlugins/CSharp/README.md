@@ -4,7 +4,7 @@ STK UiPlugins using C#.
 
 For general installation direction please refer to:
 
-* [reg free](https://help.agi.com/stkdevkit/index.htm#STKPlugins/NETuiPlugins_Registration.htm)
+* [registration free](https://help.agi.com/stkdevkit/index.htm#STKPlugins/NETuiPlugins_Registration.htm)
 * [registered](https://help.agi.com/stkdevkit/index.htm#STKPlugins/uiPlugins_Registration.htm)
 
 ---
@@ -71,8 +71,6 @@ This plugin utilized the Bing Maps API to create an STK ground vehicle.  The plu
 2) Enter an origin and destination address and it will route a GroundVehicle along this path
 3) Select a lat/lon box and the number of GroundVehicles and it will generate paths from random start/stop locations within the box to simulate traffic
 
-For install instruction please refer to [this FAQ](https://agiweb.secure.force.com/code/articles/Custom_Solution/Create-GV-from-directions)
-
 ---
 
 ## [ModelPixelUpdater](ModelPixelUpdater)
@@ -105,7 +103,7 @@ This closely follows the [Object Model Tutorial](https://help.agi.com/stkdevkit/
 
 ---
 
-## [OperatorToolbox](OperatorToolbox)
+## [OperatorsToolbox](OperatorsToolbox)
 
 Operator’s Toolbox is a UI plugin designed specifically to improve the efficiency of common operational tasks. The tools made available in this plugin are mainly based on customer requests to automate certain processes within STK in an effort to reduce analysis time for real world scenarios.
 
@@ -118,8 +116,6 @@ For more information about the plugin and individual tools please refer to the s
 The Orbit Tuner UI plugin allows you to use slider bars to change the value of the orbital elements and have the orbit updated in real-time in the 3D Graphics Window. you can also type in values to change the orbit.
 
 ![orbitTunerUi](OrbitTuner/oirbitTunerUi.png)
-
-For install instructions refer to [this FAQ](https://agiweb.secure.force.com/code/articles/Custom_Solution/Orbit-Tuner)
 
 ---
 

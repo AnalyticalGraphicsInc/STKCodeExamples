@@ -36,13 +36,13 @@ Implement a custom search algorithm when using a Target Sequence. The astrogator
 
 ## [Attitude Simulator](AttitudeSimulatorPlugin)
 
-Scripts to drive the attitude simulator capability within STK. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#../Subsystems/pluginScripts/Content/attitudePoints.htm?Highlight=attitude%20simulator).
+Scripts to drive the attitude simulator capability within STK. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#../Subsystems/pluginScripts/Content/attitudePoints.htm).
 
 ---
 
 ## [Aviator Strategy](AviatorStrategy)
 
-Customize the basic maneuver strategy within the Aviator module. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#aircraft/proc_basicManeuver.htm?TocPath=Add-on%2520Modules%257CAviator%257CProcedures%257CBasic%2520Maneuver%257C_____0).
+Customize the basic maneuver strategy within the Aviator module. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#aircraft/proc_basicManeuver.htm).
 
 ---
 
@@ -66,7 +66,7 @@ Implement a custom ephemeris file reader that can be used with the STK External 
 
 ## [Graphics](Graphics)
 
-Plugins that cover a variety of graphical customizations. Listings of plugin types can be found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_pluginPoints.htm?TocPath=Select%2520the%2520Right%2520Technology%257CExtend%2520AGI%2520Products%257CExtend%2520the%2520Engine%257CCOM%2520Based%2520Engine%2520Plugins%257CEngine%2520Plugin%2520Technology%257C_____1).
+Plugins that cover a variety of graphical customizations. Listings of plugin types can be found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_pluginPoints.htm).
 
 ---
 
@@ -78,7 +78,7 @@ Customize the force model used when using HPOP and STK Astrogator to numerically
 
 ## [Plugin Scripts](PluginScripts)
 
-Plugin points for tasks performed by an individual script. Types of plugin scripts are found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_scriptPluginPoints.htm?TocPath=Select%2520the%2520Right%2520Technology%257CExtend%2520AGI%2520Products%257CExtend%2520the%2520Engine%257CEngine%2520Plugin%2520Scripts%257C_____1).
+Plugin points for tasks performed by an individual script. Types of plugin scripts are found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_scriptPluginPoints.htm).
 
 ---
 
@@ -90,16 +90,21 @@ Scripts to customize report formats. Documentation can be found [here](https://h
 
 ## [Radar](Radar)
 
-Plugins that cover a variety of radar computations. Listings of plugin types can be found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_pluginPoints.htm?TocPath=Select%2520the%2520Right%2520Technology%257CExtend%2520AGI%2520Products%257CExtend%2520the%2520Engine%257CCOM%2520Based%2520Engine%2520Plugins%257CEngine%2520Plugin%2520Technology%257C_____1).
+Plugins that cover a variety of radar computations. Listings of plugin types can be found [here](https://help.agi.com/stkdevkit/index.htm#STKPlugins/enginePlugins_pluginPoints.htm).
 
 ---
 
 ## [RT3](RT3)
 
-Extension plugins for the Real-Time Tracking (RT3) tool. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/Rt3_PG.html?TocPath=Library%2520Reference%257CRT3%2520Object%2520Model%257C_____0).
+Extension plugins for the Real-Time Tracking (RT3) tool. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/Rt3_PG.html).
 
 ---
 
+## [Scalar](Scalar)
+
+Extension plugins for calc scalars within Analysis Workbench. Documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/AgSTKVgtLib~IAgCrdnCalcScalarPlugin.html)
+
+---
 ## [SRP Light Reflection](SRP.LightReflection)
 
 Customize a solar pressure force model used in the propagation of the satellite trajectory. The SRP light reflection interface documentation can be found [here](https://help.agi.com/stkdevkit/index.htm#DocX/AgAsHpopPlugin~IAgAsLightReflectionPlugin.html).
