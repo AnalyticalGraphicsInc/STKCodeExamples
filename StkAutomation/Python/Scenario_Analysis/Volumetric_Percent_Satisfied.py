@@ -14,7 +14,7 @@ satisfactionValue = 1
 
 # Set stopTime to "None" to compute a single point in time.
 # Set startTime and stopTime to "None" to use scenario interval
-startTime = None  # UTCG
+startTime = '7 Dec 2021 16:00:00.000'  # UTCG
 stopTime = '8 Dec 2021 16:00:00.000'  # UTCG
 #stopTime = None
 timeStep = 7250  # sec
