@@ -1,0 +1,1 @@
+Copy the `stk_binaries_v${version}.tgz` and `stk_data_v${version}.tgz` into this folder.

@@ -1,0 +1,1 @@
+If your network requires special CA certificates to download packages, copy your CA certificate (`*.crt`) files to this folder.
