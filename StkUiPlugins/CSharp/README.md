@@ -142,3 +142,9 @@ This UiPlugin adds an 'Export UMT File' option to STK vehicles.  This will then 
 For install instructions and further information please refer to the [readme](SimGEN_UMTExporter/README.docx)
 
 ---
+
+## [HorizonsEphemImporter](Stk12.UiPlugin.HorizonsEphemImporter)
+
+This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
+
+---
