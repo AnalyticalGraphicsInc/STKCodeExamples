@@ -143,6 +143,12 @@ For install instructions and further information please refer to the [readme](Si
 
 ---
 
+## [HorizonsEphemImporter](HorizonsEphemImporter)
+
+This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
+
+---
+
 ## [TETK_Example_UI_Plugin](TETK_Example_UI_Plugin)
 
 This sample plugin is to demonstrate how custom TETK worfklows can be created through custom UIs using TETK Connect commands. This particular example consists of an F35 ownship
