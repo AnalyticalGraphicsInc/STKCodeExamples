@@ -13,8 +13,6 @@ For general installation direction please refer to:
 
 This plugin is designed to work with all model types including MDL, Collada, and glTF. To successfully use the plugin, you need a model that has built-in articulations. A good starting point is to use the default models that come with the STK install. For setup, simply download the attached zip folder and follow the instructions listed below.
 
-For more information on the plugin and install instructions please refer to [this FAQ](https://agiweb.secure.force.com/code/articles/Custom_Solution/Articulation-Creator-Plugin).
-
 ---
 
 ## [CameraControlAutomator](CameraControlAutomator)
@@ -34,8 +32,6 @@ This plugin allows you to implement angle limit constraints on your vehicle's at
 After creating the attitude, the vehicle will remain aligned with the alignment vector until reaching the angle offset limit. Once at the limit, the attitude will hold there while still attempting to stay with the alignment vector. Once the angle offset is below the limit, the attitude returns to normal.
 
 ![AttitudeExample](https://user-images.githubusercontent.com/60355211/130655920-50bb1ede-f7a9-4997-994d-79cc67bc26a7.png)
-
-To use this plugin directly, follow the instructions [here](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constrained-Attitude-UI-Plugin)
 
 ---
 
@@ -140,5 +136,49 @@ For install instructions please refer to the proper readme coorelating to your S
 This UiPlugin adds an 'Export UMT File' option to STK vehicles.  This will then generate an UMT (user motion) file for use in SimGEN.
 
 For install instructions and further information please refer to the [readme](SimGEN_UMTExporter/README.docx)
+
+---
+
+## [HorizonsEphemImporter](HorizonsEphemImporter)
+
+This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
+
+---
+
+## [TETK_Example_UI_Plugin](TETK_Example_UI_Plugin)
+
+This sample plugin is to demonstrate how custom TETK worfklows can be created through custom UIs using TETK Connect commands. This particular example consists of an F35 ownship
+with a radar system under test. The forward-facing radar of the F35 captures tracking data for ten other aircraft flying in the vicinity. TSPI data is loaded for the F35 ownship
+as well as the other ten aircraft. The tracking data for the radar is also loaded and a track is created in the TETK Tracks workflow. A filtered track based on Track ID can also
+be created. A desired track can then be promoted and a Track Comparison can be run to compare how well the radar tracked a particular aircraft relative to its TSPI. Several quick
+buttons exist to create comparison graphs and a data display.
+
+### **Prerequistes**
+
+You will need to download a folder with data files which you can obtain [here](https://agi.widen.net/s/wb8l2zrb9f/tetk_notional_test_datasets). Please unzip the folder the following location:
+`C:\AGI`
+* Note - You may need to create the AGI folder. This folder path is necessary since the plugin uses hardcoded file paths for certain buttons.
+
+### **Workflow instructions**
+
+- Right-click the toolbar area at the top of STK and make sure "TETK Example Plugin" is enabled.
+- The plugin toolbar has two white target buttons, a "Workflow 1" button, and a "Test Connect" button.
+- The actions within this buttons need to be run in order from left to right.
+
+#### 1st Target Icon Button - Load TETK Data
+- Imports needed data mappings and loads ownship, associated state, and additional track data.
+
+#### 2nd Target Icon Button - Create TETK Tracks
+- Button to add raw tracking data for all 10 associated aircraft.
+- Can create individual, filtered tracks based on track IDs for each aircraft. Note that an aircraft may have several track IDs (sensor saw it for some time, lost it, regained it).
+- Can promote a track to a heavy aircraft object (for use in Workflow 1 button).
+
+#### Workflow 1 Button - Compute Track Comparison
+- Create and compute a track comparison given a track, truth obj, and measured obj (promoted track from prev button).
+- Several quick buttons to create track comparison products.
+
+#### Test Connect Command Button
+- Enter any Connect command as desired and click the "Run Connect Command".
+- The Export button captures ALL Connect commands run in the plugin and exports them to a .txt file in the scenario folder.
 
 ---

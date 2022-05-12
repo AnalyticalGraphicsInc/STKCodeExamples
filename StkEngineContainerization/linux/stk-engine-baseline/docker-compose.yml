@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+    stk-engine-baseline:
+        image: ansys/stk/stk-engine-baseline:12.4.0-centos7
+        build: 
+            context: .
+            args:
+                baseImage: centos:7
+        env_file: ../configuration/licensing.env
