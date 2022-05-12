@@ -13,8 +13,6 @@ For general installation direction please refer to:
 
 This plugin is designed to work with all model types including MDL, Collada, and glTF. To successfully use the plugin, you need a model that has built-in articulations. A good starting point is to use the default models that come with the STK install. For setup, simply download the attached zip folder and follow the instructions listed below.
 
-For more information on the plugin and install instructions please refer to [this FAQ](https://agiweb.secure.force.com/code/articles/Custom_Solution/Articulation-Creator-Plugin).
-
 ---
 
 ## [CameraControlAutomator](CameraControlAutomator)
@@ -34,8 +32,6 @@ This plugin allows you to implement angle limit constraints on your vehicle's at
 After creating the attitude, the vehicle will remain aligned with the alignment vector until reaching the angle offset limit. Once at the limit, the attitude will hold there while still attempting to stay with the alignment vector. Once the angle offset is below the limit, the attitude returns to normal.
 
 ![AttitudeExample](https://user-images.githubusercontent.com/60355211/130655920-50bb1ede-f7a9-4997-994d-79cc67bc26a7.png)
-
-To use this plugin directly, follow the instructions [here](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constrained-Attitude-UI-Plugin)
 
 ---
 
