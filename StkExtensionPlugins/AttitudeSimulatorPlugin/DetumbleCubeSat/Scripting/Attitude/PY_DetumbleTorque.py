@@ -41,7 +41,7 @@ def PY_DetumbleTorque_compute( argList ):
 
 	# Get inputs
 	epoch = argList[PY_DetumbleTorque_Inputs['time']]
-	magFieldVec = argList[PY_DetumbleTorque_Inputs['MagFieldIGRF']]
+	magFieldVec = np.array([argList[PY_DetumbleTorque_Inputs['MagFieldIGRF']]])
 
 	# MagFieldIGRF is 6x1 tuple of magField and magFieldDot
 	magField = magFieldVec[0:3]
