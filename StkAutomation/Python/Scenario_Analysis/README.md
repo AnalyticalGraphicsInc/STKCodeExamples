@@ -49,7 +49,7 @@ More information on each of the notebooks can be found in the readme within the 
 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
-* Scenario: [Constellation and Network Routing Example](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
+* Scenario: [Constellation and Network Routing Example](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/674cb49a-f67e-40f5-b7c5-0fd57abbb879)
 
 ---
 
