@@ -141,6 +141,8 @@ For install instructions and further information please refer to the [readme](Si
 
 ## [HorizonsEphemImporter](HorizonsEphemImporter)
 
+---
+
 This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
 
 ---
