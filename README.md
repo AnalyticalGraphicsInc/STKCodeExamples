@@ -3,7 +3,7 @@
 
 [![Documentation](https://img.shields.io/badge/docs-online-FFB71B?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
 [![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
-[![Download](https://img.shields.io/badge/download-12.4-D9D8D6?style=for-the-badge)](https://support.agi.com/downloads/3/)
+[![Download](https://img.shields.io/badge/download-12.4-007DB7?style=for-the-badge)](https://support.agi.com/downloads/3/)
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from AGI, an Ansys company.
 
@@ -15,7 +15,7 @@ The repository offers fully functional tools and libraries of example code that 
 
 * [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
 * [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
-* [STK Engine Containerization](./StkEngineContainerization) contains examples that demonstrate containerization of STK Engine applications.
+* [STK Engine Containerization](./StkEngineContainerization) contains examples that demonstrate containerization of STK Engine applications
 * [STK UI Plugins](./StkUiPlugins) contains UI Plugin applications for the STK desktop application
 * [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
 
