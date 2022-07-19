@@ -64,7 +64,7 @@ This plugin allows the user to right click on a Figure of Merit and then:
 This plugin utilized the Bing Maps API to create an STK ground vehicle.  The plugin allows for 3 different options to generate these ground vehciles.
 
 1) Enter an origin and destination address and it will route a GroundVehicle along this path
-2) Enter an origin and destination address and it will route a GroundVehicle along this path
+2) Select an origin and destination STK Facility/Target/Place object and it will route a GroundVehicle along this path
 3) Select a lat/lon box and the number of GroundVehicles and it will generate paths from random start/stop locations within the box to simulate traffic
 
 ---
