@@ -260,3 +260,15 @@ This MATLAB COM script will create a simple satellite scenario and calculate the
 * Scenario: Any open scenario
 
 ---
+
+## [PNT_and_Object_Coverage_Automation.m](PNT_and_Object_Coverage_Automation.m)
+
+This MATLAB script populates and automates an example position, navigation, and timing (PNT) scenario containing a test aircraft and several other objects which we'll call pseudolites. These other objects consist of two aircraft and six ground stations which 'observe' the test aircraft and seek to determine its position. Dilution of Precision (DOP) and Navigation Accuracy calculations are completed using single-object coverage. The data is then exported into MATLAB where a plot is generated for each solution.
+
+### Dependencies
+
+* Capabilities: Free, [Pro](https://www.agi.com/products/stk/pro), [Integration](https://www.agi.com/capabilities/integration), [Coverage](https://www.agi.com/capabilities/coverage)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
