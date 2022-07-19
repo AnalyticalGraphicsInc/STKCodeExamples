@@ -141,8 +141,6 @@ For install instructions and further information please refer to the [readme](Si
 
 ## [HorizonsEphemImporter](HorizonsEphemImporter)
 
----
-
 This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
 
 ---
@@ -182,5 +180,6 @@ You will need to download a folder with data files which you can obtain [here](h
 #### Test Connect Command Button
 - Enter any Connect command as desired and click the "Run Connect Command".
 - The Export button captures ALL Connect commands run in the plugin and exports them to a .txt file in the scenario folder.
+
 
 ---
