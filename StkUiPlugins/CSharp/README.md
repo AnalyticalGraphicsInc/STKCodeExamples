@@ -64,7 +64,7 @@ This plugin allows the user to right click on a Figure of Merit and then:
 This plugin utilized the Bing Maps API to create an STK ground vehicle.  The plugin allows for 3 different options to generate these ground vehciles.
 
 1) Enter an origin and destination address and it will route a GroundVehicle along this path
-2) Enter an origin and destination address and it will route a GroundVehicle along this path
+2) Select an origin and destination STK Facility/Target/Place object and it will route a GroundVehicle along this path
 3) Select a lat/lon box and the number of GroundVehicles and it will generate paths from random start/stop locations within the box to simulate traffic
 
 ---
@@ -141,8 +141,6 @@ For install instructions and further information please refer to the [readme](Si
 
 ## [HorizonsEphemImporter](HorizonsEphemImporter)
 
----
-
 This UiPlugin allows you to import objects from the JPL Horizons database into STK. This plugin is compatible with STK 12.
 
 ---
@@ -182,5 +180,6 @@ You will need to download a folder with data files which you can obtain [here](h
 #### Test Connect Command Button
 - Enter any Connect command as desired and click the "Run Connect Command".
 - The Export button captures ALL Connect commands run in the plugin and exports them to a .txt file in the scenario folder.
+
 
 ---
