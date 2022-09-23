@@ -123,5 +123,5 @@ When this is set then the project can be built and debugged from within Visual S
  ---
 ## **Download**  
  
-If you simply want to utilize this utility you can download a working executable [here](https://agiweb.secure.force.com/faqs/articles/Keyword/Operator-s-Toolbox-Plugin)
+If you simply want to utilize this utility you can download a working executable [here](https://analyticalgraphics.force.com/faqs/articles/Keyword/Operator-s-Toolbox-Plugin)
 
