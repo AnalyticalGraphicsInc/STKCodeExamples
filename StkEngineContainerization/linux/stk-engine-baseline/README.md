@@ -6,7 +6,7 @@ This Docker image code sample demonstrates how to install STK Engine for Linux i
 ## Prerequisites
 * Docker must be running on your system.
 * By default, this sample uses the `centos:7` Docker image as its baseline.  
-If you are not able to pull images directly from Dockerhub on your system, 
+If you are not able to pull images directly from Docker Hub on your system, 
 you must load the baseline OS image on your system before building this image.
 * Access to an Ansys Licensing Server with a valid STK license.  Edit the 
 [`licensing.env`](../configuration/licensing.env) file to ensure the `ANSYSLMD_LICENSE_FILE` environment variable 

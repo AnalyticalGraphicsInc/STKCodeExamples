@@ -1,7 +1,6 @@
 # STK Engine Containerization
 
-Examples of applications that demonstrate containerization of STK Engine on Linux.  Since these examples use a license 
-provided by the Ansys License Manager, they require STK Engine for Linux 12.4.0 or later.
+This collection of code samples includes examples that demonstrate containerization of STK Engine on Linux.
 
 The following is a list of the examples in this collection along with a description of what they demonstrate.  
 Each example project provides:
@@ -24,57 +23,31 @@ Provides the environment required to communicate with the Yum and Pip package ma
 This is optional if you are directly connected to the internet. It is required if you are using a proxy/firewall or 
 isolated network requiring different certificates, settings, or both.
 
-### Dependencies
-* Images: [stk-engine-baseline](stk-engine-baseline), centos:7
-* Files: Custom Certificate Authorities, Yum Repositories
-
 ## [Base STK Engine Docker image](stk-engine-baseline)	
 Provides the STK Engine installation with the runtime configuration (environment variables) to run STK Engine applications.
 
-### Dependencies
-* Images: centos:7
-* Files: STK Engine for Linux v12.4.0+
-
 ## [Connect STK Engine Docker image](stk-engine-connect)
-Runs the connectconsole executable to expose Connect through a socket from the container.
-
-### Dependencies
-* Images: [stk-engine-baseline](stk-engine-baseline)
-* Files: N/A
+Derives from the base STK Engine image and runs the connectconsole executable to expose Connect through a socket from 
+the container.
 
 ## [Python STK Engine Docker image](stk-engine-python)	
-Adds Python to the image.
-
-### Dependencies
-* Images: [stk-engine-baseline](stk-engine-baseline) / [stk-engine-custom-baseline](custom-environment)
-* Files: N/A
+Derives from the base STK Engine image and adds Python to the image.
 
 ## [Jupyter STK Engine Docker image](stk-engine-jupyter)
-Exposes JupyterLab from the container. Go to JupyterLab in your web browser to exercise Python notebooks 
-using STK Engine for computations. AGI also provides an example notebook.
-
-### Dependencies
-* Images: [stk-engine-python](stk-engine-python)
-* Files: N/A
+Derives from the Python STK Engine image and exposes JupyterLab from the container. Go to JupyterLab in your web browser 
+to exercise Python notebooks using STK Engine for computations. AGI also provides an example notebook.
 
 ## [Custom STK Engine Service Docker image](stk-engine-webservice)	
-Shows how to develop and include your own web service(s) in the Docker image. You can write those web services in 
-Java and Python for Linux, and also with .NET if using a Windows container. This is just a bare-bones minimal web 
-service example using the Flask development server and is not production ready. Please refer to the Flask 
-documentation for best practices on how to create and deploy a production-ready web service.
-
-### Dependencies
-* Images: [stk-engine-python](stk-engine-python)
-* Files: N/A
+Derives from the Python STK Engine image and shows how to develop and include your own web service(s) in the Docker 
+image. You can write those web services in Java and Python for Linux, and also with .NET if using a Windows container. 
+This is just a bare-bones minimal web service example using the Flask development server and is not production ready. 
+Please refer to the Flask documentation for best practices on how to create and deploy a production-ready web service.
 
 ## [STK Parallel Computing Server example](stk-parallel-computing-server)	
 Provides three example images and composes two of them together to run a full STK Parallel Computing Server cluster. 
 The first image, in the coordinator subdirectory, contains the STK Parallel Computing Server Coordinator. 
-The second image, in the Python subdirectory, includes the STK Parallel Computing Python API. 
-The third image, in the agent subdirectory, contains the STK Parallel Computing Server Agent. 
-This project includes an example client script that demonstrates how to exercise the STK Parallel Computing 
-Java/.NET/Python APIs to drive batch STK Engine computations and tasks.
-
-### Dependencies
-* Images: [stk-engine-python](stk-engine-python), centos:7 / [custom/centos:7](custom-environment)
-* Files: STK Parallel Computing Server v2.4.0+
+The second image, in the Python subdirectory, derives from the Python STK Engine image and includes the 
+STK Parallel Computing Python API. The third image, in the agent subdirectory, derives from the Python image in this 
+example and contains the STK Parallel Computing Server Agent. This project includes an example client script that 
+demonstrates how to exercise the STK Parallel Computing Java/.NET/Python APIs to drive batch STK Engine computations 
+and tasks.
