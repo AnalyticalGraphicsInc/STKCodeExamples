@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     stk-engine-webservice:
-        image: ansys/stk/stk-engine-webservice:12.4.0-windowsservercore-ltsc2019
+        image: ansys/stk/stk-engine-webservice:12.5.0-windowsservercore-ltsc2019
         build: 
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-python:12.4.0-windowsservercore-ltsc2019
+                baseImage: ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019
         ports:
             - 5000:5000
         env_file: ../configuration/licensing.env

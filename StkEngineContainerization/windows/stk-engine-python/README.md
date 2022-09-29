@@ -15,23 +15,23 @@ has your Ansys License Server information.
 ## Special Configuration
 This image is built using the `pip` tool to install Python package dependencies. Please see the
 [`custom-environment`](../custom-environment/README.md) Docker image code sample project and build the
-`ansys/stk/stk-engine-custom-baseline:12.4.0-windowsservercore-ltsc2019` image, if needed, before proceeding with this image.
+`ansys/stk/stk-engine-custom-baseline:12.5.0-windowsservercore-ltsc2019` image, if needed, before proceeding with this image.
 
 ## Method 1 - Docker CLI
 
 ### Build the Image
 If you did not build the `custom-environment` image described above, run
-`docker build -t ansys/stk/stk-engine-python:12.4.0-windowsservercore-ltsc2019 .` on the command line in this directory.
+`docker build -t ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019 .` on the command line in this directory.
 
 If you did build the `custom-environment` image described above, run
-`docker build -t ansys/stk/stk-engine-python:12.4.0-windowsservercore-ltsc2019 --build-arg baseImage=ansys/stk/stk-engine-custom-baseline:12.4.0-windowsservercore-ltsc2019 .`
+`docker build -t ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019 --build-arg baseImage=ansys/stk/stk-engine-custom-baseline:12.5.0-windowsservercore-ltsc2019 .`
 on the command line in this directory.
 
 ### Run the Container
 This image starts the `python` interpreter when starting the container.  You can verify that
 STK Engine is working inside the `stk-engine-python` container with the following steps:
 1. Run the following command from this directory:
-`docker run -it --env-file ../configuration/licensing.env --name stk-python --rm ansys/stk/stk-engine-python:12.4.0-windowsservercore-ltsc2019`
+`docker run -it --env-file ../configuration/licensing.env --name stk-python --rm ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019`
 2. Execute the following Python commands and verify it returns a valid response:
     ```python
     from agi.stk12.stkengine import STKEngine
@@ -45,7 +45,7 @@ STK Engine is working inside the `stk-engine-python` container with the followin
 ### Build the Image
 1. If you built the `custom-environment` images described in the [Special Configuration](#special-configuration) section,
 edit the [`docker-compose.yml`](./docker-compose.yml) file to set the value of the `baseImage` build argument to
-`ansys/stk/stk-engine-custom-baseline:12.4.0-windowsservercore-ltsc2019`.
+`ansys/stk/stk-engine-custom-baseline:12.5.0-windowsservercore-ltsc2019`.
 2. Run `docker compose build` on the command line in this directory.
 
 ### Run the Container

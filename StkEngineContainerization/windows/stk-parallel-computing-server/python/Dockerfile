@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-engine-python:12.4.0-windowsservercore-ltsc2019
+ARG baseImage=ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019
 FROM ${baseImage}
 
 # Copy Parallel Computing Server Python API

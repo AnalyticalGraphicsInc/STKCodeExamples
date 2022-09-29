@@ -17,11 +17,11 @@ has your Ansys License Server information.
 ## Method 1 - Docker CLI
 
 ### Build the Image
-1. Download version 12.4.0 or later of STK Engine for Windows from https://support.agi.com/downloads. 
-This example will assume version 12.4.0.
-2. Place the `STK_Engine_v12.4.0.zip` file in the
+1. Download version 12.5.0 or later of STK Engine for Windows from https://support.agi.com/downloads. 
+This example will assume version 12.5.0.
+2. Place the `STK_Engine_v12.5.0.zip` file in the
 [`distributions`](./distributions) folder at the same level as this file.
-3. Run `docker build -t ansys/stk/stk-engine-baseline:12.4.0-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` 
+3. Run `docker build -t ansys/stk/stk-engine-baseline:12.5.0-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` 
 on the commandline in this directory.
 
 ### Run the Container
@@ -29,16 +29,16 @@ STK Engine requires a host application to run, so this baseline image does not s
 If you were to run a container from this image, it would exit immediately.
 However, you can verify that STK Engine is working inside the `stk-engine-baseline` container with the following steps:
 1. Run the following command from this directory:
-`docker run -it --name stk-baseline --env-file ..\configuration\licensing.env --rm ansys/stk/stk-engine-baseline:12.4.0-windowsservercore-ltsc2019 ConnectConsole.exe /interactive /noGraphics`
+`docker run -it --name stk-baseline --env-file ..\configuration\licensing.env --rm ansys/stk/stk-engine-baseline:12.5.0-windowsservercore-ltsc2019 ConnectConsole.exe /interactive /noGraphics`
 2. Execute a Connect command such as `GetSTKVersion /` and verify you receive a correct response.
 3. Exit the Connect console by executing the command `exit`.
 
 ## Method 2 - Docker Compose
 
 ### Build the Image
-1. Download version 12.4.0 or later of STK Engine for Windows from
-https://support.agi.com/downloads. This example will assume version 12.4.0.
-2. Place the `STK_Engine_v12.4.0.zip` file in the
+1. Download version 12.5.0 or later of STK Engine for Windows from
+https://support.agi.com/downloads. This example will assume version 12.5.0.
+2. Place the `STK_Engine_v12.5.0.zip` file in the
 [`distributions`](./distributions) folder at the same level as this file.
 3. On the command line, run `docker compose build --build-arg agreeToLicense=yes`.
 

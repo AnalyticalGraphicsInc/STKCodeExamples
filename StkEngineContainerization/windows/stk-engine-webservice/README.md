@@ -16,13 +16,13 @@ has your Ansys License Server information.
 ## Method 1 - Docker CLI
 
 ### Build the Image
-1. Run `docker build -t ansys/stk/stk-engine-webservice:12.4.0-windowsservercore-ltsc2019 .` on the command line in this directory.
+1. Run `docker build -t ansys/stk/stk-engine-webservice:12.5.0-windowsservercore-ltsc2019 .` on the command line in this directory.
 
 ### Run the Container
 The entrypoint of this container starts the Flask development server in the foreground, 
 listening on the container's port `5000`. To start the container and verify its functionality:
 1. Run the following command from this directory: 
-`docker run -d -p 5000:5000 --env-file ../configuration/licensing.env --name stk-engine-webservice --rm ansys/stk/stk-engine-webservice:12.4.0-windowsservercore-ltsc2019`
+`docker run -d -p 5000:5000 --env-file ../configuration/licensing.env --name stk-engine-webservice --rm ansys/stk/stk-engine-webservice:12.5.0-windowsservercore-ltsc2019`
     * If port `5000` is already in use on your machine, map a different port (e.g. `1234:5000`). 
 2. After the container has started, use a web browser to navigate to 
 `http://localhost:5000/access?startTime=2022-01-01T12:00:00.000-05:00&stopTime=2022-01-02T12:00:00.000-05:00`
