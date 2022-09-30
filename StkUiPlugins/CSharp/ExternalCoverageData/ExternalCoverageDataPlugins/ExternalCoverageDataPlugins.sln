@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1972
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadExternalCoverageDataPlugin", "ExternalCoverageDataUiPlugin\LoadExternalCoverageDataPlugin.csproj", "{8BAEA94A-4B75-4727-A788-D4F928DFF818}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalCoverageDataAccessPlugin", "ExternalCoverageDataAccessPlugin\ExternalCoverageDataAccessPlugin.csproj", "{3F001D88-79ED-424E-8328-F245B447FD01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|x64.ActiveCfg = Debug|x64
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Debug|x64.Build.0 = Debug|x64
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|x64.ActiveCfg = Release|x64
+		{8BAEA94A-4B75-4727-A788-D4F928DFF818}.Release|x64.Build.0 = Release|x64
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Debug|x64.ActiveCfg = Debug|x64
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Debug|x64.Build.0 = Debug|x64
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Release|x64.ActiveCfg = Release|x64
+		{3F001D88-79ED-424E-8328-F245B447FD01}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52B11204-B28E-4013-AF08-14548D17B94A}
+	EndGlobalSection
+EndGlobal
