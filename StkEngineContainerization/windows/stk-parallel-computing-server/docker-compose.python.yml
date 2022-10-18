@@ -1,18 +1,18 @@
 version: '3.7'
 services:
     python:
-        image: ansys/stk/stk-parallel-computing-server-python:2.5-centos7
+        image: ansys/stk/stk-parallel-computing-server-python:2.5.0-windowsservercore-ltsc2019
         build:
             context: ./python
             args:
-                baseImage: ansys/stk/stk-engine-python:12.4.0-centos7 
+                baseImage: ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019
         volumes:
-            - ./client_example.py:/tmp/client_example.py
+            - ./:C:/TEMP/
         environment:
             - COORDINATOR_HOSTNAME=coordinator
             - COORDINATOR_PORT=9090
-        working_dir: /tmp
-        networks: 
+        working_dir: C:/TEMP/
+        networks:
             - stk-parallel-computing-server
 networks:
     stk-parallel-computing-server:
