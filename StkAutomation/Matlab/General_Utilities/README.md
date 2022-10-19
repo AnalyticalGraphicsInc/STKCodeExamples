@@ -1,5 +1,20 @@
 # MATLAB General Utility Samples
 
+## [Clutter Simulator]
+
+The clutter simulator folder contains the SSA_Clutter_Interference_Visualizer.m demo tool. This is meant to be a simple and fast simulator for showing a target object, a randomly generated star like background, and a series of clutter objects traveling along in a constellation group.
+
+
+### Dependencies
+
+* Capabilities: N/A
+* Other Scripts: trim_or_pad.m,create_clutter_map.m,create_satellite_train_layer.m,create_star_info.m,create_star_map.m
+draw_antialias_line.m,generate_2d_gaussian_psf.m,mouse_figure.m
+SSA_Clutter_Interference_Visualizer.fig
+* Scenario: N/A
+
+---
+
 ## [convertTLEState.m](convertTLEState.m)
 
 This simple function requires an open STK 12 scenario with a satellite that has been propagated with the SGP4 propagator. This function will pull out the initial state of the SGP4 satellite in the ICRF frame then create and propagate a new satellite of the specified propagator type using that initial state. Place this file in your MATLAB working directory and then you can call it within other MATLAB scripts or directly from the command window.
