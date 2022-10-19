@@ -322,3 +322,27 @@ This script takes the TransponderLB STK scenario and outputs the Eb/No, rain los
 * Scenario: [TransponderLB.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/048cbff3-4567-4409-acdf-3dbb1830615c)
 
 ---
+
+## [AccumulatedPower_CreateUserSuppliedData.m](AccumulatedPower_CreateUserSuppliedData.m)
+
+This script will calculate access from your satellite to any one of the facilities in your scenario or that you specify. It will use a Chain object to determine times at which any access is calculated between the satellite and any one of the facilities. When access valid, the ‘connectedConsumptionRate’ is used. When there is no access, the ‘defaultConsumptionRate’ is used. These values are summed at every time step (based on the value you specified in the script) and then put into a custom ‘External Data’ report file that STK can then use as a Data Provider and displayed using the data display feature. The data display must be set up in the GUI.
+Some high-level inputs are required: constants for power accumulation, selections for ground sites you’ll be using, the name of the satellite, and the time step you’ll be checking for connection at. You’ll also need to specify an intermediary file location.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [EOIRTextureMaps](EOIRTextureMaps)
+
+This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
+
+### Dependencies
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---

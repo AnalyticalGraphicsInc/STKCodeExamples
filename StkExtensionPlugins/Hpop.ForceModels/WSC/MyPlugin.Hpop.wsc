@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright YYYY, YOUR COMPANY NAME GOES HERE          -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	
+	<!-- =========================================================================== -->
+	
+	<!-- The registration section contains the COM identification information -->
+	
+	<!-- 
+			You must generate a unique GUID (globally unique identifier) for each 
+			plugin component you create so that the Windows COM registry can find 
+			this software component.  
+			
+			Microsoft provides tools for generating a GUID (do not create one on your own).  
+			Users without Microsoft Visual Studio should download the Windows Script Component
+			Wizard from www.msdn.com/downloads which can also generate GUIDs.
+	-->
+		
+	<!--    
+			The ProgId (program identifier) is a human-readable identifier that is associated
+			with this GUID .
+	-->
+	
+	<registration
+		classid="{YOUR_GUID_GOES_HERE}"
+		progid="YOUR_PROGID_GOES_HERE"
+		description="YOUR_DESCRIPTION_GOES_HERE"
+		version="1.00"
+	/>
+	<public>
+	
+		<!-- =========================================================================== -->
+		
+		<!-- This section declares the Propeties and Methods of the component. -->
+		
+		<!-- You must declare the IAgAsHpopPlugin interface (1 property, 7 methods). -->
+		
+		<!-- 
+				Note that the Name property is actually implemented by 2 different functions.
+				Below, the get function is declared to be implemented by the GetName() function. 
+				The put function (also called the set function) is declared to be 
+				implemented by the SetName() function. 
+				
+				The Name property is only used when printing out Messages in the Viewer.
+		-->
+		
+		<property name="Name" get="GetName" put="SetName"/>
+		
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="PrePropagate">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="PreNextStep">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="AgAsHpopPluginResultEval"/>
+		</method>
+		<method name="PostEvaluate">
+			<parameter name="AgAsHpopPluginResultPostEval"/>
+		</method>
+		<method name="PostPropagate">
+			<parameter name="AgAsHpopPluginResult"/>
+		</method>
+		<method name="Free"/>
+		
+		<!-- 
+				NOTE: the script file will need to implement all of the functions declared above,
+		     	using the arguments as indicated. See thr samples provided.
+		-->
+
+		<!-- =========================================================================== -->
+		
+		<!-- 
+				You have the option of declaring plugin parameter data that the user can then modify 
+				inside the application. If you do not want to declare your own data, then you
+				must NOT declare the methods below (simply remove them from this file).
+				If you want to declare plugin parameter data, then you must
+				implement the IAgUtPluginConfig interface (2 methods) AND implement all the
+				get and put methods declared during parameter registration.
+		-->
+		
+		<!-- Declaring the 2 methods required for IAgUtPluginConfig -->
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+		<!-- 
+				Every plugin parameter that is declared in the implementation of the
+				GetPluginConfig() call is a property of this component that must also
+				be declared here. 
+		-->
+		
+		<!-- An example of a declaring property (called MyProperty below) -->
+		
+		<property name="MyProperty" get="GetMyProperty" put="SetMyProperty"/>
+		
+	</public>
+	
+	<!-- =========================================================================== -->
+	
+	<!-- 
+			Finally, import into this software component all the script code that implements all of 
+			functions declared above. While you could implement the functions in this same file, 
+			we recommend that you actually implement the source code in a separate file 
+			so that you can run the script by itself (by double-clicking on it) to detect whether 
+			there are any syntax errors. 
+			
+			To do this, use a <script> tag that sets the language and the filename.
+			
+			Language may be: 
+				-  VBScript
+				-  JScript
+				-  PerlScript (if you installed ActiveState Perl)
+				-  Python (if you installed ActiveState Python)			
+	-->
+
+	<script language="LANGUAGE_GOES_HERE" src="FILENAME_GOES_HERE"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright YYYY, YOUR COMPANY NAME GOES HERE          -->
+<!-- ===================================================== -->

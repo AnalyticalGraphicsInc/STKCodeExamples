@@ -1,0 +1,57 @@
+// AgiRadarClutterGeometryCPPExample.idl : IDL source for Agi.Radar.ClutterGeometry.CPP.Example
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (AgiRadarClutterGeometryCPPExample.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(E2BB301F-6DCB-416F-8609-F0D3B3069D9A),
+    helpstring("CPP Radar Clutter Geometry Plugin Example1 Interface"),
+    pointer_default(unique),
+    dual,
+    nonextensible
+]
+interface IExample1 : IDispatch
+{
+    [propget, id(1), helpstring("Gets the patch area")] 
+    HRESULT PatchArea([out, retval] double* pPatchArea);
+
+    [propput, id(1), helpstring("Sets the patch area")] 
+    HRESULT PatchArea([in] double patchArea);
+
+    [propget, id(2), helpstring("Gets the offset angle")] 
+    HRESULT OffsetAngle([out, retval] double* pOffsetAngle);
+
+    [propput, id(2), helpstring("Sets the offset angle")] 
+    HRESULT OffsetAngle([in] double offsetAngle);
+}
+
+[
+    uuid(38F043B1-6E82-49F9-A0F3-DCF7537A6500),
+    version(1.0),
+    helpstring("AgiRadarClutterGeometryCPPExample 1.0 Type Library")
+]
+library AgiRadarClutterGeometryCPPExampleLib
+{
+    importlib("stdole2.tlb");
+    importlib("AgAttrAutomation.tlb");
+    importlib("AgUtPlugin.tlb");
+    importlib("AgCrdnPlugin.tlb");
+    importlib("AgCommRdrFoundation.tlb");
+    importlib("AgSTKRadar.tlb");
+
+    [
+        uuid(BCF09889-7219-498A-963D-0A96DBE8034F),
+        helpstring("Example1 Class")
+    ]
+    coclass Example1
+    {
+        [default] interface IExample1;
+        interface IAgUtPluginConfig;
+        interface IAgStkRadarClutterGeometryPlugin;
+    };
+};

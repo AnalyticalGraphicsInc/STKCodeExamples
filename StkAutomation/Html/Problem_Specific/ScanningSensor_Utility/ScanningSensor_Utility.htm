@@ -1,0 +1,470 @@
+<html>
+	<head>
+		<title> Scanning Sensor Utility </title>
+
+		<script language="JavaScript">
+
+			uiApp = window.external;
+			stk   = uiApp.personality;
+
+			fso = uiApp.CreateObject("Scripting.FileSystemObject");
+
+			stk.ExecuteCommand("ConControl / VerboseOff");
+
+			function onLoadInit (){
+				allObjs = get_objects_of_interest(['Aircraft', 'GroundVehicle', 'LaunchVehicle', 'Missile', 'Satellite', 'Ship', 'Target', 'Facility', 'Sensor']);
+				// populate object selection list box
+				stkObj.length=0;
+				for (var i in allObjs){
+					stkObj.length++;
+					stkObj[stkObj.length-1].text = allObjs[i];
+					}
+				}
+			function get_objects_of_interest(objects){
+				var allObjsPaths = new Array();
+				for (var STKclass in objects){
+					var objPaths = stk.ExecuteCommand("ShowNames * Class " + objects[STKclass]).Item(0);
+					objPaths      = String(objPaths).replace("\n","");
+					objPaths = objPaths.replace(/\s+$/,"");
+					objPaths = objPaths.replace(/^\s+/,"");
+					if (objPaths == "None"){
+						continue;
+						}
+					var objPathsArray = String(objPaths).split(" ");
+					for (var i in objPathsArray){
+						var path = String(objPathsArray[i]).split("/");
+						path.shift();
+						path.shift();
+						path.shift();
+						allObjsPaths.push(path.join("/"));
+						}
+					}
+				return (allObjsPaths.sort());
+				}
+
+			function posNum(box){
+				if (box.value == ""){
+					return;
+					}
+				box.value = Math.abs(box.value*1);
+				if (box.value == "NaN"){
+					box.value = 1;
+					}
+				}
+
+			function getUniquePath(path) {
+				var count = 1;
+				var newpath = path;
+				while (stk.ExecuteCommand("DoesObjExist / " + newpath).Item(0) == 1){
+					path = path.replace(/\d+$/,"");
+					newpath = path + count;
+					count++;
+					}
+				return (newpath);
+				}
+
+			function go () {
+
+				var mySelObj = stkObj.options[stkObj.selectedIndex].text;
+
+				// get parent and sensor paths
+				var test = mySelObj.indexOf("/Sensor/");
+				var name;
+				if (test == -1){
+					var parentPath = mySelObj;
+					// create new sensor
+					name = getUniquePath("*/" + parentPath + "/Sensor/FwdScan").replace(/.*\//,"");
+					stk.ExecuteCommand("New / */" + parentPath + "/Sensor/ " + name);
+					// if you want to define the new sensor, do it here:
+					stk.ExecuteCommand("Define */" + parentPath + "/Sensor/" + name + " SimpleCone 0.5");
+					stk.ExecuteCommand("Graphics */" + parentPath + "/Sensor/" + name + " SetColor red");
+
+					var sensorPath = parentPath + "/Sensor/" + name
+					}
+				else {
+					var parentPath = mySelObj;
+					parentPath = parentPath.replace(/\/Sensor\/.*/,"");
+					var sensorPath = mySelObj;
+					name = sensorPath.replace(/.*\/Sensor\//,"");
+					}
+
+				// get class (vehicle or site) as this will effect az/el frame
+				var classtype;
+				if ((parentPath.indexOf("Facility/") == 0) || (parentPath.indexOf("Target/") == 0)){
+					classtype = "site";
+					}
+				else {
+					classtype = "vehicle";
+					}
+
+				// create list of time/az/el to be used in *.sp file
+				// this will be dependant on 'scan direction', but for now I'm only
+				// considering one case - clockwise, from top/left
+
+				//first, get 'angular distance' traveled - this will be needed to 'time tag' the az/el pairs
+				if (radio['a1'].status || radio['a2'].status || radio['a3'].status || radio['a4'].status) {
+					var el = vert.value;
+					var c = 0;
+					while (el >= -1 * vert.value/2){
+						el = vert.value/2 - (c*spac.value);
+						c++;
+						}
+					adist = (horz.value*(c-1)) + (spac.value*(c-2));
+					//adist = (horz.value*(c-1)) + ((spac.value * Math.PI)*(c-2)); // I'll use this if I 'round the turns
+					}
+				if (radio['b1'].status || radio['b2'].status || radio['b3'].status || radio['b4'].status) {
+
+					var az = horz.value;
+					var c = 0;
+					while (az >= -1 * horz.value/2){
+						az = horz.value/2 - (c*spac.value);
+						c++;
+						}
+					adist = (vert.value*(c-1)) + (spac.value*(c-2));
+					}
+
+				//--------------//
+				// there's probably an elegant way to get the az/el data using a single while loop
+				// for all cases, but this copy/paste/edit method will do just fine.
+
+				// now for the az/el data
+				var azel = new Array();
+				var az;
+				var el;
+				var c = 0;
+				var m;
+				var t = 0;
+				if (classtype == "vehicle") {
+					if (radio['a1'].status || radio['a2'].status) {
+						if (radio['a1'].status) { m = -1}
+						if (radio['a2'].status) { m =  1}
+						el = vert.value;
+						while (el >= -1 * vert.value/2){
+							az = m * horz.value/2;
+							el = vert.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += horz.value * ont.value/adist
+							az = m * horz.value/2;
+							el = vert.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['a3'].status || radio['a4'].status) {
+						if (radio['a3'].status) { m = -1}
+						if (radio['a4'].status) { m =  1}
+						el = -1 * vert.value;
+						while (el <= 1 * vert.value/2){
+							az = m * horz.value/2;
+							el = (-1 * vert.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += horz.value * ont.value/adist
+							az = m * horz.value/2;
+							el = (-1 * vert.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['b1'].status || radio['b2'].status) {
+						if (radio['b1'].status) { m =  1}
+						if (radio['b2'].status) { m = -1}
+						az = -1 * horz.value;
+						while (az <= 1 * horz.value/2){
+							el = m * vert.value/2;
+							az = (-1 * horz.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += vert.value * ont.value/adist
+							el = m * vert.value/2;
+							az = (-1 * horz.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['b3'].status || radio['b4'].status) {
+						if (radio['b3'].status) { m = -1}
+						if (radio['b4'].status) { m =  1}
+						az = horz.value;
+						while (az >= -1 * horz.value/2){
+							el = m * vert.value/2;
+							az = horz.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += vert.value * ont.value/adist
+							el = m * vert.value/2;
+							az = horz.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+					}
+				else { //site
+					if (radio['a3'].status || radio['a4'].status) {
+						if (radio['a3'].status) { m = -1}
+						if (radio['a4'].status) { m =  1}
+						el = vert.value;
+						while (el >= -1 * vert.value/2){
+							az = m * horz.value/2;
+							el = vert.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += horz.value * ont.value/adist
+							az = m * horz.value/2;
+							el = vert.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['a1'].status || radio['a2'].status) {
+						if (radio['a1'].status) { m = -1}
+						if (radio['a2'].status) { m =  1}
+						el = -1 * vert.value;
+						while (el <= 1 * vert.value/2){
+							az = m * horz.value/2;
+							el = (-1 * vert.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += horz.value * ont.value/adist
+							az = m * horz.value/2;
+							el = (-1 * vert.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['b1'].status || radio['b2'].status) {
+						if (radio['b1'].status) { m = -1}
+						if (radio['b2'].status) { m =  1}
+						az = -1 * horz.value;
+						while (az <= 1 * horz.value/2){
+							el = m * vert.value/2;
+							az = (-1 * horz.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += vert.value * ont.value/adist
+							el = m * vert.value/2;
+							az = (-1 * horz.value/2) + (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+
+					if (radio['b3'].status || radio['b4'].status) {
+						if (radio['b3'].status) { m =  1}
+						if (radio['b4'].status) { m = -1}
+						az = horz.value;
+						while (az >= -1 * horz.value/2){
+							el = m * vert.value/2;
+							az = horz.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							if   (m == -1){m =  1}
+							else          {m = -1}
+							t += vert.value * ont.value/adist
+							el = m * vert.value/2;
+							az = horz.value/2 - (c*spac.value);
+							azel.push(t + " " + az + " " + el);
+							t += spac.value * ont.value/adist
+							c++;
+							}
+						}
+					}
+
+				//--------------//
+
+				azel.pop();
+				azel.pop();
+
+				// need to add the 'reset' point
+				t = ont.value*1 + offt.value*1;
+				azel.push(t + " " + azel[0].replace(/^0\s+/,""));
+
+				// create *.sp file and send it in
+				var myScenDir = stk.ExecuteCommand("GetScenPath *").Item(0);
+				var mySensorPntFile = myScenDir + name + ".sp"
+				var sp  = fso.CreateTextFile(mySensorPntFile, 1);
+				sp.WriteLine ("stk.v.4.1.1");
+				sp.WriteLine ("Begin Attitude");
+				sp.WriteLine ("NumberofAttitudePoints " + azel.length);
+				sp.WriteLine ("RepeatPattern");
+				sp.WriteLine ("Sequence	323");
+				sp.WriteLine ("AttitudeTimeAzElAngles");
+				sp.WriteLine (azel.join("\n"));
+				sp.WriteLine ("End Attitude");
+				sp.Close();
+				stk.ExecuteCommand("Point */" + sensorPath + " External \"" + mySensorPntFile + "\"");
+
+				// set display intervals and temporal constraint
+				// don;t forget to 'clear' any exsiting times
+
+				//get start/stop times
+				stk.ExecuteCommand("SetUnits / EPOCHSEC");
+				if (classtype == "site"){
+					// use sceanrio time period
+					var myStartStop = stk.ExecuteCommand("GetTimePeriod *").Item(0);
+					}
+				else {
+					// use vehicle's time period
+					var myStartStop = stk.ExecuteCommand("GetTimePeriod *").Item(0);
+					}
+				myStartStop = String(myStartStop).replace(/[\"\s]/g,"");  //"
+				var tmp = myStartStop.split(",");
+				var start = tmp[0]*1;
+				var stop  = tmp[1]*1;
+
+				// get start time in GREGUTC
+				var myEpoch = stk.ExecuteCommand("ConvertDate * EPOCHSEC GREGUTC \"" + start + "\"").Item(0);
+
+				// create interval file
+				var myIntervalFile = myScenDir + name + ".int";
+				var int  = fso.CreateTextFile(myIntervalFile, 1);
+				int.WriteLine ("stk.v.4.2.1");
+				int.WriteLine ("Begin IntervalList");
+				int.WriteLine ("ScenarioEpoch " + myEpoch);
+				int.WriteLine ("Begin Intervals");
+				var i = start;
+				var j;
+				while (i < stop - (ont.value*1 + offt.value*1)){
+					j = i + (ont.value*1);
+					int.WriteLine ("    " + i + "      " + j);
+					i = j + offt.value*1;
+					}
+				int.WriteLine ("End Intervals");
+				int.WriteLine ("End IntervalList");
+				int.Close();
+
+				// use file for display times and include interval constraint
+				stk.ExecuteCommand("DisplayTimes */" + sensorPath + " State Interval");
+				stk.ExecuteCommand("DisplayTimes */" + sensorPath + " Intervals Clear");
+				stk.ExecuteCommand("DisplayTimes */" + sensorPath + " Intervals File Load \"" + myIntervalFile + "\"");
+				stk.ExecuteCommand("SetConstraint */" + sensorPath + " Intervals Include \"" + myIntervalFile + "\"");
+
+				// Create FOV Sensor, set color, translucency, and pointing
+				try{
+					stk.ExecuteCommand("Unload / */" + parentPath + "/Sensor/FOV");
+					}
+				catch (er) {
+					stk.ExecuteCommand('Message / 1 "Error handled on FOV sensor unload"');
+				}
+				stk.ExecuteCommand("New / */" + parentPath + "/Sensor FOV");
+				stk.ExecuteCommand("Graphics */" + parentPath + "/Sensor/FOV SetColor cyan");
+				stk.ExecuteCommand("VO */" + parentPath + "/Sensor/FOV Translucency 70");
+				stk.ExecuteCommand("Define */" + parentPath + "/Sensor/FOV Rectangular " + horz.value/2 + " " + vert.value/2);
+				stk.ExecuteCommand("Point */" + parentPath + "/Sensor/FOV Fixed AzEl 0 0");
+
+				// refresh the object list and select the sensor of interest
+				onLoadInit();
+				for (var i in allObjs){
+					if (allObjs[i] == sensorPath){
+						stkObj.options[i].selected = 1;
+						}
+					}
+				}
+
+			function testcommands (a, b) {
+				//these commands are for testing only
+				//create FOV sensor and give both a max range constraint to better visualize them
+				stk.ExecuteCommand("Animate * Reset");
+				try{
+					stk.ExecuteCommand("Unload / */" + a + "/Sensor/FOV");
+					}
+				catch (er) {
+					stk.ExecuteCommand('Message / 3 "Error caught on FOV sensor unload"')
+					}
+				stk.ExecuteCommand("New / */" + a + "/Sensor FOV");
+				stk.ExecuteCommand("Graphics */" + a + "/Sensor/FOV SetColor cyan");
+				stk.ExecuteCommand("VO */" + a + "/Sensor/FOV Translucency 70");
+				stk.ExecuteCommand("Define */" + a + "/Sensor/FOV Rectangular " + horz.value/2 + " " + vert.value/2);
+				stk.ExecuteCommand("Point */" + a + "/Sensor/FOV Fixed AzEl 0 0");
+				// stk.ExecuteCommand("SetConstraint */" + a + "/Sensor/FOV Range Max 10000");
+				// stk.ExecuteCommand("SetConstraint */" + b + " Range Max 10000");
+				stk.ExecuteCommand("Animate * Start");
+				}
+
+		</script>
+
+	<body bgcolor="#ECE9D8" onLoad="onLoadInit()">
+
+		<h4> Create 'Creeping Line' Scanning Sensor  </h4>
+
+		<hr />
+
+		<table>
+			<tr>
+				<td> Parent or Sensor Object: </td>
+				<td colspan=2> <select name="stkObj"/> </td>
+			</tr>
+
+			<tr>
+				<td> Horizontal Scan: </td>
+				<td> <input type="text" name="horz" value="5" size="5" onChange="posNum(horz)"/> (degs) </td>
+				<td rowspan=5><img type="IMAGE" SRC=".\images\info.bmp" name="dir"></td>
+			</tr>
+
+			<tr>
+				<td> Vertical Scan: </td>
+				<td> <input type="text" name="vert" value="5" size="5" onChange="posNum(vert)" /> (degs) </td>
+			</tr>
+
+			<tr>
+				<td> Pass Spacing: </td>
+				<td>  <input type="text" name="spac" value="2" size="5" onChange="posNum(spac)" /> (degs) </td>
+			</tr>
+
+			<tr>
+				<td> Scan Duration (on time): </td>
+				<td> <input type="text" name="ont" value="10" size="5" onChange="posNum(ont)" /> (secs) </td>
+			</tr>
+
+			<tr>
+				<td> Reset Duration (off time): </td>
+				<td> <input type="text" name="offt" value="1" size="5" onChange="posNum(offt)" /> (secs) </td>
+			</tr>
+
+			<tr>
+				<td> Scan Direction: </td>
+				<td colspan=2>
+					<input type="radio" checked name="radio" id="a1"></input><input type="IMAGE" SRC=".\images\a1.bmp">
+					<input type="radio"         name="radio" id="a2"></input><input type="IMAGE" SRC=".\images\a2.bmp">
+					<input type="radio"         name="radio" id="a3"></input><input type="IMAGE" SRC=".\images\a3.bmp">
+					<input type="radio"         name="radio" id="a4"></input><input type="IMAGE" SRC=".\images\a4.bmp">
+				</td>
+			</tr>
+			<tr>
+				<td> </td>
+				<td colspan=2>
+					<input type="radio"         name="radio" id="b1"></input><input type="IMAGE" SRC=".\images\b1.bmp">
+					<input type="radio"         name="radio" id="b2"></input><input type="IMAGE" SRC=".\images\b2.bmp">
+					<input type="radio"         name="radio" id="b3"></input><input type="IMAGE" SRC=".\images\b3.bmp">
+					<input type="radio"         name="radio" id="b4"></input><input type="IMAGE" SRC=".\images\b4.bmp">
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="CREATE" onClick="go()" /> </td>
+			</tr>
+
+		</table>
+
+		<hr />
+
+	</body>
+</html>

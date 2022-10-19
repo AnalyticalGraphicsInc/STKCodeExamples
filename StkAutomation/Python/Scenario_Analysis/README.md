@@ -14,7 +14,7 @@ This script will create a number of force model vectors on satellites at differe
 
 ## [Aviator_ObjectModel_FuelConsumptionStudy.py](Aviator_ObjectModel_FuelConsumptionStudy.py)
 
-Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+
 
 This script is an example of computing trade studies using the Aviator Object Model. No changes are needed for this script to run, as it constructs its own scenario with an Aviator aircraft defined by the Advanced Fixed Wing Tool. As is, the script iterates through flight altitudes and plots the fuel consumed, time of flight and altitude in a 3D graph.
 
@@ -49,7 +49,7 @@ More information on each of the notebooks can be found in the readme within the 
 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
-* Scenario: [Constellation and Network Routing Example](https://agiweb.secure.force.com/code/articles/Custom_Solution/Constellation-and-Network-Routing)
+* Scenario: [Constellation and Network Routing Example](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/674cb49a-f67e-40f5-b7c5-0fd57abbb879)
 
 ---
 
@@ -63,7 +63,7 @@ More information on each of the notebooks can be found in the readme within the 
 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
 * Other Scripts: N/A
-* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/context/mine/document-details?nodeRef=workspace://SpacesStore/19b625b1-839d-40fc-9774-41ca6ef43f9f)
+* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/6102d7ad-b7e7-4b1a-a406-5f4927a8651c)
 
 --- 
 

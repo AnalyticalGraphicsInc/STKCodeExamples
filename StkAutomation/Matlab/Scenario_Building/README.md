@@ -52,6 +52,8 @@ This is a simple tutorial walkthrough of setting up the connection between Simul
 * Other Scripts: N/A
 * Scenario: N/A
 
+---
+
 ## [astgSlewToManeuvers.m](astgSlewToManeuvers.m)
 
 When an Astrogator satellite maneuvers by default the manuever will adjust the attitude to align with the thrust direction, but it will not slew. This script allows the satellite to slew into and out of the maneuver. The user specifies the name of the satellite, the pointing during thrusting intervals, the pointing outside of thrusting intervals, and the slew length. These inputs are set on lines 8-24.
@@ -205,7 +207,7 @@ This script is a short demonstration of how to use the STK Object Model to creat
 
 ---
 
-## [AstrogatorObjectModel](AstrogatorObjectModel)
+## [AstrogatorAPI_Training](AstrogatorAPI_Training)
 
 These scripts are from a training that walked through using MATLAB to create an Astrogator MCS from scratch. The satellite completes a Hohmann transfer from LEO to GEO and also preforms an inclination change. In the version that is not complete, users are required to fill in lines that have headers stating "ACTION REQUIRED". The completed version contains the full script and can be run without any changes.  
 
@@ -253,8 +255,20 @@ This MATLAB COM script will create a simple satellite scenario and calculate the
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
 * Other Scripts: N/A
 * Scenario: Any open scenario
+
+---
+
+## [PNT_and_Object_Coverage_Automation.m](PNT_and_Object_Coverage_Automation.m)
+
+This MATLAB script populates and automates an example position, navigation, and timing (PNT) scenario containing a test aircraft and several other objects which we'll call pseudolites. These other objects consist of two aircraft and six ground stations which 'observe' the test aircraft and seek to determine its position. Dilution of Precision (DOP) and Navigation Accuracy calculations are completed using single-object coverage. The data is then exported into MATLAB where a plot is generated for each solution.
+
+### Dependencies
+
+* Capabilities: Free, [Pro](https://www.agi.com/products/stk/pro), [Integration](https://www.agi.com/capabilities/integration), [Coverage](https://www.agi.com/capabilities/coverage)
+* Other Scripts: N/A
+* Scenario: N/A
 
 ---

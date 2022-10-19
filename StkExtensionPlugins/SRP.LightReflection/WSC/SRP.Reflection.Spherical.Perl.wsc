@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2007, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{D702CE01-66C5-4885-ABE9-F287C9348506}"
+		progid="AGI.SRP.LightReflection.Spherical.Perl.Example"
+		description="SRP.LightReflection.Spherical.Perl plugin example"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Enabled"    			get="GetEnabled"    			put="SetEnabled"/>
+		<property name="DebugMode"    			get="GetDebugMode"    			put="SetDebugMode"/>
+		<property name="MsgInterval" 			get="GetMsgInterval" 			put="SetMsgInterval"/>
+		<property name="SRPArea" 				get="GetSRPArea" 				put="SetSRPArea"/>
+		<property name="RefFrame" 				get="GetRefFrame" 				put="SetRefFrame"/>
+		<property name="RefFrameChoices" 		get="GetRefFrameChoices"/>
+
+		
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Register">
+			<parameter name="IAgAsLightReflectionResultRegister"/>
+		</method>
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="PreCompute">
+			<parameter name="IAgAsLightReflectionResult"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="IAgAsLightReflectionResultEval"/>
+		</method>
+		<method name="PostCompute">
+			<parameter name="IAgAsLightReflectionResult"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="PerlScript" src="SRP.Reflection.Spherical.Perl.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2007, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

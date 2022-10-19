@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+    python:
+        image: ansys/stk/stk-parallel-computing-server-python:2.5-centos7
+        build:
+            context: ./python
+            args:
+                baseImage: ansys/stk/stk-engine-python:12.4.0-centos7 
+        volumes:
+            - ./client_example.py:/tmp/client_example.py
+        environment:
+            - COORDINATOR_HOSTNAME=coordinator
+            - COORDINATOR_PORT=9090
+        working_dir: /tmp
+        networks: 
+            - stk-parallel-computing-server
+networks:
+    stk-parallel-computing-server:
+        name: stk-parallel-computing-server
+        external: true

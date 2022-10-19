@@ -12,9 +12,25 @@ This script allows you to add a series of annotations to the path of a moving ST
 
 ---
 
+## [ChainTimingDelay.py](ChainTimingDelay.py)
+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?) available in STK 12.1+
+
+Complete chain access in STK means that each link in the chain simultaneously has access. This script allows a maximum delay between target/asset access and the rest of the chain. This is useful for scenarios such as an imaging system with onboard storage, where a target can be imaged, then downlinked at a later time specified by the maximum delay.
+
+To use the script, just modify the user inputs then run.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [DutyCycleMultiSat.py](DutyCycleMultiSat.py)
 
-Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+
 
 This script utilizes a Duty Cycle allotment (a total pointing time limitation) per orbit to determine access times to area targets. Sensors are utilized for spatial awareness purposes. The script can utilize a named "special" target as a primary target for one of the satellites in the scenario. The satellite will use as much time as possible on this target. The remaining allotted time on each satellite will be split evenly amongst the remaining targets.
 The user specifies the names of the satellites, the names of the sensors on the satellites, the primary targets, then the time allotment for each of the satellites.
@@ -56,7 +72,7 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 ## [EOIRTrackingInTheLoop](EOIRTrackingInTheLoop)
 
-Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm?Highlight=python%20api) available in STK 12.1+
+Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+
 
 Notebooks and libraries to automate STK, take EOIR images, process images, generate measurements, update pointing direction and optionally run ODTK in the loop. Additionally includes a tool to help convert images into reflectance, emissivitiy and temperature maps to use with EOIR. 
 
@@ -104,5 +120,31 @@ This script computes access between a series of sensors on satellites and place 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+
+## [createCovariancePoints.py](createCovariancePoints.py)
+
+This script will take the prinicple axes of a covariance matrix and turn it into point. These can be used for access computations to determine when a satellite may be visible accounting for the orbit uncertainty. It will write 6 ephemris file and add points and satellites for the positive and negative direction of the major, intermediate and minor axis. 
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional),[Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy
+
+---
+
+## [EOIRTextureMaps](EOIRTextureMaps)
+
+This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy, pyhdf, h5py, matplotlib
 
 ---

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="JScript.Example.EphemerisFileReader"
+	    progid="JScript.Example.EphemerisFileReader.WSC"
+	    version="1.00"
+	    classid="{7D0E0A77-F45C-4b6c-A752-D7B3AD8965F4}"
+	/>
+	<public>
+	
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="Site"/>
+		</method>
+		<method name="Register">
+			<parameter name="Result"/>
+		</method>
+		<method name="ReadEphemeris">
+			<parameter name="Result"/>
+		</method>
+		<method name="ReadMetaData">
+			<parameter name="Result"/>
+		</method>
+		<method name="Verify">
+			<parameter name="Result"/>
+		</method>
+		<method name="Free"/>
+	</public>
+
+	<script language="JScript" src="JScript.Example.EphemerisFileReader.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.       -->
+<!-- ===================================================== -->

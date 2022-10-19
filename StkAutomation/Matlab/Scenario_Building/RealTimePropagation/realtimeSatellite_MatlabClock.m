@@ -8,10 +8,10 @@
 % The simulation runs off of a timer where MATLAB dictates the time step to
 % STK.
 %
-% Programming Help: https://help.agi.com/stkdevkit/index.htm#automationTree/treeOver.htm?TocPath=_____1
+% Programming Help: https://help.agi.com/stkdevkit/index.htm#automationTree/treeOver.htm
 % Connect Command Reference: https://help.agi.com/stkdevkit/index.htm#../Subsystems/connect/Content/theVeryTop.htm
-% Object Model Reference: https://help.agi.com/stkdevkit/index.htm#automationTree/objModel.htm?TocPath=Using%2520Core%2520Libraries%257CSTK%2520Object%2520Model%257C_____0
-% MATLAB Code Snippets: https://help.agi.com/stkdevkit/index.htm#stkObjects/ObjModMatlabCodeSamples.htm?Highlight=matlab
+% Object Model Reference: https://help.agi.com/stkdevkit/index.htm#automationTree/objModel.htm
+% MATLAB Code Snippets: https://help.agi.com/stkdevkit/index.htm#stkObjects/ObjModMatlabCodeSamples.htm
 % RealTime Propagator: https://help.agi.com/stk/index.htm#stk/veh_propagator_realTime.htm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -48,7 +48,7 @@ catch
     root.NewScenario('RealTimeTest');
 end
 %Get the scenario root, its of type IAgScenario
-%IAgScenario documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScenario.html?Highlight=IAgScenario
+%IAgScenario documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScenario.html
 scenObj = root.CurrentScenario;
 
 %% Configure Scenario Time and Animation
@@ -66,26 +66,26 @@ scenObj.Epoch = current_date;
 scenObj.StopTime = tomorrow_date;
 scenObj.StartTime = current_date;
 %Set the scenario's animation properties to animate in realtime mode
-%IAgScAnimcation documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
+%IAgScAnimcation documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html
 scAnimation = scenObj.Animation;
-%AgEScTimeStepType types: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
+%AgEScTimeStepType types: https://help.agi.com/stkdevkit/#DocX/STKObjects~Enumerations~AgEScTimeStepType_EN.html
 scAnimation.AnimStepType = 'eScTimeStep';
  
 %% Create Satellite Object
 %Create a new satellite object named "Satellite1"
-%IAgStkObject documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgStkObjectCollection.html?Highlight=IAgStkObjectCollection
-%AgEStkObjectType types: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgStkObjectCollection.html?Highlight=IAgStkObjectCollection
+%IAgStkObject documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgStkObjectCollection.html
+%AgEStkObjectType types: https://help.agi.com/stkdevkit/#DocX/STKObjects~Enumerations~AgESTKObjectType_EN.html
 satellite = scenObj.Children.New('eSatellite', 'Satellite1');
 
 %% Configure Position Propagation
 %Set realtime propagator and configure look ahead
-%Realtime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_RealTime.htm?Highlight=Realtime
+%Realtime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_RealTime.htm
 root.ExecuteCommand('Realtime */Satellite/Satellite1 SetProp')
 root.ExecuteCommand('Realtime */Satellite/Satellite1 SetLookAhead HoldCBIPosition 3600 60 3600')
 
 %% Configure Attitude Propagation
 %Set realtime attitude propagation without interpolation
-%SetAttitude connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeRealTime.htm?Highlight=setattitude
+%SetAttitude connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeRealTime.htm
 root.ExecuteCommand('SetAttitude */Satellite/Satellite1 RealTime Hold 3600 3600')
 
 %% Rewind Animation
@@ -96,7 +96,7 @@ root.Rewind
 %Remove all data displays to be able to add more by name
 satellite.VO.DataDisplay.RemoveAll();
 %Add J2000 Position and Velocity data display
-%IAgVODataDisplayElement documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgVODataDisplayElement.html?Highlight=IAgVODataDisplayElement
+%IAgVODataDisplayElement documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgVODataDisplayElement.html
 positionDataDisplay = satellite.VO.DataDisplay.Add('J2000 Position Velocity');
 positionDataDisplay.IsVisible = 1;
 % Change font color to green check out rgb2stkColor.m here: https://github.com/AnalyticalGraphicsInc/STKCodeExamples/tree/master/StkAutomation/Matlab/General_Utilities
@@ -175,10 +175,10 @@ function satelliteUpdate(obj, event, posFile, attFile, root)
     matlabEpSec = root.ConversionUtility.ConvertDate('LCLG', 'EpSec', dateString);
     
     %Push position point to STK scenario
-    %SetPosition connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetPositionVehicles.htm?Highlight=setposition
+    %SetPosition connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetPositionVehicles.htm
     root.ExecuteCommand(['SetPosition */Satellite/Satellite1 ECI "' dateString '" ' x_pos ' ' y_pos ' ' z_pos ' ' x_vel ' ' y_vel ' ' z_vel]);
     %Push attitude point to STK scenario
-    %AddAttitude connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_AddAttitudeQuat.htm?Highlight=addattitude
+    %AddAttitude connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_AddAttitudeQuat.htm
     root.ExecuteCommand(['AddAttitude */Satellite/Satellite1 Quat "' dateString '" ' q1 ' ' q2 ' ' q3 ' ' q4]);
     %Set current time in STK scenario
     root.CurrentTime = str2double(matlabEpSec);
