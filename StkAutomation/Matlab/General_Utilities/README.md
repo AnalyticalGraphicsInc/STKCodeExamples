@@ -1,16 +1,16 @@
 # MATLAB General Utility Samples
 
-## [Clutter Simulator]
+## [Clutter Simulator](Clutter Simulator)
 
 The clutter simulator folder contains the SSA_Clutter_Interference_Visualizer.m demo tool. This is meant to be a simple and fast simulator for showing a target object, a randomly generated star like background, and a series of clutter objects traveling along in a constellation group.
 
+Please reference [this readme](./Clutter Simulator/README.md) for more information
 
 ### Dependencies
 
 * Capabilities: N/A
-* Other Scripts: trim_or_pad.m,create_clutter_map.m,create_satellite_train_layer.m,create_star_info.m,create_star_map.m
-draw_antialias_line.m,generate_2d_gaussian_psf.m,mouse_figure.m
-SSA_Clutter_Interference_Visualizer.fig
+* Other Scripts: [trim_or_pad.m](./Clutter Simulator/trim_or_pad.m), [create_clutter_map.m](./Clutter Simulator/create_clutter_map.m), [create_satellite_train_layer.m](./Clutter Simulator/create_satellite_train_layer.m), [create_star_info.m](./Clutter Simulator/create_star_info.m), [create_star_map.m](./Clutter Simulator/create_star_map.m),
+[draw_antialias_line.m](./Clutter Simulator/draw_antialias_line.m), [generate_2d_gaussian_psf.m](./Clutter Simulator/generate_2d_gaussian_psf.m), [mouse_figure.m](./Clutter Simulator/mouse_figure.m)
 * Scenario: N/A
 
 ---

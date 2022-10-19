@@ -17,8 +17,7 @@ This tool was meant to be a way to visualize many of the parameters involved in 
 ### Dependencies
 
 * Capabilities: N/A
-* Other Scripts: trim_or_pad.m,create_clutter_map.m,create_satellite_train_layer.m,create_star_info.m,create_star_map.m
-draw_antialias_line.m,generate_2d_gaussian_psf.m,mouse_figure.m
-SSA_Clutter_Interference_Visualizer.fig
+* Other Scripts: [trim_or_pad.m](trim_or_pad.m), [create_clutter_map.m](create_clutter_map.m), [create_satellite_train_layer.m](create_satellite_train_layer.m), [create_star_info.m](create_star_info.m), [create_star_map.m](create_star_map.m),
+[draw_antialias_line.m](draw_antialias_line.m), [generate_2d_gaussian_psf.m](generate_2d_gaussian_psf.m), [mouse_figure.m](mouse_figure.m)
 * Scenario: N/A
 
