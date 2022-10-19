@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2007, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{A2B46E87-D58F-4ca0-B422-71E0B4280906}"
+		progid="AGI.SRP.LightReflection.NPlate.2Parameter.Perl.Example"
+		description="SRP.LightReflection.N-Plate.2Parameter.Perl plugin example"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"       			get="GetName"       			put="SetName"/>
+		<property name="Enabled"    			get="GetEnabled"    			put="SetEnabled"/>
+		<property name="DebugMode"    		get="GetDebugMode"    			put="SetDebugMode"/>
+		<property name="MsgInterval" 			get="GetMsgInterval" 			put="SetMsgInterval"/>
+		<property name="DebugFileName" 		get="GetDebugFileName" 			put="SetDebugFileName"/>
+		<property name="SpecularReflectivity" 	get="GetSpecularReflectivity" 	put="SetSpecularReflectivity"/>
+		<property name="DiffuseReflectivity" 	get="GetDiffuseReflectivity" 		put="SetDiffuseReflectivity"/>
+		
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Register">
+			<parameter name="IAgAsLightReflectionResultRegister"/>
+		</method>
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="PreCompute">
+			<parameter name="IAgAsLightReflectionResult"/>
+		</method>
+		<method name="Evaluate">
+			<parameter name="IAgAsLightReflectionResultEval"/>
+		</method>
+		<method name="PostCompute">
+			<parameter name="IAgAsLightReflectionResult"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+
+	</public>
+
+	<script language="PerlScript" src="SRP.Reflection.N-Plate.2Parameter.Perl.pl"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2007, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

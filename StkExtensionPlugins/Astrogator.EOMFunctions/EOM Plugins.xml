@@ -1,0 +1,48 @@
+<?xml version = "1.0"?>
+
+<!--
+      AGI Registry File for COM Servers. 
+-->
+
+<AGIRegistry version = "1.0">
+
+	<CategoryRegistry>
+
+		<Category Name = "EOMFunc Plugins">
+		
+			<!-- This tag to the left indicates the start of a comment block
+			
+				Register your plugins with those below. Use the following format:
+			
+				<Plugin DisplayName = "YOUR_NAME_TO_APPEAR_IN_USER_INTERFACE_GOES_HERE" ProgID = "YOUR_PROGID_GOES_HERE"/>
+				 
+				The tag below indicates the end of the comment block 
+			-->
+			
+			<!-- NOTE: The xml reader is case sensitive, so while the keyword ProgID is valid, 
+					   ProgId is invalid because of the 'd' not being capitalized. 
+					   Any improper keyword casing violation will cause the plugin to 
+					   not be registered.
+			-->
+			
+			<!-- This section is a comment block.
+			
+			The following Plugin tags register each Plugin component as an EOMFunc Plugin. 
+			
+			To enable one of the sample plugins in STK, simply build the component (if necessary), 
+			register it in the Windows Registry, and move the registration line below 
+			outside of this comment block.
+			
+      <Plugin DisplayName = "JScript EOM Func Example" ProgID = "AGI.EOMFunc.Plugin.Examples.Stk.JScript.Example1.Wsc"/>
+      <Plugin DisplayName = "VBScript EOM Func Example" ProgID = "AGI.EOMFunc.Plugin.Examples.Stk.VBScript.Example1.Wsc"/>
+      <Plugin DisplayName = "CSharp EOM Func Example" ProgID = "AGI.EOMFunc.Plugin.Examples.Stk.CSharp.MyEOMFunc"/>
+      <Plugin DisplayName = "VB_NET EOM Func Example" ProgID = "AGI.EOMFunc.Plugin.Examples.Stk.VB_NET.MyEOMFunc"/>
+      <Plugin DisplayName = "CPP EOM Func Example" ProgID = "AGI.As.Plugin.Examples.EOMFunc.CPP.Example1.1"/>
+			
+			-->
+			
+		</Category>
+		
+	</CategoryRegistry>
+
+</AGIRegistry>

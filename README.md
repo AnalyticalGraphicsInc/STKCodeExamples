@@ -1,33 +1,21 @@
-<div align="left">
+![STK Logo Dark](https://user-images.githubusercontent.com/3358750/162804833-47c09f8a-b0df-4bb6-b197-3ef35f61778f.svg#gh-light-mode-only)
+![STK Logo Light](https://user-images.githubusercontent.com/3358750/162804844-2b0b8e34-ba3d-4a5b-9164-cf2ca89a1064.svg#gh-dark-mode-only)
 
-<p style="white-space: nowrap;">
-<a href="STK">
-<img src="https://user-images.githubusercontent.com/3358750/119201268-89683e80-ba5c-11eb-87cd-01eea5c86593.png" width="250" height="150" alt="STK">
-</a>
-<a href="https://help.agi.com/stkdevkit/index.htm">
-<img src="https://user-images.githubusercontent.com/3358750/119201440-ec59d580-ba5c-11eb-8714-226c394a7314.png" alt="Documentation">
-</a>
-<a href="http://www.agi.com/training-and-certification#cert">
-<img src="https://user-images.githubusercontent.com/3358750/119201467-fc71b500-ba5c-11eb-808c-69ae4eda9964.png" alt="Get Certified">
-</a>
-<a href="mailto:support@agi.com">
-<img src="https://user-images.githubusercontent.com/3358750/119201527-14493900-ba5d-11eb-9d1b-38a25bba090b.png" alt="Contact Support">
-</a>
-</p>
-
-</div>
+[![Documentation](https://img.shields.io/badge/docs-online-FFB71B?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
+[![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
+[![Download](https://img.shields.io/badge/download-12.5-007DB7?style=for-the-badge)](https://support.agi.com/downloads/3/)
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from AGI, an Ansys company.
 
-The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. It does not contain the STK application; you must obtain STK from [AGI's support page](https://support.agi.com/downloads "AGI's Downloads")
+The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. It does not contain the STK application; you must obtain STK from [AGI's website](https://support.agi.com/downloads/3/ "AGI's Downloads")
 
 ----
 
-<!--### Featured Examples Areas-->
-![Featured Areas](https://user-images.githubusercontent.com/3358750/119202053-0942d880-ba5e-11eb-902d-3de8a678d6c3.png)
+## Featured Examples Areas
 
 * [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
 * [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
+* [STK Engine Containerization](./StkEngineContainerization) contains examples that demonstrate containerization of STK Engine applications
 * [STK UI Plugins](./StkUiPlugins) contains UI Plugin applications for the STK desktop application
 * [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
 
@@ -35,15 +23,13 @@ These applications contain notional data and are dual use.
 
 ----
 
-<!--### License-->
-![License](https://user-images.githubusercontent.com/3358750/119202070-15c73100-ba5e-11eb-8113-1ed09a8880a7.png)
+## License
 
 The code examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
 
 ----
 
-<!--### Redistribution -->
-![Redistribution](https://user-images.githubusercontent.com/3358750/119202097-21b2f300-ba5e-11eb-9cdd-54e16c03dc6f.png)
+## Redistribution
 
 If You redistribute the code examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the code examples, and include the following copyright notice:
 
@@ -51,8 +37,7 @@ If You redistribute the code examples, in whole or in part, You must provide a c
 
 ----
 
-<!--### What if I have questions about STK -->
-![Questions](https://user-images.githubusercontent.com/3358750/119202130-2d9eb500-ba5e-11eb-84ed-623992f4611f.png)
+## What if I have questions about STK
 
 Contact [AGI support](mail:support@agi.com "Email AGI Support") with questions regarding STK, STK Engine or any other AGI products.
 
@@ -63,25 +48,11 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 
 ----
 
-![Social Media](https://user-images.githubusercontent.com/3358750/119202179-4018ee80-ba5e-11eb-84fc-9bece3b400bf.png)
+## Social Media
 
-<div align="left">
-<p style="white-space: nowrap;">
-<a href="https://www.facebook.com/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/ittkxedjpm/png/facebook.png" width="80" height="80" alt="Facebook">
-</a>
-<a href="https://www.youtube.com/user/AnalyticalGraphics">
-<img src="https://agi.widen.net/content/i5vb9swh4e/png/Youtube.png" width="80" height="80" alt="Youtube">
-</a>
-<a href="https://www.linkedin.com/company/agi?trk=company_logo">
-<img src="https://agi.widen.net/content/foz3n4wgkh/png/linkedin.png" width="80" height="80" alt="LinkedIn">
-</a>
-<a href="https://twitter.com/agitweets">
-<img src="https://agi.widen.net/content/xbt8vag5rw/png/twitter.png" width="80" height="80" alt="Twitter">
-</a>
+[![Twitter URL](https://img.shields.io/badge/twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/agitweets)
+[![Youtube URL](https://img.shields.io/badge/youtube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/user/AnalyticalGraphics)
+[![Linkedin URL](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agi?trk=company_logo)
 
-<a href="https://www.agi.com">
-<img src="https://agi.widen.net/content/aoqxb2klxi/png/AGI-Logo_2C-W.png" width="148" height="80" alt="AGI" style="float:right">
-</a>
-</p>
-</div>
+![AGI Logo Dark](https://user-images.githubusercontent.com/3358750/162795809-4fc8326e-fd6a-4022-b731-cee62fcc58db.png#gh-dark-mode-only)
+![AGI Logo Light](https://user-images.githubusercontent.com/3358750/162795908-bf530bb9-bbab-45b0-82d7-cabd67186699.png#gh-light-mode-only)

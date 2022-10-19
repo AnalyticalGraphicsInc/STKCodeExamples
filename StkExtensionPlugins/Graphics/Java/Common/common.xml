@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Extend_STK_Plugin_Graphics_Common_common">
+	<import file="../../../../SharedResources/Java/SharedResources/common.xml" />
+
+	<path id="extend.stk.plugin.graphics.classpath">
+		<fileset dir="${stk.bin.dir}">
+			<include name="agi.jar" />
+			<include name="agi.core.jar" />
+			<include name="agi.stk.attr.jar" />
+			<include name="agi.stk.plugin.jar" />
+			<include name="agi.stk.plugin.accessconstraints.jar" />
+			<include name="agi.stk.plugin.astrogator.plugin.jar" />
+			<include name="agi.stk.plugin.crdn.jar" />
+			<include name="agi.stk.plugin.graphics.jar" />
+			<include name="agi.stk.plugin.stk.jar" />
+			<include name="agi.stk.plugin.util.jar" />
+			<include name="agi.stkgraphics.jar" />
+			<include name="agi.stkobjects.jar" />
+			<include name="agi.stkobjects.astrogator.jar" />
+            <include name="agi.stkobjects.aviator.jar" />
+			<include name="agi.stkutil.jar" />
+			<include name="agi.stkvgt.jar" />
+		</fileset>
+	</path>
+</project>

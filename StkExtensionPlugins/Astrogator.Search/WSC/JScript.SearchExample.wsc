@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2006, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+	    description="JScript.SearchExample"
+	    progid="JScript.SearchExample.WSC"
+	    version="1.00"
+	    classid="{F3231742-29BA-4ec5-9CAE-E5575BA2F1BB}"
+	/>
+	<public>
+
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+		<property name="Name"	get="GetName"/>
+		<property name="MaxIterations"	get="GetMaxIterations"	put="SetMaxIterations"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="site"/>
+		</method>
+		<method name="Run">
+			<parameter name="operand"/>
+			<parameter name="testing"/>
+		</method>
+		<method name="GetControlsProgId">
+			<parameter name="controlType"/>
+		</method>
+		<method name="GetResultsProgId"/>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="JScript" src="JScript.SearchExample.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2006, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

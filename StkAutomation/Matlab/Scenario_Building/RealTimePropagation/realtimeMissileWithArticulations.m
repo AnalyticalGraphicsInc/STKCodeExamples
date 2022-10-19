@@ -9,10 +9,10 @@
 % The simulation runs off of a timer where MATLAB dictates the time step to
 % STK.
 %
-% Programming Help: https://help.agi.com/stkdevkit/index.htm#automationTree/treeOver.htm?TocPath=_____1
+% Programming Help: https://help.agi.com/stkdevkit/index.htm#automationTree/treeOver.htm
 % Connect Command Reference: https://help.agi.com/stkdevkit/index.htm#../Subsystems/connect/Content/theVeryTop.htm
-% Object Model Reference: https://help.agi.com/stkdevkit/index.htm#automationTree/objModel.htm?TocPath=Using%2520Core%2520Libraries%257CSTK%2520Object%2520Model%257C_____0
-% MATLAB Code Snippets: https://help.agi.com/stkdevkit/index.htm#stkObjects/ObjModMatlabCodeSamples.htm?Highlight=matlab
+% Object Model Reference: https://help.agi.com/stkdevkit/index.htm#automationTree/objModel.htm
+% MATLAB Code Snippets: https://help.agi.com/stkdevkit/index.htm#stkObjects/ObjModMatlabCodeSamples.htm
 % RealTime Propagator: https://help.agi.com/stk/index.htm#stk/veh_propagator_realTime.htm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -49,7 +49,7 @@ catch
     root.NewScenario('RealTimeTest');
 end
 %Get the scenario root, its of type IAgScenario
-%IAgScenario documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScenario.html?Highlight=IAgScenario
+%IAgScenario documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScenario.html
 scenObj = root.CurrentScenario;
 
 %set the object model to expect all dates in Local Gregorian
@@ -64,9 +64,9 @@ scenObj.StartTime = '22 May 2013 23:00:00.000';
 scenObj.StopTime = '23 May 2013 04:00:00.000';
 
 %Set the scenario's animation properties to animate in x realtime mode
-%IAgScAnimcation documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
+%IAgScAnimcation documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html
 scAnimation = scenObj.Animation;
-%AgEScTimeStepType types: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgScAnimation.html?Highlight=IAgScAnimation
+%AgEScTimeStepType types: https://help.agi.com/stkdevkit/#DocX/STKObjects~Enumerations~AgEScTimeStepType_EN.html
 scAnimation.AnimStepType = 'eScXRealTime';
 
 %% Rewind Animation
@@ -80,19 +80,19 @@ missile.VO.Model.ModelData.Filename = 'C:\Program Files\AGI\STK 12\STKData\VO\Mo
 
 %% Configure Position Propagation
 %Set realtime propagator and configure look ahead
-%Realtime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_RealTime.htm?Highlight=Realtime
+%Realtime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_RealTime.htm
 root.ExecuteCommand('Realtime */Missile/Missile1 SetProp');
 root.ExecuteCommand('Realtime */Missile/Missile1 SetLookAhead HoldCBFPosition 60 60 60');
 
 %% Configure Attitude Propagation
-%SetAttitude RealTime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeRealTime.htm?Highlight=setattitude
+%SetAttitude RealTime connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetAttitudeRealTime.htm
 root.ExecuteCommand('SetAttitude */Missile/Missile1 RealTime Extrapolate 60 60');
 
 %% Configure 3D Graphics Data Displays
 %Remove all data displays to be able to add more by name
 missile.VO.DataDisplay.RemoveAll();
 %Add J2000 Position and Velocity data display
-%IAgVODataDisplayElement documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgVODataDisplayElement.html?Highlight=IAgVODataDisplayElement
+%IAgVODataDisplayElement documentation: https://help.agi.com/stkdevkit/index.htm#DocX/STKObjects~IAgVODataDisplayElement.html
 positionDataDisplay = missile.VO.DataDisplay.Add('J2000 Position Velocity');
 positionDataDisplay.IsVisible = 1;
 % Change font color to green check out rgb2stkColor.m here: https://github.com/AnalyticalGraphicsInc/STKCodeExamples/tree/master/StkAutomation/Matlab/General_Utilities
@@ -172,9 +172,9 @@ while ftell(posFile) < eof_byte
     
     %Check what the current system clock time is, use this as the time
     %stamp for the data to be passed into STK
-    %SetPosition connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetPositionVehicles.htm?Highlight=setposition
+    %SetPosition connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_SetPositionVehicles.htm
     root.ExecuteCommand(['SetPosition */Missile/Missile1 ECF "' epsec '" ' x_pos ' ' y_pos ' ' z_pos ' ' x_vel ' ' y_vel ' ' z_vel]);
-    %AddAttitude Quat connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_AddAttitudeQuat.htm?Highlight=addattitude
+    %AddAttitude Quat connect command: https://help.agi.com/stk/index.htm#../Subsystems/connectCmds/Content/cmd_AddAttitudeQuat.htm
     root.ExecuteCommand(['AddAttitude */Missile/Missile1 Quat "' epsec '" ' q1 ' ' q2 ' ' q3 ' ' q4]);
     
     %output the time, quat, position to the matlab screen

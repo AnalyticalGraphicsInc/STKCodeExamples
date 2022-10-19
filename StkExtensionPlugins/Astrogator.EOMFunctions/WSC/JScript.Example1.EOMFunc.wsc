@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2008, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{6813B9FD-94CC-4dcc-85C5-CF18A4B33E0B}"
+		progid="AGI.EOMFunc.Plugin.Examples.Stk.JScript.Example1.Wsc"
+		description="AGI.EOMFunc.Plugin.Examples.JScript.Example1.Wsc"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<!-- ========== -->
+		<!-- Properties -->
+		<!-- ========== -->
+    <property name="DeltaVAxes" 			get="GetDeltaVAxes" 			put="SetDeltaVAxes"/>
+
+    <!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		<method name="Init">
+			<parameter name="AgUtPluginSite"/>
+		</method>
+		<method name="Register">
+			<parameter name="AgAsEOMFuncPluginRegisterIntf"/>
+		</method>
+		<method name="SetIndices">
+			<parameter name="AgAsEOMFuncPluginSetIndicesIntf"/>
+		</method>
+		<method name="Calc">
+      <parameter name="EventType"/>
+      <parameter name="AgAsEOMFuncPluginStateVector"/>
+		</method>
+		<method name="Free"/>
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+	</public>
+
+	<script language="JScript" src="JScript.Example1.EOMFunc.js"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2008, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

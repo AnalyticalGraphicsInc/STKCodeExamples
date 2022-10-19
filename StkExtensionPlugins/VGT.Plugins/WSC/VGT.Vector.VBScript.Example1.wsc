@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{5B5B9EA5-ECE7-4726-A8AA-B4724A4F1BAC}"
+		progid="Agi.VGT.Vector.Plugin.Examples.VBScript.Example1"
+		description="Agi.VGT.Vector.Plugin.Examples.VBScript.Example1"
+		version="1.00"
+	>
+	</registration>
+	<public>
+	
+		<property name="MyDouble"       		get="GetMyDouble"       	put="SetMyDouble"/>
+		<property name="MyString"       		get="GetMyString"       	put="SetMyString"/>
+
+		<!-- ======= -->
+		<!-- Methods -->
+		<!-- ======= -->
+		
+		<method name="Init">
+					<parameter name="AgStkPluginSite"/>
+		</method>
+		
+		<method name="Register">
+			<parameter name="AgCrdnVectorPluginResultReg"/>
+		</method>
+		
+		<method name="Reset">
+					<parameter name="AgCrdnVectorPluginResultReset"/>
+		</method>
+		
+		<method name="Evaluate">
+			<parameter name="AgCrdnVectorPluginResultEval"/>
+		</method>
+		
+		<method name="Free"/>
+		
+		<method name="GetPluginConfig">
+			<parameter name="AgAttrBuilder"/>
+		</method>
+
+		<method name="VerifyPluginConfig">
+			<parameter name="AgUtPluginCfgVerifyResult"/>
+		</method>
+		
+	</public>
+
+	<script language="VBScript" src="VGT.Vector.VBScript.Example1.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2012, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
+<component>
+	<?component error="true" debug="true"?>
+	<registration
+		classid="{30D1B34D-FE82-4959-A259-587D070FA7DC}"
+		progid="Agi.Radar.ClutterMap.WSC.Example"
+		description="Agi.Radar.ClutterMap.WSC.Example"
+		version="1.00"
+	/>  
+	
+   <public>
+
+      <!-- ========== -->
+      <!-- Properties -->
+      <!-- ========== -->
+      
+      <property name="ConstantClutterCoefficient" get="GetConstantClutterCoefficient" put="SetConstantClutterCoefficient"/>
+      <property name="ApplyGrazeMask" get="GetApplyGrazeMask" put="SetApplyGrazeMask"/>
+      <property name="Verbose" get="GetVerbose" put="SetVerbose"/>
+    
+      <!-- ======= -->
+      <!-- Methods -->
+      <!-- ======= -->
+    
+      <method name="Initialize">
+        <parameter name="pluginSite"/>
+      </method>
+      <method name="PreCompute" />
+      <method name="Compute">
+        <parameter name="computeParams"/>
+      </method>
+      <method name="PostCompute" />
+      <method name="Free" />
+      <method name="GetPluginConfig">
+        <parameter name="attrBuilder" />
+      </method>
+      <method name="VerifyPluginConfig">
+        <parameter name="verifyResult" />
+      </method>
+    
+   </public>
+	
+   <script language="VBScript" src="Agi.Radar.ClutterMap.WSC.Example.vbs"/>
+
+</component>
+
+<!-- ===================================================== -->
+<!--  Copyright 2009, Analytical Graphics, Inc.            -->
+<!-- ===================================================== -->
