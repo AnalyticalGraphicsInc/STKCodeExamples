@@ -1,41 +1,29 @@
 # this script will create a number of force model vectors on satellites at 
 # different altitudes and then evaluate the vector magnitudes
 # author: jens ramrath, agi
-# date: 22 july 2020
+# date: updated 27 october 2022
 
 import numpy as np
-import comtypes
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
-
-from comtypes.gen import STKUtil
-from comtypes.gen import STKObjects
-from comtypes.gen import AgSTKVgtLib
-
-
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import *
 
 def ForceComparison():
     if True:
         # create new scenario
-        uiApp = CreateObject('STK12.Application')
-        uiApp.Visible = True
-        uiApp.UserControl = True
+        stk = STKDesktop.StartApplication(visible=True)
     
-        root = uiApp.Personality2
+        root = stk.Root
         root.NewScenario("PerturbingForceComparison")
     else:
         # connect to running scenario
-        uiApp = GetActiveObject('STK12.Application')
-        uiApp.UserControl = True
-        uiApp.Visible = True
-        root = uiApp.Personality2
+        stk = STKDesktop.AttachTOApplication()
+        root = stk.Root
     
     ####################
     ##### SCENARIO #####
     ####################
     sc = root.CurrentScenario
-    iagSc = sc.QueryInterface(STKObjects.IAgScenario)
-    iagSc.AnalysisInterval.SetStartAndStopTimes("1 Jan 2020 00:00:00.00", "2 Jan 2020 00:00:00.00")
+    sc.AnalysisInterval.SetStartAndStopTimes("1 Jan 2020 00:00:00.00", "2 Jan 2020 00:00:00.00")
     root.Rewind
     
     
@@ -49,11 +37,10 @@ def ForceComparison():
     for thisSat in sats:
         print("Creating */Satellite/" + thisSat)
     
-        oSat = sc.Children.New(STKObjects.eSatellite, thisSat)
-        sat = oSat.QueryInterface(STKObjects.IAgSatellite)
+        sat = sc.Children.New(AgESTKObjectType.eSatellite, thisSat)
         
         sat.SetPropagatorType(0) # ePropagatorHPOP
-        prop = sat.Propagator.QueryInterface(STKObjects.IAgVePropagatorHPOP)
+        prop = sat.Propagator
         prop.Step = 60
         prop.InitialState.Representation.AssignClassical(11, sma[np.where(sats == thisSat)[0]], 0.0, inc[np.where(sats == thisSat)[0]], 0.0, 0.0, 0.0)
     
@@ -276,10 +263,9 @@ def CentralBodyForce(root, centralBodyName):
 # compute average magnitude over scenario duration
 def GetAverageMagnitudeNewton(root, sat, vectorName):
     sc = root.CurrentScenario
-    iagSc = sc.QueryInterface(STKObjects.IAgScenario)
     
     dp = sat.DataProviders.GetDataPrvTimeVarFromPath("Vectors(ICRF)/" + vectorName)
-    dpResultLong = dp.Exec(iagSc.StartTime, iagSc.StopTime, 60.0)
+    dpResultLong = dp.Exec(sc.StartTime, sc.StopTime, 60.0)
             
     mLong = dpResultLong.DataSets.GetDataSetByName("Magnitude").GetValues()
             
@@ -300,16 +286,16 @@ def GetAverageMagnitudeNewton(root, sat, vectorName):
 # copute average difference in vector over scenario duration
 def GetAverageDifferenceNewton(root, sat, vectorName1, vectorName2):
     sc = root.CurrentScenario
-    iagSc = sc.QueryInterface(STKObjects.IAgScenario)
+    #iagSc = sc.QueryInterface(STKObjects.IAgScenario)
     
     dp1 = sat.DataProviders.GetDataPrvTimeVarFromPath("Vectors(ICRF)/" + vectorName1)
-    dpResult1 = dp1.Exec(iagSc.StartTime, iagSc.StopTime, 60.0)
+    dpResult1 = dp1.Exec(sc.StartTime, sc.StopTime, 60.0)
     x1 = dpResult1.DataSets.GetDataSetByName("x").GetValues()
     y1 = dpResult1.DataSets.GetDataSetByName("y").GetValues()
     z1 = dpResult1.DataSets.GetDataSetByName("z").GetValues()
     
     dp2 = sat.DataProviders.GetDataPrvTimeVarFromPath("Vectors(ICRF)/" + vectorName2)
-    dpResult2 = dp2.Exec(iagSc.StartTime, iagSc.StopTime, 60.0)
+    dpResult2 = dp2.Exec(sc.StartTime, sc.StopTime, 60.0)
     x2 = dpResult2.DataSets.GetDataSetByName("x").GetValues()
     y2 = dpResult2.DataSets.GetDataSetByName("y").GetValues()
     z2 = dpResult2.DataSets.GetDataSetByName("z").GetValues()
@@ -331,8 +317,6 @@ def GetAverageDifferenceNewton(root, sat, vectorName1, vectorName2):
     mDiffAverage = mDiffSum/counter
     print("   " + "{:18}".format(vectorName1 + " - " + vectorName2) + " " + str(mDiffAverage) + " N")
     return mDiffSum/counter
-
-
 
 
 ForceComparison()
