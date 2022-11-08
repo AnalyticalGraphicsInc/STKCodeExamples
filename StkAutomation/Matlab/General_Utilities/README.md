@@ -1,6 +1,6 @@
 # MATLAB General Utility Samples
 
-## [Clutter Simulator](Clutter Simulator)
+## [Clutter Simulator](Clutter%20Simulator)
 
 The clutter simulator folder contains the SSA_Clutter_Interference_Visualizer.m demo tool. This is meant to be a simple and fast simulator for showing a target object, a randomly generated star like background, and a series of clutter objects traveling along in a constellation group.
 
@@ -41,7 +41,7 @@ This script takes a folder of eoir raw data files and normalizes the collection.
 
 ### Dependencies
 
-* Capabilities: Matlab
+* Capabilities: N/A
 * Other Scripts: save_colormapped_image.m
 * Scenario: N/A
 
@@ -217,7 +217,7 @@ This script is run from the create_normalized_frame_sequence.m script. It takes 
 
 ### Dependencies
 
-* Capabilities: Matlab
+* Capabilities: N/A
 * Other Scripts: create_normalized_frame_sequence.m
 * Scenario: N/A
 
@@ -302,7 +302,7 @@ Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, L
  
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
 * Other Scripts: N/A
 * Scenario: Any scenario open with Coverage definition and Figure of Merit
 
