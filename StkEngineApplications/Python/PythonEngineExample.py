@@ -1,6 +1,7 @@
+import os
 import time
-from agi.stk12.stkengine import STKEngine
-from agi.stk12.stkdesktop import STKDesktop
+import platform
+
 from agi.stk12.stkobjects import *
 from agi.stk12.stkutil import *
 
@@ -9,13 +10,18 @@ startTime = time.time()
 """
 SET TO TRUE TO USE ENGINE, FALSE TO USE GUI
 """
-useStkEngine = False
+# If the os is Linux, start the engine, otherwise start the desktop (windows)
+if platform.system() == "Linux":
+    useStkEngine = True
+else:
+    useStkEngine = False
 
 ############################################################################
 # Scenario Setup
 ############################################################################
 
 if (useStkEngine):
+    from agi.stk12.stkengine import STKEngine
     # Launch STK Engine with NoGraphics mode
     print("Launching STK Engine...")
     stk = STKEngine.StartApplication(noGraphics = True)
@@ -24,6 +30,7 @@ if (useStkEngine):
     stkRoot = stk.NewObjectRoot()
     
 else:
+    from agi.stk12.stkdesktop import STKDesktop
     # Launch GUI
     print("Launching STK...")
     stk = STKDesktop.StartApplication(visible = True, userControl = True)
@@ -226,8 +233,19 @@ grid = coverageDefinition.Grid
 grid.BoundsType = AgECvBounds.eBoundsCustomRegions
 
 # Add US shapefile to bounds
+# Get the stk installation path from the environment variables
+stk_install_dir = os.getenv("STK_INSTALL_DIR")
 bounds = coverageDefinition.Grid.Bounds
-bounds.RegionFiles.Add(r'C:\Program Files\AGI\STK 12\Data\Shapefiles\Countries\United_States_of_America\United_States_of_America.shp')
+
+# The split path is different on different operating systems (linux is "/", window is "\")
+if platform.system() == "Linux":
+    shp_filename = os.path.join(stk_install_dir,
+                                r"Data/Shapefiles/Countries/United_States_of_America/United_States_of_America.shp")
+else:
+    shp_filename = os.path.join(stk_install_dir,
+                                r"Data\Shapefiles\Countries\United_States_of_America\United_States_of_America.shp")
+
+bounds.RegionFiles.Add(shp_filename)
 
 # Set resolution
 grid.ResolutionType = AgECvResolution.eResolutionDistance
