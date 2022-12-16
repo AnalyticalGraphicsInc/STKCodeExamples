@@ -225,3 +225,15 @@ CoverageGridInspectorAutomate('CoverageDefinition1','FigureOfMerit1')
 * Scenario: Scenario with Coverage already computed. If using the optional figure of merit argument, a fully-configured Figure of Merit object should also be included.
 
 ---
+
+## [getEOIRSensorLatLon.m](getEOIRSensorLatLon.m)
+
+This script accepts inputs of an EOIR sensor path, band number, and time to return a cell array of the ellipsoid lat/lon intersection point of each pixel's boresight in the same format as given by EOIR synthetic scenes. Earth must fill the FOV of the sensor.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
