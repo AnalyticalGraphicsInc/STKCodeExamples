@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+    agent:
+        image: ansys/stk/stk-parallel-computing-server-agent:2.5.0-windowsservercore-ltsc2019
+        build:
+            context: ./agent
+            args:
+                agentBaseImage: ansys/stk/stk-parallel-computing-server-python:2.5.0-windowsservercore-ltsc2019
+        env_file: ../configuration/licensing.env
+        environment:
+            - COORDINATOR=coordinator
+        networks:
+            - stk-parallel-computing-server
+    coordinator:
+        image: ansys/stk/stk-parallel-computing-server-coordinator:2.5.0-windowsservercore-ltsc2019
+        build:
+            context: ./coordinator
+            args:
+                coordinatorBaseImage: mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
+        ports:
+            - 9090:9090
+        networks:
+            - stk-parallel-computing-server
+networks:
+    stk-parallel-computing-server:
+        name: stk-parallel-computing-server

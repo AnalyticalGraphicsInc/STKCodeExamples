@@ -18,4 +18,3 @@ networks:
     stk-parallel-computing-server:
         name: stk-parallel-computing-server
         external: true
-
