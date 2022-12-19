@@ -240,10 +240,10 @@ if platform.system() == "Linux":
 else:
     import winreg
     registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-    key = winreg.OpenKey(registry, r'Software/AGI/STK/12.0')
+    key = winreg.OpenKey(registry, r'Software\AGI\STK\12.0')
     install_path = winreg.QueryValueEx(key, "InstallHome")
 
-bounds.RegionFiles.Add(os.path.join(install_path, r'Data/Shapefiles/Countries/United_States_of_America\United_States_of_America.shp'))
+bounds.RegionFiles.Add(os.path.join(install_path[0], r'Data/Shapefiles/Countries/United_States_of_America\United_States_of_America.shp'))
 
 # Set resolution
 grid.ResolutionType = AgECvResolution.eResolutionDistance
