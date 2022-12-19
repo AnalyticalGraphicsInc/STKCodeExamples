@@ -1,6 +1,7 @@
+import os
 import time
-from agi.stk12.stkengine import STKEngine
-from agi.stk12.stkdesktop import STKDesktop
+import platform
+
 from agi.stk12.stkobjects import *
 from agi.stk12.stkutil import *
 
@@ -9,13 +10,18 @@ startTime = time.time()
 """
 SET TO TRUE TO USE ENGINE, FALSE TO USE GUI
 """
-useStkEngine = False
-
+if platform.system() == "Linux":
+    # Only STK Engine is available on Linux
+    useStkEngine = True
+else:
+    # Change to true to run engine on Windows
+    useStkEngine = False
 ############################################################################
 # Scenario Setup
 ############################################################################
 
 if (useStkEngine):
+    from agi.stk12.stkengine import STKEngine
     # Launch STK Engine with NoGraphics mode
     print("Launching STK Engine...")
     stk = STKEngine.StartApplication(noGraphics = True)
@@ -24,6 +30,7 @@ if (useStkEngine):
     stkRoot = stk.NewObjectRoot()
     
 else:
+    from agi.stk12.stkdesktop import STKDesktop
     # Launch GUI
     print("Launching STK...")
     stk = STKDesktop.StartApplication(visible = True, userControl = True)
@@ -31,7 +38,7 @@ else:
     # Get root object
     stkRoot = stk.Root
 
-# Set date format  
+# Set date format
 stkRoot.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 
 # Create new scenario
@@ -227,7 +234,16 @@ grid.BoundsType = AgECvBounds.eBoundsCustomRegions
 
 # Add US shapefile to bounds
 bounds = coverageDefinition.Grid.Bounds
-bounds.RegionFiles.Add(r'C:\Program Files\AGI\STK 12\Data\Shapefiles\Countries\United_States_of_America\United_States_of_America.shp')
+
+if platform.system() == "Linux":
+    install_path = os.getenv("STK_INSTALL_DIR")
+else:
+    import winreg
+    registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
+    key = winreg.OpenKey(registry, r'Software/AGI/STK/12.0')
+    install_path = winreg.QueryValueEx(key, "InstallHome")
+
+bounds.RegionFiles.Add(os.path.join(install_path, r'Data/Shapefiles/Countries/United_States_of_America\United_States_of_America.shp'))
 
 # Set resolution
 grid.ResolutionType = AgECvResolution.eResolutionDistance
