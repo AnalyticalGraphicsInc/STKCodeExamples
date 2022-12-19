@@ -39,7 +39,7 @@ After creating the attitude, the vehicle will remain aligned with the alignment 
 
 This plugin makes possible to export an ephemeris for certain objects in any frame that exists in Analysis Workbench into your current scenario.
 
-For more information and install instructions please refer to [this FAQ](https://agiweb.secure.force.com/faqs/articles/HowTo/How-do-I-export-an-STK-ephemeris-e-in-a-custom-coordinate-frame)
+For more information and install instructions please refer to [this FAQ](https://analyticalgraphics.force.com/faqs/articles/HowTo/How-do-I-export-an-STK-ephemeris-e-in-a-custom-coordinate-frame)
 
 ---
 
