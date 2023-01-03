@@ -39,7 +39,7 @@ After creating the attitude, the vehicle will remain aligned with the alignment 
 
 This plugin makes possible to export an ephemeris for certain objects in any frame that exists in Analysis Workbench into your current scenario.
 
-For more information and install instructions please refer to [this FAQ](https://agiweb.secure.force.com/faqs/articles/HowTo/How-do-I-export-an-STK-ephemeris-e-in-a-custom-coordinate-frame)
+For more information and install instructions please refer to [this FAQ](https://analyticalgraphics.force.com/faqs/articles/HowTo/How-do-I-export-an-STK-ephemeris-e-in-a-custom-coordinate-frame)
 
 ---
 
@@ -155,31 +155,34 @@ buttons exist to create comparison graphs and a data display.
 
 ### **Prerequistes**
 
-You will need to download a folder with data files which you can obtain [here](https://agi.widen.net/s/wb8l2zrb9f/tetk_notional_test_datasets). Please unzip the folder the following location:
-`C:\AGI`
+You will need to download a folder with data files which you can obtain [here](https://agi.widen.net/s/wb8l2zrb9f/tetk_notional_test_datasets). Please unzip the folder the following location: `C:\AGI`
+
 * Note - You may need to create the AGI folder. This folder path is necessary since the plugin uses hardcoded file paths for certain buttons.
 
 ### **Workflow instructions**
 
-- Right-click the toolbar area at the top of STK and make sure "TETK Example Plugin" is enabled.
-- The plugin toolbar has two white target buttons, a "Workflow 1" button, and a "Test Connect" button.
-- The actions within this buttons need to be run in order from left to right.
+* Right-click the toolbar area at the top of STK and make sure "TETK Example Plugin" is enabled.
+* The plugin toolbar has two white target buttons, a "Workflow 1" button, and a "Test Connect" button.
+* The actions within this buttons need to be run in order from left to right.
 
 #### 1st Target Icon Button - Load TETK Data
-- Imports needed data mappings and loads ownship, associated state, and additional track data.
+
+* Imports needed data mappings and loads ownship, associated state, and additional track data.
 
 #### 2nd Target Icon Button - Create TETK Tracks
-- Button to add raw tracking data for all 10 associated aircraft.
-- Can create individual, filtered tracks based on track IDs for each aircraft. Note that an aircraft may have several track IDs (sensor saw it for some time, lost it, regained it).
-- Can promote a track to a heavy aircraft object (for use in Workflow 1 button).
+
+* Button to add raw tracking data for all 10 associated aircraft.
+* Can create individual, filtered tracks based on track IDs for each aircraft. Note that an aircraft may have several track IDs (sensor saw it for some time, lost it, regained it).
+* Can promote a track to a heavy aircraft object (for use in Workflow 1 button).
 
 #### Workflow 1 Button - Compute Track Comparison
-- Create and compute a track comparison given a track, truth obj, and measured obj (promoted track from prev button).
-- Several quick buttons to create track comparison products.
+
+* Create and compute a track comparison given a track, truth obj, and measured obj (promoted track from prev button).
+* Several quick buttons to create track comparison products.
 
 #### Test Connect Command Button
-- Enter any Connect command as desired and click the "Run Connect Command".
-- The Export button captures ALL Connect commands run in the plugin and exports them to a .txt file in the scenario folder.
 
+* Enter any Connect command as desired and click the "Run Connect Command".
+* The Export button captures ALL Connect commands run in the plugin and exports them to a .txt file in the scenario folder.
 
 ---
