@@ -228,7 +228,7 @@ CoverageGridInspectorAutomate('CoverageDefinition1','FigureOfMerit1')
 
 ## [getEOIRSensorLatLon.m](getEOIRSensorLatLon.m)
 
-This script accepts inputs of an EOIR sensor path, band number, and time to return a cell array of the ellipsoid lat/lon intersection point of each pixel's boresight in the same format as given by EOIR synthetic scenes. Earth must fill the FOV of the sensor.
+This script accepts inputs of an EOIR sensor path, band number, and time to return a cell array of the ellipsoid lat/lon intersection point of each pixel's boresight in the same format as given by EOIR synthetic scenes. If the pixels boresight does not intersect Earth, then the LLA of the point that minimizes detic altitude is given instead.
 
 ### Dependencies
 
