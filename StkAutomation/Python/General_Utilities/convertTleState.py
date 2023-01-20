@@ -50,7 +50,9 @@ for i in range(sats.Count):
         vz = velResult.DataSets.GetDataSetByName("z").GetValues()
 
         # Create and load initial state to new satellite
-        newSat = scenario.Children.New(AgESTKObjectType.eSatellite, sat.InstanceName + "_New")
+        newSat = scenario.Children.New(
+            AgESTKObjectType.eSatellite, sat.InstanceName + "_New"
+        )
         newSat.SetPropagatorType(newPropagator)
         newSat.Propagator.InitialState.OrbitEpoch.SetExplicitTime(
             sat.Propagator.EphemerisInterval.GetStartEpoch().TimeInstant
