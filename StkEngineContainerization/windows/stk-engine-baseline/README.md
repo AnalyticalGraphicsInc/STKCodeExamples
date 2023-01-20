@@ -20,7 +20,7 @@ has your Ansys License Server information.
 1. Download version 12.5.0 or later of STK Engine for Windows from https://support.agi.com/downloads. 
 2. Place the `STK_Engine_v{version}.zip` file in the
 [`distributions`](./distributions) folder at the same level as this file.
-1. Run `docker build -t ansys/stk/stk-engine-baseline:{vesion}-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` 
+1. Run `docker build -t ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` 
 on the command line in this directory after replacing `{version}` with the version number. i.e `12.6.0`
 
 ### Run the Container
