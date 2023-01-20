@@ -2,7 +2,7 @@ repos:
   - repo: https://github.com/psf/black
     rev: stable
     hooks:
-    - id: black
+    - id: black-jupyter
       name: black (python)
   - repo: https://github.com/pycqa/isort
     rev: 5.11.2
