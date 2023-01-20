@@ -1,6 +1,7 @@
 # Get reference to running STK instance using the new API
 from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
+
 stk = STKDesktop.AttachToApplication()
 
 # Get the IAgStkObjectRoot interface
@@ -12,9 +13,9 @@ root.ExecuteCommand("VO * Primitive Delete ID All")
 
 ############### VARIABLES TO CUSTOMIZE ###############
 # Example: GEO Altitude
-alt = 35800 # km
-longspacing = 10 # degrees
-latspacing = 10 # degrees
+alt = 35800  # km
+longspacing = 10  # degrees
+latspacing = 10  # degrees
 ######################################################
 
 # Convert to meters for Connect syntax
@@ -28,7 +29,7 @@ begin = 0
 # Append numbers 0 to 360 to the longitude array
 while begin <= 360:
     longs.append(begin)
-    begin += 1 # increment by 1 for good resolution (otherwise the grid will look like a spiderweb)
+    begin += 1  # increment by 1 for good resolution (otherwise the grid will look like a spiderweb)
 # Append a 0 to the longitude array to complete a circle
 longs.append(0)
 
@@ -39,11 +40,18 @@ idnum = 1
 
 # Create points with the latitude, longitude, and altitude, then concatenate to a Connect command String with other line settings
 # Loop until reached the top line of latitude
-while startLat <= 90:  
+while startLat <= 90:
     point = ""
     for i in range(len(longs)):
         point += " " + str(startLat) + " " + str(longs[i]) + " " + str(alt)
-    cmd = "VO * Primitive Add ID " + str(idnum) + " Type Arc Color White LineStyle Dot Points " + str(i+1) + " LLA" + point
+    cmd = (
+        "VO * Primitive Add ID "
+        + str(idnum)
+        + " Type Arc Color White LineStyle Dot Points "
+        + str(i + 1)
+        + " LLA"
+        + point
+    )
     # Execute current command in loop
     root.ExecuteCommand(cmd)
     # Increment latitude by 10 (up to +80)
@@ -61,7 +69,7 @@ begin = -90
 while begin <= 90:
     lats.append(begin)
     begin += 1
-    
+
 # Starting longitude is -180 (ends at +180)
 startLong = -180
 
@@ -73,7 +81,14 @@ while startLong <= 360:
     point = ""
     for i in range(len(lats)):
         point += "  " + str(lats[i]) + " " + str(startLong) + " " + str(alt)
-    cmd = "VO * Primitive Add ID " + str(idnum) + " Type Arc Color White LineStyle Dot Points " + str(i+1) + " LLA" + point
+    cmd = (
+        "VO * Primitive Add ID "
+        + str(idnum)
+        + " Type Arc Color White LineStyle Dot Points "
+        + str(i + 1)
+        + " LLA"
+        + point
+    )
     # Execute current command
     root.ExecuteCommand(cmd)
     # Increment longitude by 10 (up to +180)

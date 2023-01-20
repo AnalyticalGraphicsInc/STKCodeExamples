@@ -7,8 +7,8 @@
 # =============================================================================
 #                                                            2 Jul 2019 08:50:41
 # Facility-Facility1
-# 
-# 
+#
+#
 #  Name        Start Time (UTCG)           Stop Time (UTCG)        Duration (sec)
 # -----    ------------------------    ------------------------    --------------
 # 00124    19 Jun 2019 16:00:00.000    19 Jun 2019 16:00:00.177             0.177
@@ -22,7 +22,7 @@
 
 
 def readDeck(deckAccessRpt):
-    
+
     report = open(deckAccessRpt, "r")
     lines = report.readlines()
     scn = []
@@ -30,68 +30,72 @@ def readDeck(deckAccessRpt):
         tokenLine = lines[i].split()
         scid = tokenLine[0]
         if scid in scn:
-            #do nothing
+            # do nothing
             scid = scid
         else:
-            scn.append(scid) 
+            scn.append(scid)
     report.close()
-    #print(len(scn))
+    # print(len(scn))
     return scn
-#readDeck()
+
+
+# readDeck()
 # Able to get unique spacecraft id's out of D.A. Report
 
-def getTLEs(TLEFile,deckAccessRpt):
-    
+
+def getTLEs(TLEFile, deckAccessRpt):
+
     tleFile = open(TLEFile, "r")
     scnList = readDeck(deckAccessRpt)
-   # print(len(scnList))
+    # print(len(scnList))
     tleList = []
     tles = tleFile.readlines()
-    #print(scnList[7])
-    for i in range(1, int(round(len(tles)/2))):
-        line = tles[2*i - 1].split()
-        #print(line[1])
+    # print(scnList[7])
+    for i in range(1, int(round(len(tles) / 2))):
+        line = tles[2 * i - 1].split()
+        # print(line[1])
         if line[1] in scnList:
-            tleList.append(tles[2*i - 2])
-            tleList.append(tles[2*i - 1])
-    #print(len(tleList))
-    #print(tleList)
+            tleList.append(tles[2 * i - 2])
+            tleList.append(tles[2 * i - 1])
+    # print(len(tleList))
+    # print(tleList)
     tleFile.close()
     return tleList
 
-def writeTLEs(TLEFile,deckAccessRpt,deckAccessTLE):
-    
+
+def writeTLEs(TLEFile, deckAccessRpt, deckAccessTLE):
+
     satFile = open(deckAccessTLE, "w")
-    tleList = getTLEs(TLEFile,deckAccessRpt)
+    tleList = getTLEs(TLEFile, deckAccessRpt)
     for item in tleList:
         satFile.write("%s" % item)
     satFile.close()
-    return int(len(tleList)/2)
-    
-def FilterObjectsByType(objType,name = ''):
+    return int(len(tleList) / 2)
+
+
+def FilterObjectsByType(objType, name=""):
     from comtypes.client import GetActiveObject
+
     # Attach to STK
-    app = GetActiveObject('STK12.Application')
+    app = GetActiveObject("STK12.Application")
     root = app.Personality2
     # Send objects to an xml
     xml = root.AllInstanceNamesToXML()
 
     # split the xml by object paths
-    objs = xml.split('path=')
-    objs = objs[1:-1] # remove first string of '<'
+    objs = xml.split("path=")
+    objs = objs[1:-1]  # remove first string of '<'
 
     # Loop through each object and parse by object path
     objPaths = []
 
     for i in range(len(objs)):
         obji = objs[i].split('"')
-        objiPath = obji[1] # the 2nd string is the file path
-        objiSplit = objiPath.split('/')
+        objiPath = obji[1]  # the 2nd string is the file path
+        objiSplit = objiPath.split("/")
         objiClass = objiSplit[-2]
         objiName = objiSplit[-1]
         if objiClass.lower() == objType.lower():
             if name.lower() in objiName.lower():
                 objPaths.append(objiPath)
     return objPaths
-	
-

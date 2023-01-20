@@ -13,12 +13,12 @@ import csv
 stk = STKEngine.StartApplication(noGraphics=True)
 root = stk.NewObjectRoot()
 converter = root.ConversionUtility
-epoch = converter.ConvertDate('EpSec', 'UTCG', '0')
+epoch = converter.ConvertDate("EpSec", "UTCG", "0")
 
 # Example vehicle ID: GV1
-vehicleID = input('Input vehicle ID: ')
+vehicleID = input("Input vehicle ID: ")
 # Example path: C:\LLA.csv
-csvPath = input('Input full csv path: ')
+csvPath = input("Input full csv path: ")
 
 # Read input file
 file = open(csvPath)
@@ -26,32 +26,33 @@ inputData = list(csv.reader(file))
 file.close()
 
 # Create output file
-outputPath = csvPath.rsplit('\\', 1)[0]
-ephem = open(f'{outputPath}\\{vehicleID}.pg', 'w')
+outputPath = csvPath.rsplit("\\", 1)[0]
+ephem = open(f"{outputPath}\\{vehicleID}.pg", "w")
 
 # Write header
 numPoints = len(inputData) - 1
-header = ['stk.v.5.0\n',
-          'BEGIN GreatArc\n',
-          'Method DetVelFromTime\n',
-          f'TimeOfFirstWaypoint {epoch}\n',
-          'ArcGranularity 0.01745\n',
-          'AltRef Terrain\n',
-          f'NumberOfWaypoints {numPoints}\n',
-          'BEGIN Waypoints\n']
+header = [
+    "stk.v.5.0\n",
+    "BEGIN GreatArc\n",
+    "Method DetVelFromTime\n",
+    f"TimeOfFirstWaypoint {epoch}\n",
+    "ArcGranularity 0.01745\n",
+    "AltRef Terrain\n",
+    f"NumberOfWaypoints {numPoints}\n",
+    "BEGIN Waypoints\n",
+]
 ephem.writelines(header)
 
 # Convert time to EpSec and write data points
 line_count = 0
 for row in inputData:
     if line_count != 0:
-        epSecTime = converter.ConvertDate('UTCG', 'EpSec', row[0])
-        ephem.write(f'{epSecTime}\t{row[1]}\t{row[2]}\t0\t0\t0\n')
+        epSecTime = converter.ConvertDate("UTCG", "EpSec", row[0])
+        ephem.write(f"{epSecTime}\t{row[1]}\t{row[2]}\t0\t0\t0\n")
     line_count += 1
 
 # Write footer
-footer = ['END Waypoints\n',
-          'END GreatArc\n']
+footer = ["END Waypoints\n", "END GreatArc\n"]
 ephem.writelines(footer)
 
 # Close out

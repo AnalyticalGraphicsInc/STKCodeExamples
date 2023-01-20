@@ -1,14 +1,16 @@
-# --------------------------------------------------------------------
-# demonstrates how to subscribe to STKObjectRoot Events using comtypes
-#
-# Author: jpthompson212
-# Email: support@agi.com
-# --------------------------------------------------------------------
-from comtypes.client import CreateObject, GetActiveObject, GetEvents, ShowEvents, PumpEvents
+from comtypes.client import (
+    CreateObject,
+    GetActiveObject,
+    GetEvents,
+    ShowEvents,
+    PumpEvents,
+)
 from comtypes.gen import STKObjects
+
 
 class EventSink(object):
     """Class to sink to Events in STK"""
+
     def IAgStkObjectRootEvents_OnAnimUpdate(self, this, epoch):
         """Animation Update Event"""
         print("Animation epoch: " + str(epoch))
@@ -29,7 +31,9 @@ class EventSink(object):
         """Scenario Save Event"""
         print("Scenario saved to: " + scenarioPath)
 
-    def IAgStkObjectRootEvents_OnLogMessage(self, this, message, messageType, errorCode, fileName, lineNumber, displayId):
+    def IAgStkObjectRootEvents_OnLogMessage(
+        self, this, message, messageType, errorCode, fileName, lineNumber, displayId
+    ):
         """Log Message Created Event"""
         print("Log Message")
         print("\tMessage: " + message)
@@ -53,7 +57,9 @@ class EventSink(object):
         print("\tOld Path: " + oldPath)
         print("\tNew Path: " + newPath)
 
-    def IAgStkObjectRootEvents_OnAnimationPlayback(self, this, currentTime, action, direction):
+    def IAgStkObjectRootEvents_OnAnimationPlayback(
+        self, this, currentTime, action, direction
+    ):
         """Animation Playback Event"""
         print("Animation playback")
         print("\tCurrent time: " + str(currentTime))
@@ -127,10 +133,11 @@ class EventSink(object):
         print("\tContinue: " + str(args.Continue))
         print("\tSender: " + args.Path)
 
+
 ### Testing Event Subscriptions
 
 # Attach to STK 12 Application
-app = GetActiveObject('STK12.Application')
+app = GetActiveObject("STK12.Application")
 root = app.Personality2
 
 # Create EventSink
@@ -143,4 +150,4 @@ ShowEvents(root, interface=STKObjects.IAgStkObjectRootEvents)
 connection = GetEvents(root, sink, interface=STKObjects.IAgStkObjectRootEvents)
 
 # Defines a timeout necessary for COM
-PumpEvents(100) 
+PumpEvents(100)
