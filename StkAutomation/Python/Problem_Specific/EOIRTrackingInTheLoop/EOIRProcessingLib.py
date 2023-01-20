@@ -29,8 +29,6 @@ from sklearn.metrics import silhouette_score
 # !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-{version}-py3-none-any.whl"
 
 
-
-
 ## Automation
 
 # do this after updating the pointing direction, otherwise you would need to use the observation vector
