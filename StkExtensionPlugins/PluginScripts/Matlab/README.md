@@ -14,19 +14,19 @@ Demonstrates a custom antenna beam selection strategy. This impacts how multi-be
 
 ## [BeamDirectionProvider_MultipleBeams.m](BeamDirectionProvider_MultipleBeams.m)
 
-Demonstrates a custom beam direction provider strategy where there are multiple beams being steered. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
+Demonstrates a custom beam direction provider strategy where there are multiple beams being steered. Documentation can be found [here](https://help.agi.com/stk/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
 
 ---
 
 ## [BeamDirectionProvider.m](BeamDirectionProvider.m)
 
-Demonstrates a custom beam direction provider strategy. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
+Demonstrates a custom beam direction provider strategy. Documentation can be found [here](https://help.agi.com/stk/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
 
 ---
 
 ## [Beamformer.m](Beamformer.m)
 
-Demonstrates a custom phased array beamformer strategy. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#beamformer)
+Demonstrates a custom phased array beamformer strategy. Documentation can be found [here](https://help.agi.com/stk/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#beamformer)
 
 ---
 
@@ -92,7 +92,7 @@ Demonstrates a custom antenna gain pattern. In this example there's a simple gau
 
 ## [NullDirectionProvider.m](NullDirectionProvider.m)
 
-Demonstrates a custom beam direction provider. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
+Demonstrates a custom beam direction provider. Documentation can be found [here](https://help.agi.com/stk/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#directionprovider)
 
 ---
 
@@ -104,7 +104,7 @@ Demonstrates a custom antenna gain pattern. In this example the customization is
 
 ## [RadarCrossSection.m](RadarCrossSection.m)
 
-Custom radar cross section defined through an external script. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#rcs)
+Custom radar cross section defined through an external script. Documentation can be found [here](https://help.agi.com/stk/index.htm#../Subsystems/pluginScripts/Content/commPoints.htm#rcs)
 
 ---
 
