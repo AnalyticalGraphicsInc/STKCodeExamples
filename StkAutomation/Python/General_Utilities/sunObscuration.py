@@ -1,6 +1,6 @@
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.vgt import *
 from agi.stk12.stkobjects import *
+from agi.stk12.vgt import *
 
 # Inputs
 sensorPath = "*/Satellite/Satellite1/Sensor/Sensor1"

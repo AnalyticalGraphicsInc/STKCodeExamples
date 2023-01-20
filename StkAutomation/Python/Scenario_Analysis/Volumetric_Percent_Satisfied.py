@@ -3,10 +3,11 @@ Created by: Noah Ingwersen
 Last Updated: 12/7/2021
 """
 
+import numpy as np
+
 # Imports
 from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
-import numpy as np
 
 ######## USER INPUTS ################
 volumetricName = "Volumetric1"

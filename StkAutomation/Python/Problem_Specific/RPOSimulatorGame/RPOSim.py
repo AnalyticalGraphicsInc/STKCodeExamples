@@ -4,11 +4,12 @@ Created on Tue Jun 22 10:26:51 2021
 
 @author: wlawrie
 """
+import math
+from tkinter import *
+
 from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
 from agi.stk12.stkobjects.astrogator import *
-import math
-from tkinter import *
 
 #%%
 # Define units in terms of seconds

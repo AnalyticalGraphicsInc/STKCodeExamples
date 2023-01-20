@@ -21,8 +21,7 @@ deckAccessTLE = "C:\\deckAccessTLE.tce"
 
 
 # Import the needed packages
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
+from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects
 
 # Sometimes autocomplete takes a while. This line fixes that.
@@ -33,8 +32,7 @@ get_ipython().run_line_magic("config", "Completer.use_jedi = False")
 
 
 # Get the current time and add 1 second
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 now = datetime.now()
 nowSTK = now.strftime("%d %b %Y %H:%M:%S")

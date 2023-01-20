@@ -10,9 +10,9 @@ except:
         "Failed to import stk modules. Make sure you have installed the STK Python API wheel (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory"
     )
 try:
-    from mpl_toolkits import mplot3d
     import matplotlib.pyplot as plt
     import numpy as np
+    from mpl_toolkits import mplot3d
 except:
     print(
         "**** Error: Failed to import one of the required modules (mpl_toolkits, matplotlib, numpy). Make sure you have them installed. If you are using anaconda python, make sure you are running the sample from an anaconda command prompt."

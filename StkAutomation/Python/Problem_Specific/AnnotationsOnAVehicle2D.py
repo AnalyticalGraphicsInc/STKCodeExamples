@@ -20,14 +20,12 @@ def Annotations(
 
     numEvents = len(Events)
 
-    from comtypes.client import CreateObject
-    from comtypes.client import GetActiveObject
+    from comtypes.client import CreateObject, GetActiveObject
 
     uiApplication = GetActiveObject("STK{}.Application".format(STKVersion))
     root = uiApplication.Personality2
 
-    from comtypes.gen import STKObjects
-    from comtypes.gen import STKUtil
+    from comtypes.gen import STKObjects, STKUtil
 
     scenario = root.CurrentScenario
     uiApplication.Visible = True

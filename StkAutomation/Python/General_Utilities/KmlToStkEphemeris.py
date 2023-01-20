@@ -14,7 +14,6 @@ Dependencies:
 # Imports
 from bs4 import BeautifulSoup
 
-
 # ---- User Inputs  ------------------------------------------#
 
 kmlFile = r"C:\temp\ForeFlightExampleFile.kml"

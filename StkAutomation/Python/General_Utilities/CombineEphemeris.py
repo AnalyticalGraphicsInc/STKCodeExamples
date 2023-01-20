@@ -16,13 +16,13 @@ class EphemerisPoint:
         self.Z = z
 
 
+import os
+
 ### RUN
 # start new instance of STK
 import comtypes
-import os
 from comtypes.client import CreateObject
-from comtypes.gen import STKObjects
-from comtypes.gen import AgSTKVgtLib
+from comtypes.gen import AgSTKVgtLib, STKObjects
 
 app = CreateObject("STK12.Application")
 app.Visible = True

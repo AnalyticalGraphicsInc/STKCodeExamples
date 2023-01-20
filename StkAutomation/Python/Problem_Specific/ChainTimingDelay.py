@@ -5,10 +5,11 @@ This is useful for scenarios such as an imaging system with onboard storage, whe
 can be imaged, then downlinked at a later time specified by the maximum delay.
 """
 
+import os
+from dataclasses import dataclass
+
 from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
-from dataclasses import dataclass
-import os
 
 # Globals
 # Specify type for intellisense

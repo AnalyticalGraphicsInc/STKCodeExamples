@@ -1,6 +1,6 @@
 import os
-import time
 import platform
+import time
 
 from agi.stk12.stkobjects import *
 from agi.stk12.stkutil import *

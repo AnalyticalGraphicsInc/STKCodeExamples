@@ -1,34 +1,33 @@
 # coding: utf-8
 
-import numpy as np
-import pandas as pd
-import scipy as sp
-from scipy import stats
+import asyncio
+import concurrent.futures
+import datetime
+import logging
 import os
+import pickle
+import sys
 import time
 from datetime import timedelta
-import datetime
-import pickle
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
-from comtypes.gen import STKObjects
-from comtypes.gen import STKUtil
-import asyncio
 from threading import Thread
-import concurrent.futures
-import logging
-import sys
-import seaborn as sns
+
+import numpy as np
+import pandas as pd
 import pythoncom
-from pyDOE2 import (
+import scipy as sp
+import seaborn as sns
+from comtypes.client import CreateObject, GetActiveObject
+from comtypes.gen import STKObjects, STKUtil
+from poliastro.constants import GM_earth
+from poliastro.core.elements import (  # Will need to install poliastro: conda install -c conda-forge poliastro
+    coe2rv,
+    rv2coe,
+)
+from pyDOE2 import (  # Will need to install pyDOE2: pip install pyDOE2    OR    conda install -c conda-forge pydoe2
     fullfact,
     lhs,
-)  # Will need to install pyDOE2: pip install pyDOE2    OR    conda install -c conda-forge pydoe2
-from poliastro.core.elements import (
-    rv2coe,
-    coe2rv,
-)  # Will need to install poliastro: conda install -c conda-forge poliastro
-from poliastro.constants import GM_earth
+)
+from scipy import stats
 
 
 class configSettings:

@@ -1,5 +1,6 @@
-from comtypes.client import GetActiveObject
 import sys
+
+from comtypes.client import GetActiveObject
 
 print(sys.argv)
 uiApplication = GetActiveObject("STK12.Application")

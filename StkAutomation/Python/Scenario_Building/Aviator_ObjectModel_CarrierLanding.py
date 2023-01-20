@@ -1,6 +1,7 @@
+import sys
+
 import win32com.client
 from win32com.client import GetActiveObject
-import sys
 
 ### Quick tip: If you would like to use a more detailed carrier ship
 ### download the CVN-72 model from support.agi.com/3d-models and

@@ -21,16 +21,17 @@ stopTimes = np.arange(
     600, 4200, 600
 )  # Deck Access and analysis stop time. Relative to the scenario start time [EpSec]
 
+import os
+
+import pandas as pd
+
 # %% Loop through each constellation
 # Import libraries
 from DeckAccessReader import *
-import pandas as pd
-import os
 
 cwd = os.getcwd()
 cwdFiles = cwd + "\\Files"
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
+from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects
 
 # Connect To STK

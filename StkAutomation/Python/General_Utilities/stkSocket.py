@@ -1,4 +1,5 @@
-import socket, sys
+import socket
+import sys
 
 host = "localhost"  # Typically localhost or 127.0.0.1
 port = 5001  # Typically 5001 for STK

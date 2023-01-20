@@ -1,12 +1,12 @@
 # Import the needed packages
+import os
 import sys
-from ConstellationWizardLib import *
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
-from comtypes.gen import STKObjects
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
+from comtypes.client import CreateObject, GetActiveObject
+from comtypes.gen import STKObjects
+from ConstellationWizardLib import *
 
 print("Initializing")
 # cwd = os.getcwd()

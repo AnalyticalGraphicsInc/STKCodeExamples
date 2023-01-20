@@ -1,15 +1,16 @@
+import itertools
+import os
+import pickle
+import time
+from collections import Counter
+
+import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 import pandas as pd
 from agi.stk12.stkobjects import *
 from agi.stk12.utilities.colors import Colors
-import networkx as nx
-import itertools
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-from collections import Counter
-import pickle
-import os
-import time
 
 # Potential Future Work: Switch to max flow problem in nx. After initial runtime investigation there does not appear to be much benefit, at most a factor of 2 better, but that estimate was missing a bunch of other processing steps
 # Allow for possibility of stoping, saving and reusing data

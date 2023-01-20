@@ -1,14 +1,17 @@
-from agiparallel.client import *
-from agiparallel.constants import TaskProperties
-from agiparallel.infrastructure.TaskEnvironment import TaskEnvironment
+import json
+import os
+import uuid
+from datetime import datetime, timedelta, timezone
+
 from agi.stk12.stkengine import STKEngine
 from agi.stk12.stkobjects.stkobjects import (
     AgESTKObjectType,
     IAgSatellite,
     IAgVePropagatorTwoBody,
 )
-from datetime import datetime, timedelta, timezone
-import json, os, uuid
+from agiparallel.client import *
+from agiparallel.constants import TaskProperties
+from agiparallel.infrastructure.TaskEnvironment import TaskEnvironment
 
 
 def main():

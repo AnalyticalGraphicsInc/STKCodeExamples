@@ -7,10 +7,10 @@
 # Digital transmitter pattern: Dipole
 # Power: 250 nW
 
-import time
 import os
 import sys
-from typing import Union, Tuple
+import time
+from typing import Tuple, Union
 
 try:
     from agi.stk12.stkdesktop import STKDesktop, STKDesktopApplication

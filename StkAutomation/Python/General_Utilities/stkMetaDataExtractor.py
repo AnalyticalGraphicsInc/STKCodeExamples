@@ -1,6 +1,6 @@
 import json
-import sys
 import os
+import sys
 
 
 def dict2xml(d, root_node=None):

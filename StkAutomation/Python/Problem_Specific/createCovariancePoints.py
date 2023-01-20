@@ -1,13 +1,13 @@
 #
 # STK library imports
 
+import os
+
+import numpy as np
 from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
 from agi.stk12.stkutil import *
 from agi.stk12.vgt import *
-import os
-import numpy as np
-
 
 # Inputs
 satName = "Satellite1"

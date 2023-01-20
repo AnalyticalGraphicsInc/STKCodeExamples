@@ -1,23 +1,13 @@
 # EOIRandImageProcessing.py
-import numpy as np
-import pandas as pd
-import cv2
 import os
+import time
+
+import cv2
 import imageio
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-import time
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-from skimage.color import rgb2gray
-from scipy.spatial.transform import Rotation as R
-from skimage.feature import peak_local_max
-from astropy import units as u
-from astropy.coordinates import Angle
-
-# Attach to STK
-
-# !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-{version}-py3-none-any.whl"
+import numpy as np
+import pandas as pd
 
 # Set up your Python workspace
 from agi.stk12.stkdesktop import STKDesktop
@@ -26,6 +16,19 @@ from agi.stk12.stkutil import *
 
 # from agi.stk12.stkobjects.astrogator import *
 from agi.stk12.utilities.colors import Color, Colors
+from astropy import units as u
+from astropy.coordinates import Angle
+from scipy.spatial.transform import Rotation as R
+from skimage.color import rgb2gray
+from skimage.feature import peak_local_max
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+# Attach to STK
+
+# !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-{version}-py3-none-any.whl"
+
+
 
 
 ## Automation

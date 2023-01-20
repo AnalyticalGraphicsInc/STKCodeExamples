@@ -2,8 +2,8 @@ from comtypes.client import (
     CreateObject,
     GetActiveObject,
     GetEvents,
-    ShowEvents,
     PumpEvents,
+    ShowEvents,
 )
 from comtypes.gen import STKObjects
 

@@ -17,20 +17,18 @@
 # 00040    19 Jun 2019 16:00:00.000    19 Jun 2019 16:00:03.785             3.785
 # =============================================================================
 
+import math
+import os
+from tkinter import END, INSERT, Tk, scrolledtext
+from tkinter.ttk import *
+
+import numpy as np
+
 # Data begins at line 7
 # SCID = cols 0-4
 import pandas as pd
-import numpy as np
-import math
-import os
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
+from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects
-from tkinter import Tk
-from tkinter.ttk import *
-from tkinter import scrolledtext
-from tkinter import INSERT
-from tkinter import END
 
 cwd = os.getcwd()
 cwdFiles = cwd + "\\Files"

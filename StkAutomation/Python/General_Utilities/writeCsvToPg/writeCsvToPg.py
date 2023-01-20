@@ -5,9 +5,10 @@ Lon, and Alt to a great arc propagator file (.pg). Inputs of vehicle ID and
 full csv path are prompted from the user. Output is a .pg file in the same
 directory that can be imported into any STK object with a great arc propagator.
 """
+import csv
+
 from agi.stk12.stkengine import STKEngine
 from agi.stk12.stkutil import *
-import csv
 
 # Set up STK Engine for conversion utility to EpSec
 stk = STKEngine.StartApplication(noGraphics=True)

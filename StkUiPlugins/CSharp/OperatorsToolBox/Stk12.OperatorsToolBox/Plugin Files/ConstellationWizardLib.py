@@ -17,20 +17,19 @@
 # 00040    19 Jun 2019 16:00:00.000    19 Jun 2019 16:00:03.785             3.785
 # =============================================================================
 
+import math
+import os
+import pickle
+import re
+import time
+
+import numpy as np
+
 # Data begins at line 7
 # SCID = cols 0-4
 import pandas as pd
-import numpy as np
-import math
-import os
-import time
-import re
-import pickle
-from comtypes.client import CreateObject
-from comtypes.client import GetActiveObject
-from comtypes.gen import STKObjects
-from comtypes.gen import AgSTKVgtLib
-from comtypes.gen import STKUtil
+from comtypes.client import CreateObject, GetActiveObject
+from comtypes.gen import AgSTKVgtLib, STKObjects, STKUtil
 
 cwd = os.getcwd()
 cwdFiles = cwd + "\\Files"
