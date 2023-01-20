@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    - id: black
+      name: black (python)
+  - repo: https://github.com/pycqa/isort
+    rev: 5.11.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black"]
