@@ -20,21 +20,23 @@ else:
 # Scenario Setup
 ############################################################################
 
-if (useStkEngine):
+if useStkEngine:
     from agi.stk12.stkengine import STKEngine
+
     # Launch STK Engine with NoGraphics mode
     print("Launching STK Engine...")
-    stk = STKEngine.StartApplication(noGraphics = True)
-    
+    stk = STKEngine.StartApplication(noGraphics=True)
+
     # Create root object
     stkRoot = stk.NewObjectRoot()
-    
+
 else:
     from agi.stk12.stkdesktop import STKDesktop
+
     # Launch GUI
     print("Launching STK...")
-    stk = STKDesktop.StartApplication(visible = True, userControl = True)
-    
+    stk = STKDesktop.StartApplication(visible=True, userControl=True)
+
     # Get root object
     stkRoot = stk.Root
 
@@ -43,18 +45,22 @@ stkRoot.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 
 # Create new scenario
 print("Creating scenario...")
-stkRoot.NewScenario('PythonEngineExample')
+stkRoot.NewScenario("PythonEngineExample")
 scenario = stkRoot.CurrentScenario
 
 # Set time period
 scenario.SetTimePeriod("1 Aug 2020 16:00:00", "2 Aug 2020 16:00:00")
-if (useStkEngine == False):
+if useStkEngine == False:
     # Graphics calls are not available when running STK Engine in NoGraphics mode
     stkRoot.Rewind()
 
 totalTime = time.time() - startTime
 splitTime = time.time()
-print("--- Scenario creation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".format(a=totalTime, b=totalTime))
+print(
+    "--- Scenario creation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".format(
+        a=totalTime, b=totalTime
+    )
+)
 
 ############################################################################
 # Simple Access
@@ -100,7 +106,7 @@ propagator.Propagate()
 facility = scenario.Children.New(AgESTKObjectType.eFacility, "MyFacility")
 
 # Set position
-facility.Position.AssignGeodetic(28.62, -80.62, 0.03) 
+facility.Position.AssignGeodetic(28.62, -80.62, 0.03)
 
 # Compute access between satellite and facility
 print("\nComputing access...")
@@ -111,7 +117,9 @@ access.ComputeAccess()
 stkRoot.UnitPreferences.SetCurrentUnit("Time", "Min")
 accessDataProvider = access.DataProviders.GetDataPrvIntervalFromPath("Access Data")
 elements = ["Start Time", "Stop Time", "Duration"]
-accessResults = accessDataProvider.ExecElements(scenario.StartTime, scenario.StopTime, elements)
+accessResults = accessDataProvider.ExecElements(
+    scenario.StartTime, scenario.StopTime, elements
+)
 
 startTimes = accessResults.DataSets.GetDataSetByName("Start Time").GetValues()
 stopTimes = accessResults.DataSets.GetDataSetByName("Stop Time").GetValues()
@@ -119,9 +127,17 @@ durations = accessResults.DataSets.GetDataSetByName("Duration").GetValues()
 
 # Print data to console
 print("\nAccess Intervals")
-print("{a:<29s}  {b:<29s}  {c:<14s}".format(a="Start Time", b="Stop Time", c="Duration (min)"))
+print(
+    "{a:<29s}  {b:<29s}  {c:<14s}".format(
+        a="Start Time", b="Stop Time", c="Duration (min)"
+    )
+)
 for i in range(len(startTimes)):
-    print("{a:<29s}  {b:<29s}  {c:<4.2f}".format(a=startTimes[i], b=stopTimes[i], c=durations[i]))
+    print(
+        "{a:<29s}  {b:<29s}  {c:<4.2f}".format(
+            a=startTimes[i], b=stopTimes[i], c=durations[i]
+        )
+    )
 
 print("\nThe maximum access duration is {a:4.2f} minutes.".format(a=max(durations)))
 
@@ -129,7 +145,11 @@ print("\nThe maximum access duration is {a:4.2f} minutes.".format(a=max(duration
 totalTime = time.time() - startTime
 sectionTime = time.time() - splitTime
 splitTime = time.time()
-print("--- Access computation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".format(a=sectionTime, b=totalTime))
+print(
+    "--- Access computation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".format(
+        a=sectionTime, b=totalTime
+    )
+)
 
 ############################################################################
 # Constellations and Chains
@@ -139,43 +159,55 @@ print("--- Access computation: {a:4.3f} sec\t\tTotal time: {b:4.3f} sec ---".for
 satellite.Unload()
 
 # Create constellation object
-constellation = scenario.Children.New(AgESTKObjectType.eConstellation, "SatConstellation")
+constellation = scenario.Children.New(
+    AgESTKObjectType.eConstellation, "SatConstellation"
+)
 
 # Insert the constellation of Satellites
 numOrbitPlanes = 4
 numSatsPerPlane = 8
 
 stkRoot.BeginUpdate()
-for orbitPlaneNum, RAAN in enumerate(range(0,180,180//numOrbitPlanes),1): #RAAN in degrees
+for orbitPlaneNum, RAAN in enumerate(
+    range(0, 180, 180 // numOrbitPlanes), 1
+):  # RAAN in degrees
 
-    for satNum, trueAnomaly in enumerate(range(0,360,360//numSatsPerPlane), 1): #trueAnomaly in degrees
-        
+    for satNum, trueAnomaly in enumerate(
+        range(0, 360, 360 // numSatsPerPlane), 1
+    ):  # trueAnomaly in degrees
+
         # Insert satellite
-        satellite = scenario.Children.New(AgESTKObjectType.eSatellite, f"Sat{orbitPlaneNum}{satNum}")
-                
+        satellite = scenario.Children.New(
+            AgESTKObjectType.eSatellite, f"Sat{orbitPlaneNum}{satNum}"
+        )
+
         # Select Propagator
         satellite.SetPropagatorType(AgEVePropagatorType.ePropagatorTwoBody)
-        
+
         # Set initial state
         twoBodyPropagator = satellite.Propagator
-        keplarian = twoBodyPropagator.InitialState.Representation.ConvertTo(AgEOrbitStateType.eOrbitStateClassical.eOrbitStateClassical)
-        
+        keplarian = twoBodyPropagator.InitialState.Representation.ConvertTo(
+            AgEOrbitStateType.eOrbitStateClassical.eOrbitStateClassical
+        )
+
         keplarian.SizeShapeType = AgEClassicalSizeShape.eSizeShapeSemimajorAxis
-        keplarian.SizeShape.SemiMajorAxis = 8200 #km
+        keplarian.SizeShape.SemiMajorAxis = 8200  # km
         keplarian.SizeShape.Eccentricity = 0
 
-        keplarian.Orientation.Inclination = 60 #degrees
-        keplarian.Orientation.ArgOfPerigee = 0 #degrees
+        keplarian.Orientation.Inclination = 60  # degrees
+        keplarian.Orientation.ArgOfPerigee = 0  # degrees
         keplarian.Orientation.AscNodeType = AgEOrientationAscNode.eAscNodeRAAN
-        keplarian.Orientation.AscNode.Value = RAAN  #degrees
-        
+        keplarian.Orientation.AscNode.Value = RAAN  # degrees
+
         keplarian.LocationType = AgEClassicalLocation.eLocationTrueAnomaly
-        keplarian.Location.Value = trueAnomaly + (360//numSatsPerPlane/2)*(orbitPlaneNum%2)  #Stagger true anomalies (degrees) for every other orbital plane       
-        
+        keplarian.Location.Value = trueAnomaly + (360 // numSatsPerPlane / 2) * (
+            orbitPlaneNum % 2
+        )  # Stagger true anomalies (degrees) for every other orbital plane
+
         # Propagate
         satellite.Propagator.InitialState.Representation.Assign(keplarian)
         satellite.Propagator.Propagate()
-        
+
         # Add to constellation object
         constellation.Objects.AddObject(satellite)
 
@@ -199,34 +231,44 @@ durationList = []
 
 # Loop through all satellite access intervals
 for intervalNum in range(chainResults.Intervals.Count - 1):
-    
+
     # Get interval
     interval = chainResults.Intervals[intervalNum]
-    
+
     # Get data for interval
     objectName = interval.DataSets.GetDataSetByName("Strand Name").GetValues()[0]
     durations = interval.DataSets.GetDataSetByName("Duration").GetValues()
-    
+
     # Add data to list
     objectList.append(objectName)
     durationList.append(sum(durations))
-    
+
 # Find object with longest total duration
 index = durationList.index(max(durationList))
-print("\n{a:s} has the longest total duration: {b:4.2f} minutes.".format(a=objectList[index], b=durationList[index]))
+print(
+    "\n{a:s} has the longest total duration: {b:4.2f} minutes.".format(
+        a=objectList[index], b=durationList[index]
+    )
+)
 
 # Print computation time
 totalTime = time.time() - startTime
 sectionTime = time.time() - splitTime
 splitTime = time.time()
-print("--- Chain computation: {a:4.2f} sec\t\tTotal time: {b:4.2f} sec ---".format(a=sectionTime, b=totalTime))
-    
+print(
+    "--- Chain computation: {a:4.2f} sec\t\tTotal time: {b:4.2f} sec ---".format(
+        a=sectionTime, b=totalTime
+    )
+)
+
 ############################################################################
 # Coverage
 ############################################################################
 
 # Create coverage definition
-coverageDefinition = scenario.Children.New(AgESTKObjectType.eCoverageDefinition, "CoverageDefinition")
+coverageDefinition = scenario.Children.New(
+    AgESTKObjectType.eCoverageDefinition, "CoverageDefinition"
+)
 
 # Set grid bounds type
 grid = coverageDefinition.Grid
@@ -239,11 +281,17 @@ if platform.system() == "Linux":
     install_path = os.getenv("STK_INSTALL_DIR")
 else:
     import winreg
+
     registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-    key = winreg.OpenKey(registry, r'Software\AGI\STK\12.0')
+    key = winreg.OpenKey(registry, r"Software\AGI\STK\12.0")
     install_path = winreg.QueryValueEx(key, "InstallHome")
 
-bounds.RegionFiles.Add(os.path.join(install_path[0], r'Data/Shapefiles/Countries/United_States_of_America\United_States_of_America.shp'))
+bounds.RegionFiles.Add(
+    os.path.join(
+        install_path[0],
+        r"Data/Shapefiles/Countries/United_States_of_America\United_States_of_America.shp",
+    )
+)
 
 # Set resolution
 grid.ResolutionType = AgECvResolution.eResolutionDistance
@@ -255,7 +303,9 @@ coverageDefinition.AssetList.Add("Constellation/SatConstellation")
 coverageDefinition.ComputeAccesses()
 
 # Create figure of merit
-figureOfMerit = coverageDefinition.Children.New(AgESTKObjectType.eFigureOfMerit, "FigureOfMerit")
+figureOfMerit = coverageDefinition.Children.New(
+    AgESTKObjectType.eFigureOfMerit, "FigureOfMerit"
+)
 
 # Set the definition and compute type
 figureOfMerit.SetDefinitionType(AgEFmDefinitionType.eFmAccessDuration)
@@ -277,7 +327,11 @@ sectionTime = time.time() - splitTime
 print("\nThe minimum coverage duration is {a:4.2f} min.".format(a=minAccessDuration))
 print("The maximum coverage duration is {a:4.2f} min.".format(a=maxAccessDuration))
 print("The average coverage duration is {a:4.2f} min.".format(a=avgAccessDuration))
-print("--- Coverage computation: {a:0.3f} sec\t\tTotal time: {b:0.3f} sec ---".format(a=sectionTime, b=totalTime))
+print(
+    "--- Coverage computation: {a:0.3f} sec\t\tTotal time: {b:0.3f} sec ---".format(
+        a=sectionTime, b=totalTime
+    )
+)
 
 stkRoot.CloseScenario()
 stk.ShutDown()
