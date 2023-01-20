@@ -1,4 +1,4 @@
-ARG agentBaseImage=ansys/stk/stk-parallel-computing-server-python:2.5-windowsservercore-ltsc2019
+ARG agentBaseImage=ansys/stk/stk-parallel-computing-server-python:2.6-windowsservercore-ltsc2019
 FROM ${agentBaseImage}
 ARG agreeToLicense=no
 
