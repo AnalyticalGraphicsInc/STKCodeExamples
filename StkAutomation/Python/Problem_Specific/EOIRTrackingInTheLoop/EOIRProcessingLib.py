@@ -15,8 +15,8 @@ from skimage.feature import peak_local_max
 from astropy import units as u
 from astropy.coordinates import Angle
 # Attach to STK
-# New way of connectings
-# !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-12.1.0-py3-none-any.whl"
+
+# !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-{version}-py3-none-any.whl"
 
 # Set up your Python workspace
 from agi.stk12.stkdesktop import STKDesktop
