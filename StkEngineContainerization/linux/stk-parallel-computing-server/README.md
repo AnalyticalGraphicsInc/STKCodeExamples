@@ -33,27 +33,26 @@ Docker networking, [Method 2 - Docker Compose](#method-2---docker-compose) is hi
 3. Build the coordinator image:
     * If you did not build the `custom-environment` image described in the 
     [Special Configuration](#special-configuration) section, run 
-    `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:2.5-centos7 coordinator` 
-    on the command line in this directory.
+    `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-centos7 coordinator` 
+    on the command line in this directory after replacing `{version}` with the version number. i.e `2.6.0`
     * If you did build the `custom-environment` image described in the [Special Configuration](#special-configuration) 
-    section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:2.5-centos7 --build-arg baseImage=custom/centos:7 coordinator` 
-    on the command line in this directory.
-4. Run `docker build -t ansys/stk/stk-parallel-computing-server-python:2.5-centos7 python` on the command line in this
-directory.  This produces an image that includes the STK Parallel Computing Server Python API.  The Agent container 
-extends from this, but it can also be used to execute a client script that submits jobs to the Coordinator service.
-5. Run `docker build -t ansys/stk/stk-parallel-computing-server-agent:2.5-centos7 agent` on the command line in this
-directory to build the agent image.
+    section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-centos7 --build-arg baseImage=custom/centos:7 coordinator` 
+    on the command line in this directory after replacing `{version}` with the version number. i.e `2.6.0`
+4. Run `docker build -t ansys/stk/stk-parallel-computing-server-python:{version}-centos7 python` on the command line in this
+directory after replacing `{version}` with the version number. i.e `2.6.0`.  This produces an image that includes the STK Parallel Computing Server Python API.  The Agent container extends from this, but it can also be used to execute a client script that submits jobs to the Coordinator service.
+5. Run `docker build -t ansys/stk/stk-parallel-computing-server-agent:{version}-centos7 agent` on the command line in this
+directory after replacing `{version}` with the version number. i.e `2.6.0` to build the agent image.
 
 ### Run the Containers
 #### Start the STK Parallel Computing Services
 The entrypoint of these containers start the Coordinator and Agent servers, with the Coordinator 
 listening on the container's port `9090`. To start the containers:
 1. Run `docker network create stk-parallel-computing-server` on the command line in this directory.
-2. Run `docker run -d --rm --name stk-parallel-coordinator --network stk-parallel-computing-server --network-alias coordinator -p 9090:9090 ansys/stk/stk-parallel-computing-server-coordinator:2.5-centos7` 
-on the command line in this directory.
+2. Run `docker run -d --rm --name stk-parallel-coordinator --network stk-parallel-computing-server --network-alias coordinator -p 9090:9090 ansys/stk/stk-parallel-computing-server-coordinator:{version}-centos7` 
+on the command line in this directory after replacing `{version}` with the version number. i.e `2.6.0`
     * If port `9090` is already in use on your machine, map a different port (e.g. `1234:9090`). 
-3. Run `docker run -d --rm --name stk-parallel-agent --network stk-parallel-computing-server --network-alias agent --env-file ../configuration/licensing.env -e COORDINATOR=coordinator ansys/stk/stk-parallel-computing-server-agent:2.5-centos7`
-on the command line in this directory.
+3. Run `docker run -d --rm --name stk-parallel-agent --network stk-parallel-computing-server --network-alias agent --env-file ../configuration/licensing.env -e COORDINATOR=coordinator ansys/stk/stk-parallel-computing-server-agent:{version}-centos7`
+on the command line in this directory after replacing `{version}` with the version number. i.e `2.6.0`
 
 #### Execute Parallel Computing Tasks
 This section will show how to execute the [`client_example.py`](./client_example.py) script using a Docker container 
@@ -63,8 +62,8 @@ In this example, each task will compute access intervals between a default satel
 given the start and stop times of the analysis interval.  Each task's interval is defined as an entry in the 
 `timeIntervals` list.  You can edit this list directly in the script file to add more calculation intervals or modify 
 those already there.  The date-times must be in valid ISO-8601 format.
-1. Run `docker run --rm -v <ABSOLUTE PATH TO THIS DIRECTORY>/client_example.py:/tmp/client_example.py -e COORDINATOR_HOSTNAME=coordinator -e COORDINATOR_PORT=9090 -w /tmp --network stk-parallel-computing-server ansys/stk/stk-parallel-computing-server-python:2.5-centos7 client_example.py`
-on the command line in this directory.
+1. Run `docker run --rm -v <ABSOLUTE PATH TO THIS DIRECTORY>/client_example.py:/tmp/client_example.py -e COORDINATOR_HOSTNAME=coordinator -e COORDINATOR_PORT=9090 -w /tmp --network stk-parallel-computing-server ansys/stk/stk-parallel-computing-server-python:{version}-centos7 client_example.py`
+on the command line in this directory after replacing `{version}` with the version number. i.e `2.6.0`
     * If you changed the host port mapping for the coordinator above, use that port for the value of `COORDINATOR_PORT`
     instead of `9090`.
 

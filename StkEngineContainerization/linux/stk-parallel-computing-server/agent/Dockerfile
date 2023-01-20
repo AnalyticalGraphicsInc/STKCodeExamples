@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.5-centos7
+ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.6-centos7
 FROM ${baseImage} AS builder
 
 # Add the STK Parallel Computing Server Agent packages to the builder stage

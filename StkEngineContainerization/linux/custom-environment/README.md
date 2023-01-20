@@ -36,7 +36,7 @@ as described in `PIP Configuration` in [`Dockerfile`](./Dockerfile).
 ### Build the Images
 If you need to override the default `pip` repository URL to download Python packages, 
 include the following command line option in both commands below: `--build-arg pipIndexUrl=<Your custom pip index url>`
-1. Run `docker build -t ansys/stk/stk-engine-custom-baseline:12.4.0-centos7 .` on the command line in this directory.
+1. Run `docker build -t ansys/stk/stk-engine-custom-baseline:{version}-centos7 .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.6.0`
 This will produce an image on top of the `stk-engine-baseline` image that is needed to build the code samples using
 STK Engine, `yum`, and `pip` in your environment.
 2. Run `docker build -t custom/centos:7 --build-arg baseImage=centos:7 .` on the command line in this directory. 
