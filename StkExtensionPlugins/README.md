@@ -42,7 +42,7 @@ Scripts to drive the attitude simulator capability within STK. Documentation can
 
 ## [Aviator Strategy](AviatorStrategy)
 
-Customize the basic maneuver strategy within the Aviator module. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#aircraft/proc_basicManeuver.htm).
+Customize the basic maneuver strategy within the Aviator module. Documentation can be found [here](https://help.agi.com/stk/index.htm#aircraft/proc_basicManeuver.htm).
 
 ---
 
@@ -84,7 +84,7 @@ Plugin points for tasks performed by an individual script. Types of plugin scrip
 
 ## [Post Processing](PostProcessing)
 
-Scripts to customize report formats. Documentation can be found [here](https://help.agi.com/stk/12.2.0/index.htm#stk/report-08.htm).
+Scripts to customize report formats. Documentation can be found [here](https://help.agi.com/stk/index.htm#stk/report-08.htm).
 
 ---
 
