@@ -9,7 +9,7 @@ from agi.stk12.stkobjects.stkobjects import (
     IAgSatellite,
     IAgVePropagatorTwoBody,
 )
-from agiparallel.client import *
+from agiparallel.client import ClusterJobScheduler
 from agiparallel.constants import TaskProperties
 from agiparallel.infrastructure.TaskEnvironment import TaskEnvironment
 
@@ -73,7 +73,7 @@ class ComputeTask:
         self.stopTime = stopTime
 
     def execute(self):
-        log = self.get_property(TaskProperties.LOGGER)
+        # log = self.get_property(TaskProperties.LOGGER)
 
         env = self.get_property(TaskProperties.ENVIRONMENT)
         if not env:

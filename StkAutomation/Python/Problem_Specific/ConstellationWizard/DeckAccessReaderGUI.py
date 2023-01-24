@@ -17,10 +17,8 @@
 # 00040    19 Jun 2019 16:00:00.000    19 Jun 2019 16:00:03.785             3.785
 # =============================================================================
 
-import math
 import os
-from tkinter import END, INSERT, Tk, scrolledtext
-from tkinter.ttk import *
+from tkinter import END
 
 import numpy as np
 
@@ -29,6 +27,9 @@ import numpy as np
 import pandas as pd
 from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects
+
+# import tkinter.ttk
+
 
 cwd = os.getcwd()
 cwdFiles = cwd + "\\Files"
@@ -142,7 +143,7 @@ def ImportChildren(children, obj):
                 + childName
                 + ObjectExtension(childType)
             )
-        except:
+        except Exception:
             child = obj.Children.Item(childName)
         childrenObjs.append(child)
     return childrenObjs
@@ -347,7 +348,7 @@ def ConnectToSTK(
         app = GetActiveObject("STK{}.Application".format(version))
         root = app.Personality2
         root.Isolate()
-    except:
+    except Exception:
         app = CreateObject("STK{}.Application".format(version))
         app.Visible = True
         app.UserControl = True
@@ -355,7 +356,7 @@ def ConnectToSTK(
         root.Isolate()
         try:
             root.LoadScenario(scenarioPath + "\\" + scenarioName + ".sc")
-        except:
+        except Exception:
             root.NewScenario(scenarioName)
     root.UnitPreferences.SetCurrentUnit("DateFormat", "Epsec")
     root.ExecuteCommand('Units_SetConnect / Date "Epsec"')
@@ -478,7 +479,7 @@ def LoadMTO(
         )  # Decrease the TimeStep for better resolution at the cost of computation time
         root.ExecuteCommand(cmd)
         txtBox.insert(END, "Loaded: " + MTOName + "\n")
-    except:
+    except Exception:
         txtBox.insert(END, "Failed To Load: " + MTOName + "\n")
 
 
@@ -546,7 +547,6 @@ def runDeckAccess(
         )  # Created
     else:
         # Deck Access for the current time. Save the deck access file to the specified
-        sc2 = root.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
         deckAccessFileName = cwdFiles + "\\Misc\\deckAccessRpt.txt"  # Created
         deckAccessTLEFileName = (
             cwdFiles + "\\Constellations\\deckAccessTLE.tce"
@@ -570,7 +570,7 @@ def runDeckAccess(
                 + '" ConstraintObject */Satellite/'
                 + constraintSatName
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            root.ExecuteCommand(cmd)
         else:
             cmd = (
                 "DeckAccess */"
@@ -585,7 +585,7 @@ def runDeckAccess(
                 + deckAccessFileName
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            root.ExecuteCommand(cmd)
         NumOfSC = writeTLEs(TLEFileName, deckAccessFileName, deckAccessTLEFileName)
         txtBox.insert(
             END,
@@ -717,7 +717,7 @@ def LoadSatsUsingTemplate(
 
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
@@ -725,16 +725,16 @@ def LoadSatsUsingTemplate(
                     child = childrenObj[jj]
                     try:
                         conObjs[jj].Objects.AddObject(child)
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
 
-    except:
+    except Exception:
         for ii in range(len(dfLoad)):
             cmd = (
                 'ImportTLEFile * "'
@@ -747,7 +747,7 @@ def LoadSatsUsingTemplate(
                 + stopTime
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            root.ExecuteCommand(cmd)
             cmd = "Graphics */Satellite/tle-" + dfLoad.loc[ii, "Ssc2"] + " Show Off"
             root.ExecuteCommand(cmd)
             cmd = (
@@ -760,20 +760,20 @@ def LoadSatsUsingTemplate(
             sat = root.GetObjectFromPath("Satellite/tle-" + str(dfLoad.loc[ii, "Ssc2"]))
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
                 for jj in range(len(conObjs)):
                     try:
                         conObjs[jj].Objects.AddObject(childrenObj[jj])
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
     root.ExecuteCommand("BatchGraphics * Off")
     root.EndUpdate()

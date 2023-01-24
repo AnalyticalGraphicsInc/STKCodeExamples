@@ -5,13 +5,26 @@ Created on Tue Jun 22 10:26:51 2021
 @author: wlawrie
 """
 import math
-from tkinter import *
+from tkinter import (
+    END,
+    Button,
+    Entry,
+    Frame,
+    IntVar,
+    Label,
+    OptionMenu,
+    Radiobutton,
+    StringVar,
+    Tk,
+    W,
+    mainloop,
+)
 
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
-from agi.stk12.stkobjects.astrogator import *
+from agi.stk12.stkobjects import AgESTKObjectType, AgSatellite
+from agi.stk12.stkobjects.astrogator import AgVAStoppingCondition
 
-#%%
+#
 # Define units in terms of seconds
 days = 86400
 hours = 3600
@@ -20,12 +33,13 @@ pi = math.pi
 deg = pi / 180
 # Rename to location of ephemeris data storage (create your own)
 directory = "D://EngineeringLab//RPOSimulator"
-#%% Create New STK instance
+# Create New STK instance
 # '17 Jun 2021 00:00:00.000','+30 days'
+
+
 def newSTK(startTime, stopTime):  # Create new STK instance
     global scenario
     global root
-    i = 0
     # stk = STKDesktop.StartApplication(visible=False, userControl=False)
     stk = STKDesktop.StartApplication(visible=True, userControl=True)
     # Grab a handle on the STK application root.
@@ -36,7 +50,7 @@ def newSTK(startTime, stopTime):  # Create new STK instance
     root.Rewind()
 
 
-#%% Satellite class
+# Satellite class
 class satellite:
     def __createSat(self):
         self.sat = AgSatellite(
@@ -229,7 +243,7 @@ class satellite:
         driver = self.driver
         propagate = driver.MainSequence.InsertByName("Propagate", "-")
         propToStop = propagate.StoppingConditions.Add("UserSelect")
-        StopDuration = propagate.StoppingConditions.Item(0)
+        # StopDuration = propagate.StoppingConditions.Item(0)
         propagate.StoppingConditions.Remove(0)
         propToStop.Properties.Trip = root.CurrentScenario.StopTime
 
@@ -325,12 +339,14 @@ class satellite:
         export.Export(fileName)
 
 
-#%% GUI and Logic
+# GUI and Logic
 
 gui = Tk()
 gui.title("Create New Scenario")
 gui.geometry("500x300")
 # Methods
+
+
 def createScenario():
     global myFrame
 
@@ -411,7 +427,6 @@ def addSatellite():
         intercept,
     ]
     satList.append(myList)
-    textvar = "yes"
 
 
 def createSats():

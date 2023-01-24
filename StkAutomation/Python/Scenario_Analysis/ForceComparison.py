@@ -5,7 +5,7 @@
 
 import numpy as np
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
+from agi.stk12.stkobjects import AgESTKObjectType
 
 
 def ForceComparison():
@@ -20,18 +20,12 @@ def ForceComparison():
         stk = STKDesktop.AttachTOApplication()
         root = stk.Root
 
-    ####################
-    ##### SCENARIO #####
-    ####################
     sc = root.CurrentScenario
     sc.AnalysisInterval.SetStartAndStopTimes(
         "1 Jan 2020 00:00:00.00", "2 Jan 2020 00:00:00.00"
     )
     root.Rewind
 
-    #############################
-    ##### CREATE SATELLITES #####
-    #############################
     sats = np.array(["LEO_300km", "LEO_400km", "LEO_600km", "LEO_800km", "GPS", "GEO"])
     sma = np.array([6678, 6778, 6978, 7178, 26600, 42165])
     inc = np.array([98.0, 98.0, 98.0, 98.0, 55.0, 0.0])
@@ -56,7 +50,7 @@ def ForceComparison():
 
         forceModel = prop.ForceModel
         forceModel.CentralBodyGravity.File = (
-            "C:\Program Files\AGI\STK 12\STKData\CentralBodies\Earth\WGS84_EGM96.grv"
+            r"C:\Program Files\AGI\STK 12\STKData\CentralBodies\Earth\WGS84_EGM96.grv"
         )
         forceModel.CentralBodyGravity.MaxDegree = 21
         forceModel.CentralBodyGravity.MaxOrder = 21
@@ -67,15 +61,9 @@ def ForceComparison():
 
         prop.Propagate()
 
-    ######################################
-    ##### CREATE FORCE MODEL VECTORS #####
-    ######################################
     # can't create ForceModel vectors with the OM so connect all the way
     vectors = []
 
-    #######################
-    ### GRAVITY VECTORS ###
-    #######################
     # Point Mass
     GravityVector(root, "PointMass", 0, 0)
     vectors.append("PointMass")
@@ -112,9 +100,6 @@ def ForceComparison():
     GravityVector(root, "J70-70", 70, 70)
     vectors.append("J70-70")
 
-    ######################
-    ### CENTRAL BODIES ###
-    ######################
     # Sun
     thisVector = "SunForce"
     print("Creating vector: " + thisVector)
@@ -219,54 +204,48 @@ def ForceComparison():
         'VectorTool * Satellite Modify VectorTemplate SRP "Force Model" Force ThirdBodyGravity Moon Off'
     )
 
-    ####################
-    ##### ANALYSIS #####
-    ####################
     for thisSat in sats:
         print("Analyzing */Satellite/" + thisSat)
 
         oSat = root.GetObjectFromPath("*/Satellite/" + thisSat)
 
         # loop through vectors and vector differences of interest
-        m = GetAverageMagnitudeNewton(root, oSat, "PointMass")
-        m = GetAverageMagnitudeNewton(root, oSat, "J2")
-        m = GetAverageMagnitudeNewton(root, oSat, "J2-2")
-        m = GetAverageMagnitudeNewton(root, oSat, "J4")
-        m = GetAverageMagnitudeNewton(root, oSat, "J4-4")
-        m = GetAverageMagnitudeNewton(root, oSat, "J8-8")
-        m = GetAverageMagnitudeNewton(root, oSat, "J12-12")
-        m = GetAverageMagnitudeNewton(root, oSat, "J24-24")
-        m = GetAverageMagnitudeNewton(root, oSat, "J70-70")
+        GetAverageMagnitudeNewton(root, oSat, "PointMass")
+        GetAverageMagnitudeNewton(root, oSat, "J2")
+        GetAverageMagnitudeNewton(root, oSat, "J2-2")
+        GetAverageMagnitudeNewton(root, oSat, "J4")
+        GetAverageMagnitudeNewton(root, oSat, "J4-4")
+        GetAverageMagnitudeNewton(root, oSat, "J8-8")
+        GetAverageMagnitudeNewton(root, oSat, "J12-12")
+        GetAverageMagnitudeNewton(root, oSat, "J24-24")
+        GetAverageMagnitudeNewton(root, oSat, "J70-70")
 
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J2")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J2-2")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J4")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J4-4")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J8-8")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J12-12")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J24-24")
-        m = GetAverageDifferenceNewton(root, oSat, "PointMass", "J70-70")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J2")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J2-2")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J4")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J4-4")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J8-8")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J12-12")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J24-24")
+        GetAverageDifferenceNewton(root, oSat, "PointMass", "J70-70")
 
-        m = GetAverageDifferenceNewton(root, oSat, "J2-2", "J2")
-        m = GetAverageDifferenceNewton(root, oSat, "J2", "J4")
-        m = GetAverageDifferenceNewton(root, oSat, "J4-4", "J2-2")
-        m = GetAverageDifferenceNewton(root, oSat, "J8-8", "J4-4")
-        m = GetAverageDifferenceNewton(root, oSat, "J12-12", "J8-8")
-        m = GetAverageDifferenceNewton(root, oSat, "J24-24", "J12-12")
-        m = GetAverageDifferenceNewton(root, oSat, "J70-70", "J24-24")
+        GetAverageDifferenceNewton(root, oSat, "J2-2", "J2")
+        GetAverageDifferenceNewton(root, oSat, "J2", "J4")
+        GetAverageDifferenceNewton(root, oSat, "J4-4", "J2-2")
+        GetAverageDifferenceNewton(root, oSat, "J8-8", "J4-4")
+        GetAverageDifferenceNewton(root, oSat, "J12-12", "J8-8")
+        GetAverageDifferenceNewton(root, oSat, "J24-24", "J12-12")
+        GetAverageDifferenceNewton(root, oSat, "J70-70", "J24-24")
 
-        m = GetAverageMagnitudeNewton(root, oSat, "SunForce")
-        m = GetAverageMagnitudeNewton(root, oSat, "MoonForce")
-        m = GetAverageMagnitudeNewton(root, oSat, "MarsForce")
-        m = GetAverageMagnitudeNewton(root, oSat, "JupiterForce")
-        m = GetAverageMagnitudeNewton(root, oSat, "VenusForce")
+        GetAverageMagnitudeNewton(root, oSat, "SunForce")
+        GetAverageMagnitudeNewton(root, oSat, "MoonForce")
+        GetAverageMagnitudeNewton(root, oSat, "MarsForce")
+        GetAverageMagnitudeNewton(root, oSat, "JupiterForce")
+        GetAverageMagnitudeNewton(root, oSat, "VenusForce")
 
-        m = GetAverageMagnitudeNewton(root, oSat, "Drag")
-        m = GetAverageMagnitudeNewton(root, oSat, "SRP")
+        GetAverageMagnitudeNewton(root, oSat, "Drag")
+        GetAverageMagnitudeNewton(root, oSat, "SRP")
 
-    ####################
-    ##### CLEAN-UP #####
-    ####################
     # delete vectors and satellites
     if False:
         for thisVector in vectors:

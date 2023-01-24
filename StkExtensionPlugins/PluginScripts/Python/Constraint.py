@@ -35,16 +35,10 @@ PY_Constraint_init = -1
 
 # Copyright 2006, Analytical Graphics Incorporated
 
-# ==========================================================================
-# PY_Constraint_GetConstraintDisplayName() fctn
-# ==========================================================================
+
 def PY_Constraint_GetConstraintDisplayName():
     return "PythonPluginConstraint"
 
-
-# ==========================================================================
-# PY_Constraint_GetAccessList() fctn
-# ==========================================================================
 
 G_PY_Constraint_AllClasses = "Aircraft,AreaTarget,Facility,GroundVehicle,"
 G_PY_Constraint_AllClasses += (
@@ -63,9 +57,6 @@ def PY_Constraint_GetAccessList(argList):
     return strReturnValue
 
 
-# ==========================================================================
-# PY_Constraint fctn
-# ==========================================================================
 def PY_Constraint(argList):
     callMode = str(argList[0])
     if callMode == "None":
@@ -85,9 +76,6 @@ def PY_Constraint(argList):
     return retVal
 
 
-# ==========================================================================
-# PY_Constraint_register
-# ==========================================================================
 def PY_Constraint_register():
 
     args = []
@@ -148,7 +136,9 @@ def PY_Constraint_compute(argList):
     status = "Okay"
     if PY_Constraint_init < 0:
         PY_Constraint_init = 1
-        PY_Constraint_Inputs = g_PluginArrayInterfaceHash["PY_Constraint_Inputs"]
+        PY_Constraint_Inputs = g_PluginArrayInterfaceHash[  # noqa: F821
+            "PY_Constraint_Inputs"
+        ]
         status = "MESSAGE: [Info] PY_Constraint- Everything is fine;  CONTROL: OK"
     time = float(argList[PY_Constraint_Inputs["Epoch"]])
 

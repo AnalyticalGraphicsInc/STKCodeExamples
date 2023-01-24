@@ -1,6 +1,7 @@
 # Get reference to running STK instance using the new API
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
+
+# from agi.stk12.stkobjects import *
 
 stk = STKDesktop.AttachToApplication()
 
@@ -11,16 +12,16 @@ root = stk.Root
 # Can use this Delete All to play around & tailor spacing/altitude on each run as desired
 root.ExecuteCommand("VO * Primitive Delete ID All")
 
-############### VARIABLES TO CUSTOMIZE ###############
+# VARIABLES TO CUSTOMIZE
 # Example: GEO Altitude
 alt = 35800  # km
 longspacing = 10  # degrees
 latspacing = 10  # degrees
-######################################################
+
 
 # Convert to meters for Connect syntax
 alt *= 1000
-############### Lines of latitude ###############
+# Lines of latitude
 
 # Create longitude array
 longs = []
@@ -59,7 +60,7 @@ while startLat <= 90:
     # Increment idnum to make the next circle in a new Primitive
     idnum += 1
 
-############### Lines of longitude ###############
+# Lines of longitude
 
 # Create latitude array
 lats = []
@@ -93,5 +94,5 @@ while startLong <= 360:
     root.ExecuteCommand(cmd)
     # Increment longitude by 10 (up to +180)
     startLong += longspacing
-    # Incrememt idnum for new Primitive
+    # Increment idnum for new Primitive
     idnum += 1

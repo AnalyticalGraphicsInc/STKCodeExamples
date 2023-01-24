@@ -8,7 +8,6 @@ directory that can be imported into any STK object with a great arc propagator.
 import csv
 
 from agi.stk12.stkengine import STKEngine
-from agi.stk12.stkutil import *
 
 # Set up STK Engine for conversion utility to EpSec
 stk = STKEngine.StartApplication(noGraphics=True)

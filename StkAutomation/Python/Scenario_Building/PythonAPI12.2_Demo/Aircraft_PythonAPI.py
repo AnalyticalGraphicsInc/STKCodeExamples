@@ -15,17 +15,51 @@ from typing import Tuple, Union
 try:
     from agi.stk12.stkdesktop import STKDesktop, STKDesktopApplication
     from agi.stk12.stkengine import STKEngine, STKEngineApplication
-    from agi.stk12.stkobjects import *
-    from agi.stk12.stkobjects.aviator import *
-except:
+    from agi.stk12.stkobjects import (
+        AgAircraft,
+        AgAntennaModelGaussian,
+        AgAntennaModelPencilBeam,
+        AgEAccessConstraints,
+        AgEAltRefType,
+        AgEAzElMaskType,
+        AgESTKObjectType,
+        AgEVePropagatorType,
+        AgPlace,
+        AgReceiver,
+        AgReceiverModelComplex,
+        AgStkObjectRoot,
+        AgTransmitter,
+        AgTransmitterModelComplex,
+        AgVePropagatorAviator,
+        AgVOModelFile,
+    )
+    from agi.stk12.stkobjects.aviator import (
+        AgAvtrAircraftTerrainFollowModel,
+        AgAvtrProcedureHoldingRacetrack,
+        AgAvtrProcedureLanding,
+        AgAvtrProcedureTakeoff,
+        AgAvtrProcedureTerrainFollow,
+        AgAvtrPropagator,
+        AgAvtrSiteRunwayFromCatalog,
+        AgAvtrSiteSTKStaticObject,
+        AgEAvtrAdvFixedWingPowerplantStrategy,
+        AgEAvtrApproachMode,
+        AgEAvtrCruiseSpeed,
+        AgEAvtrHoldingProfileMode,
+        AgEAvtrProcedureType,
+        AgEAvtrRunwayHighLowEnd,
+        AgEAvtrSiteType,
+        AgEAvtrTurnMode,
+    )
+except Exception:
     print(
         "Failed to import stk modules. Make sure you have installed the STK Python API wheel \
         (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory"
     )
 try:
-    import matplotlib.pyplot as plt
+    # import matplotlib.pyplot as plt
     import numpy as np
-except:
+except Exception:
     print(
         "**** Error: Failed to import one of the required modules (matplotlib, numpy). \
         Make sure you have them installed. If you are using anaconda python, make sure you are running \
@@ -237,7 +271,7 @@ def initializeStk(
             stkRoot.CloseScenario()
         try:
             stkRoot.Load(scenarioPath)
-        except:
+        except Exception:
             print(f"Unable to load scenario: {scenarioPath}")
     setMetricUnits(stkRoot)
     return stk, stkRoot

@@ -1,6 +1,5 @@
 # Import main library
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
 
 stk = STKDesktop.AttachToApplication()
 

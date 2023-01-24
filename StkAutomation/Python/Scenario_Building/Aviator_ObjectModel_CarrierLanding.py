@@ -1,16 +1,13 @@
 import sys
 
 import win32com.client
-from win32com.client import GetActiveObject
 
-### Quick tip: If you would like to use a more detailed carrier ship
-### download the CVN-72 model from support.agi.com/3d-models and
-### place it into the following location before running the script:
-### <STK Install Directory>\STKData\VO\Models\Sea
+# Quick tip: If you would like to use a more detailed carrier ship
+# download the CVN-72 model from support.agi.com/3d-models and
+# place it into the following location before running the script:
+# <STK Install Directory>\STKData\VO\Models\Sea
 
-############################################################################
 # Setup and Create the Scenario
-############################################################################
 
 print("...Opening the application")
 
@@ -63,10 +60,7 @@ stkRoot.ExecuteCommand("Application / Maximize")
 # Maximize 3D window
 stkRoot.ExecuteCommand("Window3D * Maximize")
 
-
-############################################################################
 # Create Facility to Represent the Oceana Naval Air Station (KNTU)
-############################################################################
 
 print("...Adding Oceana Naval Air Station")
 
@@ -83,10 +77,7 @@ facilityKntu.Position.AssignGeodetic(
 # Set facility color
 facilityKntu.Graphics.Color = 16777215  # white
 
-
-############################################################################
 # Create Ship to Represent the USS Abraham Lincoln (CVN-72)
-############################################################################
 
 print("...Adding CVN-72 carrier ship")
 
@@ -124,7 +115,7 @@ try:
     shipCvn72.VO.Model.ModelData.Filename = (
         "STKData\\VO\\Models\\Sea\\cvn-72\\cvn-72.mdl"
     )
-except:
+except Exception:
     # Insert default carrier model from STK install folder
     shipCvn72.VO.Model.ModelData.Filename = (
         "STKData\\VO\\Models\\Sea\\aircraft-carrier.mdl"
@@ -140,10 +131,7 @@ shipCvn72.Route.Propagate()
 stkRoot.ExecuteCommand("VO * ViewFromTo Normal From Ship/CVN-72")  # zoom to ship
 stkRoot.ExecuteCommand("VO * ViewerPosition 20 115 150000")  # set view position
 
-
-############################################################################
 # Create Lead Hornet Aircraft to Perform Carrier Landing
-############################################################################
 
 print("...Creating lead hornet aircraft")
 
@@ -190,7 +178,7 @@ aircraftHornetLead.Graphics.Attributes.Line.Width = (
     2  # medium thickness. 2 = AgELineWidth.e3
 )
 
-##  Get the runways from the catalog
+#  Get the runways from the catalog
 
 # Get the runway category
 runwayCategory = avtrPropHornetLead.AvtrCatalog.RunwayCategory
@@ -213,7 +201,7 @@ else:
     print("...Runway " + runwayNameOceana + " does not exist in catalog.")
 
 
-### Add a Takeoff Procedure
+# Add a Takeoff Procedure
 
 print("...Lead hornet - adding takeoff procedure")
 
@@ -222,7 +210,7 @@ takeoffHornetLead = proceduresHornetLead.Add(
     6, 22
 )  # 6 = AgEAvtrSiteType.eSiteRunway, 22 = AgEAvtrProcedureType.eProcTakeoff
 
-## Set the site properties
+# Set the site properties
 
 # Get the site
 oceanaRunway = takeoffHornetLead.Site
@@ -231,7 +219,7 @@ oceanaRunway = takeoffHornetLead.Site
 oceanaRunway.CopyFromCatalog(oceana)
 oceanaRunway.Name = runwayNameOceana
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Get the runway heading options
 runwayOptionsHornetLead = takeoffHornetLead.RunwayHeadingOptions
@@ -252,7 +240,7 @@ normalTakeoffHornetLead.RunwayAltitudeOffset = 0  # ft
 normalTakeoffHornetLead.UseRunwayTerrain = True
 
 
-### Add an Enroute Procedure to Begin Approach to Ship
+# Add an Enroute Procedure to Begin Approach to Ship
 
 print("...Lead hornet - adding enroute procedure to approach ship")
 
@@ -260,7 +248,7 @@ enrouteHornetLead = proceduresHornetLead.Add(
     9, 8
 )  # 9 = AgEAvtrSiteType.eSiteSTKObjectWaypoint, 8 = AgEAvtrProcedureType.eProcEnroute
 
-## Set the site properties
+# Set the site properties
 enrouteHornetLeadSite = enrouteHornetLead.Site
 
 # Link to ship object
@@ -276,7 +264,7 @@ enrouteHornetLeadSite.OffsetMode = (
 enrouteHornetLeadSite.Bearing = 180  # deg
 enrouteHornetLeadSite.Range = 40  # nm
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set the altitude options
 enrouteHornetLead.AltitudeMSLOptions.UseDefaultCruiseAltitude = False
@@ -289,7 +277,7 @@ enrouteHornetLead.NavigationOptions.NavMode = (
 enrouteHornetLead.NavigationOptions.ArriveOnCourse = 135  # deg
 
 
-### Add a 2nd Enroute Procedure to "Enter the Stack"
+# Add a 2nd Enroute Procedure to "Enter the Stack"
 
 print("...Lead hornet - adding enroute procedure to enter stack")
 
@@ -297,7 +285,7 @@ enroute2HornetLead = proceduresHornetLead.Add(
     9, 8
 )  # 9 = AgEAvtrSiteType.eSiteSTKObjectWaypoint, 8 = AgEAvtrProcedureType.eProcEnroute
 
-## Set the site properties
+# Set the site properties
 enroute2HornetLeadSite = enroute2HornetLead.Site
 
 # Link to ship object
@@ -313,7 +301,7 @@ enroute2HornetLeadSite.OffsetMode = (
 enroute2HornetLeadSite.Bearing = 180  # deg
 enroute2HornetLeadSite.Range = 10  # nm
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set the procedure name
 enroute2HornetLead.Name = "Enter the Stack"
@@ -333,7 +321,7 @@ enroute2HornetLead.EnrouteCruiseAirspeedOptions.CruiseSpeedType = (
 )
 
 
-### Create a New Mission Phase for StationKeeping
+# Create a New Mission Phase for StationKeeping
 
 phase2HornetLead = avtrMissionHornetLead.Phases.Add()
 phase2HornetLead.Name = "StationKeeping"
@@ -342,7 +330,7 @@ phase2HornetLead.Name = "StationKeeping"
 procedures2HornetLead = phase2HornetLead.Procedures
 
 
-### Add a Basic Maneuver Procedure to "Enter Case 1 Marshall"
+# Add a Basic Maneuver Procedure to "Enter Case 1 Marshall"
 
 print("...Lead hornet - adding maneuever to enter Case I Marshall")
 
@@ -351,12 +339,12 @@ basicManeuverHornetLead = procedures2HornetLead.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuverHornetLead.Name = "Case I Marshall"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuverHornetLead.NavigationStrategyType = "Stationkeeping"
 
 # Get the navigation interface
@@ -379,7 +367,7 @@ stationkeepingNavHornetLead.StopAfterTurnCount = 5
 stationkeepingNavHornetLead.UseRelativeCourse = True
 stationkeepingNavHornetLead.StopCourse = -180  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuverHornetLead.ProfileStrategyType = "Autopilot - Vertical Plane"
 
 # Get the profile interface
@@ -409,13 +397,13 @@ autoProfileHornetLead.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuverHornetLead.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuverHornetLead.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuverHornetLead.UseStopFuelState = True
 basicManeuverHornetLead.StopFuelState = 2000  # lb
 basicManeuverHornetLead.UseMaxTimeOfFlight = False
@@ -430,7 +418,7 @@ basicManeuverHornetLead.TerrainImpactMode = (
 )
 
 
-### Add a Basic Maneuver to "Enter Break"
+# Add a Basic Maneuver to "Enter Break"
 
 print("...Lead hornet - adding maneuever to enter break")
 
@@ -442,12 +430,12 @@ basicManeuver2HornetLead = procedures2HornetLead.Add(
 # Set the site name
 basicManeuver2HornetLead.Site.Name = "Mother"
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuver2HornetLead.Name = "Enter Break"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuver2HornetLead.NavigationStrategyType = "Relative Course"
 
 # Get the navigation interface
@@ -472,7 +460,7 @@ relCourse.ClosureMode = 2  # 2 = AgEAvtrClosureMode.eHOBS
 relCourse.DownrangeOffset = 0  # nm
 relCourse.HOBSMaxAngle = 90  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuver2HornetLead.ProfileStrategyType = "Autopilot - Vertical Plane"
 
 # Get the profile interface
@@ -506,13 +494,13 @@ autoProfile2HornetLead.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuver2HornetLead.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuver2HornetLead.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuver2HornetLead.UseStopFuelState = True
 basicManeuver2HornetLead.StopFuelState = 0  # lb
 basicManeuver2HornetLead.UseMaxTimeOfFlight = False
@@ -527,7 +515,7 @@ basicManeuver2HornetLead.TerrainImpactMode = (
 )
 
 
-### Add a Basic Maneuver Procedure to "Break"
+# Add a Basic Maneuver Procedure to "Break"
 
 print("...Lead hornet - adding maneuever to break")
 
@@ -536,12 +524,12 @@ basicManeuver3HornetLead = procedures2HornetLead.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuver3HornetLead.Name = "Break"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuver3HornetLead.NavigationStrategyType = "Relative Course"
 
 # Get the navigation interface
@@ -574,7 +562,7 @@ relCourse2.ClosureMode = 2  # 2 = AgEAvtrClosureMode.eHOBS
 relCourse2.DownrangeOffset = 0  # nm
 relCourse2.HOBSMaxAngle = 90  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuver3HornetLead.ProfileStrategyType = "Autopilot - Vertical Plane"
 
 # Get the profile interface
@@ -610,13 +598,13 @@ autoProfile3HornetLead.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuver3HornetLead.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuver3HornetLead.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuver3HornetLead.UseStopFuelState = True
 basicManeuver3HornetLead.StopFuelState = 0  # lb
 basicManeuver3HornetLead.UseMaxTimeOfFlight = False
@@ -631,7 +619,7 @@ basicManeuver3HornetLead.TerrainImpactMode = (
 )
 
 
-### Add a Basic Maneuver Procedure to "Recover" (Land on Ship)
+# Add a Basic Maneuver Procedure to "Recover" (Land on Ship)
 
 print("...Lead hornet - adding maneuever to recover")
 
@@ -640,12 +628,12 @@ basicManeuver4HornetLead = procedures2HornetLead.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuver4HornetLead.Name = "Recover"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuver4HornetLead.NavigationStrategyType = "Relative Course"
 
 # Get the navigation interface
@@ -672,7 +660,7 @@ relCourse3.ClosureMode = 2  # 2 = AgEAvtrClosureMode.eHOBS
 relCourse3.DownrangeOffset = 0.1  # nm
 relCourse3.HOBSMaxAngle = 90  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuver4HornetLead.ProfileStrategyType = "Relative Flight Path Angle"
 
 # Get the profile interface
@@ -697,13 +685,13 @@ relFpa.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuver4HornetLead.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuver4HornetLead.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuver4HornetLead.UseStopFuelState = True
 basicManeuver4HornetLead.StopFuelState = 0  # lb
 basicManeuver4HornetLead.UseMaxTimeOfFlight = False
@@ -720,10 +708,7 @@ basicManeuver4HornetLead.TerrainImpactMode = (
 # Propagate aircraft
 avtrPropHornetLead.Propagate()
 
-
-############################################################################
 # Create Wingman Hornet Aircraft to Fly Formation with Lead
-############################################################################
 
 print("...Creating wingman hornet aircraft")
 
@@ -757,7 +742,7 @@ aircraftHornetWing.Graphics.Attributes.Color = 16724991  # magenta
 aircraftHornetWing.Graphics.Attributes.Line.Width = 2  # medium thickness
 
 
-### Add an Enroute Procedure to Begin Flying to Lead
+# Add an Enroute Procedure to Begin Flying to Lead
 
 # Aircraft starts at a waypoint south of the lead aircraft, already flying.
 
@@ -767,13 +752,13 @@ enrouteHornetWing = proceduresHornetWing.Add(
     15, 8
 )  # 15 = AgEAvtrSiteType.eSiteWaypoint, 8 = AgEAvtrProcedureType.eProcEnroute
 
-## Set the site properties
+# Set the site properties
 enrouteHornetWingSite = enrouteHornetWing.Site
 enrouteHornetWingSite.Name = "Waypoint"
 enrouteHornetWingSite.Latitude = 36.3174  # deg
 enrouteHornetWingSite.Longitude = -75.4974  # deg
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set the altitude options
 enrouteHornetWing.AltitudeMSLOptions.UseDefaultCruiseAltitude = True
@@ -785,7 +770,7 @@ enrouteHornetWing.NavigationOptions.NavMode = (
 enrouteHornetWing.NavigationOptions.ArriveOnCourse = 340.691  # deg
 
 
-### Add a Basic Maneuver Procedure to "Intercept Leader"
+# Add a Basic Maneuver Procedure to "Intercept Leader"
 
 print("...Wing hornet - adding maneuver to intercept Lead hornet")
 
@@ -794,7 +779,7 @@ basicManeuverHornetWing = proceduresHornetWing.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuverHornetWing.Name = "Intercept Leader"
@@ -818,7 +803,7 @@ relBearing.MinRange = 15
 relBearing.SetControlLimit(0, 0)
 # 0 = AgEAvtrBasicManeuverStrategyNavControlLimit.eNavUseAccelPerfModel
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuverHornetWing.ProfileStrategyType = "Cruise Profile"
 
 # Get the profile interface
@@ -836,13 +821,13 @@ cruiseProfileHornetWing.RequestedAltitude = 18000
 cruiseProfileHornetWing.CruiseAirspeedOptions.CruiseSpeedType = 2
 # 2 = AgEAvtrCruiseSpeed.eMaxRangeAirspeed
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuverHornetWing.FlightMode = 3
 # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuverHornetWing.FuelFlowType = 1
 # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuverHornetWing.UseStopFuelState = True
 basicManeuverHornetWing.StopFuelState = 0.0
 basicManeuverHornetWing.UseMaxTimeOfFlight = False
@@ -854,7 +839,7 @@ basicManeuverHornetWing.TerrainImpactMode = 2
 # 2 = AgEAvtrBasicManeuverAltitudeLimit.eBasicManeuverAltLimitContinue
 
 
-### Add a Basic Maneuver Procedure to "Fly Formation to Marshall"
+# Add a Basic Maneuver Procedure to "Fly Formation to Marshall"
 
 print("...Wing hornet - adding maneuver to fly in formation to Marshall")
 
@@ -863,12 +848,12 @@ basicManeuverHornetWing = proceduresHornetWing.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuverHornetWing.Name = "Fly Formation to Marshall"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuverHornetWing.NavigationStrategyType = "Rendezvous/Formation"
 
 # Get the navigation interface
@@ -899,16 +884,16 @@ rendezvousForm.StopCondition = (
     2  # 2 = AgEAvtrRendezvousStopCondition.eStopAfterTargetCurrentPhase
 )
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 # Profile settings are copied from the Navigation settings when using 'Rendezvous/Formation' as the nav mode.
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuverHornetWing.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuverHornetWing.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuverHornetWing.UseStopFuelState = False
 basicManeuverHornetWing.UseMaxTimeOfFlight = False
 basicManeuverHornetWing.UseMaxDownrange = True
@@ -922,7 +907,7 @@ basicManeuverHornetWing.TerrainImpactMode = (
 )
 
 
-### Add a Basic Maneuver Procedure to "Split - Marshall - 3 Kft"
+# Add a Basic Maneuver Procedure to "Split - Marshall - 3 Kft"
 
 print(
     "...Wing hornet - adding maneuver to fly Marshall at 3 Kft split from Lead hornet"
@@ -933,12 +918,12 @@ basicManeuver2HornetWing = proceduresHornetWing.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuver2HornetWing.Name = "Split - Marshall - 3 Kft"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuver2HornetWing.NavigationStrategyType = "Stationkeeping"
 
 # Get the navigation interface
@@ -961,7 +946,7 @@ stationkeepingNavHornetWing.StopAfterTurnCount = 5
 stationkeepingNavHornetWing.UseRelativeCourse = True
 stationkeepingNavHornetWing.StopCourse = -180  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuver2HornetWing.ProfileStrategyType = "Autopilot - Vertical Plane"
 
 # Get the profile interface
@@ -987,13 +972,13 @@ autoProfileHornetWing.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuver2HornetWing.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuver2HornetWing.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuver2HornetWing.UseStopFuelState = False
 basicManeuver2HornetWing.UseMaxTimeOfFlight = False
 basicManeuver2HornetWing.UseMaxDownrange = True
@@ -1007,7 +992,7 @@ basicManeuver2HornetWing.TerrainImpactMode = (
 )
 
 
-### Add a Basic Maneuver Procedure to "Marshall - Step Down - 2 Kft"
+# Add a Basic Maneuver Procedure to "Marshall - Step Down - 2 Kft"
 
 print("...Wing hornet - adding maneuver to fly Marshall stepped down to 2 Kft")
 
@@ -1016,12 +1001,12 @@ basicManeuver3HornetWing = proceduresHornetWing.Add(
     1, 5
 )  # 1 = AgEAvtrSiteType.eSiteEndOfPrevProcedure, 5 = AgEAvtrProcedureType.eProcBasicManeuver
 
-## Set the procedure properties
+# Set the procedure properties
 
 # Set procedure name
 basicManeuver3HornetWing.Name = "Marshall - Step Down - 2 Kft"
 
-## Set the horizontal/navigation strategy
+# Set the horizontal/navigation strategy
 basicManeuver3HornetWing.NavigationStrategyType = "Stationkeeping"
 
 # Get the navigation interface
@@ -1044,7 +1029,7 @@ stationkeeping2NavHornetWing.StopAfterTurnCount = 1
 stationkeeping2NavHornetWing.UseRelativeCourse = True
 stationkeeping2NavHornetWing.StopCourse = -180  # deg
 
-## Set the vertical/profile strategy
+# Set the vertical/profile strategy
 basicManeuver3HornetWing.ProfileStrategyType = "Autopilot - Vertical Plane"
 
 # Get the profile interface
@@ -1072,13 +1057,13 @@ autoProfile2HornetWing.AirspeedOptions.MaxSpeedLimits = (
     0  # 0 = AgEAvtrBasicManeuverStrategyAirspeedPerfLimits.eConstrainIfViolated
 )
 
-## Set the attitude/performance/fuel options
+# Set the attitude/performance/fuel options
 basicManeuver3HornetWing.FlightMode = 3  # 3 = AgEAvtrPhaseOfFlight.eFlightPhaseCruise
 basicManeuver3HornetWing.FuelFlowType = (
     1  # 1 = AgEAvtrBasicManeuverFuelFlowType.eBasicManeuverFuelFlowCruise
 )
 
-## Set the basic stop conditions
+# Set the basic stop conditions
 basicManeuver3HornetWing.UseStopFuelState = True
 basicManeuver3HornetWing.StopFuelState = 0  # lb
 basicManeuver3HornetWing.UseMaxTimeOfFlight = False
@@ -1095,5 +1080,5 @@ basicManeuver3HornetWing.TerrainImpactMode = (
 # Propagate aircraft
 avtrPropHornetWing.Propagate()
 
-### End of Script
+# End of Script
 print("...Scenario done!")

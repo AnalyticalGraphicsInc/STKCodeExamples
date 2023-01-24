@@ -2,18 +2,22 @@ import sys
 import time
 
 try:
-    from agi.stk12.stkdesktop import STKDesktop, STKDesktopApplication
-    from agi.stk12.stkengine import STKEngine, STKEngineApplication
-    from agi.stk12.stkobjects import *
-    from agi.stk12.stkobjects.aviator import *
-except:
+    from agi.stk12.stkdesktop import STKDesktop
+    from agi.stk12.stkobjects import (
+        AgESnPointing,
+        AgESTKObjectType,
+        AgSatellite,
+        AgSensor,
+        AgSnPtTargeted,
+    )
+except ImportError:
     print(
         "Failed to import stk modules. Make sure you have installed the STK Python API wheel \
         (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory."
     )
 try:
     import numpy as np
-except:
+except ImportError:
     print(
         "**** Error: Failed to import one of the required modules (numpy). \
         Make sure you have them installed. If you are using anaconda python, make sure you are running \
@@ -147,7 +151,7 @@ def setPointingForEachSensor(
                 (AgSatellite(sat)).Vgt.EventIntervalLists.Remove(
                     "PointingTo" + placeNames[y]
                 )
-            except:
+            except Exception:
                 pass
 
             intervalsForPlace = []

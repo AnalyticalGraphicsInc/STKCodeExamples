@@ -5,9 +5,7 @@ global PY_feedbackTargeting_Inputs
 
 PY_feedbackTargeting_init = -1
 
-# ==========================================================================
-# PY_feedbackTargeting() fctn
-# ==========================================================================
+
 def PY_feedbackTargeting(argList):
     callMode = str(argList[0])
     if callMode == "None":
@@ -43,7 +41,7 @@ def PY_feedbackTargeting_compute(argList):
     global PY_feedbackTargeting_Inputs
     if PY_feedbackTargeting_init < 0:
         PY_feedbackTargeting_init = 1
-        PY_feedbackTargeting_Inputs = g_PluginArrayInterfaceHash[
+        PY_feedbackTargeting_Inputs = g_PluginArrayInterfaceHash[  # noqa: F821
             "PY_feedbackTargeting_Inputs"
         ]
 

@@ -1,4 +1,3 @@
-###--------------------------------------------------------------------------------------
 #
 # Add Custom Annotations for a Vehicle at Locations that Correspond to Desired Times
 #
@@ -6,12 +5,8 @@
 #
 # Only edit Main
 #
-###--------------------------------------------------------------------------------------
 
-
-##########################################################################################
-###-----------------------------------Definitions--------------------------------------###
-##########################################################################################
+# Definitions
 
 
 def Annotations(
@@ -20,12 +15,12 @@ def Annotations(
 
     numEvents = len(Events)
 
-    from comtypes.client import CreateObject, GetActiveObject
+    from comtypes.client import GetActiveObject
 
     uiApplication = GetActiveObject("STK{}.Application".format(STKVersion))
     root = uiApplication.Personality2
 
-    from comtypes.gen import STKObjects, STKUtil
+    from comtypes.gen import STKObjects
 
     scenario = root.CurrentScenario
     uiApplication.Visible = True
@@ -36,7 +31,7 @@ def Annotations(
     # desired object
     Object = scenario.Children.Item(ObjectName)
     ObjectType = "STKObjects.IAg{}".format(ObjectType)
-    ObjectObj = Object.QueryInterface(eval(ObjectType))
+    # ObjectObj = Object.QueryInterface(eval(ObjectType))
 
     # Retrieve lat/lon/alt of object at desired times
     LLA = Object.DataProviders("LLA State")
@@ -96,9 +91,7 @@ def Annotations(
         root.ExecuteCommand(cmd2)
 
 
-##############################################################################################
-###-----------------------------------------Main-------------------------------------------###
-##############################################################################################
+# Main
 
 # List version of STK (whole number), name of object
 STKVersion = "12"

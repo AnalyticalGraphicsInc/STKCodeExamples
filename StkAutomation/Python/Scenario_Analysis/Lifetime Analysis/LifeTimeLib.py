@@ -9,13 +9,10 @@ import pickle
 import sys
 import time
 from datetime import timedelta
-from threading import Thread
 
 import numpy as np
 import pandas as pd
 import pythoncom
-import scipy as sp
-import seaborn as sns
 from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects, STKUtil
 from poliastro.constants import GM_earth
@@ -372,7 +369,7 @@ def generateTradeStudy(tradeStudy):
         # Create df
         df = pd.concat([df] * len(lhd), ignore_index=True)
 
-        if adjustEpoch == True:
+        if adjustEpoch:
             df["epoch"] = [
                 adjustDate(yyddd, deltaDay)
                 for yyddd, deltaDay in zip(minDate, deltaDays)
@@ -422,7 +419,7 @@ def generateTradeStudy(tradeStudy):
     df["LT Orbits"] = np.nan
     df["LT Years"] = np.nan
     df["LT Runtime"] = np.nan
-    if runHPOP == True:
+    if runHPOP:
         df["HPOP Years"] = np.nan
         df["HPOP Runtime"] = np.nan
 
@@ -611,7 +608,7 @@ def updateDf(df, runHPOP, varyCols, setSunAreaEqualToDragArea):
 
     # Update satellite characteristics
     if any(col in ["Cd", "Cr", "Drag Area", "Sun Area", "Mass"] for col in varyCols):
-        if setSunAreaEqualToDragArea == True:
+        if setSunAreaEqualToDragArea:
             df["Sun Area"] = df["Drag Area"]
         df["Cd*Drag Area/Mass"] = df["Cd"] * df["Drag Area"] / df["Mass"]
         df["Cr*Sun Area/Mass"] = df["Cr"] * df["Sun Area"] / df["Mass"]
@@ -737,7 +734,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
             updateSatProp = True
             updateState = True
 
-        if tradeStudy.runHPOP == True:
+        if tradeStudy.runHPOP:
             updateLTtradeStudy = True
             updateSatProp = True
             updateState = True
@@ -772,13 +769,13 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
     # tradeStudyure the updates
     updateLTtradeStudy, updateSatProp, updateState = updateFlags(tradeStudy)
 
-    if runHPOP == True:
+    if runHPOP:
         if len(df) > 0:
             for i in range(len(df)):
                 if np.isnan(df["HPOP Years"][i]):  # Not previously run
 
                     # Create or get satellite
-                    if sc.Children.Contains(STKObjects.eSatellite, satName) == True:
+                    if sc.Children.Contains(STKObjects.eSatellite, satName):
                         sat = root.GetObjectFromPath("Satellite/" + satName)
                         sat.Unload()
                     sat = sc.Children.New(STKObjects.eSatellite, satName)
@@ -789,7 +786,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                     )
 
                     # Initialize satellite
-                    if updateEachEpoch == True:
+                    if updateEachEpoch:
                         epYr = root.ConversionUtility.ConvertDate(
                             "YYDDD", "EpYr", dfstr["epoch"].iloc[i]
                         )
@@ -822,7 +819,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                     )
                     root.ExecuteCommand(cmd)
 
-                    if updateLTtradeStudy == True:
+                    if updateLTtradeStudy:
                         cmd = (
                             "SetLifetime */Satellite/"
                             + satName
@@ -848,7 +845,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                         )
                         root.ExecuteCommand(cmd)
 
-                    if updateSatProp == True:
+                    if updateSatProp:
                         cmd = (
                             "SetLifetime */Satellite/"
                             + satName
@@ -937,7 +934,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                     startHPOP = time.time()
                     try:
                         prop.Propagate()
-                    except:
+                    except Exception:
                         pass
                     stopHPOP = time.time()
 
@@ -987,7 +984,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
     else:
 
         # Create or get satellite
-        if sc.Children.Contains(STKObjects.eSatellite, satName) == False:
+        if not sc.Children.Contains(STKObjects.eSatellite, satName):
             sat = sc.Children.New(STKObjects.eSatellite, satName)
             sat2 = sat.QueryInterface(STKObjects.IAgSatellite)
             prop = sat2.SetPropagatorType(STKObjects.ePropagatorJ4Perturbation)
@@ -1071,12 +1068,10 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
         root.ExecuteCommand(cmd)
 
         # Run Lifetime
-        k = 0
-
         if len(df) > 0:
             for i in range(len(df)):
                 if np.isnan(df["LT Years"][i]):  # Not previously run
-                    if updateLTtradeStudy == True:
+                    if updateLTtradeStudy:
                         cmd = (
                             "SetLifetime */Satellite/"
                             + satName
@@ -1102,7 +1097,7 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                         )
                         root.ExecuteCommand(cmd)
 
-                    if updateSatProp == True:
+                    if updateSatProp:
                         cmd = (
                             "SetLifetime */Satellite/"
                             + satName
@@ -1119,13 +1114,13 @@ def RunSTK(dfSlice, tradeStudy, processNum, showSTK=False, saveEveryNIter=15):
                         )
                         root.ExecuteCommand(cmd)
 
-                    if updateEachEpoch == True:
+                    if updateEachEpoch:
                         epYr = root.ConversionUtility.ConvertDate(
                             "YYDDD", "EpYr", dfstr["epoch"].iloc[i]
                         )
                         prop.InitialState.OrbitEpoch.SetExplicitTime(epYr)
 
-                    if updateState == True:
+                    if updateState:
                         prop.InitialState.Representation.AssignCartesian(
                             STKUtil.eCoordinateSystemICRF,
                             df["x"].iloc[i],
@@ -1248,7 +1243,7 @@ def loadSats(df, maxSats=100, maxDur=100):
     try:
         app = GetActiveObject("STK11.Application")
         root = app.Personality2
-    except:
+    except Exception:
         app = CreateObject("STK11.Application")
         app.Visible = True
         app.UserControl = True
@@ -1274,7 +1269,7 @@ def loadSats(df, maxSats=100, maxDur=100):
     if len(df) <= maxSats:
         for ii in range(len(df)):
             satName = str(int(df["Run ID"].iloc[ii]))
-            if sc.Children.Contains(STKObjects.eSatellite, satName) == False:
+            if not sc.Children.Contains(STKObjects.eSatellite, satName):
                 sat = sc.Children.New(STKObjects.eSatellite, satName)
                 sat2 = sat.QueryInterface(STKObjects.IAgSatellite)
 
@@ -1399,7 +1394,7 @@ def saveTradeStudy(tradeStudy):
 
 
 def solFluxVals():
-    fp = "C:\ProgramData\AGI\STK 11 (x64)\DynamicEarthData\SolFlx_CSSI.dat"
+    fp = r"C:\ProgramData\AGI\STK 11 (x64)\DynamicEarthData\SolFlx_CSSI.dat"
     df = pd.read_csv(fp, "\t")
     df = df[df.columns[0]].str.split(expand=True).astype(float)
     df = df.iloc[32:]

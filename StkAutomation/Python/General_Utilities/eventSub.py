@@ -1,10 +1,4 @@
-from comtypes.client import (
-    CreateObject,
-    GetActiveObject,
-    GetEvents,
-    PumpEvents,
-    ShowEvents,
-)
+from comtypes.client import GetActiveObject, GetEvents, PumpEvents, ShowEvents
 from comtypes.gen import STKObjects
 
 
@@ -134,7 +128,7 @@ class EventSink(object):
         print("\tSender: " + args.Path)
 
 
-### Testing Event Subscriptions
+# Testing Event Subscriptions
 
 # Attach to STK 12 Application
 app = GetActiveObject("STK12.Application")

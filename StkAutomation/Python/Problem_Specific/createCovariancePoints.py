@@ -1,13 +1,12 @@
-#
-# STK library imports
-
-import os
-
 import numpy as np
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
-from agi.stk12.stkutil import *
-from agi.stk12.vgt import *
+from agi.stk12.stkobjects import (
+    AgEGeometricElemType,
+    AgELeadTrailData,
+    AgESTKObjectType,
+    AgEVePropagatorType,
+)
+from agi.stk12.vgt import AgECrdnPointType
 
 # Inputs
 satName = "Satellite1"
@@ -83,7 +82,6 @@ def createPointsFromCovariance(
     cartVel = cartVel.Group.Item(frame)
     velData = cartVel.Exec(startTime, stopTime, timeStep)  # Time, Vx, Vy, Vz
     velData = np.asarray(velData.DataSets.ToArray())
-    vel = velData[:, 1:4].astype(float)
 
     # Create all 6 directions
     # Sat pos +- major,int,minor vecs

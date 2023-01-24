@@ -7,32 +7,23 @@
 
 # Double '\\\\' are required in the filepath because Python uses the '\\' character as a break character.
 
-# In[1]:
-
-
 # The file path to save the Deck Access report and Deck Access TLEs
-deckAccessFile = "C:\\deckAccessRpt.txt"
-deckAccessTLE = "C:\\deckAccessTLE.tce"
+deckAccessFile = r"C:\deckAccessRpt.txt"
+deckAccessTLE = r"C:\deckAccessTLE.tce"
 
 
 # ### Connect and Configure STK
 
-# In[2]:
-
+# Get the current time and add 1 second
+from datetime import datetime, timedelta
 
 # Import the needed packages
 from comtypes.client import CreateObject, GetActiveObject
 from comtypes.gen import STKObjects
 
 # Sometimes autocomplete takes a while. This line fixes that.
-get_ipython().run_line_magic("config", "Completer.use_jedi = False")
+# get_ipython().run_line_magic("config", "Completer.use_jedi = False")
 
-
-# In[3]:
-
-
-# Get the current time and add 1 second
-from datetime import datetime, timedelta
 
 now = datetime.now()
 nowSTK = now.strftime("%d %b %Y %H:%M:%S")
@@ -49,23 +40,18 @@ stop = strs[0] + " " + strs[1] + " " + strs[2] + " 23:59:59.999"
 print("Scenario Start = " + start)
 print("Scenario Stop = " + stop)
 
-
-# In[4]:
-
-
 # Launch or connect to STK
 try:
     app = GetActiveObject("STK12.Application")
     root = app.Personality2
     app.Visible = True
     app.UserControl = True
-except:
+except Exception:
     app = CreateObject("STK12.Application")
     app.Visible = True
     app.UserControl = True
     root = app.Personality2
     sc = root.NewScenario("DeckAccessVis")
-
 
 # Set the scenario time period
 sc = root.CurrentScenario
@@ -82,10 +68,6 @@ root.ExecuteCommand(cmd)
 
 # Set Animation time to the time used for the deck Access Report
 root.CurrentTime = float(root.ConversionUtility.ConvertDate("UTCG", "EpSec", nowSTK))
-
-
-# In[5]:
-
 
 # Remove any deck access satellites from previous runs
 from DeckAccessReader import FilterObjectsByType
@@ -106,9 +88,6 @@ for i in range(len(objPaths)):
 
 
 # Try moving the ground station to a different location. Then rerun the script by clicking Kernel -> Restart & Run All
-
-# In[6]:
-
 
 # Add a facility
 facName = "Observer"
@@ -133,10 +112,6 @@ lon = -117.1611
 alt = 0
 fac2.Position.AssignGeodetic(lat, lon, alt)
 
-
-# In[7]:
-
-
 # Add an elevation angle constraint
 elAng = 20
 
@@ -148,10 +123,6 @@ else:
 elCon2 = elCon.QueryInterface(STKObjects.IAgAccessCnstrMinMax)
 elCon2.EnableMin = True
 elCon2.Min = elAng
-
-
-# In[8]:
-
 
 # Add a constraint satellite template
 satName = "ConstraintSat"
@@ -177,10 +148,6 @@ else:
 lightCon2 = lightCon.QueryInterface(STKObjects.IAgAccessCnstrCondition)
 lightCon2.Condition = light
 
-
-# In[9]:
-
-
 # # Additional constraints options
 
 # # Modify the deck access time to consider a custom time range and not just now
@@ -198,9 +165,6 @@ lightCon2.Condition = light
 
 
 # ### Run Deck Access, Create a TLE file for all visible satellites, Import them into an MTO, Add in specific satellites
-
-# In[10]:
-
 
 # Deck Access for the current time. Save the deck access file to the specified
 tleFilepath = "C:\\ProgramData\\AGI\\STK 11 (x64)\\Databases\\Satellite\\stkAllTLE.tce"
@@ -221,25 +185,17 @@ cmd = (
 cmdOut = root.ExecuteCommand(cmd)
 print(cmdOut.Item(0))
 
-
-# In[11]:
-
-
 # Read the deck access report and write the TLEs to a file
 from DeckAccessReader import writeTLEs
 
 NumOfSC = writeTLEs(tleFilepath, deckAccessFile, deckAccessTLE)
 print("Number of Visible Satellites: " + str(NumOfSC))
 
-
-# In[12]:
-
-
 # Add all visibile satellites as an MTO
 try:
     cmd = "Unload / */MTO/deckAccessMTO"
     root.ExecuteCommand(cmd)
-except:
+except Exception:
     print("Inserting MTO deckAccessMTO")
 
 print("Updating MTO deckAccessMTO")
@@ -253,10 +209,6 @@ cmd = (
     'Track */MTO/deckAccessMTO TleFile Filename "' + deckAccessTLE + '" TimeStep 30'
 )  # Decrease the TimeStep for better resolution at the cost of computation time
 root.ExecuteCommand(cmd)
-
-
-# In[13]:
-
 
 # Add in a specific satellite
 scID = 43226  # Select a desired satellite
@@ -273,12 +225,8 @@ cmd = (
 )
 try:
     cmdOut = root.ExecuteCommand(cmd)
-except:
+except Exception:
     print("Satellite " + str(scID) + " is not visible")
-
-
-# In[14]:
-
 
 # Add a fixed number of satellites from the deck access and pass back the deck access data for the entire day
 NumSatsToAdd = 5
@@ -316,9 +264,6 @@ cmdOutDA = root.ExecuteCommand(cmd)
 
 # ### Looking at the Deck Access Data
 
-# In[15]:
-
-
 # Store the deck access data into a Pandas DataFrame for further analysis
 import numpy as np
 import pandas as pd
@@ -341,33 +286,15 @@ df.columns = ["SSC Num", "Start", "Stop", "Dur (sec)"]  # cmdOutDA.Item(0).split
 df[df.columns[0]] = df[df.columns[0]].str.replace('"', "")
 df.head(10)
 
-
-# In[16]:
-
-
 # Find satellites with access during the entire scenario time period
 df[df["Dur (sec)"].astype(float) >= 86399].head(10)
-
-
-# In[17]:
-
 
 # Sort dataframe by duration of access
 dfSortedByDur = df.iloc[df["Dur (sec)"].astype(float).sort_values().index]
 dfSortedByDur.head(10)
 
-
-# In[18]:
-
-
 # Sort by SSC Num and secondarily by Duration
 df.set_index(["SSC Num", "Dur (sec)"]).sort_values(["SSC Num", "Dur (sec)"]).head(10)
-
-
-# ### Look at the TLE Data
-
-# In[19]:
-
 
 # Get TLE data into a dataframe for more analysis
 # Find more details on the TLE format here: https://en.wikipedia.org/wiki/Two-line_element_set
@@ -402,10 +329,10 @@ line1.columns = [
 ]
 line2.columns = ["Line2", "Ssc2", "i", "RAAN", "e", "AoP", "MA", "Mean motion", "temp"]
 # Need to handle the space in some of the second lines. Replacing this with a 0
-tempVal = line2["temp"][line2["temp"].values != None]
-mmVal = line2["Mean motion"][line2["temp"].values != None]
+tempVal = line2["temp"][not line2["temp"].values]
+mmVal = line2["Mean motion"][not line2["temp"].values]
 mmValnew = mmVal + "0" + tempVal
-line2["Mean motion"][line2["temp"].values != None] = mmValnew
+line2["Mean motion"][not line2["temp"].values] = mmValnew
 line2 = line2.drop("temp", axis=1)
 
 # Create new data frame with both lines in the same row
@@ -423,31 +350,20 @@ dfTLE["a"] = a
 
 dfTLE.head()
 
-
-# In[20]:
-
-
 # Start to filter objects by orbital elements
 dfTLE[dfTLE["i"].astype(float) < 1].head()  # sort by inclination
 
 
 # ### Plots of TLE Data Distribution
 
-# In[21]:
-
-
 # Import useful plotting libraries and change the default plotting style
 import matplotlib.pyplot as plt
 
-get_ipython().run_line_magic("matplotlib", "inline")
+# get_ipython().run_line_magic("matplotlib", "inline")
 import seaborn as sns
 
 sns.set_style("white")
 sns.set_context("talk")
-
-
-# In[22]:
-
 
 # Plot the cumulative percentage of satellites vs inclination
 inc = dfTLE["i"][dfTLE["i"].sort_values().index].values
@@ -455,27 +371,16 @@ plt.plot(inc, np.arange(1, len(dfTLE) + 1, 1) / len(dfTLE) * 100)
 plt.xlabel("Inc [deg]")
 plt.ylabel("Cumulative % of satellites")
 
-
-# In[23]:
-
-
 # Plot the density of inclination in a histogram
 plt.hist(dfTLE["i"], bins=np.arange(0, 110, 5))
 plt.xlabel("Inc [deg]")
 plt.ylabel("Count")
 plt.xlim(0, 105)
 
-
-# In[24]:
-
-
 # Look at inclination vs semimajor axis utilizing pandas built in plots
 dfTLE.plot.scatter("i", "a", alpha=0.2, s=50, figsize=(5, 5))
 xlims = plt.xlim(0, 105)
 ylims = plt.ylim(6578, 50000)
-
-
-# In[25]:
 
 
 # Utilize Seaborn's built in jointplot to learn more about the distribution of inclination vs semimajor axis
@@ -495,6 +400,3 @@ ax.plot_joint(plt.scatter, c="k", s=50, linewidth=0.8, marker="+", alpha=0.2)
 # ax.set_axis_labels('i [deg]','a [km]')
 ax.ax_joint.set_xlim(xlims)
 ax.ax_joint.set_ylim(ylims)
-
-
-# ### Remember to also look at STK! You can see all of the satellites in the scenario and can animate to watch the satellites move.

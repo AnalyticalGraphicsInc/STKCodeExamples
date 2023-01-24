@@ -1,8 +1,10 @@
-### this tool will combine multiple ephemeris files into one
-### author: jens ramrath, agi
-### date: 18 may 2021
+import os
 
-### INIT
+# RUN
+# start new instance of STK
+from comtypes.client import CreateObject
+from comtypes.gen import STKObjects
+
 ephemerisDir = r"C:\temp\1month\eFiles"
 combinedPath = r"C:\temp\1month\Combined.e"
 
@@ -15,14 +17,6 @@ class EphemerisPoint:
         self.Y = y
         self.Z = z
 
-
-import os
-
-### RUN
-# start new instance of STK
-import comtypes
-from comtypes.client import CreateObject
-from comtypes.gen import AgSTKVgtLib, STKObjects
 
 app = CreateObject("STK12.Application")
 app.Visible = True
@@ -86,7 +80,7 @@ for file in os.listdir(ephemerisDir):
 allPoints.sort(key=lambda x: x.EpSec, reverse=False)
 
 
-### write combined ephemeris file
+# write combined ephemeris file
 f = open(combinedPath, "w")
 f.write("stk.v.10.0\n")
 f.write("BEGIN Ephemeris\n")

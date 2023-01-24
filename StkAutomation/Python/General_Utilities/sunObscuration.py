@@ -1,6 +1,11 @@
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
-from agi.stk12.vgt import *
+from agi.stk12.stkobjects import AgDrResult, AgScenario, AgStkObjectRoot
+from agi.stk12.vgt import (
+    AgCrdnCalcScalarFile,
+    AgCrdnConditionScalarBounds,
+    AgCrdnEventIntervalListCondition,
+    AgECrdnConditionThresholdOption,
+)
 
 # Inputs
 sensorPath = "*/Satellite/Satellite1/Sensor/Sensor1"
@@ -67,7 +72,7 @@ try:
             "sunObscuration", "", saveDir
         )
     )
-except:
+except Exception:
     obsScalar = AgCrdnCalcScalarFile(sensor.Vgt.CalcScalars.Item("sunObscuration"))
     obsScalar.Filename = saveDir
 
@@ -76,7 +81,7 @@ try:
     obsCondition = AgCrdnConditionScalarBounds(
         sensor.Vgt.Conditions.Factory.CreateConditionScalarBounds("ifSunObscured", "")
     )
-except:
+except Exception:
     obsCondition = AgCrdnConditionScalarBounds(
         sensor.Vgt.Conditions.Item("ifSunObscured")
     )
@@ -93,7 +98,7 @@ try:
             "sunObscurationTimes", ""
         )
     )
-except:
+except Exception:
     obsIntervals = AgCrdnEventIntervalListCondition(
         sensor.Vgt.EventIntervalLists.Item("sunObscurationTimes")
     )
@@ -112,5 +117,5 @@ try:
     sunVec = sensor.Vgt.Vectors.Factory.CreateDisplacementVector(
         "toSun", sensorCenter, sunCenter
     )
-except:
+except Exception:
     sunVec = sensor.Vgt.Vectors.Item("toSun")

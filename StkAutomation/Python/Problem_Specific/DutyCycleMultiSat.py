@@ -10,9 +10,24 @@
 
 try:
     from agi.stk12.stkdesktop import STKDesktop
-    from agi.stk12.stkobjects import *
-    from agi.stk12.vgt import *
-except:
+    from agi.stk12.stkobjects import (
+        AgAccessCnstrIntervals,
+        AgEAccessConstraints,
+        AgEActionType,
+        AgESTKObjectType,
+        AgSatellite,
+        AgSensor,
+        AgStkObject,
+    )
+    from agi.stk12.vgt import (
+        AgCrdnEventArrayConditionCrossings,
+        AgCrdnEventIntervalFixed,
+        AgCrdnEventIntervalList,
+        AgCrdnEventIntervalListMerged,
+        AgECrdnEventListMergeOperation,
+        AgECrdnSatisfactionCrossing,
+    )
+except ImportError:
     print(
         "Failed to import stk modules. Make sure you have installed the STK Python API wheel \
         (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory"
@@ -91,7 +106,7 @@ for i in range(len(satNames)):
     # Delete component if previously made
     try:
         satTimeArrays.Remove("AscendingNodeCrossing")
-    except:
+    except Exception:
         pass
     # Create condition component
     satTAFact = satTimeArrays.Factory
@@ -119,7 +134,7 @@ for i in range(len(satNames)):
     for ascNodeCross in ascNodeCrosses:
         try:
             satIntervals.Remove(f"Cross{i}")
-        except:
+        except Exception:
             pass
         orbitInt = AgCrdnEventIntervalFixed(
             satIntervalFact.CreateEventIntervalFixed(
@@ -134,12 +149,12 @@ for i in range(len(satNames)):
         i = i + 1
         if i == len(ascNodeCrosses):
             try:
-                satIntervals.Remove(f"Cross_Last")
-            except:
+                satIntervals.Remove("Cross_Last")
+            except Exception:
                 pass
             lastOrbitInt = AgCrdnEventIntervalFixed(
                 satIntervalFact.CreateEventIntervalFixed(
-                    f"Cross_Last", f"Interval for Last Rev"
+                    "Cross_Last", "Interval for Last Rev"
                 )
             )
             lastOrbitInt.SetInterval(ascNodeCross, satStopTime)
@@ -159,7 +174,7 @@ for i in range(len(satNames)):
         for access in accesses:
             try:
                 satIntervalLists.Remove(f"Orbit-{j}_{ATNames[k]}")
-            except:
+            except Exception:
                 pass
             accessInt = access.Vgt.EventIntervalLists.Item("AccessIntervals")
             merged = AgCrdnEventIntervalListMerged(
@@ -196,7 +211,7 @@ for i in range(len(satNames)):
                                 .Intervals.Item(z)
                             )
                             z = z + 1
-                        except:
+                        except Exception:
                             intsLeft = False
             x = 0
             while intsLeft:
@@ -207,7 +222,7 @@ for i in range(len(satNames)):
                         .Intervals.Item(x)
                     )
                     x = x + 1
-                except:
+                except Exception:
                     intsLeft = False
             y = y + 1
 
@@ -223,7 +238,7 @@ for i in range(len(satNames)):
             else:
                 try:
                     satIntervals.Remove("dcIntPriorityLast")
-                except:
+                except Exception:
                     pass
                 addInt = AgCrdnEventIntervalFixed(
                     satIntervalFact.CreateEventIntervalFixed(
@@ -250,7 +265,7 @@ for i in range(len(satNames)):
                 else:
                     try:
                         satIntervals.Remove(f"IntforPass{passNo}")
-                    except:
+                    except Exception:
                         pass
                     addInt = AgCrdnEventIntervalFixed(
                         satIntervalFact.CreateEventIntervalFixed(
@@ -281,7 +296,7 @@ for i in range(len(satNames)):
                 pass
             else:
                 intervalAdder.Add(intCnstr.Start, intCnstr.Stop)
-        except:
+        except Exception:
             # If equal the interval is too short to be distinguished due to rounding (10e-7 accuracy)
             if intCnstr.StartTime == intCnstr.StopTime:
                 pass

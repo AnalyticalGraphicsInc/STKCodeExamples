@@ -7,9 +7,9 @@ import numpy as np
 
 # Imports
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
+from agi.stk12.stkobjects import AgScenario, AgVolumetric
 
-######## USER INPUTS ################
+# USER INPUTS
 volumetricName = "Volumetric1"
 satisfactionValue = 1
 
@@ -22,7 +22,7 @@ timeStep = 7250  # sec
 
 includeStopTime = True
 
-######### ANALYSIS ###################
+# ANALYSIS
 # Connect to STK
 stk = STKDesktop.AttachToApplication()
 root = stk.Root
@@ -32,8 +32,8 @@ scenario = AgScenario(root.CurrentScenario)
 root.UnitPreferences.SetCurrentUnit("DateFormat", "EpSec")
 
 # Determine analysis times
-if stopTime == None:
-    if startTime == None:
+if not stopTime:
+    if not startTime:
         startTime = scenario.StartTime
         stopTime = scenario.StopTime
     else:

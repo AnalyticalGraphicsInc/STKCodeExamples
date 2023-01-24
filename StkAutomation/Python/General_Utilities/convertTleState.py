@@ -4,11 +4,11 @@
 # propagated with SGP4 and create a new satellite with the intital state of
 # the TLE using the propagator specified
 
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import AgESTKObjectType, AgEVePropagatorType
+
 # Available Inputs: HPOP, J2, J4, TwoBody
 targetPropagator = "HPOP"
-
-from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
 
 # Find appropriate propagator enum
 if targetPropagator == "HPOP":

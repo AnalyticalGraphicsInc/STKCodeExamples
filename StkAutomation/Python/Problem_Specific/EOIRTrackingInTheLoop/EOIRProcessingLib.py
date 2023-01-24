@@ -1,22 +1,9 @@
 # EOIRandImageProcessing.py
 import os
-import time
 
 import cv2
-import imageio
-import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-
-# Set up your Python workspace
-from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
-from agi.stk12.stkutil import *
-
-# from agi.stk12.stkobjects.astrogator import *
-from agi.stk12.utilities.colors import Color, Colors
-from astropy import units as u
 from astropy.coordinates import Angle
 from scipy.spatial.transform import Rotation as R
 from skimage.color import rgb2gray
@@ -28,16 +15,17 @@ from sklearn.metrics import silhouette_score
 
 # !pip install "C:\Program Files\AGI\STK 12\bin\AgPythonAPI\agi.stk12-{version}-py3-none-any.whl"
 
-
-## Automation
+# Automation
 
 # do this after updating the pointing direction, otherwise you would need to use the observation vector
+
+
 def getPointingDirection(sensor, tstart, tstop, tstep, axes=""):
     vecAxesDP = sensor.DataProviders.Item("Vector Choose Axes")
     vecObs = vecAxesDP.Group.Item("PointingDirection")
     if axes == "":
         vecObs.PreData = (
-            sensorPath.split("/")[1] + "/" + sensorPath.split("/")[2] + " Body"
+            sensor.Path.split("/")[1] + "/" + sensor.Path.split("/")[2] + " Body"
         )
     else:
         vecObs.PreData = axes
@@ -62,12 +50,12 @@ def getSensorFOVAndPixels(sensor):
 
 def getEOIRImages(root, sensorPath, imageName="", textName="", reuseFiles=True):
     if imageName != "":
-        if not os.path.exists(imageName.replace('"', "")) or reuseFiles == False:
+        if not os.path.exists(imageName.replace('"', "")) or not reuseFiles:
             cmd = "EOIRDetails {} SaveSceneImage {}".format(sensorPath, imageName)
             root.ExecuteCommand(cmd)
 
     if textName != "":
-        if not os.path.exists(textName.replace('"', "")) or reuseFiles == False:
+        if not os.path.exists(textName.replace('"', "")) or not reuseFiles:
             cmd = "EOIRDetails {} SaveSceneRawData {}".format(sensorPath, textName)
             root.ExecuteCommand(cmd)
     return
@@ -140,7 +128,7 @@ def updatePointingDir(azError, elError, timeRotationZYX):
 # do this after updating the pointing direction, otherwise you would need to use the observation vector
 def getRADECMeasurements(sensor, tstart, tstop, tstep, useMeasurementDirection=True):
     vecAxesDP = sensor.DataProviders.Item("Vectors(ICRF)")
-    if useMeasurementDirection == True:
+    if useMeasurementDirection:
         vecObs = vecAxesDP.Group.Item("MeasurementDirection")
     else:
         vecObs = vecAxesDP.Group.Item("Boresight")
@@ -207,7 +195,7 @@ def RADECToMeasurementFileLine(
     return line
 
 
-## Image Processing
+# Image Processing
 
 
 # Uses the raw text files not the image anymore.
@@ -228,11 +216,11 @@ def normalizeImage(data, k=1, convertToInt=False, plotImage=False):
     a = (t2 - t1) / (s2 - s1)
     b = t1 - s1 * a
     image = a * data3 + b
-    if convertToInt == True:
+    if convertToInt:
         image = image.astype(int)  # Convert to ints?
 
     # Plotting
-    if plotImage == True:
+    if plotImage:
         plt.figure(figsize=(8, 8))
         plt.imshow(image)
         plt.show()
@@ -358,7 +346,7 @@ def findNumberOfObjects(points, maxObjects=4):
 
     for clusterCount in range(1, maxObjects + 1):
         kmeans1 = KMeans(n_clusters=clusterCount).fit(points)
-        objectCenters = kmeans1.cluster_centers_
+        # objectCenters = kmeans1.cluster_centers_
         score = kmeans1.inertia_
         scoresInertia.append(score)
 
@@ -389,7 +377,7 @@ def findNumberOfObjects(points, maxObjects=4):
     return kmeansfits[objectCount - 1]
 
 
-## Helper functions
+# Helper functions
 
 # # Doesn't actually set the environment variables, turns out it only temporarily changes it
 # def useImageinEOIR(imagePath,latHighLatLowLonLowLonHigh):
@@ -434,7 +422,7 @@ def writeSensorPointingFile(
     return
 
 
-## custom rotation matrices used to verify rotations were working properly
+# custom rotation matrices used to verify rotations were working properly
 def rot(ang, axis):
     ang = ang / 180 * np.pi
     if axis.lower() == "z":
@@ -482,13 +470,13 @@ def getState(ephemerisFile, tPlus1):
         data = False
         #     k=0
         for line in f:
-            if data == True:
+            if data:
                 vals = line.split(" ")
                 if len(vals) > 1:
                     tVal = np.round(float(vals[1]), 3)
                     if tVal == tPlus1:
                         stateLine = line
-                        ## Read next line
+                        # Read next line
                         break
             if "EphemerisTimePosVel" in line:
                 data = True
@@ -508,7 +496,7 @@ def getState(ephemerisFile, tPlus1):
 # np.degrees(np.arctan2(v[2],np.sqrt(v[0]**2+v[1]**2)))
 
 
-## Doesnt work currently, need to update
+# Doesnt work currently, need to update
 # def predictLocation(measurements):
 #     if len(measurements) > 2:
 #         dEl = measurements[-1][2]-measurements[-2][2]

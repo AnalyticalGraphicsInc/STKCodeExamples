@@ -17,7 +17,6 @@
 # 00040    19 Jun 2019 16:00:00.000    19 Jun 2019 16:00:03.785             3.785
 # =============================================================================
 
-import math
 import os
 
 import numpy as np
@@ -26,7 +25,7 @@ import numpy as np
 # SCID = cols 0-4
 import pandas as pd
 from comtypes.client import CreateObject, GetActiveObject
-from comtypes.gen import AgSTKVgtLib, STKObjects
+from comtypes.gen import STKObjects
 
 cwd = os.getcwd()
 cwdFiles = cwd + "\\Files"
@@ -95,7 +94,7 @@ def updateTLEEpoch(TLEFileName, epoch, createNewFile=True):
     tleList = getTLEs(TLEFileName)
     df = tleListToDF(tleList)
     df["Epoch"] = epoch
-    if createNewFile == True:
+    if createNewFile:
         NewTLEFileName = TLEFileName.split(".")[0] + str(epoch)[0:5] + ".tce"
         dfToTLE(df, NewTLEFileName)
         tleList = getTLEs(NewTLEFileName)
@@ -112,7 +111,7 @@ def mergeTLEFiles(
 ):
     df = pd.DataFrame()
     for ii in fileNumbers:
-        if useFormat == True:
+        if useFormat:
             fnii = (
                 cwdFiles
                 + "\\ConstellationPlanes\\"
@@ -194,7 +193,7 @@ def ImportChildren(children, obj):
                 + childName
                 + ObjectExtension(childType)
             )
-        except:
+        except Exception:
             child = obj.Children.Item(childName)
         childrenObjs.append(child)
     return childrenObjs
@@ -396,7 +395,7 @@ def ConnectToSTK(
         app = GetActiveObject("STK{}.Application".format(version))
         root = app.Personality2
         root.Isolate()
-    except:
+    except Exception:
         app = CreateObject("STK{}.Application".format(version))
         app.Visible = True
         app.UserControl = True
@@ -404,7 +403,7 @@ def ConnectToSTK(
         root.Isolate()
         try:
             root.LoadScenario(scenarioPath + "\\" + scenarioName + ".sc")
-        except:
+        except Exception:
             root.NewScenario(scenarioName)
     root.UnitPreferences.SetCurrentUnit("DateFormat", "Epsec")
     root.ExecuteCommand('Units_SetConnect / Date "Epsec"')
@@ -543,7 +542,7 @@ def runDeckAccess(
     root, startTime, stopTime, TLEFileName, accessObjPath, constraintSatName=""
 ):
     # Deck Access for the current time. Save the deck access file to the specified
-    sc2 = root.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
+    root.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
     deckAccessFileName = cwdFiles + "\\Misc\\deckAccessRpt.txt"  # Created
     deckAccessTLEFileName = cwdFiles + "\\Constellations\\deckAccessTLE.tce"  # Created
     startTime = str(startTime)
@@ -563,7 +562,7 @@ def runDeckAccess(
             + '" ConstraintObject */Satellite/'
             + constraintSatName
         )
-        cmdOut = root.ExecuteCommand(cmd)
+        root.ExecuteCommand(cmd)
     else:
         cmd = (
             "DeckAccess */"
@@ -578,7 +577,7 @@ def runDeckAccess(
             + deckAccessFileName
             + '"'
         )
-        cmdOut = root.ExecuteCommand(cmd)
+        root.ExecuteCommand(cmd)
     NumOfSC = writeTLEs(TLEFileName, deckAccessFileName, deckAccessTLEFileName)
     return NumOfSC, deckAccessFileName, deckAccessTLEFileName
 
@@ -621,7 +620,7 @@ def LoadSats(
         satCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName
         )
-    except:
+    except Exception:
         satCon = root.GetObjectFromPath("Constellation/" + satConName)
     satCon2 = satCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -629,7 +628,7 @@ def LoadSats(
         tranCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName + "Transmitters"
         )
-    except:
+    except Exception:
         tranCon = root.GetObjectFromPath("Constellation/" + satConName + "Transmitters")
     tranCon2 = tranCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -637,7 +636,7 @@ def LoadSats(
         recCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName + "Receivers"
         )
-    except:
+    except Exception:
         recCon = root.GetObjectFromPath("Constellation/" + satConName + "Receivers")
     recCon2 = recCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -664,22 +663,22 @@ def LoadSats(
                 receiver = sat.Children.ImportObject(
                     cwdFiles + "\\ChildrenObjects\\" + satReceiverName + ".r"
                 )
-            except:
+            except Exception:
                 transmitter = sat.Children.Item(satTransmitterName)
                 receiver = sat.Children.Item(satReceiverName)
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             try:
                 tranCon2.Objects.AddObject(transmitter)
-            except:
+            except Exception:
                 pass
             try:
                 recCon2.Objects.AddObject(receiver)
-            except:
+            except Exception:
                 pass
-    except:
+    except Exception:
         for ii in range(len(dfLoad)):
             cmd = (
                 'ImportTLEFile * "'
@@ -692,7 +691,7 @@ def LoadSats(
                 + stopTime
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            root.ExecuteCommand(cmd)
             cmd = "Graphics */Satellite/tle-" + dfLoad.loc[ii, "Ssc2"] + " Show Off"
             root.ExecuteCommand(cmd)
 
@@ -704,20 +703,20 @@ def LoadSats(
                 receiver = sat.Children.ImportObject(
                     cwdFiles + "\\ChildrenObjects\\" + satReceiverName + ".r"
                 )
-            except:
+            except Exception:
                 transmitter = sat.Children.Item(satTransmitterName)
                 receiver = sat.Children.Item(satReceiverName)
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             try:
                 tranCon2.Objects.AddObject(transmitter)
-            except:
+            except Exception:
                 pass
             try:
                 recCon2.Objects.AddObject(receiver)
-            except:
+            except Exception:
                 pass
 
     root.ExecuteCommand("BatchGraphics * Off")
@@ -803,7 +802,7 @@ def LoadSatsUsingTemplate(
 
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
@@ -811,16 +810,16 @@ def LoadSatsUsingTemplate(
                     child = childrenObj[jj]
                     try:
                         conObjs[jj].Objects.AddObject(child)
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
 
-    except:
+    except Exception:
         for ii in range(len(dfLoad)):
             cmd = (
                 'ImportTLEFile * "'
@@ -833,7 +832,7 @@ def LoadSatsUsingTemplate(
                 + stopTime
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            root.ExecuteCommand(cmd)
             cmd = "Graphics */Satellite/tle-" + dfLoad.loc[ii, "Ssc2"] + " Show Off"
             root.ExecuteCommand(cmd)
             cmd = (
@@ -846,20 +845,20 @@ def LoadSatsUsingTemplate(
             sat = root.GetObjectFromPath("Satellite/tle-" + str(dfLoad.loc[ii, "Ssc2"]))
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
                 for jj in range(len(conObjs)):
                     try:
                         conObjs[jj].Objects.AddObject(childrenObj[jj])
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
     root.ExecuteCommand("BatchGraphics * Off")
     root.EndUpdate()

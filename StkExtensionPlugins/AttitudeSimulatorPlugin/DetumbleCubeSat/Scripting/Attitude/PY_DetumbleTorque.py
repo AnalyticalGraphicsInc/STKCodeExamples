@@ -1,13 +1,12 @@
 # python
+import numpy as np
 
 global PY_DetumbleTorque_init
 global PY_DetumbleTorque_Inputs
 
 PY_DetumbleTorque_init = -1
 
-# ==========================================================================
-# PY_DetumbleTorque() fctn
-# ==========================================================================
+
 def PY_DetumbleTorque(argList):
     callMode = str(argList[0])
     if callMode == "None":
@@ -33,18 +32,17 @@ def PY_DetumbleTorque_register():
 
 def PY_DetumbleTorque_compute(argList):
     # NOTE: argList[0] is the call Mode, which is either None or 'compute'
-    import numpy as np
 
     global PY_DetumbleTorque_init
     global PY_DetumbleTorque_Inputs
     if PY_DetumbleTorque_init < 0:
         PY_DetumbleTorque_init = 1
-        PY_DetumbleTorque_Inputs = g_PluginArrayInterfaceHash[
+        PY_DetumbleTorque_Inputs = g_PluginArrayInterfaceHash[  # noqa: F821
             "PY_DetumbleTorque_Inputs"
         ]
 
     # Get inputs
-    epoch = argList[PY_DetumbleTorque_Inputs["time"]]
+    # epoch = argList[PY_DetumbleTorque_Inputs["time"]]
     magFieldVec = np.array([argList[PY_DetumbleTorque_Inputs["MagFieldIGRF"]]])
 
     # MagFieldIGRF is 6x1 tuple of magField and magFieldDot

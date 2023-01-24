@@ -5,9 +5,7 @@ global PY_feedback_Inputs
 
 PY_feedback_init = -1
 
-# ==========================================================================
-# PY_feedback() fctn
-# ==========================================================================
+
 def PY_feedback(argList):
     callMode = str(argList[0])
     if callMode == "None":
@@ -43,7 +41,9 @@ def PY_feedback_compute(argList):
     global PY_feedback_Inputs
     if PY_feedback_init < 0:
         PY_feedback_init = 1
-        PY_feedback_Inputs = g_PluginArrayInterfaceHash["PY_feedback_Inputs"]
+        PY_feedback_Inputs = g_PluginArrayInterfaceHash[  # noqa: F821
+            "PY_feedback_Inputs"
+        ]
 
     # Get inputs
     att = np.array(argList[PY_feedback_Inputs["att"]])

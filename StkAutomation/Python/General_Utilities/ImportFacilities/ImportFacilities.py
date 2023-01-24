@@ -20,7 +20,7 @@ def ImportFacilities(STKVersion, filepath):
     scenario = root.CurrentScenario
     uiApplication.Visible = True
     uiApplication.UserControl = True
-    scenario2 = scenario.QueryInterface(STKObjects.IAgScenario)
+    # scenario2 = scenario.QueryInterface(STKObjects.IAgScenario)
 
     # Change the latitude and longitude to degrees
     root.UnitPreferences.Item("Latitude").SetCurrentUnit("deg")
@@ -33,11 +33,11 @@ def ImportFacilities(STKVersion, filepath):
     df = pd.read_excel(filepath)
 
     # Iterate through each row
-    for i, row in df.iterrows():
+    for _, row in df.iterrows():
         facName = row["ID"]
-        lat = row["LAT"]
-        lon = row["LON"]
-        alt = row["ALT"]
+        # lat = row["LAT"]
+        # lon = row["LON"]
+        # alt = row["ALT"]
         type(facName)
 
         # There cannot be two objects with the same name in STK, so

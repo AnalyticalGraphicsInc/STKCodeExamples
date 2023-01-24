@@ -1,12 +1,11 @@
-import json
 import os
 import sys
 
 
 def dict2xml(d, root_node=None):
-    wrap = False if None == root_node or isinstance(d, list) else True
-    root = "objects" if None == root_node else root_node
-    root_singular = root[:-1] if "s" == root[-1] and None == root_node else root
+    wrap = False if not root_node or isinstance(d, list) else True
+    root = "objects" if root_node is None else root_node
+    root_singular = root[:-1] if "s" == root[-1] and root_node is None else root
     xml = ""
     children = []
 
@@ -152,7 +151,7 @@ def SummarizeStkObject(stkObject):
             try:
                 childSummary = SummarizeStkObject(stkChild)
                 props["Children"][stkChild.ClassName].append(childSummary)
-            except:
+            except Exception:
                 print(
                     "ERROR: An exception occurred summarizing " + stkObject.InstanceName
                 )
@@ -191,7 +190,7 @@ cmd = 'ExportCZML * "' + outputCzmlPath + '" http://assets.agi.com/models/'
 try:
     print("Exporting CZML to " + outputCzmlPath)
     root.ExecuteCommand(cmd)
-except:
+except Exception:
     print("ERROR: An exception occurred generating CZML")
 
 # Generating XML
@@ -208,7 +207,7 @@ try:
     xmlSummary = dict2xml(summary)
     with open(outputXmlSummaryPath, "w") as f:
         f.write(xmlSummary)
-except:
+except Exception:
     print("ERROR: An exception occurred generating XML")
 
 # Generating Json

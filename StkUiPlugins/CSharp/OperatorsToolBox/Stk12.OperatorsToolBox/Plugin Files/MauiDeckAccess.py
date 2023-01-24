@@ -1,12 +1,12 @@
 # Import the needed packages
-import os
 import sys
 
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-from comtypes.client import CreateObject, GetActiveObject
+from comtypes.client import GetActiveObject
 from comtypes.gen import STKObjects
-from ConstellationWizardLib import *
+from ConstellationWizardLib import LoadMTO, getTLEs, tleListToDF, writeTLEs
 
 print("Initializing")
 # cwd = os.getcwd()
@@ -33,7 +33,7 @@ try:
     root = app.Personality2
 #     app.Visible = True
 #     app.UserControl= True
-except:
+except Exception:
     print("Error connecting to the scenario")
     input("Press Key to exit")
 
@@ -110,7 +110,7 @@ MTOName = LoadMTO(
     orbitFrame="Inertial",
 )
 generatePlots = True
-if generatePlots == True:
+if generatePlots:
 
     # ### Plots of TLE Data Distribution
 

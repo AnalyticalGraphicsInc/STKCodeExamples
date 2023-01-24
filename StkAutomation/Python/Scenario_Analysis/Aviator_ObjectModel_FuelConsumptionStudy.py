@@ -2,18 +2,31 @@ import sys
 
 try:
     from agi.stk12.stkdesktop import STKDesktop
-    from agi.stk12.stkobjects import *
-    from agi.stk12.stkobjects.aviator import *
-    from agi.stk12.utilities.colors import *
-except:
+    from agi.stk12.stkobjects import (
+        AgAircraft,
+        AgDataPrvTimeVar,
+        AgESTKObjectType,
+        AgEVePropagatorType,
+        AgVePropagatorAviator,
+    )
+    from agi.stk12.stkobjects.aviator import (
+        AgAvtrProcedureEnroute,
+        AgAvtrPropagator,
+        AgAvtrSiteRunway,
+        AgEAvtrAdvFixedWingAeroStrategy,
+        AgEAvtrAdvFixedWingPowerplantStrategy,
+        AgEAvtrProcedureType,
+        AgEAvtrSiteType,
+    )
+
+except ImportError:
     print(
         "Failed to import stk modules. Make sure you have installed the STK Python API wheel (agi.stk<..ver..>-py3-none-any.whl) from the STK Install bin directory"
     )
 try:
     import matplotlib.pyplot as plt
     import numpy as np
-    from mpl_toolkits import mplot3d
-except:
+except ImportError:
     print(
         "**** Error: Failed to import one of the required modules (mpl_toolkits, matplotlib, numpy). Make sure you have them installed. If you are using anaconda python, make sure you are running the sample from an anaconda command prompt."
     )
@@ -31,15 +44,15 @@ def StartSTK():
             uiApp.visible = True
             uiApp.userControl = True
             stkRoot.NewScenario("AviatorParametricDemo")
-            scenario = AgScenario(stkRoot.CurrentScenario)
+            # scenario = AgScenario(stkRoot.CurrentScenario)
         else:
-            ## Implement checking to see if I should close the scenario
+            # Implement checking to see if I should close the scenario
             pass
-    except:
+    except Exception:
         uiApp = STKDesktop.StartApplication(visible=True, userControl=True)
         stkRoot = uiApp.Root
         stkRoot.NewScenario("AviatorParametricDemo")
-        scenario = AgScenario(stkRoot.CurrentScenario)
+        # scenario = AgScenario(stkRoot.CurrentScenario)
 
     stkRoot.UnitPreferences.SetCurrentUnit("DateFormat", "EpHr")
     return stkRoot
@@ -57,7 +70,7 @@ def AviatorParametricDemo(stkRoot):
     phase = phases[0]
     procedures = phase.Procedures
 
-    ## Get the runways from the catalog
+    # Get the runways from the catalog
     runwayCategory = avtrProp.AvtrCatalog.RunwayCategory
     runwayCategory.ARINC424Runways.MasterDataFilepath = (
         r"C:\Program Files\AGI\STK 12\Data\Resources\stktraining\samples\FAANFD18"
@@ -126,7 +139,7 @@ def AviatorParametricDemo(stkRoot):
         time = flightDP.DataSets.GetDataSetByName("Time").GetValues()
         totalTime = np.append(totalTime, time[-1])
 
-    fig = plt.subplots(figsize=(12, 8))
+    plt.subplots(figsize=(12, 8))
     gridsize = (3, 2)
     ax1 = plt.subplot2grid(gridsize, (0, 0), colspan=2, rowspan=2, projection="3d")
     ax2 = plt.subplot2grid(gridsize, (2, 0))

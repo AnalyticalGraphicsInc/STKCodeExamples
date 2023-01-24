@@ -50,7 +50,7 @@ def updateOrbitRes(root, seedNames=["Hi", "Lo"], res=60):
 def loadConPair(
     root, startTime, stopTime, satTemplateList, colors, conPair, updateEpoch=True, df=""
 ):
-    if updateEpoch == True:
+    if updateEpoch:
         newEpoch = float(
             root.ConversionUtility.ConvertDate("EpSec", "YYDDD", str(startTime))
         )
@@ -67,14 +67,16 @@ def loadConPair(
                     TLEFileName = "{}\\Constellations\\{}.tce".format(
                         cwdFiles, group["ConstellationName"].replace(" ", "")
                     )
-                    for index, row in group.iterrows():
+                    tleList = getTLEs(TLEFileName)
+                    dfLoad = tleListToDF(tleList)
+                    for _, row in group.iterrows():
                         createConFromWalker(root, row)
                     CreateConstellation(
                         root,
                         TLEFileName,
                         name="{}".format(group["ConstellationName"].replace(" ", "")),
                     )
-                    if updateEpoch == True:
+                    if updateEpoch:
                         updateTLEEpoch(TLEFileName, newEpoch, createNewFile=False)
                     UnloadObjs(
                         root,
@@ -112,7 +114,7 @@ def loadConPair(
                     )
                     break
             else:
-                if updateEpoch == True:
+                if updateEpoch:
                     updateTLEEpoch(TLEFileName, newEpoch, createNewFile=False)
                 tleList = getTLEs(TLEFileName)
                 dfLoad = tleListToDF(tleList)
@@ -144,16 +146,14 @@ def loadConPair(
 
     try:
         updateOrbitRes(root, seedNames=satTemplateList, res=60)
-    except:
+    except Exception:
         pass
     return constellationsList, MTONameList
 
 
 def writeTLEConstellationDirectly(filename, dfConstellation, epoch, overrideFile=False):
 
-    if (os.path.exists(filename) and overrideFile == True) or (
-        not os.path.exists(filename)
-    ):
+    if (os.path.exists(filename) and overrideFile) or (not os.path.exists(filename)):
         p1 = open(filename, "w+")
         mu = 3.986004e14
         satNum = 0
@@ -211,9 +211,9 @@ def numSatsInConstellations(conPair, method="TLE"):
     if method.lower() == "filename":
         for con in conPair:
             try:
-                numSatsAndPlanes = re.findall("\d+", con)[0:2]
+                numSatsAndPlanes = re.findall(r"\d+", con)[0:2]
                 numSats += int(numSatsAndPlanes[0]) * int(numSatsAndPlanes[1])
-            except:
+            except Exception:
                 pass
     else:
         for con in conPair:
@@ -246,12 +246,12 @@ def createConPairs(constellationCategory, addEmptyConstellations=True):
         constellationCategory[category]["nameList"]
         for category in constellationCategory.keys()
     ]
-    if addEmptyConstellations == True:
+    if addEmptyConstellations:
         [
             sublist.append("") for sublist in nameLists if "" not in sublist
         ]  # Add in an empty option if desired
     conPairs = list(itertools.product(*nameLists))
-    if addEmptyConstellations == True:
+    if addEmptyConstellations:
         conPairs = [
             conPair for conPair in conPairs if any(conPair)
         ]  # Remove completely empty constellations pairs
@@ -362,7 +362,7 @@ def createConFromWalker(root, row, satTempName=""):
     sat2.SetPropagatorType(STKObjects.ePropagatorJ4Perturbation)
     prop2 = sat2.Propagator.QueryInterface(STKObjects.IAgVePropagatorJ4Perturbation)
 
-    TLEFileName = cwdFiles + "\\ConstellationPlanes\\" + name + ".tce"
+    # TLEFileName = cwdFiles + "\\ConstellationPlanes\\" + name + ".tce"
     Re = 6378.137
     Ra = row["apogee (km)"] + Re
     Rp = row["apogee (km)"] + Re
@@ -376,7 +376,7 @@ def createConFromWalker(root, row, satTempName=""):
     # Can add a column for mean anomaly of the first satellite to handle interplane phasing, otherwise the seed satellite will use a mean anomaly of 0
     try:
         ma = row["ma (deg)"]
-    except:
+    except Exception:
         ma = 0
     numSats = row["#sats"]
 
@@ -509,7 +509,7 @@ def createConstellationPlanes(dfValues, raan=0, aop=0):
 def dfValuesToNames(dfValues):
     conNameList = []
     for index, row in dfValues.iterrows():
-        avgAlt = row["alt(km)"]
+        # avgAlt = row["alt(km)"]
         conNameList.append(
             "Con{}Sat{}Plane{}Inc{}Alt".format(
                 int(row["#sats"]),
@@ -529,7 +529,7 @@ def covAnalysis(root, covDefPath, objsToAdd, startTime, stopTime, exportFileName
     for obj in objsToAdd:
         try:
             cov2.AssetList.Add(obj)
-        except:
+        except Exception:
             pass
     cov2.ClearAccesses()
     cov2.Interval.UseScenarioInterval = False
@@ -634,7 +634,7 @@ def updateTLEEpoch(TLEFileName, epoch, createNewFile=True):
     tleList = getTLEs(TLEFileName)
     df = tleListToDF(tleList)
     df["Epoch"] = epoch
-    if createNewFile == True:
+    if createNewFile:
         NewTLEFileName = TLEFileName.split(".")[0] + str(epoch)[0:5] + ".tce"
         dfToTLE(df, NewTLEFileName)
         tleList = getTLEs(NewTLEFileName)
@@ -651,7 +651,7 @@ def mergeTLEFiles(
 ):
     df = pd.DataFrame()
     for ii in fileNumbers:
-        if useFormat == True:
+        if useFormat:
             fnii = (
                 cwdFiles
                 + "\\ConstellationPlanes\\"
@@ -733,7 +733,7 @@ def ImportChildren(children, obj):
                 + childName
                 + ObjectExtension(childType)
             )
-        except:
+        except Exception:
             child = obj.Children.Item(childName)
         childrenObjs.append(child)
     return childrenObjs
@@ -936,7 +936,7 @@ def ConnectToSTK(
         app = GetActiveObject("STK{}.Application".format(version))
         root = app.Personality2
         root.Isolate()
-    except:
+    except Exception:
         app = CreateObject("STK{}.Application".format(version))
         app.Visible = True
         app.UserControl = True
@@ -944,7 +944,7 @@ def ConnectToSTK(
         root.Isolate()
         try:
             root.LoadScenario(scenarioPath + "\\" + scenarioName + ".sc")
-        except:
+        except Exception:
             root.NewScenario(scenarioName)
     root.UnitPreferences.SetCurrentUnit("DateFormat", "Epsec")
     root.ExecuteCommand('Units_SetConnect / Date "Epsec"')
@@ -1098,7 +1098,7 @@ def runDeckAccess(
     root, startTime, stopTime, TLEFileName, accessObjPath, constraintSatName=""
 ):
     # Deck Access for the current time. Save the deck access file to the specified
-    sc2 = root.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
+    # sc2 = root.CurrentScenario.QueryInterface(STKObjects.IAgScenario)
     deckAccessFileName = cwdFiles + "\\Misc\\deckAccessRpt.txt"  # Created
     deckAccessTLEFileName = cwdFiles + "\\Constellations\\deckAccessTLE.tce"  # Created
     startTime = str(startTime)
@@ -1118,7 +1118,7 @@ def runDeckAccess(
             + '" ConstraintObject */Satellite/'
             + constraintSatName
         )
-        cmdOut = root.ExecuteCommand(cmd)
+        # cmdOut = root.ExecuteCommand(cmd)
     else:
         cmd = (
             "DeckAccess */"
@@ -1133,7 +1133,8 @@ def runDeckAccess(
             + deckAccessFileName
             + '"'
         )
-        cmdOut = root.ExecuteCommand(cmd)
+        # cmdOut = root.ExecuteCommand(cmd)
+    root.ExecuteCommand(cmd)
     NumOfSC = writeTLEs(TLEFileName, deckAccessFileName, deckAccessTLEFileName)
     return NumOfSC, deckAccessFileName, deckAccessTLEFileName
 
@@ -1176,7 +1177,7 @@ def LoadSats(
         satCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName
         )
-    except:
+    except Exception:
         satCon = root.GetObjectFromPath("Constellation/" + satConName)
     satCon2 = satCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -1184,7 +1185,7 @@ def LoadSats(
         tranCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName + "Transmitters"
         )
-    except:
+    except Exception:
         tranCon = root.GetObjectFromPath("Constellation/" + satConName + "Transmitters")
     tranCon2 = tranCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -1192,7 +1193,7 @@ def LoadSats(
         recCon = root.CurrentScenario.Children.New(
             STKObjects.eConstellation, satConName + "Receivers"
         )
-    except:
+    except Exception:
         recCon = root.GetObjectFromPath("Constellation/" + satConName + "Receivers")
     recCon2 = recCon.QueryInterface(STKObjects.IAgConstellation)
 
@@ -1219,22 +1220,22 @@ def LoadSats(
                 receiver = sat.Children.ImportObject(
                     cwdFiles + "\\ChildrenObjects\\" + satReceiverName + ".r"
                 )
-            except:
+            except Exception:
                 transmitter = sat.Children.Item(satTransmitterName)
                 receiver = sat.Children.Item(satReceiverName)
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             try:
                 tranCon2.Objects.AddObject(transmitter)
-            except:
+            except Exception:
                 pass
             try:
                 recCon2.Objects.AddObject(receiver)
-            except:
+            except Exception:
                 pass
-    except:
+    except Exception:
         for ii in range(len(dfLoad)):
             cmd = (
                 'ImportTLEFile * "'
@@ -1247,7 +1248,7 @@ def LoadSats(
                 + stopTime
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            # cmdOut = root.ExecuteCommand(cmd)
             cmd = "Graphics */Satellite/tle-" + dfLoad.loc[ii, "Ssc2"] + " Show Off"
             root.ExecuteCommand(cmd)
 
@@ -1259,20 +1260,20 @@ def LoadSats(
                 receiver = sat.Children.ImportObject(
                     cwdFiles + "\\ChildrenObjects\\" + satReceiverName + ".r"
                 )
-            except:
+            except Exception:
                 transmitter = sat.Children.Item(satTransmitterName)
                 receiver = sat.Children.Item(satReceiverName)
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             try:
                 tranCon2.Objects.AddObject(transmitter)
-            except:
+            except Exception:
                 pass
             try:
                 recCon2.Objects.AddObject(receiver)
-            except:
+            except Exception:
                 pass
 
     #     root.ExecuteCommand('BatchGraphics * Off')
@@ -1358,7 +1359,7 @@ def LoadSatsUsingTemplate(
 
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
@@ -1366,16 +1367,16 @@ def LoadSatsUsingTemplate(
                     child = childrenObj[jj]
                     try:
                         conObjs[jj].Objects.AddObject(child)
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
 
-    except:
+    except Exception:
         for ii in range(len(dfLoad)):
             cmd = (
                 'ImportTLEFile * "'
@@ -1388,7 +1389,7 @@ def LoadSatsUsingTemplate(
                 + stopTime
                 + '"'
             )
-            cmdOut = root.ExecuteCommand(cmd)
+            # cmdOut = root.ExecuteCommand(cmd)
             cmd = "Graphics */Satellite/tle-" + dfLoad.loc[ii, "Ssc2"] + " Show Off"
             root.ExecuteCommand(cmd)
             cmd = (
@@ -1401,20 +1402,20 @@ def LoadSatsUsingTemplate(
             sat = root.GetObjectFromPath("Satellite/tle-" + str(dfLoad.loc[ii, "Ssc2"]))
             try:
                 satCon2.Objects.AddObject(sat)
-            except:
+            except Exception:
                 pass
             if satTempName != "":
                 childrenObj = ImportChildren(children, sat)
                 for jj in range(len(conObjs)):
                     try:
                         conObjs[jj].Objects.AddObject(childrenObj[jj])
-                    except:
+                    except Exception:
                         pass
                 for jj in range(len(conGrandChildObjs)):
                     grandChild = grandChildObjs[jj]
                     try:
                         conGrandChildObjs[jj].Objects.AddObject(grandChild)
-                    except:
+                    except Exception:
                         pass
 
     # Copy attitude
@@ -1449,7 +1450,7 @@ def LoadSatsUsingTemplate(
         )
     for con in grandChildObjs:
         constellationNames.append(
-            on.QueryInterface(STKObjects.IAgStkObject).InstanceName
+            con.QueryInterface(STKObjects.IAgStkObject).InstanceName
         )
 
     return constellationNames
@@ -1467,7 +1468,7 @@ def UnloadConstellation(root, conName):
         root.ExecuteCommand(
             "Unload / */Constellation/{} RemAssignedObjs".format(conName)
         )
-    except:
+    except Exception:
         pass
     root.EndUpdate()
 

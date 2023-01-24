@@ -1,13 +1,12 @@
 # python
+import math
 
 global PY_CalcObject_init
 global PY_CalcObject_Inputs
 
 PY_CalcObject_init = -1
 
-# ==========================================================================
-# PY_CalcObject() fctn
-# ==========================================================================
+
 def PY_CalcObject(argList):
     callMode = str(argList[0])
     if callMode == "None":
@@ -37,8 +36,10 @@ def PY_CalcObject_compute(argList):
     global PY_CalcObject_Inputs
     if PY_CalcObject_init < 0:
         PY_CalcObject_init = 1
-        PY_CalcObject_Inputs = g_PluginArrayInterfaceHash["PY_CalcObject_Inputs"]
+        PY_CalcObject_Inputs = g_PluginArrayInterfaceHash[  # noqa: F821
+            "PY_CalcObject_Inputs"
+        ]
     inc = float(argList[PY_CalcObject_Inputs["Inc"]])  # inc = float(argList[1])
     raan = float(argList[PY_CalcObject_Inputs["RightAsc"]])  # raan = float(argList[2])
-    retList = [sin(inc) * sin(raan)]
+    retList = [math.sin(inc) * math.sin(raan)]
     return retList

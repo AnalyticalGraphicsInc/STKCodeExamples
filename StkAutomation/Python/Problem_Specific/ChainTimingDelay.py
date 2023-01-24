@@ -9,7 +9,16 @@ import os
 from dataclasses import dataclass
 
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
+from agi.stk12.stkobjects import (
+    AgAccessCnstrIntervals,
+    AgChain,
+    AgEAccessConstraints,
+    AgEActionType,
+    AgESTKObjectType,
+    AgScenario,
+    AgStkObjectRoot,
+    IAgStkObject,
+)
 
 # Globals
 # Specify type for intellisense
@@ -17,9 +26,7 @@ STK = None
 ROOT: AgStkObjectRoot = None
 SCENARIO: AgScenario = None
 
-"""""" """""" """""" """
-   USER INPUTS   
-""" """""" """""" """"""
+# USER INPUTS
 # Assets and target can be a single object or constellation
 ASSET_PATH = "Satellite/ImageSat/Sensor/Imager"
 TARGET_PATH = "Place/Target"
@@ -27,10 +34,7 @@ MAX_DELAY = 600  # sec
 # Set to true to create copies of any objects before they are modified
 PRESERVE_OBJECTS = True
 
-
-"""""" """""" """""" """
-   CLASSES
-""" """""" """""" """"""
+# CLASSES
 
 
 @dataclass
@@ -113,7 +117,7 @@ class Strand:
                 obj.AccessConstraints.RemoveConstraint(
                     AgEAccessConstraints.eCstrFieldOfView
                 )
-            except:
+            except Exception:
                 # FOV constraint doesn't exist for this object
                 pass
 
@@ -130,9 +134,7 @@ class Strand:
         intervalConstraint.Intervals.LoadIntervals(filename)
 
 
-"""""" """""" """""" """
-   FUNCTIONS
-""" """""" """""" """"""
+# FUNCTIONS
 
 
 def main(preserveObjects: bool = False):
@@ -156,7 +158,7 @@ def computeAccesses() -> list[Strand]:
     # Create chain to compute access, in case asset or target is a constellation
     try:
         ROOT.GetObjectFromPath("Chain/AssetToTarget").Unload()
-    except:
+    except Exception:
         pass
 
     chain: AgChain = SCENARIO.Children.New(AgESTKObjectType.eChain, "AssetToTarget")

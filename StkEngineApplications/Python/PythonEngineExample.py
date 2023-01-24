@@ -2,8 +2,18 @@ import os
 import platform
 import time
 
-from agi.stk12.stkobjects import *
-from agi.stk12.stkutil import *
+from agi.stk12.stkobjects import (
+    AgEClassicalLocation,
+    AgEClassicalSizeShape,
+    AgECvBounds,
+    AgECvResolution,
+    AgEFmCompute,
+    AgEFmDefinitionType,
+    AgEOrientationAscNode,
+    AgESTKObjectType,
+    AgEVePropagatorType,
+)
+from agi.stk12.stkutil import AgEOrbitStateType
 
 startTime = time.time()
 
@@ -50,7 +60,7 @@ scenario = stkRoot.CurrentScenario
 
 # Set time period
 scenario.SetTimePeriod("1 Aug 2020 16:00:00", "2 Aug 2020 16:00:00")
-if useStkEngine == False:
+if not useStkEngine:
     # Graphics calls are not available when running STK Engine in NoGraphics mode
     stkRoot.Rewind()
 

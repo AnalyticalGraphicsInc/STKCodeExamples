@@ -8,7 +8,16 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 import pandas as pd
-from agi.stk12.stkobjects import *
+from agi.stk12.stkobjects import (
+    AgChain,
+    AgChUserSpecifiedTimePeriod,
+    AgConstellation,
+    AgDataProviderGroup,
+    AgDataPrvInterval,
+    AgDataPrvTimeVar,
+    AgEChTimePeriodType,
+    AgESTKObjectType,
+)
 from agi.stk12.utilities.colors import Colors
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -89,7 +98,7 @@ def addNodeConstraints(
     return timesEdgesDistancesDelaysBandwidths
 
 
-##### Added copyObjectForConstraints, since sometimes you need object constraints and filter a network by nodes ####
+# Added copyObjectForConstraints, since sometimes you need object constraints and filter a network by nodes
 # In theory we don't need to do this. A fictitious version could be created
 def copyObjectsForConstraints(stkRoot, objTypes):
     # objTypes = {'Facility','Place','Target'}
@@ -149,7 +158,7 @@ def computeDataTransferThroughNetwork(
         os.path.exists(filename1)
         and os.path.exists(filename2)
         and os.path.exists(filename3)
-        and overrideData == False
+        and not overrideData
     ):
         with open(filename1, "rb") as f:
             df = pickle.load(f)
@@ -162,13 +171,10 @@ def computeDataTransferThroughNetwork(
         return df, dfTimesDataToTransfer, dfTimesDataTransferred, simulationStopTime
 
     # Skip if data loaded
-    if needToCompute == True:
+    if needToCompute:
 
         # Define initial variables
-        strandsShort = []
-        distances = []
         timeStrandMetric = []
-        i = 0
 
         # Determine time of last data added
         if breakOnceAllDataIsTransferred:
@@ -276,7 +282,7 @@ def computeDataTransferThroughNetwork(
                                 bandwidth=1 / maxDataTransfer,
                             )
 
-                    ## LOOP here to keep doing while strands are available
+                    # LOOP here to keep doing while strands are available
                     # Find shortest strand metric
                     if any([node in G.nodes() for node in startingNodes]) and any(
                         [node in G.nodes() for node in endingNodes]
@@ -399,7 +405,7 @@ def computeDataTransferThroughNetwork(
                         }
                     )
 
-            if printTime == True:
+            if printTime:
                 print("t=", t, "computation time=", time.time() - t1)
 
             # Break from processing if all data has been removed and time is greater than last data collected
@@ -418,7 +424,7 @@ def computeDataTransferThroughNetwork(
         if metric == "bandwidth":
             df = df.drop([metric], axis=1)
         df["strand"] = df["strand"].apply(
-            lambda x: [node for node in x if not "Constraint" in node]
+            lambda x: [node for node in x if "Constraint" not in node]
         )  # Remove constrained nodes
         df["num hops"] = df["strand"].apply(lambda x: len(x) - 2)
         df["num parent hops"] = df["strand"].apply(
@@ -450,7 +456,7 @@ def computeDataTransferThroughNetwork(
         )
 
 
-###### Updated methods of pushing data to STK and color bars
+# Updated methods of pushing data to STK and color bars
 def createTimesEdgesCountFromDF(df, weightColumn=None):
     # Read df of discrete values to numpy array
     npArr = df.to_numpy()
@@ -478,7 +484,7 @@ def createTimesEdgesCountFromDF(df, weightColumn=None):
                 for ii in range(len(strand) - 1)
             ]
         )
-        weights = edgesAtT[:, 2]
+        # weights = edgesAtT[:, 2]
         uniqueEdges = np.unique(edgesAtT[:, 1])
         timeEdgeCount = np.asarray(
             [
@@ -528,7 +534,7 @@ def addTimesEdgesCountAsObjectLines(
     colorMap=None,
     addTo2D=False,
 ):
-    if deleteOldLines == True:
+    if deleteOldLines:
         stkRoot.ExecuteCommand("VO * ObjectLine DeleteAll")
 
     # Get unique Edges
@@ -570,12 +576,12 @@ def addTimesEdgesCountAsObjectLines(
                 node2 = uniqueEdge[1]
                 numIntervals = len(mergedIntervals)
                 intervals = '"' + '" "'.join(startStop) + '"'
-                if add == True:
+                if add:
                     cmd = f"VO * ObjectLine Add FromObj {node1} ToObj {node2} Color {colorDict[uniqueCount]} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
                     stkRoot.ExecuteCommand(cmd)
                     cmd = f"VO * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
                     stkRoot.ExecuteCommand(cmd)
-                    if addTo2D == True:
+                    if addTo2D:
                         cmd = f"Graphics * ObjectLine Add FromObj {node1} ToObj {node2} Color {colorDict[uniqueCount]} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
                         stkRoot.ExecuteCommand(cmd)
                         cmd = f"Graphics * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
@@ -584,13 +590,13 @@ def addTimesEdgesCountAsObjectLines(
                 else:  # If an edge already exists add additionalintervals, each interval color has to be modified seperately
                     cmd = f"VO * ObjectLine Modify FromObj {node1} ToObj {node2} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
                     stkRoot.ExecuteCommand(cmd)
-                    if addTo2D == True:
+                    if addTo2D:
                         cmd = f"Graphics * ObjectLine Modify FromObj {node1} ToObj {node2} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
                         stkRoot.ExecuteCommand(cmd)
                     for startStopInterval in startStop:
                         cmd = f'VO * ObjectLine Modify FromObj {node1} ToObj {node2} ModifyInterval "{startStopInterval}" Color {colorDict[uniqueCount]}'
                         stkRoot.ExecuteCommand(cmd)
-                        if addTo2D == True:
+                        if addTo2D:
                             cmd = f'Graphics * ObjectLine Modify FromObj {node1} ToObj {node2} ModifyInterval "{startStopInterval}" Color {colorDict[uniqueCount]}'
                             stkRoot.ExecuteCommand(cmd)
     else:
@@ -619,7 +625,7 @@ def addTimesEdgesCountAsObjectLines(
             stkRoot.ExecuteCommand(cmd)
             cmd = f"VO * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
             stkRoot.ExecuteCommand(cmd)
-            if addTo2D == True:
+            if addTo2D:
                 cmd = f"Graphics * ObjectLine Add FromObj {node1} ToObj {node2} Color {color} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
                 stkRoot.ExecuteCommand(cmd)
                 cmd = f"Graphics * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
@@ -684,7 +690,7 @@ def plotColorbar(timesEdgeCountAll, cmap, plotBoth=True, tickRotationInDeg=65):
         print("Only 1 value, no colorbar will be generated:", uniqueCountsAll[0])
 
 
-### Added network data transfer and various supportinf functions
+# Added network data transfer and various supportinf functions
 
 
 def dictToArray(d):
@@ -803,7 +809,7 @@ def addDataMetrics(dfData, step, addColumnForEachEndLocation=True):
     return dfData2
 
 
-#### Adding Multi path and load functions
+# Adding Multi path and load functions
 
 # Build the dictionary of data storage. Use the buildTimesAdditionalNodeData. buildTimesNodeData looks at the data if none is transferred at each timestep
 def buildTimesNodeData(
@@ -1119,7 +1125,7 @@ def recomputeMissingData(
         print(
             "Adjust the start, stop or step to match previously saved data time or the recompute data"
         )
-        if recomputeIfDataIsMissing == True:
+        if recomputeIfDataIsMissing:
             print("Recalculating Strands")
             strands = getAllStrands(
                 stkRoot, chainNames, start, stop, overrideData=True
@@ -1212,7 +1218,7 @@ def topNShortestPaths(G, t, startingNode, endingNode, metric, topN=3):
             if ii >= topN:
                 break
             ii += 1
-    except:
+    except Exception:
         timeStrandMetricTopN.append((t, "", np.nan))
     return timeStrandMetricTopN
 
@@ -1242,7 +1248,7 @@ def computeNetworkTopN(
     )
 
     needToCompute = True
-    if os.path.exists(filename) and overrideData == False:
+    if os.path.exists(filename) and not overrideData:
         with open(filename, "rb") as f:
             df = pickle.load(f)
         computedTimes = np.array(df["time"])
@@ -1259,10 +1265,9 @@ def computeNetworkTopN(
                     index += 1
                 df = df.iloc[indices, :]
 
-    if needToCompute == True:
+    if needToCompute:
         # Define initial variables
         timeStrandMetric = []
-        i = 0
         # Loop through each time
         times = np.arange(start, stop, step)
         times = np.append(times, stop)
@@ -1278,9 +1283,7 @@ def computeNetworkTopN(
                 )  # Build a directed network if two constellations are used
 
             # find unique paths, remove previously used nodes and edges if desired
-            if (
-                removeUsedNodes == True
-            ):  # note removing nodes also removes all associated edges
+            if removeUsedNodes:  # note removing nodes also removes all associated edges
                 for ii in range(topN):
                     timePathDelay = topNShortestPaths(
                         G, t, startingNode, endingNode, metric, topN=1
@@ -1290,7 +1293,7 @@ def computeNetworkTopN(
                     Gnew = G.copy()
                     Gnew.remove_nodes_from(nodesToRemove)
                     G = Gnew.copy()
-            elif removeUsedEdges == True:
+            elif removeUsedEdges:
                 for ii in range(topN):
                     timePathDelay = topNShortestPaths(
                         G, t, startingNode, endingNode, metric, topN=1
@@ -1324,7 +1327,7 @@ def computeNetworkTopN(
         with open(filename, "wb") as f:
             pickle.dump(df, f)
 
-    if printTime == True:
+    if printTime:
         print(time.time() - t1)
     return df
 
@@ -1357,7 +1360,6 @@ def loadNetworkDfTopN(nodePairs, topN, neededTimes=[], filenames=""):
             computedTimes = dfTemp[:, 0]
             missingDataTimes = [t for t in neededTimes if t not in computedTimes]
             if len(missingDataTimes) == 0:
-                needToCompute = False
                 if len(computedTimes) != len(neededTimes):
                     index = 0
                     indices = []
@@ -1409,7 +1411,6 @@ def loadNetworkDf(nodePairs, neededTimes=[], filenames=""):
             computedTimes = dfTemp[:, 0]
             missingDataTimes = [t for t in neededTimes if t not in computedTimes]
             if len(missingDataTimes) == 0:
-                needToCompute = False
                 if len(computedTimes) != len(neededTimes):
                     index = 0
                     indices = []
@@ -1526,10 +1527,10 @@ def turnGraphicsOnOff(stkRoot, objPaths, onOrOff="On", parentsOnly=False):
             f"Graphics */{parentPath} Show {onOrOff}"
         )  # Turn parent object on first
 
-        if parentsOnly == False:
+        if not parentsOnly:
             try:
                 stkRoot.ExecuteCommand(f"Graphics */{objPath} Show {onOrOff}")
-            except:
+            except Exception:
                 pass
 
 
@@ -1590,7 +1591,7 @@ def getNodeDelaysByNode(
 def getNodesFromChain(stkRoot, chainName, overrideData=False):
     filename = f"SavedNodes/{chainName}.pkl"
     # Read in existing nodes
-    if os.path.exists(filename) and overrideData == False:
+    if os.path.exists(filename) and not overrideData:
         with open(filename, "rb") as f:
             listNodes = pickle.load(f)
     # Get nodes in the chain
@@ -1614,7 +1615,7 @@ def getNodesFromChain(stkRoot, chainName, overrideData=False):
 def getNodesFromConstellation(stkRoot, constellationName, overrideData=False):
     filename = f"SavedNodes/{constellationName}.pkl"
     # Read in existing nodes
-    if os.path.exists(filename) and overrideData == False:
+    if os.path.exists(filename) and not overrideData:
         with open(filename, "rb") as f:
             nodes = pickle.load(f)
     # Get nodes from constellation
@@ -1638,7 +1639,7 @@ def getStrands(
     filename = f"SavedStrands/{chainName}.pkl"
 
     # Read in existing strands
-    if os.path.exists(filename) and overrideData == False:
+    if os.path.exists(filename) and not overrideData:
         with open(filename, "rb") as f:
             strands = pickle.load(f)
         if printLoadedMessage:
@@ -1850,7 +1851,7 @@ def computeNodesPosOverTime(stkRoot, strands, start, stop, step, overrideData=Fa
     for node in stationaryNodes:
         filename = f'SavedPositions/{node.split("/")[-1]}.pkl'
         # Read in node position
-        if os.path.exists(filename) and overrideData == False:
+        if os.path.exists(filename) and not overrideData:
             with open(filename, "rb") as f:
                 timePosDict = pickle.load(f)
         else:
@@ -1868,7 +1869,7 @@ def computeNodesPosOverTime(stkRoot, strands, start, stop, step, overrideData=Fa
     for node in movingNodes:
         filename = f'SavedPositions/{node.split("/")[-1]}.pkl'
         # Read in node position
-        if os.path.exists(filename) and overrideData == False:
+        if os.path.exists(filename) and not overrideData:
             with open(filename, "rb") as f:
                 timePosDict = pickle.load(f)
         else:
@@ -2169,7 +2170,7 @@ def addStrandsAsObjectLines(
 
     # Group by edge and add edge intervals to STK
     grouped = dfEdges.groupby("edge")
-    if deleteOldLines == True:
+    if deleteOldLines:
         stkRoot.ExecuteCommand("VO * ObjectLine DeleteAll")
     for name, group in grouped:
         node1 = group["edge"].iloc[0][0]
@@ -2180,7 +2181,7 @@ def addStrandsAsObjectLines(
         stkRoot.ExecuteCommand(cmd)
         cmd = f"VO * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
         stkRoot.ExecuteCommand(cmd)
-        if addTo2D == True:
+        if addTo2D:
             cmd = f"Graphics * ObjectLine Add FromObj {node1} ToObj {node2} Color {color} LineWidth {str(lineWidth)} AddIntervals {str(numIntervals)} {intervals}"
             stkRoot.ExecuteCommand(cmd)
             cmd = f"Graphics * ObjectLine Modify FromObj {node1} ToObj {node2} IntervalType UseIntervals"
@@ -2198,7 +2199,6 @@ def addDataToSTK(stkRoot, chainName, df, columns="", invalidData=-1):
         columns = list(df.drop("time", axis=1).columns)
 
     numVars = len(columns)
-    numRows = len(df)
     colStrs = []
     for col in columns:
         if df[col].dtype == object:
@@ -2225,7 +2225,7 @@ def addDataToSTK(stkRoot, chainName, df, columns="", invalidData=-1):
     try:
         cmd = f'ExternalData */Chain/{chainName} AddGroup "NetworkData" {numVars} {colStrs}'
         stkRoot.ExecuteCommand(cmd)
-    except:
+    except Exception:
         cmd = f'ExternalData */Chain/{chainName} DeleteGroup "NetworkData"'
         stkRoot.ExecuteCommand(cmd)
         cmd = f'ExternalData */Chain/{chainName} AddGroup "NetworkData" {numVars} {colStrs}'
@@ -2254,7 +2254,7 @@ def computeFewestStrandSwitches(dfStrands, start, stop):
             max_step = max(max_step, intervals[i][1])
             if max_step <= intervals[i][1]:
                 max_step = intervals[i][1]
-                minVal = intervals[i][0]
+                # minVal = intervals[i][0]
                 iVal = i
             i += 1
         cur_timeSpan = max_step
@@ -2365,9 +2365,6 @@ def _getObjectShortPath(objectPath: str):
     return "/".join(objectPath.split("/")[5:])
 
 
-########## Nx ###################
-
-
 def generateNetwork(t, timeEdgesDistancesDelays, timeNodePos):
     G = nx.Graph()
     _networkGen(G, t, timeEdgesDistancesDelays, timeNodePos)
@@ -2467,14 +2464,14 @@ def shortestStrandDistance(G, startingNodes, endingNodes, metric="distance"):
                         nx.shortest_path_length(G, node1, node2, weight=metric),
                     )
                 )
-            except:
+            except Exception:
                 pass
     pathLengths = np.asarray(pathLengths)
     try:
         nodesDist = pathLengths[np.argmin(pathLengths[:, 2])]
         strand = nx.shortest_path(G, nodesDist[0], nodesDist[1], weight=metric)
         distance = nodesDist[2]
-    except:
+    except Exception:
         strand = ""
         distance = np.nan
     return strand, distance
@@ -2484,7 +2481,7 @@ def shortestStrandDistanceOptimized(G, metric="distance"):
     try:
         distance = nx.shortest_path_length(G, "Source", "Sink", weight=metric)
         strand = nx.shortest_path(G, "Source", "Sink", weight=metric)
-    except:
+    except Exception:
         strand = ""
         distance = np.nan
     return strand, distance
@@ -2586,10 +2583,10 @@ def nodesToLoseAccessAll(G, startingNodesSub, endingNodesSub, topN=10):
                 if float(bestScore[0, 1]) == 0:
                     nodeSet.add(nodes)
                     solutionFound = True
-            if solutionFound == True:
+            if solutionFound:
                 break
         # Run again and append old set of nodes
-        if solutionFound == False:
+        if not solutionFound:
             nodeSet.add(nodes)
             nodeSetNew = nodesToLoseAccessAll(
                 GSub, startingNodesSub, endingNodesSub, topN=topN
@@ -2656,7 +2653,7 @@ def network_plot_3D(
             # Plot connecting lines
             ax.plot(x, y, z, c="yellow", alpha=1, linewidth=2)
     set_axes_equal(ax)
-    if save == True:
+    if save:
         plt.savefig(str(t) + ".png")
         plt.close("all")
     else:
@@ -2705,7 +2702,7 @@ def computeNetworkMetrics(
     filename = f"SavedNetworkData/df{filename}{startingNode}{endingNode}.pkl"
 
     needToCompute = True
-    if os.path.exists(filename) and overrideData == False:
+    if os.path.exists(filename) and not overrideData:
         with open(filename, "rb") as f:
             df = pickle.load(f)
         computedTimes = np.array(df["time"])
@@ -2722,14 +2719,11 @@ def computeNetworkMetrics(
                     index += 1
                 df = df.iloc[indices, :]
 
-    if needToCompute == True:
+    if needToCompute:
         # Define initial variables
-        strandsShort = []
-        distances = []
         timeStrandMetric = []
         lowestNumOfMinNodesToLoseAccess = []
         highestNumOfMinNodesToLoseAccess = []
-        i = 0
 
         # Loop through each time
         times = np.arange(start, stop, step)
@@ -2737,7 +2731,7 @@ def computeNetworkMetrics(
         for t in times:
 
             # Generate Network at each time
-            if diNetwork == True:
+            if diNetwork:
                 if metric.lower() == "bandwidth":
                     G = generateDiNetworkBandwidth(
                         t, timesEdgesDistancesDelays, timeNodePos
@@ -2760,7 +2754,7 @@ def computeNetworkMetrics(
                 timeStrandMetric.append((t, "", np.nan))
 
             # Min num of nodes to remove to lose access between pairs of starting and ending nodes. This takes awhile to compute
-            if computeNumNodesToLoseAccessBetweenAnyPair == True:
+            if computeNumNodesToLoseAccessBetweenAnyPair:
                 lowestNum, highestNum = numNodesToLoseAccessBetweenAnyPair(
                     G, startingNodes, endingNodes
                 )
@@ -2775,7 +2769,7 @@ def computeNetworkMetrics(
         df.loc[df["num hops"] < 0, "num hops"] = np.nan
         df.loc[df["num parent hops"] < 0, "num parent hops"] = np.nan
         df[metric] = df[metric].astype(float)
-        if computeNumNodesToLoseAccessBetweenAnyPair == True:
+        if computeNumNodesToLoseAccessBetweenAnyPair:
             df[
                 "Highest Num Nodes Removed To Lose Access"
             ] = highestNumOfMinNodesToLoseAccess
@@ -2788,7 +2782,7 @@ def computeNetworkMetrics(
         with open(filename, "wb") as f:
             pickle.dump(df, f)
 
-    if printTime == True:
+    if printTime:
         print(time.time() - t1)
     return df
 
