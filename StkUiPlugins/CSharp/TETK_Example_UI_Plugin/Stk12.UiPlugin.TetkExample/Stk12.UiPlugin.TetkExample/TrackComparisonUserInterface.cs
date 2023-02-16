@@ -122,7 +122,9 @@ namespace Stk12.UiPlugin.TetkExample
             IAgStkObject aircraftOwnship = CommonData.StkRoot.GetObjectFromPath("Aircraft/F35");
             IAgStkObject measuredObject = CommonData.StkRoot.GetObjectFromPath(measuredObjName);
             if (aircraftOwnship.Vgt.EventIntervals.Contains(String.Format("TC_{0}_ComparisonInterval", trackName)))
-                return; // do nothing
+            {
+                // do nothing
+            }
             else
             {
                 IAgCrdnEventInterval eventInterval = aircraftOwnship.Vgt.EventIntervals.Factory.CreateEventIntervalFromIntervalList(String.Format("TC_{0}_ComparisonInterval", trackName), "Single time interval created from reference interval list.");
@@ -133,7 +135,7 @@ namespace Stk12.UiPlugin.TetkExample
 
             try
             {
-                string cmd = String.Format(@"TE_DataDisplay * Add Name ""Azimuth_Difference_TC_{0}"" AnalysisObject ""F35"" Numeric DataElement ""TC_{0}_AzimuthDifference, Azimuth Distance, deg, On"" Color ""Yellow"" Location ""1, 10, 10"" Digits ""3"" Width ""Auto"" TimeConstraint ""TC_{0}_ComparisonInterval""", trackName);
+                string cmd = String.Format(@"TE_DataDisplay * Add Name ""Azimuth_Difference_TC_{0}"" AnalysisObject ""F35"" Numeric DataElement ""TC_{0}_AzimuthDifference, Azimuth Angle Error, deg, On"" Color ""Yellow"" Location ""1, 10, 10"" Digits ""3"" Width ""Auto"" TimeConstraint ""TC_{0}_ComparisonInterval""", trackName);
                 CommonData.StkRoot.ExecuteCommand(cmd);
                 CommandList.cmdList.Add(cmd);
             }

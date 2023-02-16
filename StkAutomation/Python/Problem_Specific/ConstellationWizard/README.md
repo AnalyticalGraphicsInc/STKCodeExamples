@@ -1,12 +1,12 @@
 # Constellation Wizard
 
-Python code and a user inteface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites.
+Python code and a user interface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites.
 
 ## Requirements and File Overview
 
-* Need Python 3.6 or 3.7 installed along with standard Python libraries. An Anaconda3 installation will work.
-* Need to have the comtypes.gen folder created, which requires STK to have been started from Python before. If you have trouble connect please see this [FAQ](https://agiweb.secure.force.com/faqs/articles/Keyword/Having-Trouble-Connecting-to-STK-with-Python)
-* Download and unzip the attached zip folder, which contains:
+* Need Python 3.6 or 3.7 installed along with standard Python libraries.
+* Need to have the STK Python API installed, which can be done by following the instructions in the [STK Help](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm#InstallWheelFile)
+* Files included here:
 
   * [ConstellationWizardUI.ipynb](ConstellationWizardUI.ipynb): When the code is executed a user interface will appear, which will try to attach to an open instance of STK. The user interface contains buttons to create a constellation.tce file, load the constellation.tce file visually into STK as a MTO, performing deck access to limit the number of satellites, loading these satellites into STK, setting up chains and coverage analysis using these newly added satellites along with any children objects they bring along based on a satellite template, and finally unloading the objects. The UI format makes interacting with large satellite constellations inside STK much easier.
   * [ConstellationWizardNotebook.ipynb](ConstellationWizardNotebook.ipynb): Similar functionality as the ConstellationWizardUI, but goes into more detail on editing constellations and saving analysis results. The notebook format allows more flexibility, customization and automation for custom use cases.
@@ -19,7 +19,7 @@ Python code and a user inteface to allow subsets of large satellite constellatio
 
 Open a STK scenario and then run one of the desired Jupyter Notebooks.
 ![stk view](Images/stkView.png)
- 
+
 ### Constellation Wizard UI
 
 ![ui view](Images/uiView.png)
@@ -46,7 +46,7 @@ Open a STK scenario and then run one of the desired Jupyter Notebooks.
 
 * Similar functionality to the ConstellationWizardUI but in a Jupyter Notebook format and it covers a few more details:
   * Pulling the TLE and deck access data back into Python
-  * Addtional filtering on which satellite to load by orbital elements and deck access
+  * Additional filtering on which satellite to load by orbital elements and deck access
   * Automatically running chain and coverage analyses
   * Saving data from the analyses and loading them back into Python
 ![notebook view](Images/notebookView.png)

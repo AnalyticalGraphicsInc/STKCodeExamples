@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+    stk-engine-baseline:
+        image: ansys/stk/stk-engine-baseline:12.6.0-windowsservercore-ltsc2019
+        build:
+            context: .
+            args:
+                baseImage: mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
+        env_file: ../configuration/licensing.env

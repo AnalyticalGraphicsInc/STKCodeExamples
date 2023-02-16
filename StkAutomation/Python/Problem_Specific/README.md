@@ -134,4 +134,17 @@ This script will take the prinicple axes of a covariance matrix and turn it into
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy
+
+---
+
+## [EOIRTextureMaps](EOIRTextureMaps)
+
+This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy, pyhdf, h5py, matplotlib
+
 ---

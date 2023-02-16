@@ -4,8 +4,8 @@ from agi.stk12.stkdesktop import STKDesktop
 from agi.stk12.stkobjects import *
 
 
-ephemerisDir = r"C:\temp\1month\PolishSpaceAgencyE"
-combinedPath = r"C:\temp\1month\PolishSpaceAgencyE\Combined.e"
+ephemerisDir = r"C:\temp\1month\eFiles"
+combinedPath = r"C:\temp\1month\Combined.e"
 
 
 class EphemerisPoint:
