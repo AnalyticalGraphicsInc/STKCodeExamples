@@ -1,9 +1,8 @@
 import os
 
-# RUN
-# start new instance of STK
-from comtypes.client import CreateObject
-from comtypes.gen import STKObjects
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import *
+
 
 ephemerisDir = r"C:\temp\1month\eFiles"
 combinedPath = r"C:\temp\1month\Combined.e"
@@ -17,22 +16,21 @@ class EphemerisPoint:
         self.Y = y
         self.Z = z
 
+# RUN
+        
+# start new instance of STK
+stk = STKDesktop.StartApplication(visible=True)
+root = stk.Root
 
-app = CreateObject("STK12.Application")
-app.Visible = True
-app.UserControl = True
-root = app.Personality2
 
 # build scenario
 root.NewScenario("CombineEphemeris")
-oSc = root.CurrentScenario
-sc = oSc.QueryInterface(STKObjects.IAgScenario)
+sc = root.CurrentScenario
 root.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 
 
-oSat = oSc.Children.New(STKObjects.eSatellite, "Combine")
-sat = oSat.QueryInterface(STKObjects.IAgSatellite)
-sat.SetPropagatorType(STKObjects.ePropagatorStkExternal)
+sat = sc.Children.New(AgESTKObjectType.eSatellite, "Combine")
+sat.SetPropagatorType(AgEVePropagatorType.ePropagatorStkExternal)
 
 # loop through all .e files
 firstSat = True
@@ -40,23 +38,21 @@ allPoints = []
 for file in os.listdir(ephemerisDir):
     if file.endswith(".e"):
 
-        prop = sat.Propagator.QueryInterface(STKObjects.IAgVePropagatorStkExternal)
-        prop.FileName = os.path.join(ephemerisDir, file)
-        prop.Propagate()
+        sat.Propagator.Filename = os.path.join(ephemerisDir, file)
+        sat.Propagator.Propagate()
+        
         print(os.path.join(ephemerisDir, file))
 
         # set scenario time for the first one
         if firstSat:
-            sc.SetTimePeriod(prop.StartTime, prop.StopTime)
+            sc.SetTimePeriod(sat.Propagator.StartTime, sat.Propagator.StopTime)
             firstSat = False
-            prop.Propagate()
+            sat.Propagator.Propagate()
 
         # report out ephemeris
         root.UnitPreferences.SetCurrentUnit("DateFormat", "EpSec")
-        dp = oSat.DataProviders.GetDataPrvTimeVarFromPath(
-            "Cartesian Position/ICRF"
-        ).QueryInterface(STKObjects.IAgDataPrvTimeVar)
-        results = dp.ExecNativeTimes(prop.StartTime, prop.StopTime)
+        dp = sat.DataProviders.GetDataPrvTimeVarFromPath("Cartesian Position/ICRF")
+        results = dp.ExecNativeTimes(sat.Propagator.StartTime, sat.Propagator.StopTime)
         t = results.DataSets.GetDataSetByName("Time").GetValues()
         x = results.DataSets.GetDataSetByName("x").GetValues()
         y = results.DataSets.GetDataSetByName("y").GetValues()
@@ -71,9 +67,12 @@ for file in os.listdir(ephemerisDir):
                 x[ptCounter],
                 y[ptCounter],
                 z[ptCounter],
-                prop.EphemerisStartEpoch.TimeInstant,
+                sat.Propagator.EphemerisStartEpoch.TimeInstant,
             )
-            allPoints += [thisPt]
+            
+            # only add to array if we don't have a point at this time already
+            if not thisPt.EpSec in [data.EpSec for data in allPoints]:
+                allPoints += [thisPt]
 
 
 # sort array
@@ -108,3 +107,6 @@ for thisPoint in allPoints:
 
 f.write("END Ephemeris\n")
 f.close()
+
+root.CloseScenario()
+stk.ShutDown()
