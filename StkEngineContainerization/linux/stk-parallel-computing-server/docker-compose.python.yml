@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     python:
-        image: ansys/stk/stk-parallel-computing-server-python:2.5-centos7
+        image: ansys/stk/stk-parallel-computing-server-python:2.6-centos7
         build:
             context: ./python
             args:
-                baseImage: ansys/stk/stk-engine-python:12.4.0-centos7 
+                baseImage: ansys/stk/stk-engine-python:12.6.0-centos7 
         volumes:
             - ./client_example.py:/tmp/client_example.py
         environment:
@@ -18,4 +18,3 @@ networks:
     stk-parallel-computing-server:
         name: stk-parallel-computing-server
         external: true
-

@@ -7,7 +7,7 @@ COPY distributions/STK_Parallel_Computing_Coordinator*.tgz /tmp/
 # Unpack the STK Parallel Computing Server Coordinator
 RUN set -e; \
     mkdir -p /tmp/coordinator; \
-    find /tmp -name STK_Parallel_Computing_Coordinator*.tgz -exec tar -xf {} --strip-components=1 -C /tmp/coordinator \;
+    find /tmp -name STK_Parallel_Computing_Coordinator*.tgz -exec tar -zxf {} --strip-components=1 -C /tmp/coordinator \;
 
 
 FROM ${baseImage}

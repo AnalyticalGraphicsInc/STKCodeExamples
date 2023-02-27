@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using AGI.STKObjects;
-using System.Windows.Forms;
 
 namespace StkMetadataExtractor
 {
@@ -17,10 +16,8 @@ namespace StkMetadataExtractor
         public List<Property> Properties { get; set; }
         public List<StkObjectSummary> Children { get; set; }
 
-
         public StkObjectSummary()
         {
-            
         }
 
         public static StkObjectSummary SummarizeStkObject(IAgStkObject stkObject)
@@ -166,9 +163,8 @@ namespace StkMetadataExtractor
                         }
                         if (antennaModel.Name.ToString().Equals("Complex ANSYS ffd Format"))
                         {
-                            IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelComplexANSYSffdFormat;
-                            //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
-                            //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                            IAgAntennaModelANSYSffdFormat antennaAnsysExternal = complexReceiver.AntennaControl.EmbeddedModel as IAgAntennaModelANSYSffdFormat;
+                            summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
                         }
                     }
                     if (receiver.Model.Name.ToString().Equals("Simple Receiver Model"))
@@ -265,9 +261,8 @@ namespace StkMetadataExtractor
                         }
                         if (antennaModel.Name.ToString().Equals("Complex ANSYS ffd Format"))
                         {
-                            IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelComplexANSYSffdFormat;
-                            //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
-                            //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                            IAgAntennaModelANSYSffdFormat antennaAnsysExternal = complexTransmitter.AntennaControl.EmbeddedModel as IAgAntennaModelANSYSffdFormat;
+                            summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
                         }
 
                     }
@@ -335,9 +330,8 @@ namespace StkMetadataExtractor
                     }
                     if (antenna.Model.Name.ToString().Equals("Complex ANSYS ffd Format"))
                     {
-                        IAgAntennaModelComplexANSYSffdFormat antennaAnsysExternal = antenna.Model as IAgAntennaModelComplexANSYSffdFormat;
-                        //NOT ABLE TO GET THIS PROPERTY FOR SOME REASON
-                        //summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
+                        IAgAntennaModelANSYSffdFormat antennaAnsysExternal = antenna.Model as IAgAntennaModelANSYSffdFormat;
+                        summary.Properties.Add(new Property("Antenna External File", antennaAnsysExternal.Filename.ToString()));
                     }
                     break;
                 case AgESTKObjectType.ePlace:
@@ -355,13 +349,9 @@ namespace StkMetadataExtractor
             {
                 summary.Children.Add(SummarizeStkObject(stkObjectChild));
             }
-
             return summary;
         }
-
-  
     }
-
 
     [Serializable]
     public class Property

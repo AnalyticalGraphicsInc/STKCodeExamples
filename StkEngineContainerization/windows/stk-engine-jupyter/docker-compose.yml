@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+    stk-engine-jupyter:
+        image: ansys/stk/stk-engine-jupyter:12.6.0-windowsservercore-ltsc2019
+        build:
+            context: .
+            args:
+                baseImage: ansys/stk/stk-engine-python:12.6.0-windowsservercore-ltsc2019
+        ports:
+            - 8888:8888
+        init: true # This enables the "tini" init tool for the entrypoint as recommended by Jupyter Lab
+        volumes:
+            - ./notebooks:C:/notebooks
+        env_file: ../configuration/licensing.env
+        environment:
+            JUPYTER_LAB_TOKEN: ansys-stk

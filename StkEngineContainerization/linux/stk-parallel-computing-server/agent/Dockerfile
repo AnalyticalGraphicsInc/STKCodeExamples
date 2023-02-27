@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.5-centos7
+ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.6-centos7
 FROM ${baseImage} AS builder
 
 # Add the STK Parallel Computing Server Agent packages to the builder stage
@@ -7,7 +7,7 @@ COPY distributions/STK_Parallel_Computing_Agent*.tgz /tmp/
 # Unpack the STK Parallel Computing Server Agent
 RUN set -e; \
     mkdir -p /tmp/agent; \
-    find /tmp -name STK_Parallel_Computing_Agent*.tgz -exec tar -xf {} --strip-components=1 -C /tmp/agent \;
+    find /tmp -name STK_Parallel_Computing_Agent*.tgz -exec tar -zxf {} --strip-components=1 -C /tmp/agent \;
 
 
 FROM ${baseImage}

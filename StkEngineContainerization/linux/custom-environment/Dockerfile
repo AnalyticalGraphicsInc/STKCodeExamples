@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-engine-baseline:12.4.0-centos7
+ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-centos7
 FROM ${baseImage}
 
 USER root
@@ -20,4 +20,4 @@ ENV PIP_CERT=/etc/pki/ca-trust/extracted/openssl/ca-bundle.trust.crt
 # Directs python pip installs to pull packages from a specified repository.
 # Delete the following two lines if you do not need to override the default pip repository URL.
 ARG pipIndexUrl=''
-ENV PIP_INDEX_URL=${pipIndexUrl} 
+ENV PIP_INDEX_URL=${pipIndexUrl}
