@@ -1,5 +1,5 @@
 # By default, start from the STK Engine Python API image
-ARG baseImage=ansys/stk/stk-engine-python:12.4.0-centos7
+ARG baseImage=ansys/stk/stk-engine-python:12.6.0-centos7
 FROM ${baseImage}
 
 # Install Flask

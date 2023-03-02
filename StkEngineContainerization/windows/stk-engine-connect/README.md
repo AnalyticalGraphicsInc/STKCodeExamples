@@ -13,13 +13,13 @@ has your Ansys License Server information.
 ## Method 1 - Docker CLI
 
 ### Build the Image
-1. Run `docker build -t ansys/stk/stk-engine-connect:12.5.0-windowsservercore-ltsc2019 .` on the command line in this directory.
+1. Run `docker build -t ansys/stk/stk-engine-connect:{version}-windowsservercore-ltsc2019 .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.6.0`
 
 ### Run the Container
 The entrypoint of this container starts the Connect console in the foreground listening on the container's port `5001`.
 To start the container and verify its functionality:
-1. Run the following command from this directory:
-`docker run -d -p 5001:5001 --env-file ../configuration/licensing.env --name stk-connect --rm ansys/stk/stk-engine-connect:12.5.0-windowsservercore-ltsc2019`
+1. Run the following command from this directory after replacing `{version}` with the version number. i.e `12.6.0`:
+`docker run -d -p 5001:5001 --env-file ../configuration/licensing.env --name stk-connect --rm ansys/stk/stk-engine-connect:{version}-windowsservercore-ltsc2019`
     * If port `5001` is already in use on your machine, map a different port (e.g. `1234:5001`).
 
 2. After the container has started, use a TCP client to connect to the container at `localhost:5001`. If you changed the host port mapping in the step above, use that port here instead of `5001`.

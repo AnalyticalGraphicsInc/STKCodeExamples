@@ -1,9 +1,9 @@
 version: '3.7'
 services:
     stk-engine-python:
-        image: ansys/stk/stk-engine-python:12.5.0-windowsservercore-ltsc2019
+        image: ansys/stk/stk-engine-python:12.6.0-windowsservercore-ltsc2019
         build: 
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-baseline:12.5.0-windowsservercore-ltsc2019
+                baseImage: ansys/stk/stk-engine-baseline:12.6.0-windowsservercore-ltsc2019
         env_file: ../configuration/licensing.env
