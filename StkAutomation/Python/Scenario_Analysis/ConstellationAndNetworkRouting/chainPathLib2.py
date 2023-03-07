@@ -83,7 +83,7 @@ def addNodeConstraints(
             for node1, node2 in startingEdgesToModify:
                 # Add edge from nodeWithConstraint to the original node with the constrained value
                 timesEdgesDistancesDelaysBandwidths[t][
-                    (node1, node1 + "Constraint")
+                    (node1, node1 + "StartConstraint")
                 ] = (
                     0,
                     0,
@@ -91,7 +91,7 @@ def addNodeConstraints(
                 )  # rate*step size
                 # Replace end node with constrained node and delete the original edge
                 timesEdgesDistancesDelaysBandwidths[t][
-                    (node1 + "Constraint", node2)
+                    (node1 + "StartConstraint", node2)
                 ] = timesEdgesDistancesDelaysBandwidths[t][(node1, node2)]
                 timesEdgesDistancesDelaysBandwidths[t].pop((node1, node2), None)
 
@@ -425,6 +425,9 @@ def computeDataTransferThroughNetwork(
             df = df.drop([metric], axis=1)
         df["strand"] = df["strand"].apply(
             lambda x: [node for node in x if "Constraint" not in node]
+        )  # Remove constrained nodes
+        df["strand"] = df["strand"].apply(
+            lambda x: [node for node in x if "StartConstraint" not in node]
         )  # Remove constrained nodes
         df["num hops"] = df["strand"].apply(lambda x: len(x) - 2)
         df["num parent hops"] = df["strand"].apply(
