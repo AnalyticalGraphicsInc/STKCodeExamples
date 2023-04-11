@@ -35,18 +35,6 @@ convertTLEState('Satellite1','ePropagatorHPOP')
 
 ---
 
-## [create_normalized_frame_sequence.m](create_normalized_frame_sequence.m)
-
-This script takes a folder of eoir raw data files and normalizes the collection. That's because each frame of an EOIR synthetic scene is normalized to itself, so there's color variation in some frames. This script normalizes the collection to the first (or the selected frame). 
-
-### Dependencies
-
-* Capabilities: N/A
-* Other Scripts: save_colormapped_image.m
-* Scenario: N/A
-
----
-
 ## [createEphemerisFile.m](createEphemerisFile.m)
 
 Creates an ephemeris file for an STK Object in an Analysis Workbench Coordinate System. The script can also automatically create a new object using the new ephemeris file.
@@ -211,18 +199,6 @@ StkHelp(satellite, 'offline')
 
 ---
 
-## [save_colormapped_image.m](save_colormapped_image.m)
-
-This script is run from the create_normalized_frame_sequence.m script. It takes the normalized data and saves it as a colormapped image. 
-
-### Dependencies
-
-* Capabilities: N/A
-* Other Scripts: create_normalized_frame_sequence.m
-* Scenario: N/A
-
----
-
 ## [StkHelp.m](StkHelp.m)
 
 This function will launch the Programming Help documentation page for a given STK handle. The 'offline' flag can be used to open the local Programming Help (optional).
@@ -307,3 +283,13 @@ Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, L
 * Scenario: Any scenario open with Coverage definition and Figure of Merit
 
 ---
+
+# [Normalize_EOIR_Images](Normalize_EOIR_Images)
+
+This script accepts a directory of raw sensor output data from EOIR and normalizes the entire frame sequence. This is useful for stitching the frames together in a video so that any color variation between frames is eliminated. This can be used in conjunction with the image generation and movie-making Python scripts linked below. 
+
+### Dependencies
+
+* Capabilities: N/A
+* Other Scripts: [EOIR Synthetic Scene and Data Generation](../../Python/Scenario_Analysis/EOIR_Synthetic_Scene_and_Data_Generation)
+* Scenario: N/A

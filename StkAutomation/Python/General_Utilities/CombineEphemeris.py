@@ -1,8 +1,7 @@
 import os
 
 from agi.stk12.stkdesktop import STKDesktop
-from agi.stk12.stkobjects import *
-
+from agi.stk12.stkobjects import AgESTKObjectType, AgEVePropagatorType
 
 ephemerisDir = r"C:\temp\1month\eFiles"
 combinedPath = r"C:\temp\1month\Combined.e"
@@ -16,8 +15,9 @@ class EphemerisPoint:
         self.Y = y
         self.Z = z
 
+
 # RUN
-        
+
 # start new instance of STK
 stk = STKDesktop.StartApplication(visible=True)
 root = stk.Root
@@ -40,7 +40,7 @@ for file in os.listdir(ephemerisDir):
 
         sat.Propagator.Filename = os.path.join(ephemerisDir, file)
         sat.Propagator.Propagate()
-        
+
         print(os.path.join(ephemerisDir, file))
 
         # set scenario time for the first one
@@ -69,9 +69,9 @@ for file in os.listdir(ephemerisDir):
                 z[ptCounter],
                 sat.Propagator.EphemerisStartEpoch.TimeInstant,
             )
-            
+
             # only add to array if we don't have a point at this time already
-            if not thisPt.EpSec in [data.EpSec for data in allPoints]:
+            if thisPt.EpSec not in [data.EpSec for data in allPoints]:
                 allPoints += [thisPt]
 
 
