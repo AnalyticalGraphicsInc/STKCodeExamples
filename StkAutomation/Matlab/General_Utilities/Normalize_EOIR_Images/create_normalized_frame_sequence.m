@@ -32,7 +32,7 @@ function [] = create_normalized_frame_sequence(input_folder,output_folder,normal
         min_value = min(a(:))
         max_value = max(a(:))
         
-        for i=4:num_files+2
+        for i=1:num_files
             file_name = sprintf('%s\\%s',files(i).folder,files(i).name);
             a = load(file_name);
             
@@ -61,7 +61,7 @@ function [] = create_normalized_frame_sequence(input_folder,output_folder,normal
     full_value_range = max_value-min_value
     bounds(1) = min_value;%+0.001*full_value_range
     bounds(2) = max_value-0.1*full_value_range
-    for i=3:floor(num_files)
+    for i=1:num_files
         file_name = sprintf('%s\\%s',files(i).folder,files(i).name);
         disp(file_name)
         a = load(file_name);
@@ -71,7 +71,7 @@ function [] = create_normalized_frame_sequence(input_folder,output_folder,normal
         subplot(1,2,2);
         imagesc(a,bounds);
         axis tight equal off;
-        output_file = sprintf('%s\\output_frame_%06d.jpg',output_folder,i-2)
+        output_file = sprintf('%s\\output_frame_%06d.jpg',output_folder,i-1)
         
         % Processing image here
         powerscale = .3;

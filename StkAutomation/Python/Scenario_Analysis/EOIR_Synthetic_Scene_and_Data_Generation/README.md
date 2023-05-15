@@ -37,3 +37,13 @@ This is a DIY solution to stack all the images to a video. Since this action had
 * Capabilities: N/A
 * Other Scripts: [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb)
 * Scenario: N/A
+
+
+## [Generalized_EOIR_Image_Data_Generation](Generalized_EOIR_Image_Data_Generation)
+This script is a geneneralized version of [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb). The previous script allowed you to change atmosphere and cloud settings and generate the synthetic scene and raw sensor data. It was specific to that example, but there is a need for a generalied solution. This new script allows you to connect to any open scenario on your machine and generate the synthetic scene and raw sensor data. 
+
+### Dependencies
+
+* Capabilities: STK Pro
+* Other Scripts: N/A
+* Scenario: N/A
