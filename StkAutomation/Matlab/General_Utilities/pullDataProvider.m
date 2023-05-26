@@ -170,7 +170,7 @@ function [dataFull] = pullDataProvider(root,dataProvString,dataProvElem,times,gr
 
                 end
 
-                dataElem(:,i) = dataCell;
+                dataElem{i} = dataCell;
                 dataCell = [];
             end
 
