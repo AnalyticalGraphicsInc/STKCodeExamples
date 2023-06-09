@@ -272,3 +272,15 @@ This MATLAB script populates and automates an example position, navigation, and 
 * Scenario: N/A
 
 ---
+
+## [Aviator_ObjectModel_CarrierLanding.py](Aviator_ObjectModel_CarrierLanding.py)
+
+Creates a scenario that demonstrates an aircraft carrier landing using two Aviator aircraft with custom procedures. All inputs are available for editing, though this is better used as a reference for planning Aviator missions programmatically.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
