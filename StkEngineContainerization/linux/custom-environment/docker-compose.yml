@@ -1,16 +1,18 @@
 version: '3.7'
 services:
     stk-engine-custom-baseline:
-        image: ansys/stk/stk-engine-custom-baseline:12.6.0-centos7
+        image: ansys/stk/stk-engine-custom-baseline:12.6.0-ubi8
         build:
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-baseline:12.6.0-centos7
+                baseImage: ansys/stk/stk-engine-baseline:12.6.0-ubi8
                 pipIndexUrl: '' # Edit this value to be the index URL of your internal pip repository if you have one.
-    custom-centos:
-        image: custom/centos:7
+    custom-ubi8:
+        image: custom/redhat/ubi8:latest
         build:
             context: .
             args:
-                baseImage: centos:7
+                # Uncomment the first line below if you want to use the UBI image from ironbank
+                # baseImage: registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest
+                baseImage: redhat/ubi8:latest
                 pipIndexUrl: '' # Edit this value to be the index URL of your internal pip repository if you have one.
