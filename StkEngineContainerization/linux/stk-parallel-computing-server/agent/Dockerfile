@@ -14,7 +14,7 @@ FROM ${baseImage}
 LABEL NUMBER_OF_WORKER_PROCESSES="The number of worker processes to use.  Must be compatible with STK Engine License. Default: 4" \
     COORDINATOR="The FQDN of the STK Parallel Computing Server Coordinator that controls this agent. Required."
 
-# Install .NET Core dependencies (see https://docs.microsoft.com/en-us/dotnet/core/install/linux-centos)
+# Install .NET Core dependencies
 USER root
 RUN set -e; \
     yum -y install aspnetcore-runtime-6.0

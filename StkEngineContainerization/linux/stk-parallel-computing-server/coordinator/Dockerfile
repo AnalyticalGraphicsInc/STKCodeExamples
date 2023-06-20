@@ -19,7 +19,7 @@ RUN set -e; \
 FROM ${baseImage}
 
 USER root
-# Install .NET Core dependencies (see https://docs.microsoft.com/en-us/dotnet/core/install/linux-centos)
+# Install .NET Core dependencies
 RUN set -e; \
     yum -y install aspnetcore-runtime-6.0
 
