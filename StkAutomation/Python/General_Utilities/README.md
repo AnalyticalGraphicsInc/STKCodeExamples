@@ -171,3 +171,15 @@ This automates the use of the Sensor Obscuration Tool to determine when the sun'
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [writeComplexBistaticRCS.py](writeCopmlexBistaticRCS.py)
+
+This accepts a bistatic RCS export from Ansys HFSS and converts it into *.rcs format for import into STK. Inputs are the horizontal and vertical incident data file paths, the primary polarization channel (horizontal or vertical), and the output file path.
+
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
