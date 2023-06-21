@@ -84,6 +84,23 @@ FilterObjectsByType('Satellite', 'gps')
 
 ---
 
+## [generateSensorPointingFile.m](generateSensorPointingFile.m)
+
+This function will generate an attitude pointing file (.sp) for the specified sensor, using quaternions. For targeted sensors and/or sensors with multiple access intervals, this script will create multiple pointing files for each interval, and name them according to their start and stop times in EpSec.
+
+Example
+
+```matlab
+generateSensorPointingFile('Satellite/LEOSat/Sensor/LEOsensor', 'LEOSensorAttitude', 60)
+```
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [getAllObjectHandles.m](getAllObjectHandles.m)
 
 Connects to an existing STK instance and loops through every object in the scenario while assigning a local MATLAB variable with the same name as each object pointing to that object. This is commonly used for debugging getting more comfortable with the object model. Users can create complex scenarios manually and then run getAllObjectHandles to navigate through the object model and inspect properties.

@@ -1,5 +1,7 @@
 # By default, start from the base STK Engine image
-ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-centos7
+# Uncomment the first line below if you built the stk-engine-custom-baseline image
+# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.6.0-ubi8
+ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-ubi8
 FROM ${baseImage}
 
 # Enable Connect to listen for external connections

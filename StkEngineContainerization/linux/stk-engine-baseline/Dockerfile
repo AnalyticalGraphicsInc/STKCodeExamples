@@ -1,6 +1,9 @@
-ARG baseImage=centos:7
+# Uncomment the first line below if you want to use the UBI image from ironbank
+# ARG baseImage=registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest
+ARG baseImage=redhat/ubi8:latest
 FROM ${baseImage} AS builder
 
+USER root
 # Add the engine packages to the builder stage
 COPY distributions/stk*.tgz /tmp/
 
@@ -25,11 +28,15 @@ FROM ${baseImage}
 
 LABEL ANSYSLMD_LICENSE_FILE='Specifies the location of the Ansys Licensing Server. The format should be PORT@FQDN. If using a triad of license server, list all servers in the same format separated by semicolons.  Required.'
 
+USER root
 # Define STK user home directory
 ENV STK_USER_HOME=/home/stk
 
 # Setup non-root STK user
 RUN useradd -ms /bin/bash stk
+
+# Need to create a symlink for libnsl.so.1 for STK to run
+RUN ln -s /usr/lib64/libnsl.so.2 /usr/lib64/libnsl.so.1
 
 # Switch to STK user
 WORKDIR "${STK_USER_HOME}"

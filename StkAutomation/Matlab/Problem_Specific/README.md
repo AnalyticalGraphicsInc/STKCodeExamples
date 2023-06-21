@@ -346,3 +346,13 @@ This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files i
 * Scenario: N/A
 
 ---
+
+## [satStepWiseTracking.m](satStepWiseTracking.m)
+
+This function will take a satellite's attitude file and modify the tracking portions of the file to appear like they are stepwise for a single object. This will apply to all satellites specified in the constellation object. Note that this script modifies the satellite's attitude and NOT the sensor object's attitude. This is assuming the sensor is standard, nadir aligned. This only applies to the satellites in the constellation.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
