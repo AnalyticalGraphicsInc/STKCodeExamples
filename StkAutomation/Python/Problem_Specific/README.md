@@ -85,6 +85,18 @@ Notebooks and libraries to automate STK, take EOIR images, process images, gener
 
 ---
 
+## [LKtoFFDConverter](LKtoFFDConverter)
+
+Two scripts: 1. A converter that takes in two LK files, one representing magnitude and one representing phase, and combining and converting the data into a single FFD file with a specified polarization (through command line arguments). Allows STK import into an antenna that will consider both magnitude and phase of an LK file. 2. A generator script to generate test LK files using a specified random distribution.
+
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
 ## [ConstellationWizard](ConstellationWizard)
 
 Python code and a user inteface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites. The readme within the project folder contains specific requirements for using the tool, as well as explanations for each of the notebooks and how the tool generally works.
