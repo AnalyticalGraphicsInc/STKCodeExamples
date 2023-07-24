@@ -97,6 +97,27 @@ Two scripts: 1. A converter that takes in two LK files, one representing magnitu
 
 ---
 
+## [SatelliteConflictFreePassesUsingIntervalTree](SatelliteConflictFreePassesUsingIntervalTree)
+
+This script was used in a specific case for a customer: there is a ground facility that is attempting to calculate line of sight access to a constellation of satellites. The customer wants all the passes (pass number, time intervals, satellite name) that are "conflict free", the definition of conflict free being so:
+    - A pass is conflict free if for the entire pass through the ground facility's line of sight access no other satellite enters that line of sight access region of the ground facility such that the facility now has line of sight access to two satellites. Even if a satellite is halfway through its pass without conflict, the moment another satellite enters the region, BOTH PASSES ARE REMOVED.
+    - We are not looking for non-conflicting time intervals. We are looking for PASSES. For example, for a satellite that is halfway through its pass before another satellite enters the region, we do not care about the time interval such that it was the only satellite in the region. We will delete the entire pass including the time interval where it was initially unconflicted. We only keep time intervals and pass data in which the ENTIRE pass was valid and unconflicted.
+    - If the region is unsymmetrical, generating reports on STK will recognize them as two different accesses even if they were on the same pass. We will merge any two accesses that are a part of the same pass as such.
+    - The time between the valid pass of one satellite and the valid pass of the next valid satellite must be at least 3 minutes or else both will also be invalid.
+
+This script implements an "Interval Tree" as a data structure to use to mark and remove conflicting intervals of times. It can be used to check for conflicts between intervals in logarithmic O(logn) time, which is especially important since the customer generated reports on a whole constellation of satellites, leading to huge amounts of access intervals in the resulting generated reports. As such, we needed an efficient way to find conflicts. We use the Object Model to pull in generated access report data, populate data structures, and add them to an interval tree. We then linearly iterate through all intervals and mark each as conflicted or not, and then delete conflicted intervals.
+
+This script was utilized for a very specific case, but many elements of this can definitely be reused for any conflict-resolution type case that requires an efficient way to remove conflicts with similar guidelines (especially with cases that are more concerned about entire full passes of a satellite rather than just valid time intervals).
+
+### Dependencies
+
+* Capabilities: Free
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy
+
+---
+
 ## [ConstellationWizard](ConstellationWizard)
 
 Python code and a user inteface to allow subsets of large satellite constellations to quickly be built and loaded into STK, perform analysis, and then unloaded. In this way analysis at different times or with different constellations can be performed without loading in thousands of satellites. The readme within the project folder contains specific requirements for using the tool, as well as explanations for each of the notebooks and how the tool generally works.
