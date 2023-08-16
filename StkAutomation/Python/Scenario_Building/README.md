@@ -49,3 +49,25 @@ This script is a demo of the STK Python API that creates a complex search and re
 * Scenario: N/A
 
 ---
+## [VolumetricSensorCoverage.py](VolumetricSensorCoverage.py)
+
+This script performs an end-to-end volumetric coverage analysis with sensors. It will build a scenario with three GEO satellites, a volume grid that covers the GEO belt, and a volumetric object to perform the analysis. This script leverages the comtypes interface.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+## [VolumetricSensorCoverage_pythonAPI.py](VolumetricSensorCoverage_pythonAPI.py)
+
+This script performs an end-to-end volumetric coverage analysis with sensors. It will build a scenario with three GEO satellites, a volume grid that covers the GEO belt, and a volumetric object to perform the analysis. This script leverages the python cross-platform API.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
