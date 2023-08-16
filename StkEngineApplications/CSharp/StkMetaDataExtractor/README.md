@@ -13,6 +13,6 @@ This utility is intended to be used from the command line with two arguments:
 2. the desired directory for the output files (*.xml and *.czml)
 
 Example:
-python StkMetadataExtractor.exe "c:\Temp\sampleScenario.vdf" "c:\Temp"
+StkMetadataExtractor.exe "c:\Temp\sampleScenario.vdf" "c:\Temp"
 
 The output XML file and CZML file will have the same name as the scenario - in this example "c:\Temp\sampleScenario.xml" and "c:\Temp\sampleScenario.czml".

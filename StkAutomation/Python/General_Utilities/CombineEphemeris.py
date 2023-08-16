@@ -1,10 +1,10 @@
-### this tool will combine multiple ephemeris files into one
-### author: jens ramrath, agi
-### date: 18 may 2021
+import os
 
-### INIT
-ephemerisDir = 'C:\\temp\\1month\\eFiles'
-combinedPath = 'C:\\temp\\1month\\Combined.e'
+from agi.stk12.stkdesktop import STKDesktop
+from agi.stk12.stkobjects import AgESTKObjectType, AgEVePropagatorType
+
+ephemerisDir = r"C:\temp\1month\eFiles"
+combinedPath = r"C:\temp\1month\Combined.e"
 
 
 class EphemerisPoint:
@@ -16,68 +16,70 @@ class EphemerisPoint:
         self.Z = z
 
 
-### RUN
+# RUN
+
 # start new instance of STK
-import comtypes
-from comtypes.client import CreateObject
-from comtypes.gen import STKObjects
-from comtypes.gen import AgSTKVgtLib
-app = CreateObject('STK12.Application')
-app.Visible = True
-app.UserControl= True
-root = app.Personality2
+stk = STKDesktop.StartApplication(visible=True)
+root = stk.Root
+
 
 # build scenario
-root.NewScenario('CombineEphemeris')
-oSc = root.CurrentScenario
-sc = oSc.QueryInterface(STKObjects.IAgScenario)
+root.NewScenario("CombineEphemeris")
+sc = root.CurrentScenario
 root.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 
 
-oSat = oSc.Children.New(STKObjects.eSatellite,'Combine')
-sat = oSat.QueryInterface(STKObjects.IAgSatellite)
-sat.SetPropagatorType(STKObjects.ePropagatorStkExternal)
+sat = sc.Children.New(AgESTKObjectType.eSatellite, "Combine")
+sat.SetPropagatorType(AgEVePropagatorType.ePropagatorStkExternal)
 
-import os
 # loop through all .e files
 firstSat = True
 allPoints = []
 for file in os.listdir(ephemerisDir):
     if file.endswith(".e"):
-        
-        prop = sat.Propagator.QueryInterface(STKObjects.IAgVePropagatorStkExternal)
-        prop.FileName = os.path.join(ephemerisDir, file)
-        prop.Propagate()
+
+        sat.Propagator.Filename = os.path.join(ephemerisDir, file)
+        sat.Propagator.Propagate()
+
         print(os.path.join(ephemerisDir, file))
 
         # set scenario time for the first one
         if firstSat:
-            sc.SetTimePeriod(prop.StartTime, prop.StopTime)
+            sc.SetTimePeriod(sat.Propagator.StartTime, sat.Propagator.StopTime)
             firstSat = False
-            prop.Propagate()
-        
+            sat.Propagator.Propagate()
+
         # report out ephemeris
         root.UnitPreferences.SetCurrentUnit("DateFormat", "EpSec")
-        dp = oSat.DataProviders.GetDataPrvTimeVarFromPath('Cartesian Position/ICRF').QueryInterface(STKObjects.IAgDataPrvTimeVar)
-        results = dp.ExecNativeTimes(prop.StartTime, prop.StopTime)
-        t = results.DataSets.GetDataSetByName('Time').GetValues()
-        x = results.DataSets.GetDataSetByName('x').GetValues()
-        y = results.DataSets.GetDataSetByName('y').GetValues()
-        z = results.DataSets.GetDataSetByName('z').GetValues()
+        dp = sat.DataProviders.GetDataPrvTimeVarFromPath("Cartesian Position/ICRF")
+        results = dp.ExecNativeTimes(sat.Propagator.StartTime, sat.Propagator.StopTime)
+        t = results.DataSets.GetDataSetByName("Time").GetValues()
+        x = results.DataSets.GetDataSetByName("x").GetValues()
+        y = results.DataSets.GetDataSetByName("y").GetValues()
+        z = results.DataSets.GetDataSetByName("z").GetValues()
 
         root.UnitPreferences.SetCurrentUnit("DateFormat", "UTCG")
 
         # write to array
         for ptCounter in range(len(t)):
-            thisPt = EphemerisPoint(t[ptCounter], x[ptCounter], y[ptCounter], z[ptCounter], prop.EphemerisStartEpoch.TimeInstant)
-            allPoints += [thisPt]
+            thisPt = EphemerisPoint(
+                t[ptCounter],
+                x[ptCounter],
+                y[ptCounter],
+                z[ptCounter],
+                sat.Propagator.EphemerisStartEpoch.TimeInstant,
+            )
+
+            # only add to array if we don't have a point at this time already
+            if thisPt.EpSec not in [data.EpSec for data in allPoints]:
+                allPoints += [thisPt]
 
 
 # sort array
 allPoints.sort(key=lambda x: x.EpSec, reverse=False)
 
 
-### write combined ephemeris file
+# write combined ephemeris file
 f = open(combinedPath, "w")
 f.write("stk.v.10.0\n")
 f.write("BEGIN Ephemeris\n")
@@ -90,9 +92,21 @@ f.write("DistanceUnit           Kilometers\n")
 f.write("EphemerisTimePos\n")
 
 for thisPoint in allPoints:
-    f.write("   " + str(thisPoint.EpSec) + " " + str(thisPoint.X) + " " + str(thisPoint.Y) + " " + str(thisPoint.Z) + "\n")
+    f.write(
+        "   "
+        + str(thisPoint.EpSec)
+        + " "
+        + str(thisPoint.X)
+        + " "
+        + str(thisPoint.Y)
+        + " "
+        + str(thisPoint.Z)
+        + "\n"
+    )
 
 
 f.write("END Ephemeris\n")
 f.close()
 
+root.CloseScenario()
+stk.ShutDown()

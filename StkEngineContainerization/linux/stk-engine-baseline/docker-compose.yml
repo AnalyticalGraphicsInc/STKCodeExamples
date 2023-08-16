@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+    stk-engine-baseline:
+        image: ansys/stk/stk-engine-baseline:12.6.0-ubi8
+        build:
+            context: .
+            args:
+                # Uncomment the first line below if you want to use the UBI image from ironbank
+                # baseImage: registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest
+                baseImage: redhat/ubi8:latest
+        env_file: ../configuration/licensing.env

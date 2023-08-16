@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+    agent:
+        image: ansys/stk/stk-parallel-computing-server-agent:2.6-ubi8
+        build:
+            context: ./agent
+            args:
+                baseImage: ansys/stk/stk-parallel-computing-server-python:2.6-ubi8
+        env_file: ../configuration/licensing.env
+        environment:
+            - COORDINATOR=coordinator
+        networks:
+            - stk-parallel-computing-server
+    coordinator:
+        image: ansys/stk/stk-parallel-computing-server-coordinator:2.6-ubi8
+        build:
+            context: ./coordinator
+            args:
+                # Uncomment the line below if you want to use the UBI image from ironbank
+                # baseImage: registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest
+
+                # Uncomment the line below if you built the custom/redhat/ubi8 image
+                # baseImage: custom/redhat/ubi8:latest
+
+                baseImage: redhat/ubi8:latest
+        ports:
+            - 9090:9090
+        networks:
+            - stk-parallel-computing-server
+networks:
+    stk-parallel-computing-server:
+        name: stk-parallel-computing-server

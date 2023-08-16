@@ -1,5 +1,20 @@
 # MATLAB General Utility Samples
 
+## [Clutter Simulator](Clutter%20Simulator)
+
+The clutter simulator folder contains the SSA_Clutter_Interference_Visualizer.m demo tool. This is meant to be a simple and fast simulator for showing a target object, a randomly generated star like background, and a series of clutter objects traveling along in a constellation group.
+
+Please reference [this readme](./Clutter Simulator/README.md) for more information
+
+### Dependencies
+
+* Capabilities: N/A
+* Other Scripts: [trim_or_pad.m](./Clutter Simulator/trim_or_pad.m), [create_clutter_map.m](./Clutter Simulator/create_clutter_map.m), [create_satellite_train_layer.m](./Clutter Simulator/create_satellite_train_layer.m), [create_star_info.m](./Clutter Simulator/create_star_info.m), [create_star_map.m](./Clutter Simulator/create_star_map.m),
+[draw_antialias_line.m](./Clutter Simulator/draw_antialias_line.m), [generate_2d_gaussian_psf.m](./Clutter Simulator/generate_2d_gaussian_psf.m), [mouse_figure.m](./Clutter Simulator/mouse_figure.m)
+* Scenario: N/A
+
+---
+
 ## [convertTLEState.m](convertTLEState.m)
 
 This simple function requires an open STK 12 scenario with a satellite that has been propagated with the SGP4 propagator. This function will pull out the initial state of the SGP4 satellite in the ICRF frame then create and propagate a new satellite of the specified propagator type using that initial state. Place this file in your MATLAB working directory and then you can call it within other MATLAB scripts or directly from the command window.
@@ -16,18 +31,6 @@ convertTLEState('Satellite1','ePropagatorHPOP')
 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
 * Other Scripts: N/A
-* Scenario: N/A
-
----
-
-## [create_normalized_frame_sequence.m](create_normalized_frame_sequence.m)
-
-This script takes a folder of eoir raw data files and normalizes the collection. That's because each frame of an EOIR synthetic scene is normalized to itself, so there's color variation in some frames. This script normalizes the collection to the first (or the selected frame). 
-
-### Dependencies
-
-* Capabilities: Matlab
-* Other Scripts: save_colormapped_image.m
 * Scenario: N/A
 
 ---
@@ -73,6 +76,23 @@ Example: Find all satellites in the scenario that start with gps
 FilterObjectsByType('Satellite', 'gps')
 ```
 
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [generateSensorPointingFile.m](generateSensorPointingFile.m)
+
+This function will generate an attitude pointing file (.sp) for the specified sensor, using quaternions. For targeted sensors and/or sensors with multiple access intervals, this script will create multiple pointing files for each interval, and name them according to their start and stop times in EpSec.
+
+Example
+
+```matlab
+generateSensorPointingFile('Satellite/LEOSat/Sensor/LEOsensor', 'LEOSensorAttitude', 60)
+```
 ### Dependencies
 
 * Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
@@ -196,18 +216,6 @@ StkHelp(satellite, 'offline')
 
 ---
 
-## [save_colormapped_image.m](save_colormapped_image.m)
-
-This script is run from the create_normalized_frame_sequence.m script. It takes the normalized data and saves it as a colormapped image. 
-
-### Dependencies
-
-* Capabilities: Matlab
-* Other Scripts: create_normalized_frame_sequence.m
-* Scenario: N/A
-
----
-
 ## [StkHelp.m](StkHelp.m)
 
 This function will launch the Programming Help documentation page for a given STK handle. The 'offline' flag can be used to open the local Programming Help (optional).
@@ -287,8 +295,18 @@ Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, L
  
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage] (https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
 * Other Scripts: N/A
 * Scenario: Any scenario open with Coverage definition and Figure of Merit
 
 ---
+
+# [Normalize_EOIR_Images](Normalize_EOIR_Images)
+
+This script accepts a directory of raw sensor output data from EOIR and normalizes the entire frame sequence. This is useful for stitching the frames together in a video so that any color variation between frames is eliminated. This can be used in conjunction with the image generation and movie-making Python scripts linked below. 
+
+### Dependencies
+
+* Capabilities: N/A
+* Other Scripts: [EOIR Synthetic Scene and Data Generation](../../Python/Scenario_Analysis/EOIR_Synthetic_Scene_and_Data_Generation)
+* Scenario: N/A

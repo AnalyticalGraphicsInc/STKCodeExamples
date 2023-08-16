@@ -1,0 +1,13 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+<CategoryRegistry>
+<Category Name = "UiPlugins">
+<NETUiPlugin
+DisplayName="LoadExternalCoverageData"
+TypeName="LoadExternalCoverageData.LoadExternalCoverageDataPlugin"
+AssemblyName="LoadExternalCoverageData"
+CodeBase="C:\temp\1year\ExternalCoverageData\ExternalCoverageDataUiPlugin\bin\x64\Debug">
+</NETUiPlugin>
+</Category>
+</CategoryRegistry>
+</AGIRegistry>

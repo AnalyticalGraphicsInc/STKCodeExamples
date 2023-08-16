@@ -1,0 +1,11 @@
+<?xml version = "1.0"?>
+<AGIRegistry version = "1.0">
+<CategoryRegistry>
+<Category Name = "Access Constraint Plugins">
+<DotNetPlugin DisplayName="LoadExternalCoverageData"
+TypeName="AGI.Access.Constraint.Plugin.ExternalCoverageData.LoadExternalDataIntoCoverage"
+AssemblyName="AGI.Access.Constraint.Plugin.ExternalCoverageData"
+CodeBase="C:\ProgramData\AGI\STK 12\Plugins\LoadExternalDataIntoCoverage" />
+</Category>
+</CategoryRegistry>
+</AGIRegistry>
