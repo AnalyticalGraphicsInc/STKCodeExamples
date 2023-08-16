@@ -29,7 +29,7 @@ as described in `PIP Configuration` in [`Dockerfile`](./Dockerfile).
 If you need to override the default `pip` repository URL to download Python packages,
 include the following command line option in both commands below: `--build-arg pipIndexUrl=<Your custom pip index url>`
 1. Run `docker build -t ansys/stk/stk-engine-custom-baseline:{version}-windowsservercore-ltsc2019 .` on the command line
-in this directory after replacing `{version}` with the version number. i.e `12.6.0`. This will produce an image on top of the `stk-engine-baseline` image that is needed to build the code samples using STK Engine and `pip` in your environment.
+in this directory after replacing `{version}` with the version number. i.e `12.7.1`. This will produce an image on top of the `stk-engine-baseline` image that is needed to build the code samples using STK Engine and `pip` in your environment.
 
 ## Method 2 - Docker Compose
 

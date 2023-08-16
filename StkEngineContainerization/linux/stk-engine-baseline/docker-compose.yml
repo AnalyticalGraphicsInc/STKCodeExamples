@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     stk-engine-baseline:
-        image: ansys/stk/stk-engine-baseline:12.6.0-ubi8
+        image: ansys/stk/stk-engine-baseline:12.7.1-ubi8
         build:
             context: .
             args:
