@@ -1,7 +1,7 @@
 clear; clc;
 %% Inputs
 % Author: Austin Claybrook, Mo Syed, Jordan K.
-% Last Modified: 10/24/19 by Austin Claybrook
+% Last Modified: 08/16/2023 by Alexander Lam
 
 % Description: Simulates a Dynamic Sensor Body AzElMask to Handle Moving Obscurations.
 % Computes sensor body AzElMasks at the specified times. After the masks have
@@ -176,7 +176,12 @@ for sensornum = 1:length(sensorList)
         for num = 1:length(objList)
             start = starts(:,num);
             stop = stops(:,num);
-            start(start == 0) = []; 
+            if start(1) == 0
+                start(start == 0) = [];
+                start = [0; start];
+            else
+                start(start == 0) = []; 
+            end
             stop(stop == 0) = [];
             start(start == -1) = []; 
             stop(stop == -1) = []; 
