@@ -3,7 +3,7 @@
 
 [![Documentation](https://img.shields.io/badge/docs-online-FFB71B?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
 [![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
-[![Download](https://img.shields.io/badge/download-12.6-007DB7?style=for-the-badge)](https://support.agi.com/downloads/5/)
+[![Download](https://img.shields.io/badge/download-12.7.1-007DB7?style=for-the-badge)](https://support.agi.com/downloads/6/)
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from AGI, an Ansys company.
 

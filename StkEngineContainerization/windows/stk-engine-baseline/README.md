@@ -21,13 +21,13 @@ has your Ansys License Server information.
 2. Place the `STK_Engine_v{version}.zip` file in the
 [`distributions`](./distributions) folder at the same level as this file.
 1. Run `docker build -t ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` 
-on the command line in this directory after replacing `{version}` with the version number. i.e `12.6.0`
+on the command line in this directory after replacing `{version}` with the version number. i.e `12.7.1`
 
 ### Run the Container
 STK Engine requires a host application to run, so this baseline image does not specify an `ENTRYPOINT`.
 If you were to run a container from this image, it would exit immediately.
 However, you can verify that STK Engine is working inside the `stk-engine-baseline` container with the following steps:
-1. Run the following command from this directory after replacing `{version}` with the version number. i.e `12.6.0`:
+1. Run the following command from this directory after replacing `{version}` with the version number. i.e `12.7.1`:
 `docker run -it --name stk-baseline --env-file ..\configuration\licensing.env --rm ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 ConnectConsole.exe /interactive /noGraphics`
 2. Execute a Connect command such as `GetSTKVersion /` and verify you receive a correct response.
 3. Exit the Connect console by executing the command `exit`.

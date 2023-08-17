@@ -1,7 +1,7 @@
 # By default, start from the base STK Engine image
 # Uncomment the first line below if you built the stk-engine-custom-baseline image
-# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.6.0-ubi8
-ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.6.0-ubi8
+# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.7.1-ubi8
+ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.7.1-ubi8
 FROM ${baseImage}
 
 # Install Python
