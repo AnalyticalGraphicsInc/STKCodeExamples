@@ -29,14 +29,6 @@ These applications contain notional data and are dual use.
 
 ----
 
-## Redistribution
-
-If You redistribute the code examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the code examples, and include the following copyright notice:
-
-© 2023 ANSYS, Inc.
-
-----
-
 ## What if I have questions about STK
 
 Contact [AGI support](mail:support@agi.com "Email AGI Support") with questions regarding STK, STK Engine or any other AGI products.
