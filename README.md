@@ -5,7 +5,7 @@
 [![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
 [![Download](https://img.shields.io/badge/download-12.7.1-007DB7?style=for-the-badge)](https://support.agi.com/downloads/6/)
 
-Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from AGI, an Ansys company.
+Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from ANSYS, Inc.
 
 The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. It does not contain the STK application; you must obtain STK from [AGI's website](https://support.agi.com/downloads/3/ "AGI's Downloads")
 
@@ -25,7 +25,7 @@ These applications contain notional data and are dual use.
 
 ## License
 
-The code examples in this repository are licensed under the AGI Code Examples License Agreement, which is included in this repository as [License.pdf](License.pdf).
+`STKCodeExamples` is licensed under [the MIT license](LICENSE).
 
 ----
 
@@ -33,7 +33,7 @@ The code examples in this repository are licensed under the AGI Code Examples Li
 
 If You redistribute the code examples, in whole or in part, You must provide a copy of this License Agreement to any other recipient of the code examples, and include the following copyright notice:
 
-© 2022 Analytical Graphics, Inc.
+© 2023 ANSYS, Inc.
 
 ----
 
