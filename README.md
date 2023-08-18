@@ -7,7 +7,7 @@
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from ANSYS, Inc.
 
-The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. It does not contain the STK application; you must obtain STK from [AGI's website](https://support.agi.com/downloads/3/ "AGI's Downloads")
+The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. These codes samples require a legally licensed local copy of the STK application; you must obtain STK from [AGI's website](https://support.agi.com/downloads/3/ "AGI's Downloads").
 
 ----
 
