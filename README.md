@@ -1,5 +1,5 @@
-![STK Logo Dark](https://user-images.githubusercontent.com/3358750/162804833-47c09f8a-b0df-4bb6-b197-3ef35f61778f.svg#gh-light-mode-only)
-![STK Logo Light](https://user-images.githubusercontent.com/3358750/162804844-2b0b8e34-ba3d-4a5b-9164-cf2ca89a1064.svg#gh-dark-mode-only)
+![STK Logo Dark](icons/STK-on-white.svg#gh-light-mode-only)
+![STK Logo Light](icons/STK-on-black.svg#gh-dark-mode-only)
 
 [![Documentation](https://img.shields.io/badge/docs-online-FFB71B?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
 [![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
@@ -42,9 +42,9 @@ For more information, please visit the [AGI website](https://www.agi.com "AGI's 
 
 ## Social Media
 
-[![Twitter URL](https://img.shields.io/badge/twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/agitweets)
+[![Twitter URL](https://img.shields.io/badge/twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/ANSYS)
 [![Youtube URL](https://img.shields.io/badge/youtube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/user/AnalyticalGraphics)
-[![Linkedin URL](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agi?trk=company_logo)
+[![Linkedin URL](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/ansys-inc)
 
-![AGI Logo Dark](https://user-images.githubusercontent.com/3358750/162795809-4fc8326e-fd6a-4022-b731-cee62fcc58db.png#gh-dark-mode-only)
-![AGI Logo Light](https://user-images.githubusercontent.com/3358750/162795908-bf530bb9-bbab-45b0-82d7-cabd67186699.png#gh-light-mode-only)
+![AGI Logo Dark](icons/AGI-Logo_2C-W.svg#gh-dark-mode-only)
+![AGI Logo Light](icons/AGI-Logo_2C-K.svg#gh-light-mode-only)
