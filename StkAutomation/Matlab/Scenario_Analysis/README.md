@@ -237,3 +237,15 @@ This script accepts inputs of an EOIR sensor path, band number, and time to retu
 * Scenario: N/A
 
 ---
+
+## [coverageDurationPerDay.m](coverageDurationPerDay.m)
+
+This function accepts the name of a chain object in a currently running STK scenario and outputs access data of that chain per day. The access data gathered from this function include the minimum and maximum duration of the accesses, as well as the total duration across all of the accesses. This function assumes your scenario interval starts and stops at 00:00:00.000 UTCG, however it can still be used with other start times as long as the hh:mm:ss.fff of the start and stop times match.
+
+### Dependencies
+
+* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
