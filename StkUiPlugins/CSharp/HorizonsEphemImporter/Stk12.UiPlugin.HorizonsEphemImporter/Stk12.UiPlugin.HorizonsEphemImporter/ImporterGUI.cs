@@ -129,13 +129,10 @@ namespace Stk12.UiPlugin.HorizonsEphemImporter
                 string bodyName = rxName.Match(lastLine).Value;
 
                 // Extract ephemeris start time in Horizons database.
-                // Because Horizons returns a time to 4 decimal places but inputs are only allowed to be 3 digits, we round to the nearest thousandth.
+                // Because Horizons returns a time to 4 decimal places but inputs are only allowed to be 3 digits, we round up to the nearest thousandth.
                 Regex rxStartEnd = new Regex(@"(A.D.|B.C.).*(?=\s)");
                 minStart = rxStartEnd.Match(lastLine).Value;
-                if (int.Parse(minStart.Substring(minStart.Length - 1, 1)) >= 5)
-                    minStart = minStart.Substring(0, minStart.Length - 2) + (int.Parse(minStart.Substring(minStart.Length - 2, 1)) + 1).ToString();
-                else
-                    minStart = minStart.Substring(0, minStart.Length - 2) + int.Parse(minStart.Substring(minStart.Length - 2, 1)).ToString();
+                minStart = minStart.Substring(0, minStart.Length - 2) + (int.Parse(minStart.Substring(minStart.Length - 2, 1)) + 1).ToString();
 
                 // Query again using new minStart time to get the error that returns the max stop time for the ephemeris
                 using (StreamReader objReader = queryHorizons(minStart, maxStop, "1 d"))
