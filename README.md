@@ -1,9 +1,9 @@
 ![STK Logo Dark](icons/STK-on-white.svg#gh-light-mode-only)
 ![STK Logo Light](icons/STK-on-black.svg#gh-dark-mode-only)
 
-[![Documentation](https://img.shields.io/badge/docs-online-FFB71B?style=for-the-badge)](https://help.agi.com/stkdevkit/index.htm)
-[![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge)](mailto:support@agi.com)
-[![Download](https://img.shields.io/badge/download-12.7.1-007DB7?style=for-the-badge)](https://support.agi.com/downloads/6/)
+[![Documentation](https://img.shields.io/badge/docs-online-FFFFFF?style=for-the-badge&labelColor=111111)](https://help.agi.com/stkdevkit/index.htm)
+[![Support](https://img.shields.io/badge/support-email-898A8D?style=for-the-badge&labelColor=111111)](mailto:support@agi.com)
+[![Download](https://img.shields.io/badge/download-12.7.1-FFB71B?style=for-the-badge&labelColor=111111)](https://support.agi.com/downloads/6/)
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from ANSYS, Inc.
 
