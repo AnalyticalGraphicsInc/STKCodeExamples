@@ -13,11 +13,11 @@ The repository offers fully functional tools and libraries of example code that 
 
 ## Featured Examples Areas
 
-* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating STK desktop application in a variety of different languages
+* [STK Desktop Automation](./StkAutomation) contains scripts and applications for automating the STK desktop application in a variety of different languages
 * [STK Engine Applications](./StkEngineApplications) contains scripts and applications utilizing STK Engine
 * [STK Engine Containerization](./StkEngineContainerization) contains examples that demonstrate containerization of STK Engine applications
 * [STK UI Plugins](./StkUiPlugins) contains UI Plugin applications for the STK desktop application
-* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for STK desktop application and STK Engine applications
+* [STK Extension Plugins](./StkExtensionPlugins) contains engine plugins and plugin scripts for the STK desktop application and STK Engine applications
 
 These applications contain notional data and are dual use.
 
@@ -31,7 +31,7 @@ These applications contain notional data and are dual use.
 
 ## What if I have questions about STK
 
-Contact [AGI support](mail:support@agi.com "Email AGI Support") with questions regarding STK, STK Engine or any other AGI products.
+Contact [AGI support](mail:support@agi.com "Email AGI Support") with questions regarding STK, STK Engine, or any other AGI products.
 
 AGI's software helps engineers, operators, and analysts deliver digital engineering value at any stage of a program life cycle: from planning and design to training and operations. Our modeling, analysis and visualization tools, coupled with legendary customer support, help those in aerospace and defense organizations make critical decisions faster and more accurately in an operational context.
 
