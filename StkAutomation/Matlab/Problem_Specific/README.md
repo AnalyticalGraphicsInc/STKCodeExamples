@@ -8,7 +8,7 @@ The script computes sensor body AzElMasks over a series of times. After the mask
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: [filterObjectsByType.m](../General_Utilities/filterObjectsByType.m)
 * Scenario: [DynamicSensorAzElMask.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/ea415e04-233e-4d2d-870b-a105724d5361)
 
@@ -22,7 +22,7 @@ This example shows how satellite power system designed in Simulink can be integr
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This example runs a trade study in which the inclination and semi-major axis par
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [CAT](https://www.agi.com/products/stk-specialized-modules/stk-conjunction-analysis-tool-cat)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with a Satellite named Satellite1 and an AdvCAT object named AdvCAT1
 
@@ -48,7 +48,7 @@ This script connects to the linked scenario with a satellite orbiting Mars.  The
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: [MarsSatSTM.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/edc984d2-8757-49ce-bfcc-a01fa764064b)
 
@@ -60,7 +60,7 @@ This example models the path of a high altitude balloon object using the STK air
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -72,7 +72,7 @@ A short example demonstrating the connect command interface to the Lambert Solve
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -100,7 +100,7 @@ multiSegmentAttitude("Satellite1","Facility1",600,300)
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least one facility and one satellite
 
@@ -112,7 +112,7 @@ An example of setting up a Monte Carlo analysis in STK. This example perturbs a 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Create or open a scenario with at least a satellite object
 
@@ -124,7 +124,7 @@ An example of setting up a TETK scenario based on the data files included in the
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
+* Licenses: [STK Enterprise](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-enterprise-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -139,7 +139,7 @@ Required format for ingest to TETK: ddd:HH:mm:ss.sss
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
+* Licenses: [STK Enterprise](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-enterprise-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -151,7 +151,7 @@ Satellite deorbit prediction is difficult due to its sensitivity on the forces e
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -165,7 +165,7 @@ Sets up a scheduled vector in STK and builds all of the conditions.  The satelli
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -181,7 +181,7 @@ The direction of the closest edge is assumed to be in the same plane as the Nadi
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -195,7 +195,7 @@ The gains for this model are very loose to exaggerate the dampening time and ove
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -209,14 +209,14 @@ Follow the instructions in the included ReadMe.docx
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
 
 ## [SimulinkAttitudeControlLoop](SimulinkAttitudeControlLoop)
-	
+
 Simulink is a time-driven, visual oriented simulation & analysis tool that allows to easily implement time dependent processes.
 In this example we use it to emulate the AOCS (Attitude and Orbit Control System) subsystem of a LEO satellite. The Simulink plant gets attitude and angular speed information from STK at any time step and returns an update attitude state according with the implemented guidance law and the current settings (such as satellite inertia and actuators specification).
 
@@ -230,14 +230,14 @@ Important:  you need to change the STK scenario path into the initialization cal
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: [SimulinkAttitudeControlLoop.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/0aaeb6cb-7e91-499b-836c-0c35cd51e183)
 
 ---
 
 ## [SimulinkAttitudeFile](SimulinkAttitudeFile)
-	
+
 This MATLAB script will create a simple scenario with a satellite set to target a ground control station. The satellite’s YPR angles will be written to an external attitude file (.a) where the yaw angle will be constrained by a user specified amount. That .a file will be loaded in for a cloned satellite object.
 Here is a link to learn more about .a files and how they are created: [Attitude File Format (*.a)](http://help.agi.com/stk/index.htm#stk/importfiles-01.htm)
 
@@ -245,31 +245,31 @@ Open the script in MATLAB, change lines 7-9 to match the user’s desired output
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
 
 ## [sensorPointingAndAER.m](sensorPointingAndAER.m)
-	
+
 This is a standalone script that demonstrates the use of sensor pointing and retrieval of AER data using the Object Model. A new STK scenario is created with 2 aircraft and a sensor on the first aircraft. The sensor is set to target the second aircraft, and access is computed. Time, Az, and El data of the access is loaded into Matlab matrices.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
 
 ## [coverageAccumPercent.m](coverageAccumPercent.m)
-	
+
 This script allows you to specify a % of coverage accumulation over the course of your analysis interval. For example, if you want to know the time it takes for you coverage grid to be 90% covered, it will calculate the time it takes starting at each time step. The script will open STK, create a new scenario with a satellite and coverage definition assigned to a country area target, use the grid inspector data provider to compute accumulated coverage, and display the results in a Matlab table. A Matlab progress bar is created to show computation progress.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -281,7 +281,7 @@ This script allows for easy conversion of a AER data from a Radar to LLA for a l
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -293,7 +293,7 @@ This Debris model is a framework that can be augmented to simulate different typ
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -305,7 +305,7 @@ This short script allows the user to input an Astrogator satellite name, a finit
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -317,7 +317,7 @@ This script takes the TransponderLB STK scenario and outputs the Eb/No, rain los
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: [TransponderLB.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/048cbff3-4567-4409-acdf-3dbb1830615c)
 
@@ -330,7 +330,7 @@ Some high-level inputs are required: constants for power accumulation, selection
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -341,7 +341,8 @@ Some high-level inputs are required: constants for power accumulation, selection
 This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
 
 ### Dependencies
-* Capabilities: Free
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -353,6 +354,6 @@ This function will take a satellite's attitude file and modify the tracking port
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
