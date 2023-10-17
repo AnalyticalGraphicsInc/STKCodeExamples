@@ -21,7 +21,7 @@ Covname = input('Name for the new coverage definition (String, "Name"): ');
 Area = input('Name of the Area Target to be used (String, Case Sensitive, "Name"): ');
 Areaname = 'AreaTarget/'+ Area;
 GRD = input('Grid Resolution Distance (meters)(integer): ');
-Height = input('Building Height (meters): ');
+Height = input('Height (meters): ');
 LevelsTot = input('Number of levels (Altitude Resolution)(integer): ');
 stkverstr = input('STK Version (String, "stk.v.12.7.1"): ');
 stkver = convertStringsToChars(stkverstr);
@@ -40,6 +40,11 @@ root = uiApplication.Personality2;
 scenario = root.CurrentScenario;
 %% New Coverage Definition
 coverage = scenario.Children.New('eCoverageDefinition',Covname);
+%% Grab Area Target Altitude
+AT = root.CurrentScenario.Children.Item(Area);
+Geo = AT.Position.QueryPlanetodeticArray;
+GeoAlt = Geo{3};
+
 %% Customize Coverage Definition
 coverage.Grid.BoundsType = 'eBoundsCustomBoundary';
 covGrid = coverage.Grid;
@@ -64,10 +69,10 @@ Alt = cell2mat(dp.DataSets.GetDataSetByName("Altitude").GetValues);
 LLA = [Lat,Lon,Alt];
 Len = size(LLA,1);
 Wid = size(LLA,2);
-%% Make Sure Altitude Starts at Zero
+%% Make Sure Altitude Starts at the Area Target Centroid
 i = 1;
 for i = 1:Len
-    LLA(i,3) = 0;
+    LLA(i,3) = GeoAlt*1000;
 end
 %% Create Levels by Altitude
 %Height = 24; %meters
