@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     stk-engine-python:
-        image: ansys/stk/stk-engine-python:12.6.0-ubi8
+        image: ansys/stk/stk-engine-python:12.7.1-ubi8
         build:
             context: .
             args:
                 # Uncomment the first line below if you built the stk-engine-custom-baseline image
-                # baseImage=ansys/stk/stk-engine-custom-baseline:12.6.0-ubi8
-                baseImage: ansys/stk/stk-engine-baseline:12.6.0-ubi8
+                # baseImage=ansys/stk/stk-engine-custom-baseline:12.7.1-ubi8
+                baseImage: ansys/stk/stk-engine-baseline:12.7.1-ubi8
         env_file: ../configuration/licensing.env

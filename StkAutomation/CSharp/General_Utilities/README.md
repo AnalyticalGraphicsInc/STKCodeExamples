@@ -6,7 +6,7 @@ This utility will allow you to connect to an open instance of STK, choose a spec
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -18,7 +18,7 @@ This example utility shows how to stream AER data between a satellite and facili
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -42,7 +42,7 @@ Recent updates have been added to now include GPX files imported as waypoints on
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -50,11 +50,11 @@ Recent updates have been added to now include GPX files imported as waypoints on
 
 ## [GetObjectsByType.cs](GetObjectsByType.cs)
 
-Function to grab all instances of <object type> STK objects. Returns a list containing the handles to all <object type> objects. 
+Function to grab all instances of `<object type>` STK objects. Returns a list containing the handles to all `<object type>` objects.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -62,11 +62,11 @@ Function to grab all instances of <object type> STK objects. Returns a list cont
   
 ## [GetSegmentsByType.cs](GetSegmentsByType.cs)
 
-  Function to grab all instances of <segment type> Astrogator segments. Returns a list containing the handles to all <segment type> segments.
+  Function to grab all instances of `<segment type>` Astrogator segments. Returns a list containing the handles to all `<segment type>` segments.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf), [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: A scenario with at least one propagated Astrogator satellite
 

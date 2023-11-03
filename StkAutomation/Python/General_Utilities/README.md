@@ -8,7 +8,7 @@ Allows the user to output an xml or json file that includes each object in the s
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ Utility that demonstrates how to grab an array of all objects of a certain type.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Utility that demonstrates how to subscribe to STKObjectRoot Events using comtype
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -44,7 +44,7 @@ Notebooks that use comtypes or win32 to interact with STK and demonstrate how to
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -56,7 +56,7 @@ This notebook allows for you to extract data from [STK Analyzer](https://help.ag
 
 ### Dependencies
 
-* Capabilities: Free, [Analyzer](https://www.agi.com/products/stk-systems-bundle/stk-analyzer)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -68,7 +68,7 @@ A simple function to assist with the importing of Facility objects from informat
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
@@ -81,7 +81,7 @@ This tool combines multiple STK ephemerides (.e) into one long STK ephemeris. It
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Pandas
@@ -94,7 +94,7 @@ This utility will parse a KML file (.kml) from ForeFlight, FlightAware and possi
 
 ### Dependencies
 
-* Capabilities: N/A
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Beautiful Soup 4
@@ -107,7 +107,7 @@ This is a standalone script that writes a csv with columns Time in UTCG, Lat, Lo
 
 ### Dependencies
 
-* Capabilities: Free, Engine, Integration
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: N/A
@@ -120,7 +120,7 @@ Using STK Primitives, creates a latitude/longitude grid at a specifiable altitud
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -132,7 +132,7 @@ This simple function requires an open STK 12 scenario with a satellite that has 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -144,7 +144,7 @@ Connects to an existing STK instance and loops through every object in the scena
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Any scenario open with at least one object
 
@@ -156,7 +156,7 @@ Allows the user to open a TCP/IP socket to send Connect commands to STK using de
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -168,6 +168,18 @@ This automates the use of the Sensor Obscuration Tool to determine when the sun'
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [writeComplexBistaticRCS.py](writeCopmlexBistaticRCS.py)
+
+This accepts a bistatic RCS export from Ansys HFSS and converts it into *.rcs format for import into STK. Inputs are the horizontal and vertical incident data file paths, the primary polarization channel (horizontal or vertical), and the output file path.
+
+### Dependencies
+
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A

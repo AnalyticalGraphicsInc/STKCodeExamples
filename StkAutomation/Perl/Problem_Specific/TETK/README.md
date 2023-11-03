@@ -8,7 +8,7 @@ This script is an example of using TETK Connect commands to automate various asp
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [TETK](https://www.agi.com/products/tetk)
+* Licenses: [STK Enterprise](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-enterprise-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 

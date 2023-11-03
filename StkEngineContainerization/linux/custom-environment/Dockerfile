@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-ubi8
+ARG baseImage=ansys/stk/stk-engine-baseline:12.7.1-ubi8
 FROM ${baseImage}
 
 USER root
