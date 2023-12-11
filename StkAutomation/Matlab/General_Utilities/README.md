@@ -311,3 +311,19 @@ This script accepts a directory of raw sensor output data from EOIR and normaliz
 * Licenses: N/A
 * Other Scripts: [EOIR Synthetic Scene and Data Generation](../../Python/Scenario_Analysis/EOIR_Synthetic_Scene_and_Data_Generation)
 * Scenario: N/A
+
+---
+
+## [pushSat2STK.m](pushSat2STK.m)
+
+Creates a satellite object in STK using an ephemeris file and attitude file
+
+**NOTE**: Be sure to update the input section of the script before running
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
