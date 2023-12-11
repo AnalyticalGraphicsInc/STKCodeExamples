@@ -301,6 +301,7 @@ Get the "Figure of Merit: Time Value by Point" data provider values: Latitude, L
 * Scenario: Any scenario open with Coverage definition and Figure of Merit
 
 ---
+<<<<<<< HEAD
 
 ## [Normalize_EOIR_Images](Normalize_EOIR_Images)
 
@@ -318,10 +319,10 @@ Creates a satellite object in STK using an ephemeris file and attitude file
 
 **NOTE**: Be sure to update the input section of the script before running
 
-Example objects and coordinate systems:
-
 ### Dependencies
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
+=======
+>>>>>>> 464c42b64a03ff26e487f48a2538fde828b2da60
