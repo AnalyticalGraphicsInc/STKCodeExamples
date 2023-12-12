@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This Docker image code sample demonstrates how to run STK Engine for Linux through a web service in a containerized environment.  It uses a default Place object and a default Satellite object to calculate access intervals for given start and stop times. * Note: This example uses the Flask development server, so it is not intended for a production deployment.
+This Docker image code sample demonstrates how to run STK Engine for Linux through a web service in a containerized environment.  It uses a default Place object and a default Satellite object to calculate access intervals for given start and stop times. **Note: This example uses the Flask development server, so it is not intended for a production deployment.**
 
 ## Prerequisites
 

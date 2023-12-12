@@ -40,7 +40,8 @@ The entrypoint of this container starts the Jupyter Lab server in the foreground
 The entrypoint of this container starts the Jupyter Lab server in the foreground, listening on the container's port `8888`. To start the container and verify its functionality:
 
 1. On the command line, run `docker compose up -d`.
-    * If port `8888` is already in use on your machine, map a different port (e.g. `1234:8888`) in     the [`docker-compose.yml`](./docker-compose.yml) file before executing step 1. * The `JUPYTER_LAB_TOKEN` can be set to the value of your choice in the [`docker-compose.yml`](./docker-compose.yml)
+    * If port `8888` is already in use on your machine, map a different port (e.g. `1234:8888`) in     the [`docker-compose.yml`](./docker-compose.yml) file before executing step 1.
+    * The `JUPYTER_LAB_TOKEN` can be set to the value of your choice in the [`docker-compose.yml`](./docker-compose.yml)
     before executing step 1.  You will use this value to authenticate with the server.
 2. After the container has started, use a web browser to navigate to `http://localhost:8888`. If you changed the host port mapping in the `docker-compose.yml`, use that port here instead of `8888`.
 3. If you modified the `JUPYTER_LAB_TOKEN` environment variable above, enter your custom value to authenticate. Otherwise, use the default value: `ansys-stk`.
