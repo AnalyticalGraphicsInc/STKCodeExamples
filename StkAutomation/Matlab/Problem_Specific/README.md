@@ -1,5 +1,6 @@
 # MATLAB Problem Specific Samples
-##[Create3DCoverageFromAreaTarget.m](Create3DCoverageFromAreaTarget.m)
+
+## [Create3DCoverageFromAreaTarget.m](Create3DCoverageFromAreaTarget.m)
 
 Creates a CoverageDefinition object that has varying altitude with an existing AreaTarget as the boundary.
 
