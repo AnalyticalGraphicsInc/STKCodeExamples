@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     python:
-        image: ansys/stk/stk-parallel-computing-server-python:2.6-ubi8
+        image: ansys/stk/stk-parallel-computing-server-python:2.7.0-ubi8
         build:
             context: ./python
             args:

@@ -1,18 +1,18 @@
 version: '3.7'
 services:
     agent:
-        image: ansys/stk/stk-parallel-computing-server-agent:2.6-ubi8
+        image: ansys/stk/stk-parallel-computing-server-agent:2.7.0-ubi8
         build:
             context: ./agent
             args:
-                baseImage: ansys/stk/stk-parallel-computing-server-python:2.6-ubi8
+                baseImage: ansys/stk/stk-parallel-computing-server-python:2.7.0-ubi8
         env_file: ../configuration/licensing.env
         environment:
             - COORDINATOR=coordinator
         networks:
             - stk-parallel-computing-server
     coordinator:
-        image: ansys/stk/stk-parallel-computing-server-coordinator:2.6-ubi8
+        image: ansys/stk/stk-parallel-computing-server-coordinator:2.7.0-ubi8
         build:
             context: ./coordinator
             args:
