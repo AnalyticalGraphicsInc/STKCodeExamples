@@ -18,7 +18,7 @@ EXPOSE 8888
 # Runs the Jupyter Lab server in the foreground.
 COPY --chown=stk docker-entrypoint.sh "${STK_USER_HOME}"/bin
 RUN chmod +x "${STK_USER_HOME}"/bin/docker-entrypoint.sh
-ENTRYPOINT docker-entrypoint.sh
+ENTRYPOINT "${STK_USER_HOME}"/bin/docker-entrypoint.sh
 
 # Jupyter Lab recommonds using the tini init tool when running in a container.
 # If running this container with a "docker run" command instead of using the provided
