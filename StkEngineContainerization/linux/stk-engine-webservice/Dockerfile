@@ -6,7 +6,7 @@ FROM ${baseImage}
 RUN pip3 install --user --no-cache-dir flask
 
 # Copy example web service application
-COPY access-webservice.py "${STK_USER_HOME}"/access-webservice.py
+COPY --chown=stk access-webservice.py "${STK_USER_HOME}"/access-webservice.py
 
 # Configure environment
 ENV FLASK_APP=access-webservice.py \
