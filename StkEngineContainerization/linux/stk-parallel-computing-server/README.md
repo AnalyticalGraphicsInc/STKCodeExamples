@@ -28,10 +28,10 @@ Note: Since STK Parallel Computing Server consists of multiple containers runnin
     * Copy the `STK_Parallel_Computing_Coordinator${version}.tgz` from the `Linux` folder to the [`coordinator/distributions`](./coordinator/distributions/) folder.
     * Copy the `STK_Parallel_Computing_Agent${version}.tgz` from the `Linux` folder to the [`agent/distributions`](./agent/distributions/) folder.
 3. Build the coordinator image:
-    * If you did not build the `custom-environment` image described in the [Special Configuration](#special-configuration) section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8 coordinator` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`
-    * If you did build the `custom-environment` image described in the [Special Configuration](#special-configuration) section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8 --build-arg baseImage=custom/redhat/ubi8:latest coordinator` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`
-4. Run `docker build -t ansys/stk/stk-parallel-computing-server-python:{version}-ubi-8 python` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`.  This produces an image that includes the STK Parallel Computing Server Python API.  The Agent container extends from this, but it can also be used to execute a client script that submits jobs to the Coordinator service.
-5. Run `docker build -t ansys/stk/stk-parallel-computing-server-agent:{version}-ubi-8 agent` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0` to build the agent image.
+    * If you did not build the `custom-environment` image described in the [Special Configuration](#special-configuration) section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8 coordinator` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`
+    * If you did build the `custom-environment` image described in the [Special Configuration](#special-configuration) section, run `docker build -t ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8 --build-arg baseImage=custom/redhat/ubi8:latest coordinator` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`
+4. Run `docker build -t ansys/stk/stk-parallel-computing-server-python:{version}-ubi-8 python` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`.  This produces an image that includes the STK Parallel Computing Server Python API.  The Agent container extends from this, but it can also be used to execute a client script that submits jobs to the Coordinator service.
+5. Run `docker build -t ansys/stk/stk-parallel-computing-server-agent:{version}-ubi-8 agent` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0` to build the agent image.
 
 ### Run the Containers
 
@@ -40,10 +40,10 @@ Note: Since STK Parallel Computing Server consists of multiple containers runnin
 The entrypoint of these containers start the Coordinator and Agent servers, with the Coordinator listening on the container's port `9090`. To start the containers:
 
 1. Run `docker network create stk-parallel-computing-server` on the command line in this directory.
-2. Run `docker run -d --rm --name stk-parallel-coordinator --network stk-parallel-computing-server --network-alias coordinator -p 9090:9090 ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`
+2. Run `docker run -d --rm --name stk-parallel-coordinator --network stk-parallel-computing-server --network-alias coordinator -p 9090:9090 ansys/stk/stk-parallel-computing-server-coordinator:{version}-ubi-8` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`
     * If port `9090` is already in use on your machine, map a different port (e.g. `1234:9090`).
 3. Run `docker run -d --rm --name stk-parallel-agent --network stk-parallel-computing-server --network-alias agent --env-file ../configuration/licensing.env -e COORDINATOR=coordinator ansys/stk/stk-parallel-computing-server-agent:{version}-ubi-8`
-on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`
+on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`
 
 #### Execute Parallel Computing Tasks
 
@@ -51,7 +51,7 @@ This section will show how to execute the [`client_example.py`](./client_example
 
 In this example, each task will compute access intervals between a default satellite object and a default place object given the start and stop times of the analysis interval.  Each task's interval is defined as an entry in the `timeIntervals` list.  You can edit this list directly in the script file to add more calculation intervals or modify those already there. The date-times must be in valid ISO-8601 format.
 
-1. Run `docker run --rm -v <ABSOLUTE PATH TO THIS DIRECTORY>/client_example.py:/tmp/client_example.py -e COORDINATOR_HOSTNAME=coordinator -e COORDINATOR_PORT=9090 -w /tmp --network stk-parallel-computing-server ansys/stk/stk-parallel-computing-server-python:{version}-ubi-8 client_example.py` on the command line in this directory after replacing `{version}` with the version number. i.e `2.7.0`
+1. Run `docker run --rm -v <ABSOLUTE PATH TO THIS DIRECTORY>/client_example.py:/tmp/client_example.py -e COORDINATOR_HOSTNAME=coordinator -e COORDINATOR_PORT=9090 -w /tmp --network stk-parallel-computing-server ansys/stk/stk-parallel-computing-server-python:{version}-ubi-8 client_example.py` on the command line in this directory after replacing `{version}` with the version number. i.e `2.8.0`
     * If you changed the host port mapping for the coordinator above, use that port for the value of `COORDINATOR_PORT`
     instead of `9090`.
 
