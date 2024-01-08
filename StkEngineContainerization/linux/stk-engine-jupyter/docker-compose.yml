@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     stk-engine-jupyter:
-        image: ansys/stk/stk-engine-jupyter:12.7.1-ubi8
+        image: ansys/stk/stk-engine-jupyter:12.8.0-ubi8
         build:
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-python:12.7.1-ubi8
+                baseImage: ansys/stk/stk-engine-python:12.8.0-ubi8
         ports:
             - 8888:8888
         init: true # This enables the "tini" init tool for the entrypoint as recommended by Jupyter Lab

@@ -1,5 +1,5 @@
 # By default, start from the STK Engine Python API image
-ARG baseImage=ansys/stk/stk-engine-python:12.7.1-ubi8
+ARG baseImage=ansys/stk/stk-engine-python:12.8.0-ubi8
 FROM ${baseImage}
 
 # Install Flask

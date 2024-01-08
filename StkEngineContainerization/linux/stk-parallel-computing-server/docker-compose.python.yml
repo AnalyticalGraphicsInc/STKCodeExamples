@@ -5,7 +5,7 @@ services:
         build:
             context: ./python
             args:
-                baseImage: ansys/stk/stk-engine-python:12.7.1-ubi8
+                baseImage: ansys/stk/stk-engine-python:12.8.0-ubi8
         volumes:
             - ./client_example.py:/tmp/client_example.py
         environment:
