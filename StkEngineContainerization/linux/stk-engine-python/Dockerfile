@@ -1,13 +1,13 @@
 # By default, start from the base STK Engine image
 # Uncomment the first line below if you built the stk-engine-custom-baseline image
-# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.7.1-ubi8
-ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.7.1-ubi8
+# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.8.0-ubi8
+ARG baseImage=ansys/stk/stk-engine-baseline:12.8.0-ubi8
 FROM ${baseImage}
 
 # Install Python
 USER root
 RUN set -e; \
-    yum install python39 -y
+    yum install python3.11 python3.11-devel python3.11-setuptools python3.11-pip -y
 
 # Switch back to non-root user
 USER stk
