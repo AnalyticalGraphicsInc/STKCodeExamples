@@ -1,12 +1,12 @@
 # By default, start from the STK Engine Python API image
-ARG baseImage=ansys/stk/stk-engine-python:12.6.0-centos7
+ARG baseImage=ansys/stk/stk-engine-python:12.8.0-ubi8
 FROM ${baseImage}
 
 # Install Flask
-RUN pip install --user --no-cache-dir flask
+RUN pip3 install --user --no-cache-dir flask
 
 # Copy example web service application
-COPY access-webservice.py "${STK_USER_HOME}"/access-webservice.py
+COPY --chown=stk access-webservice.py "${STK_USER_HOME}"/access-webservice.py
 
 # Configure environment
 ENV FLASK_APP=access-webservice.py \

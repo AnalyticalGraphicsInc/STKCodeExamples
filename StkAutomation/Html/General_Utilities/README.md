@@ -8,7 +8,7 @@ This utility exports STK generated data as points, lines, and polygons in the fo
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This utility allows you to test out connect or object model commands inside STK.
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This utility loads a text file of connect commands to execute.
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This utility allows you to select a CSV file that has two columns of data points
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -60,7 +60,7 @@ This utility allows you to paste data into a text box and ingest that data to cr
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -76,7 +76,7 @@ This utility creates an aircraft using CONNECT commands and generates realtime p
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -88,7 +88,7 @@ This utility creates a Keplerian (J4) copy of a satellite that was created using
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 

@@ -3,6 +3,9 @@
 % Lines beginning with root.ExecuteCommand use STK Connect Commands.
 
 %% Create a new instance of STK
+clear;
+clc;
+
 
 try
     % Grab an existing instance of STK
@@ -36,10 +39,6 @@ catch
     root.NewScenario('PNT_and_Object_Coverage_Automation');
     scenario = root.CurrentScenario;
 end
-
-%     uiapp = actxGetRunningServer('STK11.application');
-%     root = uiapp.Personality2;
-%     scenario = root.CurrentScenario;
 
 %% Specify to use Terrain Server for Az-El Masking
 root.ExecuteCommand('Terrain * TerrainServer AzElMaskEnabled Yes');
@@ -185,7 +184,7 @@ root.UnitPreferences.Item('DateFormat').SetCurrentUnit('EpSec');
 % Pull in data
 rptElems = {'Time';'FOM Value'};
 provider = objCoverage.DataProviders.Item('FOM by Time');
-results = provider.ExecElements(scenario.StartTime,testaircraft.Route.StopTime,30,rptElems);
+results = provider.ExecElements(scenario.StartTime,testaircraft.Route.EphemerisInterval.FindStopTime(),30,rptElems);
 datasets = results.DataSets;
 Time1 = cell2mat(datasets.GetDataSetByName('Time').GetValues);
 FOM1 = cell2mat(datasets.GetDataSetByName('FOM Value').GetValues);
@@ -232,7 +231,7 @@ objCoverageFOM.Definition.Uncertainties.ReceiverRange = 0.5;
 %% Pull in Time and FOM Values from STK for NavAcc
 rptElems = {'Time';'FOM Value'};
 provider = objCoverage.DataProviders.Item('FOM by Time');
-results = provider.ExecElements(scenario.StartTime,testaircraft.Route.StopTime,30,rptElems);
+results = provider.ExecElements(scenario.StartTime,testaircraft.Route.EphemerisInterval.FindStopTime(),30,rptElems);
 datasets = results.DataSets;
 Time2 = cell2mat(datasets.GetDataSetByName('Time').GetValues);
 FOM2 = cell2mat(datasets.GetDataSetByName('FOM Value').GetValues);

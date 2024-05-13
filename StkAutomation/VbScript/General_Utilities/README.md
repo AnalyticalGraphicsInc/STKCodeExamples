@@ -8,7 +8,7 @@ This script will take the "Euler Angles" report and generate an attitude file fr
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ This script will take the "Yaw Pitch Roll" report and generate an attitude file 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This excel workbook will allow you to define a column with the header "CMDS_HERE
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This excel workbook is a basic example of integrating excel and STK.  There are 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -59,7 +59,7 @@ This script allows users to convert multiple terrain files of different formats 
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -73,7 +73,7 @@ This script will take the waypoints located in the file "C:/temp/waypoints.txt" 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Licenses: [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -86,7 +86,7 @@ Sample VBscript to connect to STK and pull Coverage Data Providers
 ### Dependencies
 
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Any scenario open with a coverage definition. 
 

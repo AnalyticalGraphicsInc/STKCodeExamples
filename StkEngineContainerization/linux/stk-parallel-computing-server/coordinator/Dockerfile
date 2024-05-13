@@ -1,4 +1,10 @@
-ARG baseImage=centos:7
+# Uncomment the line below if you want to use the UBI image from ironbank
+# ARG baseImage=registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest
+
+# Uncomment the line below if you built the custom/redhat/ubi8 image
+# ARG baseImage=custom/redhat/ubi8:latest
+
+ARG baseImage=redhat/ubi8:latest
 FROM ${baseImage} AS builder
 
 # Add the STK Parallel Computing Server Coordinator packages to the builder stage
@@ -12,14 +18,10 @@ RUN set -e; \
 
 FROM ${baseImage}
 
-# Install .NET Core dependencies (see https://docs.microsoft.com/en-us/dotnet/core/install/linux-centos)
+USER root
+# Install .NET Core dependencies
 RUN set -e; \
-    yum -y install krb5-libs; \
-    yum -y install libicu; \
-    yum -y install openssl-libs; \
-    yum -y install zlib; \
-    yum clean all; \
-    rm -rf /var/cache/yum
+    yum -y install aspnetcore-runtime-6.0
 
 # Define STK user home directory
 ENV STK_USER_HOME=/home/stk

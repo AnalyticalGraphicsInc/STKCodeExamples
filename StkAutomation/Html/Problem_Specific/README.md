@@ -8,7 +8,7 @@ This utility allows you to ingest a csv file that defines air traffic and an are
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ This utility allows you to to create a sensor pattern that will scan an area. Yo
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -34,7 +34,7 @@ This utility creates a camera path with a smooth zoom-in effect using specified 
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -46,7 +46,7 @@ This is a utility to create a visual satellite explosion in STK.  This generates
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -58,7 +58,7 @@ This is a utility to generate a file that contains data for multiple satellites 
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -70,7 +70,7 @@ This is a utility that allows the user to select a rectangular sensor and genera
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -82,7 +82,7 @@ This utility will allow you to select an object and a vector and will create a n
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -96,7 +96,7 @@ There is an optional configuration file that is white space delimeted containing
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 

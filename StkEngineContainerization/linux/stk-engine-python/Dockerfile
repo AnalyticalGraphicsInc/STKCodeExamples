@@ -1,19 +1,13 @@
 # By default, start from the base STK Engine image
-ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-centos7
+# Uncomment the first line below if you built the stk-engine-custom-baseline image
+# ARG baseImage=ansys/stk/stk-engine-custom-baseline:12.8.0-ubi8
+ARG baseImage=ansys/stk/stk-engine-baseline:12.8.0-ubi8
 FROM ${baseImage}
 
 # Install Python
 USER root
-ENV PYTHON_PACKAGE=rh-python38
 RUN set -e; \
-    if ! yum list | grep "${PYTHON_PACKAGE}">/dev/null; then \
-        yum -y install centos-release-scl; \
-    fi; \
-    yum -y install "${PYTHON_PACKAGE}"; \
-    echo "source scl_source enable ${PYTHON_PACKAGE}" > /etc/profile.d/enable-python.sh; \
-    yum clean all; \
-    rm -rf /var/cache/yum
-SHELL [ "/bin/sh", "--login", "-c" ]
+    yum install python3.11 python3.11-devel python3.11-setuptools python3.11-pip -y
 
 # Switch back to non-root user
 USER stk
@@ -25,9 +19,9 @@ ENV PATH="${STK_USER_HOME}/.local/bin:${PATH}" \
 
 # Install the STK Engine Python API module
 RUN set -e; \
-    pip install --no-cache-dir --upgrade --user pip; \
-    pip install --no-cache-dir --user wheel; \
-    pip install --no-cache-dir --user "${STK_USER_HOME}/bin/AgPythonAPI/"agi.stk*.whl
+    pip3 install --no-cache-dir --upgrade --user pip; \
+    pip3 install --no-cache-dir --user wheel; \
+    pip3 install --no-cache-dir --user "${STK_USER_HOME}/bin/AgPythonAPI/"agi.stk*.whl
 
 # Use entrypoint script to run Python commands
 COPY --chown=stk docker-entrypoint.sh "${STK_USER_HOME}/bin/docker-entrypoint.sh"

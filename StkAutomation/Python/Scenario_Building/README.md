@@ -6,7 +6,7 @@ Creates a scenario that demonstrates an aircraft carrier landing using two Aviat
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Licenses: [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -18,7 +18,7 @@ STK Object Model Walkthrough using Python with comtypes. In the incomplete versi
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -30,7 +30,7 @@ These notebooks walk you through an introduction to [STK Astrogator](https://hel
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -44,7 +44,20 @@ This script is a demo of the STK Python API that creates a complex search and re
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator), [Communications](https://www.agi.com/capabilities/communications)
+* Licenses: [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+## [VolumetricSensorCoverage](VolumetricSensorCoverage)
+
+Performs an end-to-end volumetric coverage analysis with sensors. It will build a scenario with three GEO satellites, a volume grid that covers the GEO belt, and a volumetric object to perform the analysis.
+
+There are two versions of the script, one leveraging comtypes and the other leveraging the [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 

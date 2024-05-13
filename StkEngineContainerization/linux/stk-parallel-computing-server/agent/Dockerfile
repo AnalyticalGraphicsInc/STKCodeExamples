@@ -1,4 +1,4 @@
-ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.6-centos7
+ARG baseImage=ansys/stk/stk-parallel-computing-server-python:2.8.0-ubi8
 FROM ${baseImage} AS builder
 
 # Add the STK Parallel Computing Server Agent packages to the builder stage
@@ -9,21 +9,16 @@ RUN set -e; \
     mkdir -p /tmp/agent; \
     find /tmp -name STK_Parallel_Computing_Agent*.tgz -exec tar -zxf {} --strip-components=1 -C /tmp/agent \;
 
-
 FROM ${baseImage}
 
 LABEL NUMBER_OF_WORKER_PROCESSES="The number of worker processes to use.  Must be compatible with STK Engine License. Default: 4" \
     COORDINATOR="The FQDN of the STK Parallel Computing Server Coordinator that controls this agent. Required."
 
-# Install .NET Core dependencies (see https://docs.microsoft.com/en-us/dotnet/core/install/linux-centos)
+# Install .NET Core dependencies
 USER root
 RUN set -e; \
-    yum -y install krb5-libs; \
-    yum -y install libicu; \
-    yum -y install openssl-libs; \
-    yum -y install zlib; \
-    yum clean all; \
-    rm -rf /var/cache/yum
+    yum -y install aspnetcore-runtime-6.0
+
 USER stk
 
 # Copy parallel computing agent from the builder

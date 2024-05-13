@@ -1,11 +1,13 @@
 version: '3.7'
 services:
     stk-engine-connect:
-        image: ansys/stk/stk-engine-connect:12.6.0-centos7
-        build: 
+        image: ansys/stk/stk-engine-connect:12.8.0-ubi8
+        build:
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-baseline:12.6.0-centos7
+                # Uncomment the first line below if you built the stk-engine-custom-baseline image
+                # baseImage=ansys/stk/stk-engine-custom-baseline:12.8.0-ubi8
+                baseImage: ansys/stk/stk-engine-baseline:12.8.0-ubi8
         ports:
             - 5001:5001
         env_file: ../configuration/licensing.env
