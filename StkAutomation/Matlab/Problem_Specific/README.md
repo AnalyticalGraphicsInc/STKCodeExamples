@@ -1,4 +1,17 @@
 # MATLAB Problem Specific Samples
+##[Create3DCoverageFromAreaTarget.m](Create3DCoverageFromAreaTarget.m)
+
+Creates a CoverageDefinition object that has varying altitude with an existing AreaTarget as the boundary.
+
+This script takes a few inputs from the user and an open scenario before creating the "3D Coverage."
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: Any open scenario
+
+---
 
 ## [Create3DCoverageFromAreaTarget.m](Create3DCoverageFromAreaTarget.m)
 

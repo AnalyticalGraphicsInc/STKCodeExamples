@@ -184,6 +184,19 @@ This accepts a bistatic RCS export from Ansys HFSS and converts it into *.rcs fo
 * Other Scripts: N/A
 * Scenario: N/A
 
+
+--
+
+## [OneStepGraphicsSettings.py](OneStepGraphicsSettings.py)
+
+As provided on request by our resident movie making expert, this utility will set various STK properties to optimize the appearance of STK images and videos. No more searching through multiple property's panels to set all these values - you can do it all from this simple to use python script.
+
+## Dependencies
+
+*Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+*Other Scripts: N/A
+*Scenario: N/A
+
 ---
 
 ## [CustomAdjacentSatRouting.py](CustomAdjacentSatRouting.py)

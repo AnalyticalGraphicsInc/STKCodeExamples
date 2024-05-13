@@ -98,7 +98,6 @@ while k < Levels
     k = k+1;
 end
 %% Create Point File
-%stkver = 'stk.v.12.8.0';
 fileID = fopen(PointFile,'w');
 
 fprintf(fileID, [stkver,'\n\n']);
