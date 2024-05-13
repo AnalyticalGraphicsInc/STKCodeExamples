@@ -65,6 +65,3 @@ for cdmData in allCdmData:
             else:
                 root.ExecuteCommand('ACAT */AdvCAT/' + aCatName + ' Secondary Add "Satellite/' + segment.UniqueName + '" Cov')
                 aCat.Compute()
-        
-
-something = 7
