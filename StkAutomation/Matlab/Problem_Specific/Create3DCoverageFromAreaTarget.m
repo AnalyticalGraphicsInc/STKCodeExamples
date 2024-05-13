@@ -23,7 +23,7 @@ Areaname = 'AreaTarget/'+ Area;
 GRD = input('Grid Resolution Distance (meters)(integer): ');
 Height = input('Height (meters): ');
 LevelsTot = input('Number of levels (Altitude Resolution)(integer): ');
-stkverstr = input('STK Version (String, "stk.v.12.7.1"): ');
+stkverstr = input('STK Version (String, "stk.v.12.8.0"): ');
 stkver = convertStringsToChars(stkverstr);
 PointFile = input('Name of Point File to be created (String, "Test File"): ');
 Path = input('File path where this script resides (String, "C:\\Users\\ajones\\Documents\\MATLAB"): ');
@@ -98,7 +98,6 @@ while k < Levels
     k = k+1;
 end
 %% Create Point File
-%stkver = 'stk.v.12.7.1';
 fileID = fopen(PointFile,'w');
 
 fprintf(fileID, [stkver,'\n\n']);

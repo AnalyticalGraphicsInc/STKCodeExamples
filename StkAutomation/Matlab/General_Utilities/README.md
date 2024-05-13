@@ -102,6 +102,20 @@ generateSensorPointingFile('Satellite/LEOSat/Sensor/LEOsensor', 'LEOSensorAttitu
 
 ---
 
+## [createCommSystemPointingIntervals.m](createCommSystemPoiuntingIntervals.m)
+
+This script will generate an interval list file according to the CommSystem object defined. The interval list file can then e imported into a sensor's pointing properties. 
+This is very helpful when a CommSystem is used to find the best link according to some link metric, but you also want to show a platform's sensor pointing at the correct object
+based on the CommSystem's link and not LOS access. You will need to modify the CommSystem name and link preferences according to your own scenario's setup.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: Any scenario with a CommSystem object. NOTE: You will need to modify the CommSystem name in the script.
+
+---
+
 ## [getAllObjectHandles.m](getAllObjectHandles.m)
 
 Connects to an existing STK instance and loops through every object in the scenario while assigning a local MATLAB variable with the same name as each object pointing to that object. This is commonly used for debugging getting more comfortable with the object model. Users can create complex scenarios manually and then run getAllObjectHandles to navigate through the object model and inspect properties.
@@ -311,3 +325,19 @@ This script accepts a directory of raw sensor output data from EOIR and normaliz
 * Licenses: N/A
 * Other Scripts: [EOIR Synthetic Scene and Data Generation](../../Python/Scenario_Analysis/EOIR_Synthetic_Scene_and_Data_Generation)
 * Scenario: N/A
+
+---
+
+## [pushSat2STK.m](pushSat2STK.m)
+
+Creates a satellite object in STK using an ephemeris file and attitude file
+
+**NOTE**: Be sure to update the input section of the script before running
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---

@@ -13,6 +13,20 @@ This script takes a few inputs from the user and an open scenario before creatin
 
 ---
 
+## [Create3DCoverageFromAreaTarget.m](Create3DCoverageFromAreaTarget.m)
+
+Creates a CoverageDefinition object that has varying altitude with an existing AreaTarget as the boundary.
+
+This script takes a few inputs from the user and an open scenario before creating the "3D Coverage."
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: Any open scenario
+
+---
+
 ## [DynamicSensorMask](DynamicSensorMask)
 
 Sensor AzEl masks are computed at a momment in time meaning that they cannot account for obstructions that move in the sensor's frame. This script allows sensor field of view obscurations to be considered over time by moving objects, such as solar panels or other obscuring vehichles.
