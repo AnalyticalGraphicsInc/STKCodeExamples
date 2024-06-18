@@ -208,3 +208,15 @@ Ingests information regarding satellite collection/constellation to generate a r
 * Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [HFSS_RCS_Complex_Export_AEDTLib.py](HFSS_RCS_Complex_Export_AEDTLib.py)
+
+This script reformats the data exported from AEDT HFSS into a *.rcs file. STK can either take *.csv files or *.rcs files, but the *.csv files have much more requirements, thus, this script uses PyAEDT to pull the data straight from the computed analysis of a radar cross section and outputs a *.rcs file that can readily be put into STK.
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
