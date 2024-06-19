@@ -27,33 +27,29 @@ import sys
 from pyaedt import Hfss
 from pyaedt import get_pyaedt_app
 from pyaedt import settings
-#settings.use_grpc_api=False
+
 
 #from pyaedt import *
-
+sources = ["Hinc","Vinc"] #incident wave polarization
 #
 # USER: Set the following variables for output:
 #
-#setup_name = "30GHz"
-setup_name = "Setup1"
-sources = ["Hinc","Vinc"] #incident wave polarization
-#outfile_name = "D:/test1.rcs"
-outfile_name = "D:/rcs_gulfstream_exton.rcs"
-#outfile_name = "C:/Drone_22r2b.rcs"
-#outfile_name = "C:/GulfStream_23r2.rcs"
-#outfile_name = "D:/Designs/Electronics_Desktop_2023/HFSS/Plane/F-16/F-16.rcs"
-#desktopVersion = '2022.2' # Update to reflect the AEDT version you are using
-desktopVersion = '2023.2' # Update to reflect the AEDT version you are using#
+setup_name = "Setup1" #the name of your analysis
+Excitation_Names=["Hor","Ver"]#Names of your excitations
+outfile_name = "C:/location/filename.rcs" #Where you want your file ending with the *.rcs file name (e.g. C:/Users/username/Documents/example.rcs)
+desktopVersion = '2023.2' # Update to reflect the AEDT version you are using; Compatible up to 2023R2
+project_name='HFSS demo for Radar_2_es'
+design_name='HFSSDesign_Fighter_Jet_fixed'
+Frequency=["2.8GHz"]#the frequency of your sweep analysis
 #
 # Copyright Ansys, Inc., 2020
+# 
 ########## Do not change code below ##################################
+with Hfss(projectname=project_name,designname=design_name,specified_version=desktopVersion, non_graphical=False, new_desktop_session=False) as hfss:
 
-with Hfss(projectname='rcs_gulfstream_23R2',designname='HFSSDesign1',specified_version=desktopVersion, non_graphical=False, new_desktop_session=False) as hfss:
-#with Hfss(projectname='F-16_RCS',designname='High_Density',specified_version=desktopVersion, non_graphical=False, new_desktop_session=False) as hfss:
-#with Hfss(projectname='Drone_22r2',designname='HFSSDesign1',specified_version=desktopVersion, non_graphical=False, new_desktop_session=False) as hfss:
 
     oModule =hfss.odesign.GetModule("Solutions")
-    oModule.SetSourceContexts(["V", "H"])
+    oModule.SetSourceContexts(Excitation_Names)
     oModule = hfss.odesign.GetModule("ReportSetup")
     
     trace_phi = 'ComplexMonostaticRCSPhi'
@@ -67,15 +63,13 @@ with Hfss(projectname='rcs_gulfstream_23R2',designname='HFSSDesign1',specified_v
         for trace_name in traces:
             print(trace_name)
             ctxt = ["SourceContext:=" , source]
-            sweeps = ["IWaveTheta:=", ["All"],"IWavePhi:=", ["All"],"Freq:=", ["1.0GHz"]]
-#            sweeps = ["IWaveTheta:=", ["All"],"IWavePhi:=", ["All"],"Freq:=", ["6.0GHz"]]
-#            sweeps = ["IWaveTheta:=", ["All"],"IWavePhi:=", ["All"],"Freq:=", ["30GHz"]]
+            sweeps = ["IWaveTheta:=", ["All"],"IWavePhi:=", ["All"],"Freq:=", Frequency]
             solnData = oModule.GetSolutionDataPerVariation("Monostatic RCS", setup_name + " : Sweep", ctxt, sweeps, trace_name)
             
             values_real = []
             values_imag = []
     
-            for each in solnData: #I think this is if more than one solution variation exists, should only be one for this project
+            for each in solnData:
                 values_real.append(each.GetRealDataValues(trace_name))
                 values_imag.append(each.GetImagDataValues(trace_name))
     
