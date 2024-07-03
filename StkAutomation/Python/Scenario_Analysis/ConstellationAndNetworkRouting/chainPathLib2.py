@@ -485,7 +485,7 @@ def createTimesEdgesCountFromDF(df, weightColumn=None):
                 (t, (strand[ii], strand[ii + 1]), weightsAtT[jj])
                 for jj, strand in enumerate(strandsAtT)
                 for ii in range(len(strand) - 1)
-            ]
+            ], dtype=object
         )
         # weights = edgesAtT[:, 2]
         uniqueEdges = np.unique(edgesAtT[:, 1])
@@ -509,7 +509,7 @@ def createTimesEdgesCountFromDF(df, weightColumn=None):
                     ),
                 )
                 for edge in uniqueEdges
-            ]
+            ], dtype=object
         )
         if len(timeEdgeCount) > 0:
             timeEdgeCountAll = np.append(timeEdgeCountAll, timeEdgeCount, axis=0)
@@ -1822,7 +1822,7 @@ def getEdgesIntervalsFromStrands(strands):
 
 # Convert intervals into discrete time steps
 def getStrandsAtTimes(strands, start, stop, step):
-    strands = np.array(strands)
+    strands = np.array(strands, dtype=object)
     starts = strands[:, 1]
     stops = strands[:, 2]
     strandsAtTimes = {}

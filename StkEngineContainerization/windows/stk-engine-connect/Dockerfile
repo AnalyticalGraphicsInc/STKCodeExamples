@@ -1,5 +1,5 @@
 # By default, start from the base STK Engine image
-ARG baseImage=ansys/stk/stk-engine-baseline:12.6.0-windowsservercore-ltsc2019
+ARG baseImage=ansys/stk/stk-engine-baseline:12.8.0-windowsservercore-ltsc2019
 FROM ${baseImage}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]

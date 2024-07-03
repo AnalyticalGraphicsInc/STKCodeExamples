@@ -1,5 +1,5 @@
 # By default, start from the STK Engine Python API image
-ARG baseImage=ansys/stk/stk-engine-python:12.6.0-windowsservercore-ltsc2019
+ARG baseImage=ansys/stk/stk-engine-python:12.8.0-windowsservercore-ltsc2019
 FROM ${baseImage}
 
 LABEL JUPYTER_LAB_TOKEN='The token used to initially authenticate with the jupyter lab application. Required.'

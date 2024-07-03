@@ -38,18 +38,19 @@ RUN useradd -ms /bin/bash stk
 # Need to create a symlink for libnsl.so.1 for STK to run
 RUN ln -s /usr/lib64/libnsl.so.2 /usr/lib64/libnsl.so.1
 
-# Switch to STK user
-WORKDIR "${STK_USER_HOME}"
-USER stk
-
 # Copy files from the builder stage
 COPY --from=builder --chown=stk /stk/ "${STK_USER_HOME}"/
+
+# Switch to STK user
+USER stk
 
 # Configure environment
 ENV LD_LIBRARY_PATH="${STK_USER_HOME}/bin" \
     PATH="${STK_USER_HOME}/bin:${PATH}" \
     STK_CONFIG_DIR="${STK_USER_HOME}/config" \
     STK_INSTALL_DIR="${STK_USER_HOME}"
+
+WORKDIR "${STK_USER_HOME}"
 
 # Run new user install
 RUN stkxnewuser /force /allowOnline=yes
