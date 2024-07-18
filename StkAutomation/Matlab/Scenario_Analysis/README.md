@@ -166,7 +166,7 @@ This script is made for a scenario with the format specified in QuiverExample.vd
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [QuiverExample.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/fe8f63d5-77f1-40e7-975a-2319d78ae18a)
+* Scenario: [QuiverExample.vdf](../../../SupportingScenarios/QuiverExample.vdf)
 
 ---
 

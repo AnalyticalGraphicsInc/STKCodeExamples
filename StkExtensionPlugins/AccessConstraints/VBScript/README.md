@@ -10,7 +10,7 @@ Uprop returns approximately zero for atmospheric loss when it determines LOS is 
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [SingaporeLOSplugin.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/f29a6489-e855-438b-8876-1cf75648b50f)
+* Scenario: [SingaporeLOSplugin.zip](../../../SupportingScenarios/SingaporeLOSplugin.zip)
 
 ---
 

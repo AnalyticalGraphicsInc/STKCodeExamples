@@ -6,7 +6,7 @@ Modeling clouds and understanding their affects on a mission is imperative for m
 
 ## Generating EOIR Cloud data
 
-[EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/6102d7ad-b7e7-4b1a-a406-5f4927a8651c)
+[EOIR Cloud Air To Air Scenario](../../../../SupportingScenarios/EOIR_Clouds_AirToAir.vdf)
 In this specific scenario two aircraft flights were modeled, each flying in a different direction. One aircraft has a Visible and a LWIR camera on board (Southbound). The cameras point and image the cross flight (Eastbound). The cross flight has a Mesh File: Boeing-757.obj; Max Dimensions: 70 m; Temperature 273 K.
 
 Optionally, users can design their own missions in STK and use this FAQ [How to Model clouds in EOIR](https://analyticalgraphics.force.com/faqs/articles/Keyword/How-to-model-clouds-in-EOIR)
@@ -27,7 +27,7 @@ Once the scenario is built, a python script with connect commands was used to au
 
 * Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/6102d7ad-b7e7-4b1a-a406-5f4927a8651c)
+* Scenario: [EOIR Cloud Air To Air Scenario](../../../../SupportingScenarios/EOIR_Clouds_AirToAir.vdf)
 
 ## [Images_to_video.ipynb](Images_to_video.ipynb)
 

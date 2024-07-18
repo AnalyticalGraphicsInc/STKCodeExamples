@@ -37,7 +37,7 @@ The script computes sensor body AzElMasks over a series of times. After the mask
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: [filterObjectsByType.m](../General_Utilities/filterObjectsByType.m)
-* Scenario: [DynamicSensorAzElMask.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/ea415e04-233e-4d2d-870b-a105724d5361)
+* Scenario: [DynamicSensorAzElMask.zip](../../../SupportingScenarios/DynamicSenAzElMask.zip)
 
 ---
 
@@ -77,7 +77,7 @@ This script connects to the linked scenario with a satellite orbiting Mars.  The
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [MarsSatSTM.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/edc984d2-8757-49ce-bfcc-a01fa764064b)
+* Scenario: [MarsSatSTM.vdf](../../../SupportingScenarios/MarsSatSTM.vdf)
 
 ---
 
@@ -259,7 +259,7 @@ Important:  you need to change the STK scenario path into the initialization cal
 
 * Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [SimulinkAttitudeControlLoop.zip](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/0aaeb6cb-7e91-499b-836c-0c35cd51e183)
+* Scenario: [SimulinkAttitudeControlLoop.zip](../../../SupportingScenarios/SimulinkAttitudeControlLoop.zip)
 
 ---
 
@@ -346,7 +346,7 @@ This script takes the TransponderLB STK scenario and outputs the Eb/No, rain los
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [TransponderLB.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/048cbff3-4567-4409-acdf-3dbb1830615c)
+* Scenario: [TransponderLB.vdf](../../../SupportingScenarios/TransponderLB.vdf)
 
 ---
 
