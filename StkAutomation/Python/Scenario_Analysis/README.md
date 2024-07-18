@@ -49,7 +49,7 @@ More information on each of the notebooks can be found in the readme within the 
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [Constellation and Network Routing Example](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/674cb49a-f67e-40f5-b7c5-0fd57abbb879)
+* Scenario: [Constellation and Network Routing Example](../../../SupportingScenarios/NetworkExampleScenarios.zip)
 
 ---
 
@@ -63,7 +63,7 @@ More information on each of the notebooks can be found in the readme within the 
 
 * Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/6102d7ad-b7e7-4b1a-a406-5f4927a8651c)
+* Scenario: [EOIR Cloud Air To Air Scenario](../../../SupportingScenarios/EOIR_Clouds_AirToAir.vdf)
 
 ---
 
