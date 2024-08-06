@@ -184,6 +184,23 @@ This script will take the prinicple axes of a covariance matrix and turn it into
 
 ---
 
+## [NumberOfPassesUntilRepeatGroundTrace.ipynb](NumberOfPassesUntilRepeatGroundTrace.ipynb)
+
+Determine the number of passes until the satellite repeats its ground trace. Definiton of pass break should be defined in the satellite's properties; whether it is ascending or descending at the equator. This script loads the Passes data provider. This data provider gives the pass number, latitude at pass break and longitude at pass break, as well as the start and stop times of each pass interval. The latitude at the pass break is ~zero, since the pass break is defined at the equator. Whether the pass break is defined as ascending or descending only depends on the users prefered convention, as the data provider provides passes only at the node where the break is defined. This means that the latitude and longitude rates do not have to be checked for matching direction of pass. The logic implemented checks for a repeating longitude at pass break value. 
+
+User inputs:
+
+The user has to input the name of the satellite, as well as the reference pass number to begin the search from. A reference data frame is displayed so that the user can pick a pass number without having to generate a custom report inside of STK.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy, pandas
+
+---
+
 ## [EOIRTextureMaps](EOIRTextureMaps)
 
 This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
