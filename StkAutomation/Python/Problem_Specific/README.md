@@ -192,6 +192,11 @@ User inputs:
 
 The user has to input the name of the satellite, as well as the reference pass number to begin the search from. A reference data frame is displayed so that the user can pick a pass number without having to generate a custom report inside of STK.
 
+Authors:
+
+Sasha Carrico
+Louise Dupont
+
 ### Dependencies
 
 * Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
