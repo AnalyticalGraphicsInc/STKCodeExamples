@@ -97,6 +97,20 @@ Two scripts: 1. A converter that takes in two LK files, one representing magnitu
 
 ---
 
+## [LoadCDM](LoadCDM)
+
+Loads a CDM into STK. Place all 3 files into same folder, edit header of LoadCDM.py to point to your cdm file, run LoadCDM.py
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: STK python API, xml
+
+---
+
+
 ## [SatelliteConflictFreePassesUsingIntervalTree](SatelliteConflictFreePassesUsingIntervalTree)
 
 This script was used in a specific case for a customer: there is a ground facility that is attempting to calculate line of sight access to a constellation of satellites. The customer wants all the passes (pass number, time intervals, satellite name) that are "conflict free", the definition of conflict free being so:
