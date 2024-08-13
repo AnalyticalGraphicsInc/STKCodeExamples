@@ -1,147 +1,189 @@
-from comtypes.client import GetActiveObject, GetEvents, PumpEvents, ShowEvents
-from comtypes.gen import STKObjects
+from agi.stk12.stkengine import STKEngine
+from agi.stk12.stkobjects import AgELogMsgType, AgELogMsgDispID, AgEAnimationActions, AgEAnimationDirections, IAgStkObjectPreDeleteEventArgs, IAgStkObjectChangedEventArgs, IAgPctCmpltEventArgs, IAgScenarioBeforeSaveEventArgs, IAgStkObjectRootEventHandler
+
+def onAnimUpdate(epoch: float):
+    """Animation Update Event"""
+    print("Animation epoch: " + str(epoch))
+
+def onScenarioNew(scenario: str):
+    """New Scenario Event"""
+    print("Scenario new: " + scenario)
+
+def onScenarioLoad(scenario: str):
+    """Scenario Load Event"""
+    print("Scenario load: " + scenario)
+
+def onScenarioClose():
+    """Scenario Close Event"""
+    print("Scenario closed")
+
+def onScenarioSave(scenario_path: str):
+    """Scenario Save Event"""
+    print("Scenario saved to: " + scenario_path)
+
+def onLogMessage(message: str, message_type: AgELogMsgType, error_code: int, filename: str, line_number: int, display_id: AgELogMsgDispID):
+    """Log Message Created Event"""
+    print("Log Message")
+    print("\tMessage: " + message)
+    print("\tMessage type: " + str(message_type))
+    print("\tError code: " + str(error_code))
+    print("\tFile name: " + filename)
+    print("\tLine number: " + str(line_number))
+    print("\tDisplay ID: " + str(display_id))
+
+def onStkObjectAdded(sender):
+    """Object Added Event"""
+    print("Object added: " + sender)
+
+def onStkObjectDeleted(sender):
+    """Object Deleted Event"""
+    print("Object deleted: " + sender)
+
+def onStkObjectRenamed(sender, old_path: str, new_path: str):
+    """Object Renamed Event"""
+    print("Object renamed: " + sender)
+    print("\tOld Path: " + old_path)
+    print("\tNew Path: " + new_path)
+
+def onAnimationPlayback(current_time: float, action: AgEAnimationActions, direction: AgEAnimationDirections):
+    """Animation Playback Event"""
+    print("Animation playback")
+    print("\tCurrent time: " + str(current_time))
+    print("\tAction: " + str(action))
+    print("\tDirection " + str(direction))
+
+def onAnimationRewind():
+    """Animation Rewind Event"""
+    print("Animation rewind")
+
+def onAnimationPause(current_time: float):
+    """Animation Paused Event"""
+    print("Animation pause")
+    print("\tCurrent time: " + str(current_time))
+
+def onScenarioBeforeSave(args: IAgScenarioBeforeSaveEventArgs):
+    """Scenario Before Save Event"""
+    print("Before save")
+    print("\tContinue Save: " + str(args.ContinueSave))
+    print("\tPath: " + args.Path)
+    print("\tSaveAs?: " + args.SaveAs)
+    print("\tSDFSave?: " + args.SDFSave)
+    print("\tVDFSave?: " + args.VDFSave)
+
+def onAnimationStep(current_time: float):
+    """Animation Step Event"""
+    print("Animation step")
+    print("\tCurrent time: " + str(current_time))
+
+def onAnimationStepBack(current_time: float):
+    """Animation Step Backward Event"""
+    print("Animation step back")
+    print("\tCurrent time: " + str(current_time))
+
+def onAnimationSlower():
+    """Animation Slower Event"""
+    print("Animation slower")
+
+def onAnimationFaster():
+    """Animation Faster Event"""
+    print("Animation faster")
+
+def onPercentCompleteUpdate(args: IAgPctCmpltEventArgs):
+    """Percent Complete Update Event"""
+    print("Percent complete update")
+    print("\tCan cancel?: " + str(args.CanCancel))
+    print("\tCanceled: " + str(args.Canceled))
+    print("\tMessage: " + args.Message)
+    print("\tPercent completed: " + str(args.PercentCompleted))
+
+def onPercentCompleteEnd():
+    """Percent Complete End Event"""
+    print("Percent complete end")
+
+def onPercentCompleteBegin():
+    """Percent Complete Begin Event"""
+    print("Percent complete begin")
+
+def onStkObjectChanged(args: IAgStkObjectChangedEventArgs):
+    """Object Changed Event"""
+    print("Object changed: " + args.Path)
+
+def onScenarioBeforeClose():
+    """Scenario Before Close Event"""
+    print("Scenario before close")
+
+def onStkObjectPreDelete(args: IAgStkObjectPreDeleteEventArgs):
+    """Object PreDelete Event"""
+    print("Object pre-delete")
+    print("\tContinue: " + str(args.Continue))
+    print("\tPath: " + args.Path)
 
 
-class EventSink(object):
-    """Class to sink to Events in STK"""
+# Example of utilizing the above event callbacks
 
-    def IAgStkObjectRootEvents_OnAnimUpdate(self, this, epoch):
-        """Animation Update Event"""
-        print("Animation epoch: " + str(epoch))
+# Attach to STK 12 Engine Application
+app = STKEngine.StartApplication(noGraphics=False)
+root = app.NewObjectRoot()
 
-    def IAgStkObjectRootEvents_OnScenarioNew(self, this, scenario):
-        """New Scenario Event"""
-        print("Scenario new: " + scenario)
+# Subscribe to all root events
+stkObjectRootEvents = root.Subscribe()
 
-    def IAgStkObjectRootEvents_OnScenarioLoad(self, this, scenario):
-        """Scenario Load Event"""
-        print("Scenario load: " + scenario)
+# Define a callback function for each event
+stkObjectRootEvents.OnAnimUpdate += onAnimUpdate
+stkObjectRootEvents.OnScenarioNew += onScenarioNew
+stkObjectRootEvents.OnScenarioLoad += onScenarioLoad
+stkObjectRootEvents.OnScenarioClose += onScenarioClose
+stkObjectRootEvents.OnScenarioSave += onScenarioSave
+stkObjectRootEvents.OnLogMessage += onLogMessage
+stkObjectRootEvents.OnStkObjectAdded += onStkObjectAdded
+stkObjectRootEvents.OnStkObjectDeleted += onStkObjectDeleted
+stkObjectRootEvents.OnStkObjectRenamed += onStkObjectRenamed
+stkObjectRootEvents.OnAnimationPlayback += onAnimationPlayback
+stkObjectRootEvents.OnAnimationRewind += onAnimationRewind
+stkObjectRootEvents.OnAnimationPause += onAnimationPause
+stkObjectRootEvents.OnScenarioBeforeSave += onScenarioBeforeSave
+stkObjectRootEvents.OnAnimationStep += onAnimationStep
+stkObjectRootEvents.OnAnimationStepBack += onAnimationStepBack
+stkObjectRootEvents.OnAnimationSlower += onAnimationSlower
+stkObjectRootEvents.OnAnimationFaster += onAnimationFaster
+stkObjectRootEvents.OnPercentCompleteUpdate += onPercentCompleteUpdate
+stkObjectRootEvents.OnPercentCompleteEnd += onPercentCompleteEnd
+stkObjectRootEvents.OnPercentCompleteBegin += onPercentCompleteBegin
+stkObjectRootEvents.OnStkObjectChanged += onStkObjectChanged
+stkObjectRootEvents.OnScenarioBeforeClose += onScenarioBeforeClose
+stkObjectRootEvents.OnStkObjectPreDelete += onStkObjectPreDelete
 
-    def IAgStkObjectRootEvents_OnScenarioClose(self, this):
-        """Scenario Close Event"""
-        print("Scenario closed")
+# Exectute Code via STK
+root.NewScenario()
 
-    def IAgStkObjectRootEvents_OnScenarioSave(self, this, scenarioPath):
-        """Scenario Save Event"""
-        print("Scenario saved to: " + scenarioPath)
+# Remove the callback function for each event
+stkObjectRootEvents.OnAnimUpdate -= onAnimUpdate
+stkObjectRootEvents.OnScenarioNew -= onScenarioNew
+stkObjectRootEvents.OnScenarioLoad -= onScenarioLoad
+stkObjectRootEvents.OnScenarioClose -= onScenarioClose
+stkObjectRootEvents.OnScenarioSave -= onScenarioSave
+stkObjectRootEvents.OnLogMessage -= onLogMessage
+stkObjectRootEvents.OnStkObjectAdded -= onStkObjectAdded
+stkObjectRootEvents.OnStkObjectDeleted -= onStkObjectDeleted
+stkObjectRootEvents.OnStkObjectRenamed -= onStkObjectRenamed
+stkObjectRootEvents.OnAnimationPlayback -= onAnimationPlayback
+stkObjectRootEvents.OnAnimationRewind -= onAnimationRewind
+stkObjectRootEvents.OnAnimationPause -= onAnimationPause
+stkObjectRootEvents.OnScenarioBeforeSave -= onScenarioBeforeSave
+stkObjectRootEvents.OnAnimationStep -= onAnimationStep
+stkObjectRootEvents.OnAnimationStepBack -= onAnimationStepBack
+stkObjectRootEvents.OnAnimationSlower -= onAnimationSlower
+stkObjectRootEvents.OnAnimationFaster -= onAnimationFaster
+stkObjectRootEvents.OnPercentCompleteUpdate -= onPercentCompleteUpdate
+stkObjectRootEvents.OnPercentCompleteEnd -= onPercentCompleteEnd
+stkObjectRootEvents.OnPercentCompleteBegin -= onPercentCompleteBegin
+stkObjectRootEvents.OnStkObjectChanged -= onStkObjectChanged
+stkObjectRootEvents.OnScenarioBeforeClose -= onScenarioBeforeClose
+stkObjectRootEvents.OnStkObjectPreDelete -= onStkObjectPreDelete
 
-    def IAgStkObjectRootEvents_OnLogMessage(
-        self, this, message, messageType, errorCode, fileName, lineNumber, displayId
-    ):
-        """Log Message Created Event"""
-        print("Log Message")
-        print("\tMessage: " + message)
-        print("\tMessage type: " + str(messageType))
-        print("\tError code: " + str(errorCode))
-        print("\tFile name: " + fileName)
-        print("\tLine number: " + str(lineNumber))
-        print("\tDisplay ID: " + str(displayId))
+# Unsubscribe from all root events
+stkObjectRootEvents.Unsubscribe()
 
-    def IAgStkObjectRootEvents_OnStkObjectAdded(self, this, sender):
-        """Object Added Event"""
-        print("Object added: " + sender)
-
-    def IAgStkObjectRootEvents_OnStkObjectDeleted(self, this, sender):
-        """Object Deleted Event"""
-        print("Object deleted: " + sender)
-
-    def IAgStkObjectRootEvents_OnStkObjectRenamed(self, this, sender, oldPath, newPath):
-        """Object Renamed Event"""
-        print("Object renamed: " + sender)
-        print("\tOld Path: " + oldPath)
-        print("\tNew Path: " + newPath)
-
-    def IAgStkObjectRootEvents_OnAnimationPlayback(
-        self, this, currentTime, action, direction
-    ):
-        """Animation Playback Event"""
-        print("Animation playback")
-        print("\tCurrent time: " + str(currentTime))
-        print("\tAction: " + str(action))
-        print("\tDirection " + str(direction))
-
-    def IAgStkObjectRootEvents_OnAnimationRewind(self, this):
-        """Animation Rewind Event"""
-        print("Animation rewind")
-
-    def IAgStkObjectRootEvents_OnAnimationPause(self, this, currentTime):
-        """Animation Paused Event"""
-        print("Animation pause")
-        print("\tCurrent time: " + str(currentTime))
-
-    def IAgStkObjectRootEvents_OnScenarioBeforeSave(self, this, args):
-        """Scenario Before Save Event"""
-        args = args.QueryInterface(STKObjects.IAgScenarioBeforeSaveEventArgs)
-        print("Before save")
-        print("\tContinue Save: " + str(args.ContinueSave))
-        print("\tPath: " + args.Path)
-
-    def IAgStkObjectRootEvents_OnAnimationStep(self, this, currentTime):
-        """Animation Step Event"""
-        print("Animation step")
-        print("\tCurrent time: " + str(currentTime))
-
-    def IAgStkObjectRootEvents_OnAnimationStepBack(self, this, currentTime):
-        """Animation Step Backward Event"""
-        print("Animation step back")
-        print("\tCurrent time: " + str(currentTime))
-
-    def IAgStkObjectRootEvents_OnAnimationSlower(self, this):
-        """Animation Slower Event"""
-        print("Animation slower")
-
-    def IAgStkObjectRootEvents_OnAnimationFaster(self, this):
-        """Animation Faster Event"""
-        print("Animation faster")
-
-    def IAgStkObjectRootEvents_OnPercentCompleteUpdate(self, this, args):
-        """Percent Complete Update Event"""
-        args = args.QueryInterface(STKObjects.IAgPctCmpltEventArgs)
-        print("Percent complete update")
-        print("\tCan cancel: " + str(args.CanCancel))
-        print("\tCanceled: " + str(args.Canceled))
-        print("\tMessage: " + args.Message)
-        print("\tPercent completed: " + str(args.PercentCompleted))
-
-    def IAgStkObjectRootEvents_OnPercentCompleteEnd(self, this):
-        """Percent Complete End Event"""
-        print("Percent complete end")
-
-    def IAgStkObjectRootEvents_OnPercentCompleteBegin(self, this):
-        """Percent Complete Begin Event"""
-        print("Percent complete begin")
-
-    def IAgStkObjectRootEvents_OnStkObjectChanged(self, this, args):
-        """Object Changed Event"""
-        args = args.QueryInterface(STKObjects.IAgStkObjectChangedEventArgs)
-        print("Object changed: " + args.Path)
-
-    def IAgStkObjectRootEvents_OnScenarioBeforeClose(self, this):
-        """Scenario Before Close Event"""
-        print("Scenario before close")
-
-    def IAgStkObjectRootEvents_OnStkObjectPreDelete(self, this, args):
-        """Object PreDelete Event"""
-        args = args.QueryInterface(STKObjects.IAgStkObjectPreDeleteEventArgs)
-        print("Object pre-delete")
-        print("\tContinue: " + str(args.Continue))
-        print("\tSender: " + args.Path)
-
-
-# Testing Event Subscriptions
-
-# Attach to STK 12 Application
-app = GetActiveObject("STK12.Application")
-root = app.Personality2
-
-# Create EventSink
-sink = EventSink()
-
-# List all Events
-ShowEvents(root, interface=STKObjects.IAgStkObjectRootEvents)
-
-# Sink to all events in the EventSink class
-connection = GetEvents(root, sink, interface=STKObjects.IAgStkObjectRootEvents)
-
-# Defines a timeout necessary for COM
-PumpEvents(100)
+# Shutdown STK Engine
+root.CloseScenario()
+app.ShutDown()

@@ -6,7 +6,7 @@ This script allows you to add a series of annotations to the path of a moving ST
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -22,7 +22,7 @@ To use the script, just modify the user inputs then run.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -37,7 +37,7 @@ The user specifies the names of the satellites, the names of the sensors on the 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -49,7 +49,7 @@ Allows the user to take an interval file ([.int](https://help.agi.com/stk/index.
 
 ### Dependencies
 
-* Capabilities: Free, [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -64,7 +64,7 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -74,11 +74,11 @@ Step 2. Explore the sample code in HWM93STKpy notebook. Filepaths will need to b
 
 Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+
 
-Notebooks and libraries to automate STK, take EOIR images, process images, generate measurements, update pointing direction and optionally run ODTK in the loop. Additionally includes a tool to help convert images into reflectance, emissivitiy and temperature maps to use with EOIR. 
+Notebooks and libraries to automate STK, take EOIR images, process images, generate measurements, update pointing direction and optionally run ODTK in the loop. Additionally includes a tool to help convert images into reflectance, emissivitiy and temperature maps to use with EOIR.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy, pandas, cv2, shutil, imageio, matplotlib, sklearn, skimage, scipy, astropy, PIL
@@ -91,11 +91,25 @@ Two scripts: 1. A converter that takes in two LK files, one representing magnitu
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 
 ---
+
+## [LoadCDM](LoadCDM)
+
+Loads a CDM into STK. Place all 3 files into same folder, edit header of LoadCDM.py to point to your cdm file, run LoadCDM.py
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: STK python API, xml
+
+---
+
 
 ## [SatelliteConflictFreePassesUsingIntervalTree](SatelliteConflictFreePassesUsingIntervalTree)
 
@@ -111,7 +125,7 @@ This script was utilized for a very specific case, but many elements of this can
 
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy
@@ -124,7 +138,7 @@ Python code and a user inteface to allow subsets of large satellite constellatio
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -138,7 +152,7 @@ Rerunning the script will update the current time and the set of visible satelli
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -146,11 +160,11 @@ Rerunning the script will update the current time and the set of visible satelli
 
 ## [TargetedSensorPointingClosestFacility.py](TargetedSensorPointingClosestFacility.py)
 
-This script computes access between a series of sensors on satellites and place objects and creates a pointing algorithm based on the place object that is the closest to the satellite at a given time. The script uses satellite names, place names and a time step for the algorithm to use as inputs. It also assumes that a scenario with these places and satellites already exists and that the satellites already have sensor objects. 
+This script computes access between a series of sensors on satellites and place objects and creates a pointing algorithm based on the place object that is the closest to the satellite at a given time. The script uses satellite names, place names and a time step for the algorithm to use as inputs. It also assumes that a scenario with these places and satellites already exists and that the satellites already have sensor objects.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -159,23 +173,46 @@ This script computes access between a series of sensors on satellites and place 
 
 ## [createCovariancePoints.py](createCovariancePoints.py)
 
-This script will take the prinicple axes of a covariance matrix and turn it into point. These can be used for access computations to determine when a satellite may be visible accounting for the orbit uncertainty. It will write 6 ephemris file and add points and satellites for the positive and negative direction of the major, intermediate and minor axis. 
+This script will take the prinicple axes of a covariance matrix and turn it into point. These can be used for access computations to determine when a satellite may be visible accounting for the orbit uncertainty. It will write 6 ephemris file and add points and satellites for the positive and negative direction of the major, intermediate and minor axis.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional),[Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy
 
 ---
 
+## [NumberOfPassesUntilRepeatGroundTrace.ipynb](NumberOfPassesUntilRepeatGroundTrace.ipynb)
+
+Determine the number of passes until the satellite repeats its ground trace. Definiton of pass break should be defined in the satellite's properties; whether it is ascending or descending at the equator. This script loads the Passes data provider. This data provider gives the pass number, latitude at pass break and longitude at pass break, as well as the start and stop times of each pass interval. The latitude at the pass break is ~zero, since the pass break is defined at the equator. Whether the pass break is defined as ascending or descending only depends on the users prefered convention, as the data provider provides passes only at the node where the break is defined. This means that the latitude and longitude rates do not have to be checked for matching direction of pass. The logic implemented checks for a repeating longitude at pass break value. 
+
+User inputs:
+
+The user has to input the name of the satellite, as well as the reference pass number to begin the search from. A reference data frame is displayed so that the user can pick a pass number without having to generate a custom report inside of STK.
+
+Authors:
+
+Sasha Carrico
+Louise Dupont
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: numpy, pandas
+
+---
+
 ## [EOIRTextureMaps](EOIRTextureMaps)
 
 This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files into a format that can be imported into STK as a texture map. This contains examples of navigating the HDF standard format to locate corner point metadata required by STK and as well as detailing the conversion of data to usable information. This information is then written to a csv file that can be natively read by STK's EOIR capability. Check out [this FAQ](https://analyticalgraphics.force.com/faqs/articles/Knowledge/Loading-EOIR-Texture-Maps-From-NASA-s-Earthdata) for more detailed workflow information.
+
 ### Dependencies
 
-* Capabilities: Free
+* Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: numpy, pyhdf, h5py, matplotlib

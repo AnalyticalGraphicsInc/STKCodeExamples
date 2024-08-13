@@ -6,7 +6,7 @@ This script will create a number of force model vectors on satellites at differe
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -20,7 +20,7 @@ This script is an example of computing trade studies using the Aviator Object Mo
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Aviator](https://www.agi.com/products/stk-specialized-modules/stk-aviator)
+* Licenses: [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Run trade studies with the Lifetime Tool. Grid searches, Latin Hyper Cube sampli
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: pyDOE2, poliastro
@@ -47,25 +47,25 @@ More information on each of the notebooks can be found in the readme within the 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications), [Pro](https://www.agi.com/products/stk-systems-bundle/stk-professional)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [Constellation and Network Routing Example](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/674cb49a-f67e-40f5-b7c5-0fd57abbb879)
+* Scenario: [Constellation and Network Routing Example](../../../SupportingScenarios/NetworkExampleScenarios.zip)
 
 ---
 
 ## [EOIR_Synthetic_Scene_and_Data_Generation](./EOIR_Synthetic_Scene_and_Data_Generation)
 
-Automate generating EOIR Synthetic Scene data. Define the analysis interval and the EOIR Atmosphere & Cloud settings. The notebook cycles through the scene, with each setting, and outputs data for each frame. Resulting data (bitmap and/or raw text files) is saved to unique directories for making videos or post processing. 
+Automate generating EOIR Synthetic Scene data. Define the analysis interval and the EOIR Atmosphere & Cloud settings. The notebook cycles through the scene, with each setting, and outputs data for each frame. Resulting data (bitmap and/or raw text files) is saved to unique directories for making videos or post processing.
 
 More information on each of the notebooks can be found in the readme within the project folder.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [EOIR Cloud Air To Air Scenario](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/6102d7ad-b7e7-4b1a-a406-5f4927a8651c)
+* Scenario: [EOIR Cloud Air To Air Scenario](../../../SupportingScenarios/EOIR_Clouds_AirToAir.vdf)
 
---- 
+---
 
 ## [Volumetric_Percent_Satisfied](Volumetric_Percent_Satisfied.py)
 
@@ -73,9 +73,9 @@ Currently the "Percent Satisfied" report for a voluemtric object in STK reports 
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 * Third-Party Libraries: Numpy
 
---- 
+---

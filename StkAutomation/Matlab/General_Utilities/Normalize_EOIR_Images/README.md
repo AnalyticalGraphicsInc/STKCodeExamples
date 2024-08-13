@@ -6,7 +6,7 @@ This script takes a folder of eoir raw data files and normalizes the collection.
 
 ### Dependencies
 
-* Capabilities: N/A
+* Licenses: N/A
 * Other Scripts: [save_colormapped_image.m](save_colormapped_image.m)
 * Scenario: N/A
 
@@ -18,6 +18,6 @@ This script is run from the create_normalized_frame_sequence.m script. It takes 
 
 ### Dependencies
 
-* Capabilities: N/A
+* Licenses: N/A
 * Other Scripts: [create_normalized_frame_sequence.m](create_normalized_frame_sequence.m)
 * Scenario: N/A

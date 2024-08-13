@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     python:
-        image: ansys/stk/stk-parallel-computing-server-python:2.6-ubi8
+        image: ansys/stk/stk-parallel-computing-server-python:2.8.0-ubi8
         build:
             context: ./python
             args:
-                baseImage: ansys/stk/stk-engine-python:12.7.1-ubi8
+                baseImage: ansys/stk/stk-engine-python:12.8.0-ubi8
         volumes:
             - ./client_example.py:/tmp/client_example.py
         environment:

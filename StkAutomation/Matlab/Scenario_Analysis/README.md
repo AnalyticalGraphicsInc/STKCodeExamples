@@ -8,7 +8,7 @@ This script will iterate through every point in a coverage definition and find t
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage), [Communications](https://www.agi.com/products/stk-systems-bundle/stk-communications)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -32,7 +32,7 @@ Inputs:
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -62,7 +62,7 @@ addDirectionalArrows('Aircraft/testAircraft',10,20,45,3,true)
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -87,7 +87,7 @@ Example:
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -111,7 +111,7 @@ Ensure the spacecraft does not run out of fuel during a maneuver.
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Astrogator](https://www.agi.com/products/stk-specialized-modules/stk-astrogator), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -125,7 +125,7 @@ To run the script, have STK open with a scenario containing the satellite that y
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [SatPro](https://www.agi.com/products/stk-specialized-modules/stk-satpro)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -150,7 +150,7 @@ GrazingAngle('Satellite/Satellite1', -45)
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -164,9 +164,9 @@ This script is made for a scenario with the format specified in QuiverExample.vd
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
-* Scenario: [QuiverExample.vdf](https://sdf.agi.com/share/page/site/agi-support/document-details?nodeRef=workspace://SpacesStore/fe8f63d5-77f1-40e7-975a-2319d78ae18a)
+* Scenario: [QuiverExample.vdf](../../../SupportingScenarios/QuiverExample.vdf)
 
 ---
 
@@ -178,7 +178,7 @@ Report accesses by asset from an "Export Accesses as Text" .cvaa file using a Co
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -201,7 +201,7 @@ Outputs:
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
@@ -220,7 +220,7 @@ CoverageGridInspectorAutomate('CoverageDefinition1','FigureOfMerit1')
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Coverage](https://www.agi.com/products/stk-systems-bundle/stk-coverage)
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: Scenario with Coverage already computed. If using the optional figure of merit argument, a fully-configured Figure of Merit object should also be included.
 
@@ -232,7 +232,19 @@ This script accepts inputs of an EOIR sensor path, band number, and time to retu
 
 ### Dependencies
 
-* Capabilities: Free, [Integration](https://www.agi.com/products/stk-systems-bundle/stk-integration), [Analysis Workbench](https://www.agi.com/products/stk-systems-bundle/stk-analysis-workbench), [EOIR](https://www.agi.com/products/stk-specialized-modules/stk-eoir)
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf) or [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+## [coverageDurationPerDay.m](coverageDurationPerDay.m)
+
+This function accepts the name of a chain object in a currently running STK scenario and outputs access data of that chain per day. The access data gathered from this function include the minimum and maximum duration of the accesses, as well as the total duration across all of the accesses. This function assumes your scenario interval starts and stops at 00:00:00.000 UTCG, however it can still be used with other start times as long as the hh:mm:ss.fff of the start and stop times match.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
 * Other Scripts: N/A
 * Scenario: N/A
 
