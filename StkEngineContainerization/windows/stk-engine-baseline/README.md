@@ -19,13 +19,13 @@ This Docker image code sample demonstrates how to install STK Engine for Windows
 
 1. Download version 12.5.0 or later of STK Engine for Windows from [https://support.agi.com/downloads](https://support.agi.com/downloads).
 2. Place the `STK_Engine_v{version}.zip` file in the [`distributions`](./distributions) folder at the same level as this file.
-3. Run `docker build -t ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.8.0`
+3. Run `docker build -t ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 --build-arg agreeToLicense=yes .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.9.0`
 
 ### Run the Container
 
 STK Engine requires a host application to run, so this baseline image does not specify an `ENTRYPOINT`. If you were to run a container from this image, it would exit immediately. However, you can verify that STK Engine is working inside the `stk-engine-baseline` container with the following steps:
 
-1. Run the following command from this directory after replacing `{version}` with the version number. i.e `12.8.0`: `docker run -it --name stk-baseline --env-file ..\configuration\licensing.env --rm ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 ConnectConsole.exe /interactive /noGraphics`
+1. Run the following command from this directory after replacing `{version}` with the version number. i.e `12.9.0`: `docker run -it --name stk-baseline --env-file ..\configuration\licensing.env --rm ansys/stk/stk-engine-baseline:{version}-windowsservercore-ltsc2019 ConnectConsole.exe /interactive /noGraphics`
 2. Execute a Connect command such as `GetSTKVersion /` and verify you receive a correct response.
 3. Exit the Connect console by executing the command `exit`.
 

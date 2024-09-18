@@ -30,7 +30,7 @@ If you need to override the default `pip` repository URL to download Python pack
 
 > If you would like to use the base ubi image from IronBank you can change the `baseImage` in step 2 to `registry1.dso.mil/ironbank/redhat/ubi/ubi8:latest`.
 
-1. Run `docker build -t ansys/stk/stk-engine-custom-baseline:{version}-ubi8 .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.8.0` This will produce an image on top of the `stk-engine-baseline` image that is needed to build the code samples using
+1. Run `docker build -t ansys/stk/stk-engine-custom-baseline:{version}-ubi8 .` on the command line in this directory after replacing `{version}` with the version number. i.e `12.9.0` This will produce an image on top of the `stk-engine-baseline` image that is needed to build the code samples using
 STK Engine, `yum`, and `pip` in your environment.
 2. Run `docker build -t custom/redhat/ubi8:latest --build-arg baseImage=redhat/ubi8:latest .` on the command line in this directory. This will produce an image on top of the `redhat/ubi8:latest` baseline image that is needed to build the code samples using `yum` or `pip` without STK Engine in your environment.
 
