@@ -1,7 +1,7 @@
 version: '3.7'
 services:
     python:
-        image: ansys/stk/stk-parallel-computing-server-python:2.8.0-windowsservercore-ltsc2019
+        image: ansys/stk/stk-parallel-computing-server-python:2.9.0-windowsservercore-ltsc2019
         build:
             context: ./python
             args:
