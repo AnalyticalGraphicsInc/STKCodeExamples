@@ -1,11 +1,11 @@
 version: '3.7'
 services:
     stk-engine-webservice:
-        image: ansys/stk/stk-engine-webservice:12.8.0-ubi8
+        image: ansys/stk/stk-engine-webservice:12.9.0-ubi8
         build:
             context: .
             args:
-                baseImage: ansys/stk/stk-engine-python:12.8.0-ubi8
+                baseImage: ansys/stk/stk-engine-python:12.9.0-ubi8
         ports:
             - 5000:5000
         env_file: ../configuration/licensing.env
