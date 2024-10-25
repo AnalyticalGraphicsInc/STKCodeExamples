@@ -36,6 +36,20 @@ These notebooks walk you through an introduction to [STK Astrogator](https://hel
 
 ---
 
+## [SingleSegmentModeExample.ipynb](AstrogatorObjectModel)
+
+This notebook gives an example or running Astrogator in single segment mode
+
+### Dependencies
+
+* Licenses: [STK Premium Space](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-space-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
+
+
 ## [PythonAPI12.2_Demo](PythonAPI12.2_Demo)
 
 Made with [Python API](https://help.agi.com/stkdevkit/index.htm#python/pythonGettingStarted.htm) available in STK 12.1+
