@@ -218,3 +218,16 @@ This folder contains examples of converting NASA Earthdata HDF4 and HDF5 files i
 * Third-Party Libraries: numpy, pyhdf, h5py, matplotlib
 
 ---
+
+## [solisRealtimeExample.py](solisRealtimeExample.py)
+
+This script is an example of decoding a notional telemetry packet defined in the SOLIS framer format. Additionally, the script includes an example of creating a notional commanding packet defined in the SOLIS framer format. This script could be augmented with a connection to SOLIS through a TCP/IP stream to provide real-time telemetry and commanding.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf) and [STK SOLIS] (https://www.agi.com/products/stk-solis)
+* Other Scripts: N/A
+* Scenario: N/A
+* Third-Party Libraries: N/A
+
+---
