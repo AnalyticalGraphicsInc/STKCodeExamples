@@ -29,19 +29,19 @@ Once the scenario is built, a python script with connect commands was used to au
 * Other Scripts: N/A
 * Scenario: [EOIR Cloud Air To Air Scenario](../../../../SupportingScenarios/EOIR_Clouds_AirToAir.vdf)
 
-## [Images_to_video.ipynb](Images_to_video.ipynb)
+## [Images_to_video.ipynb](./Images_to_video.ipynb)
 
 This is a DIY solution to stack all the images to a video. Since this action had to be repeated it was automated. The script reads in a directory of images, resizes them, reorders them (only needed if stacking the bmp files), and then writes them to a video file.
 
 ### Dependencies
 
 * Licenses: N/A
-* Other Scripts: [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb)
+* Other Scripts: [EOIR_Image_Generation.ipynb](./EOIR_Image_Generation.ipynb)
 * Scenario: N/A
 
-## [Generalized_EOIR_Image_Data_Generation](Generalized_EOIR_Image_Data_Generation)
+## [Generalized_EOIR_Image_Data_Generation](./Generalized_EOIR_Image_Data_Generation.ipynb)
 
-This script is a geneneralized version of [EOIR_Image_Generation.ipynb](EOIR_Image_Generation.ipynb). The previous script allowed you to change atmosphere and cloud settings and generate the synthetic scene and raw sensor data. It was specific to that example, but there is a need for a generalied solution. This new script allows you to connect to any open scenario on your machine and generate the synthetic scene and raw sensor data.
+This script is a geneneralized version of [EOIR_Image_Generation.ipynb](./EOIR_Image_Generation.ipynb). The previous script allowed you to change atmosphere and cloud settings and generate the synthetic scene and raw sensor data. It was specific to that example, but there is a need for a generalied solution. This new script allows you to connect to any open scenario on your machine and generate the synthetic scene and raw sensor data.
 
 ### Dependencies
 
