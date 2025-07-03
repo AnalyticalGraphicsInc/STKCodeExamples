@@ -67,7 +67,7 @@ namespace StkMetadataExtractor
             var versionInts = version.Split('.').Select(int.Parse).ToList();
 
             // 12.0.0 doesn't support Cesium Export so if that's what you have, skip the czml export
-            if (versionInts[0] >= 12 && versionInts[1] >= 0 && versionInts[2] > 0)
+            if (versionInts[0] >= 12 && !version.Equals("12.0.0"))
             {
                 var outputCzmlPath = Path.Combine(outputDirectory,
                     Path.GetFileName(Path.ChangeExtension(scenarioFilePath, ".czml")));
