@@ -76,3 +76,16 @@ There are two versions of the script, one leveraging comtypes and the other leve
 * Scenario: N/A
 
 ---
+
+## [LaunchVehicleTradeStudiesAviator](LaunchVehicleTradeStudiesAviator)
+
+Automates the generation of launch vehicle routes using STK Aviator. Runs a trade study to see what inputs results in different outputs given a launch vehicle performance model. Serves as good example for STK Aviator Object Model as well as launch vehicle analysis with Aviator. 
+
+### Dependencies
+
+* Licenses: [STK Premium Air](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-premium-air-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
+
