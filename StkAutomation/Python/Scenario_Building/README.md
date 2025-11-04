@@ -79,7 +79,7 @@ There are two versions of the script, one leveraging comtypes and the other leve
 
 ## [LaunchVehicleTradeStudiesAviator](LaunchVehicleTradeStudiesAviator)
 
-Automates the generation of launch vehicle routes using STK Aviator. Runs a trade study to see what inputs results in certain outputs given a launch vehicle performance model. Serves as good example for STK Aviator Object Model as well as launch vehicile analysis with Aviator. 
+Automates the generation of launch vehicle routes using STK Aviator. Runs a trade study to see what inputs results in different outputs given a launch vehicle performance model. Serves as good example for STK Aviator Object Model as well as launch vehicle analysis with Aviator. 
 
 ### Dependencies
 
