@@ -19,7 +19,7 @@ namespace Agi.Ui.Directions
     public class BasicCSharpPlugin : IAgUiPlugin, IAgUiPluginCommandTarget
     {
         private IAgUiPluginSite m_pSite;
-        private CustomUserInterface m_customUserInterface;
+        private DirectionsUserInterface m_customUserInterface;
         private AgStkObjectRoot m_root;
         private IAgProgressTrackCancel m_progress;
 
@@ -94,7 +94,7 @@ namespace Agi.Ui.Directions
 
         #endregion
 
-        internal CustomUserInterface customUI
+        internal DirectionsUserInterface customUI
         {
             get { return m_customUserInterface; }
             set { m_customUserInterface = value; }
@@ -129,7 +129,7 @@ namespace Agi.Ui.Directions
                 IAgUiPluginWindowCreateParameters @params = windows.CreateParameters();
                 @params.AllowMultiple = false;
                 @params.AssemblyPath = this.GetType().Assembly.Location;
-                @params.UserControlFullName = typeof(CustomUserInterface).FullName;
+                @params.UserControlFullName = typeof(DirectionsUserInterface).FullName;
                 @params.Caption = "Direction User Interface";
                 @params.DockStyle = AgEDockStyle.eDockStyleDockedBottom;
                 @params.Height = 200;

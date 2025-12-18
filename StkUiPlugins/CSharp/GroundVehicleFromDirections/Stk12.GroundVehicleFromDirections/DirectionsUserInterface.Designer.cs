@@ -1,6 +1,6 @@
 namespace Agi.Ui.Directions
 {
-    partial class CustomUserInterface
+    partial class DirectionsUserInterface
     {
         /// <summary> 
         /// Required designer variable.

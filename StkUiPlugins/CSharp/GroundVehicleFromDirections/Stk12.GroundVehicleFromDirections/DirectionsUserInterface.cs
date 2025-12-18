@@ -1,19 +1,20 @@
+using AGI.STKObjects;
+using AGI.Ui.Plugins;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
-using AGI.Ui.Plugins;
-using AGI.STKObjects;
-using System.Threading;
-using Agi.Ui.Directions.BingGeocodeService;
-using Agi.Ui.Directions.BingRouteService;
 using System.Configuration;
-using System.Net;
+using System.Data;
+using System.Drawing;
 using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 /// this UI plugin will load a GroundVehicle into STK using directions from Bing
 /// NOTE: 
@@ -27,26 +28,23 @@ using System.Xml;
 ///             - switch from SOAP to REST services
 ///             - allows user to use their own Bing maps key
 ///             - added traffic tab
-/// updated: 14 Dec 2021
-///             - updated to work with STK12
-///             - requires user to use their own Bing maps key
-///             - updated links to https
+/// updated 16 dec 2025
+///             - moved from Bing maps to Azure maps
 
 namespace Agi.Ui.Directions
 {
-    public partial class CustomUserInterface : UserControl, IAgUiPluginEmbeddedControl
+    public partial class DirectionsUserInterface : UserControl, IAgUiPluginEmbeddedControl
     {
         private IAgUiPluginEmbeddedControlSite m_pEmbeddedControlSite;
         private AgStkObjectRoot m_root;
         private BasicCSharpPlugin m_uiPlugin;
 
 
-        // update these paths to match your setup
-        // Bing maps keys are available here: https://msdn.microsoft.com/en-us/library/ff428642.aspx
-        private string m_bingMapKey = "XXX";
+        // Azure maps keys are available here: https://learn.microsoft.com/en-us/azure/azure-maps/how-to-manage-account-keys
+        private string m_azureMapKey;
 
 
-        public CustomUserInterface()
+        public DirectionsUserInterface()
         {
             InitializeComponent();
         }
@@ -82,20 +80,18 @@ namespace Agi.Ui.Directions
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            // check custom Bing Maps Key
+            // check custom Azure Maps Key
             XmlDocument configDoc = new XmlDocument();
-            configDoc.Load(Path.Combine(Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString(), "BingMapsKey.config"));
-            string mapKey = configDoc.GetElementsByTagName("BingMapKey")[0].InnerText;
+            configDoc.Load(Path.Combine(Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString(), "AzureMapsKey.config"));
+            string mapKey = configDoc.GetElementsByTagName("AzureMapKey")[0].InnerText;
 
             if (mapKey != "XXX")
             {
-                m_bingMapKey = mapKey;
+                m_azureMapKey = mapKey;
             }
-
-            if (mapKey == "XXX")
+            else
             {
-                MessageBox.Show("A valid Bing Maps key was not provided. Obtain one from https://msdn.microsoft.com/en-us/library/ff428642.aspx and load it into BingMapsKey.config");
-                return;
+                MessageBox.Show("please enter a valid Azure Maps key in AzureMapsKey.config");
             }
 
             // check if scenario is open
@@ -352,84 +348,85 @@ namespace Agi.Ui.Directions
         {
             // build URL
             string addressPadded = address.Replace(",", "%20").Replace(" ", "%20");
-            string urlString = "http://dev.virtualearth.net/REST/v1/Locations/" + addressPadded + "?o=xml&maxResults=1&key=" + m_bingMapKey;
+            string urlString = "https://atlas.microsoft.com/geocode?api-version=2025-01-01&subscription-key=" + m_azureMapKey + "&addressLine=" + addressPadded;
             Uri geocodeRequest = new Uri(urlString);
 
             // send request
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(geocodeRequest);
             request.Method = "GET";
-            
+
             // get response
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-            string content = string.Empty;
+            string returnString = string.Empty;
             using (Stream stream = response.GetResponseStream())
             {
                 using (StreamReader sr = new StreamReader(stream))
                 {
-                    content = sr.ReadToEnd();
+                    returnString = sr.ReadToEnd();
                 }
             }
 
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(content);
-
+            // parse output
             MyWaypoint returnPoint = new MyWaypoint();
-
-            // check results were found
-            if (xmlDoc.GetElementsByTagName("EstimatedTotal")[0].InnerText != "0")
+            try
             {
-                returnPoint.Latitude = Convert.ToDouble(xmlDoc.GetElementsByTagName("Latitude")[0].InnerText);
-                returnPoint.Longitude = Convert.ToDouble(xmlDoc.GetElementsByTagName("Longitude")[0].InnerText);
+                var returnJson = (JObject)JsonConvert.DeserializeObject(returnString);
+
+                returnPoint.Latitude = Convert.ToDouble(returnJson["features"][0]["geometry"]["coordinates"][1]);
+                returnPoint.Longitude = Convert.ToDouble(returnJson["features"][0]["geometry"]["coordinates"][0]);
+            }
+            catch (Exception)
+            {
+                throw;
             }
 
-            
             return returnPoint;
         }
 
 
 
-        // call Bing REST service with start and end lat/lon
+        // call Azure REST service with start and end lat/lon
         private List<MyWaypoint> GetRoute(MyWaypoint startPoint, MyWaypoint endPoint)
         {
-            string urlString = "http://dev.virtualearth.net/REST/V1/Routes/Driving?o=xml&wp.0=" + startPoint.Latitude.ToString() + "," + startPoint.Longitude.ToString() + "&wp.1=" + endPoint.Latitude.ToString() + "," + endPoint.Longitude.ToString() + "&rpo=Points&key=" + m_bingMapKey;
-            Uri directionRequest = new Uri(urlString);
+            // build URL
+            string waypointString = startPoint.Latitude.ToString() + "," + startPoint.Longitude.ToString() + ":" + endPoint.Latitude.ToString() + "," + endPoint.Longitude.ToString();
+            string urlString = "https://atlas.microsoft.com/route/directions/json?subscription-key=" + m_azureMapKey + "&api-version=1.0&query=" + waypointString + "&travelMode=car";
+            Uri routeRequest = new Uri(urlString);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(directionRequest);
+            // send request
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(routeRequest);
             request.Method = "GET";
 
             // get response
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            string returnString = string.Empty;
+            using (Stream stream = response.GetResponseStream())
+            {
+                using (StreamReader sr = new StreamReader(stream))
+                {
+                    returnString = sr.ReadToEnd();
+                }
+            }
+
+            List<MyWaypoint> waypoints = new List<MyWaypoint>();
+
             try
             {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                var returnJson = (JObject)JsonConvert.DeserializeObject(returnString);
+                var points = returnJson["routes"][0]["legs"][0]["points"];
 
-                string content = string.Empty;
-                using (Stream stream = response.GetResponseStream())
+                foreach (var point in points)
                 {
-                    using (StreamReader sr = new StreamReader(stream))
-                    {
-                        content = sr.ReadToEnd();
-                    }
+                    MyWaypoint thisPt = new MyWaypoint();
+                    thisPt.Latitude = Convert.ToDouble(point["latitude"]);
+                    thisPt.Longitude = Convert.ToDouble(point["longitude"]);
+
+                    waypoints.Add(thisPt);
                 }
-
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(content);
-                XmlNodeList pointList = xmlDoc.GetElementsByTagName("Point");
-
-                // pull out the lat/lon values
-                List<MyWaypoint> returnPoints = new List<MyWaypoint>();
-                foreach (XmlNode thisWaypoint in pointList)
-                {
-                    MyWaypoint thisPoint = new MyWaypoint();
-                    thisPoint.Latitude = Convert.ToDouble(thisWaypoint.ChildNodes[0].InnerText);
-                    thisPoint.Longitude = Convert.ToDouble(thisWaypoint.ChildNodes[1].InnerText);
-                    //thisPoint.Altitude = GetAltitude(thisPoint.Latitude, thisPoint.Longitude);
-                    thisPoint.Altitude = Convert.ToDouble(altOffsetTextBox.Text);
-
-                    returnPoints.Add(thisPoint);
-                }
-
-                return returnPoints;
+            
+                return waypoints;
             }
             catch (Exception)
             {
