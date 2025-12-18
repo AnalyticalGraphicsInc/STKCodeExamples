@@ -231,3 +231,17 @@ This script is an example of decoding a notional telemetry packet defined in the
 * Third-Party Libraries: N/A
 
 ---
+
+## [CalcSensorFootprintWidthAndHeight.py](CalcSensorFootprintWidthAndHeight.py)
+
+This script calculates the width and height of a satellite sensor footprint on the central body, throughout the analysis period. Analysis Workbench is used to create points of the top, bottom, left, and right extremes, show these points on the sensor footprint, and then calculate the width and height betweeen these points. The output is generated to an user specified text file at an user specified timestep.
+
+User inputs: Name of the satellite, name of the sensor, report time step, and output file path.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
