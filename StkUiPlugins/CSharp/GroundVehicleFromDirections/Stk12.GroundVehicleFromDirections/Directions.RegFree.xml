@@ -6,7 +6,7 @@
 				DisplayName="Directions"
 				TypeName="Agi.Ui.Directions.BasicCSharpPlugin"
 				AssemblyName="Agi.Ui.Directions"
-				CodeBase="C:\ProgramData\AGI\STK 12\Plugins\Directions">
+				CodeBase="C:\temp\1year\Directions\GroundVehicleFromDirectionsRESTAzure12\bin\x64\Debug">
 			</NETUiPlugin>
 		</Category>
 	</CategoryRegistry>
