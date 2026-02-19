@@ -245,3 +245,17 @@ User inputs: Name of the satellite, name of the sensor, report time step, and ou
 * Scenario: N/A
 
 ---
+
+## [ChainIntervalFile.py]
+
+The Optimal Strands by Time report generated from a Chain object in STK provides information regarding the optimal strand at each time specific time step. This script parses a saved Optimal Strands by Time report and generates an interval file with facility start, stop times and facility names for targeted sensor pointing. The resulting interval file can be loaded into an STK sensor > Pointing > Pointing Type: Targeted > Target Times... >  Scheduled Times.
+
+User inputs: Input file path and output file path.
+
+### Dependencies
+
+* Licenses: [STK Pro](https://www.ansys.com/content/dam/amp/2022/june/webpage-requests/stk-product-page/brochures/stk-pro-brochure.pdf)
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
