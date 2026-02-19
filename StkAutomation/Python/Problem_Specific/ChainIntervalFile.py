@@ -19,6 +19,9 @@ def main():
     lines = report.readlines()
 
     interval_file = open("IntervalFile.int", "w")
+    interval_file.write(
+        "stk.v.13.0\nBEGIN IntervalList\n\t\t\tDATEUNITABRV UTCG\nBEGIN Intervals\n"
+    )
 
     current_time = None
     active_facility = None
@@ -62,7 +65,11 @@ def main():
             )  # close out the final end time
 
     for facility, start, stop in intervals:
-        interval_file.write(f"{facility}, {start}, {stop}\n")
+
+        line = f'\t\t\t"{start.strip()}" "{stop.strip()}" Facility/{facility.strip()}\n'
+        interval_file.write(line)
+
+    interval_file.write("END Intervals\nEND IntervalList\n")
 
     report.close()
     interval_file.close()
