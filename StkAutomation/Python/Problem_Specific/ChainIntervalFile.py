@@ -1,56 +1,72 @@
-'''
-filename
+"""
+Created on Wed Feb 18 2026
 
-Input:
-Output:
-'''
+@author: Nuha Delago
 
-# STK Imports
-from agi.stk13.stkdesktop import STKDesktop
-from agi.stk13.stkobjects import *
-from agi.stk13.vgt import *
+This script takes an Optimal Strand by Time report and generates an interval file for targeted sensor pointing
+"""
 
-def start_stk(scenarioPath):
-    started_stk = False
-    try:
-        print('Trying to connect to STK')
-        stk = STKDesktop.AttachToApplication()
-        root = stk.Root
-        checkEmpty = root.Children.Count
-        if checkEmpty > 0:
-            stk.Visible = True
-            stk.UserControl = True
-            scenario = AgScenario(root.CurrentScenario)
-            return scenario, root, stk, started_stk
-        else:
-            pass
-            print('Scenario path = ' + scenarioPath)
-            print('Error: scenario is null.')
-            return None, root, stk, started_stk
-    except Exception as e:
-        print('Creating a new scenario')
-        stk = STKDesktop.StartApplication(visible=True, userControl=True)
-        root = stk.Root
-        root.LoadScenario(scenarioPath)
-        scenario = root.CurrentScenario
-        started_stk = True
-        print(e)
-        return scenario, root, stk, started_stk
+import os
 
-def shutdown_stk(root, stk, scenarioPath, scenario)
-    root.SaveScenario()
-    root.CloseScenario()
-    stk.Quit()
-    stk.ShutDown()
-    #STKDesktop.ReleaseAll() #comment these if it doesnt work
+os.chdir(
+    r"C:\Users\nahmed\OneDrive - ANSYS, Inc\Documents\GitHub\STKCodeExamples\StkAutomation\Python\Problem_Specific"
+)
 
-    del root
-    del stk
-    #del STKDesktop #comment these if it doesnt work
+
 def main():
-    scenarioPath = 'stkfilepath'
-    scenario, root, stk, started_stk = start_stk(scenarioPath)
-    #shutdown_stk(root, stk, scenarioPath, scenario)
+    report = open("Optimal_Strands_by_Time.txt", "r")
+    report.readline()  # skip first header line
+    lines = report.readlines()
 
-if __name__ == '__main__':
+    interval_file = open("IntervalFile.int", "w")
+
+    current_time = None
+    active_facility = None
+    active_start_time = None
+
+    intervals = []
+
+    for i, line in enumerate(lines):
+        if ":" in line:
+            # get start time
+            current_time = line
+            # continue
+        if " to " in line:
+            strand_info = line
+            parts = strand_info.split()  # split into words
+            facility_name = parts[2]  # facility name would be the third word
+            if active_facility == None:
+                active_facility = facility_name
+                active_start_time = current_time
+                continue
+            if (
+                facility_name == active_facility
+            ):  # still the same facility, so keep going
+                continue
+            else:
+                previous_stop_time = current_time
+                intervals.append(
+                    (active_facility, active_start_time, previous_stop_time)
+                )
+
+                # Start a new interval
+                active_facility = facility_name
+                active_start_time = current_time
+
+            # if active_facility is not None:
+        if (
+            i == len(lines) - 2
+        ):  # The 2 is because there is an empty line at the end of the file
+            intervals.append(
+                (active_facility, active_start_time, current_time)
+            )  # close out the final end time
+
+    for facility, start, stop in intervals:
+        interval_file.write(f"{facility}, {start}, {stop}\n")
+
+    report.close()
+    interval_file.close()
+
+
+if __name__ == "__main__":
     main()
