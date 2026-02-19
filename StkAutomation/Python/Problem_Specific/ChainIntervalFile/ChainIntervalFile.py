@@ -8,17 +8,22 @@ This script takes an Optimal Strand by Time report and generates an interval fil
 
 import os
 
+# EDIT - change to the directory this script is saved in
 os.chdir(
     r"C:\Users\nahmed\OneDrive - ANSYS, Inc\Documents\GitHub\STKCodeExamples\StkAutomation\Python\Problem_Specific"
 )
 
 
 def main():
-    report = open("Optimal_Strands_by_Time.txt", "r")
-    report.readline()  # skip first header line
+    report = open(
+        "Optimal_Strands_by_Time.txt", "r"
+    )  # EDIT - make sure the file name is the same as the text file you saved from STK
+    report.readline()  # this skip first header line
     lines = report.readlines()
 
-    interval_file = open("IntervalFile.int", "w")
+    interval_file = open(
+        "IntervalFile.int", "w"
+    )  # EDIT - this will create IntervalFile.int in the directory specified on line 13
     interval_file.write(
         "stk.v.13.0\nBEGIN IntervalList\n\t\t\tDATEUNITABRV UTCG\nBEGIN Intervals\n"
     )
@@ -65,7 +70,7 @@ def main():
             )  # close out the final end time
 
     for facility, start, stop in intervals:
-
+        # strip any new line characters that might be in the start, stop and facility strings
         line = f'\t\t\t"{start.strip()}" "{stop.strip()}" Facility/{facility.strip()}\n'
         interval_file.write(line)
 
