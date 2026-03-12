@@ -220,3 +220,17 @@ This script reformats the data exported from AEDT HFSS into a *.rcs file. STK ca
 * Licenses: N/A
 * Other Scripts: N/A
 * Scenario: N/A
+
+---
+
+## [applyMinElevation2StkAzElMask.py](applyMinElevation2StkAzElMask.py)
+
+This script takes an STK-generated Az/El mask file (*.aem) and applies a minimum elevation angle to it. Any az/el pairs that have an elevation lower than the minEl input value shall be set to minEl. The resulting Az/El mask file is then written to a new *.aem file.
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
