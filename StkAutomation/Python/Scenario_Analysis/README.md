@@ -79,3 +79,15 @@ Currently the "Percent Satisfied" report for a voluemtric object in STK reports 
 * Third-Party Libraries: Numpy
 
 ---
+
+## [eoirRawImages2Video](eoirRawImages2Video.py)
+
+This script will create a normalized video from a file directory containing *.txt raw sensor scenes from EOIR. Specify the folder containing raw sensor outputs, a normalized folder to place normalized images, and an output video name. The normalized video will be placed in the parent directory of the output folder for normalized images as an mp4 file. You can specify a desired gamma scaling and video FPS as well.
+
+### Dependencies
+
+* Licenses: N/A
+* Other Scripts: N/A
+* Scenario: N/A
+
+---
