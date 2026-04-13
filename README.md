@@ -3,11 +3,11 @@
 
 [![Documentation](https://img.shields.io/badge/documentation-D9D8D6?style=for-the-badge&labelColor=373A36)](https://help.agi.com/stkdevkit/index.htm)
 [![Support](https://img.shields.io/badge/email%20support-898A8D?style=for-the-badge&labelColor=373A36)](mailto:support@agi.com)
-[![Download](https://img.shields.io/badge/download%2012.9.0-FFB71B?style=for-the-badge&labelColor=373A36)](https://support.agi.com/downloads/8/)
+[![Download](https://img.shields.io/badge/download-FFB71B?style=for-the-badge&labelColor=373A36)](https://support.agi.com/download-center/)
 
 Welcome to the STKCodeExamples repository, where we share code examples from our favorite utilities and demos for Systems Tool Kit (STK), a commercial software application from ANSYS, Inc.
 
-The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. These code samples require a legally licensed local copy of the STK application; you must obtain STK from [AGI's website](https://support.agi.com/downloads/6/ "AGI's Downloads").
+The repository offers fully functional tools and libraries of example code that you can refactor to fit your needs. These code samples require a legally licensed local copy of the STK application; you must obtain STK from [AGI's website](https://support.agi.com/download-center/).
 
 ----
 
