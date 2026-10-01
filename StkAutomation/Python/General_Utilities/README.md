@@ -237,7 +237,7 @@ This script takes an STK-generated Az/El mask file (*.aem) and applies a minimum
 
 ## [udlDataUpdate.py](udlDataUpdate.py)
 
-This script pulls the latest STK data published to the Unified Data Library. By default the data is written into STK's ProgramData, but can be modified if that location is not writable. Use of the script requires a UDL account accross any of the classification networks.
+This script pulls the latest STK data published to the Unified Data Library. By default the data is written into STK's ProgramData, but can be modified if that location is not writable. Use of the script requires a UDL account across any of the classification networks.
 
 The script requires the `requests` package to be installed.
 
